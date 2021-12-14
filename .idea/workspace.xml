@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="31c7b0a9-ade3-43cd-b3cf-bac559ec02c5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/hook/UI/BaseHooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hook/UI/BaseHooks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/map/UI/AeviAdminMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/map/UI/AeviAdminMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/shared/UI/AeviAdminShared.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shared/UI/AeviAdminShared.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="22uIK9DPzJVVGBWzV683mlALor5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.6436782" />
+  </component>
+  <component name="RunManager" selected="Cucumber Java.Feature: AP3ADMIN-664">
+    <configuration name="Feature: AP3ADMIN-664" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" />
+      <option name="GLUE" value="hook.UI glue.UI" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="AeviAdminTest" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-664" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Feature: AP3ADMIN-665" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-665.feature" />
+      <option name="GLUE" value="hook.UI glue.UI" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="AeviAdminTest" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-665" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Feature: AP3ADMIN-666" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" />
+      <option name="GLUE" value="hook.UI glue.UI" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="AeviAdminTest" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-666" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: SiteId Reloading buttons doesn't work" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" />
+      <option name="GLUE" value="hook.UI glue.UI" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="AeviAdminTest" />
+      <option name="NAME_FILTER" value="^SiteId Reloading buttons doesn\'t work$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^SiteId Reloading buttons doesn\'t work$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: SiteId Reloading buttons doesn't work" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunAeviAdminTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AeviAdminTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="RunAeviAdminTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cucumber Java.Feature: AP3ADMIN-664" />
+        <item itemvalue="Cucumber Java.Feature: AP3ADMIN-665" />
+        <item itemvalue="Cucumber Java.Feature: AP3ADMIN-666" />
+        <item itemvalue="JUnit.RunAeviAdminTests" />
+        <item itemvalue="Cucumber Java.Scenario: SiteId Reloading buttons doesn't work" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="31c7b0a9-ade3-43cd-b3cf-bac559ec02c5" name="Changes" comment="" />
+      <created>1640680986510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1640680986510</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java</url>
+          <line>326</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AeviAdminTest$Scenario__SiteId_Reloading_buttons_doesn_t_work.ic" NAME="Scenario: SiteId Reloading buttons doesn't work Coverage Results" MODIFIED="1640268780142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>io.cucumber.core.cli.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/AeviAdminTest$Scenario__Login_to_SMCAdmin_webpage__1_.ic" NAME="Scenario: Login to SMCAdmin webpage (1) Coverage Results" MODIFIED="1640003959906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>io.cucumber.core.cli.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/AeviAdminTest$RunAeviAdminTests.ic" NAME="RunAeviAdminTests Coverage Results" MODIFIED="1640250688622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/AeviAdminTest$Scenario__TerminalID_Reloading_buttons_doesn_t_work.ic" NAME="Scenario: TerminalID Reloading buttons doesn't work Coverage Results" MODIFIED="1640691507617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>io.cucumber.core.cli.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/AeviAdminTest$Feature__AP3ADMIN_666.ic" NAME="Feature: AP3ADMIN-666 Coverage Results" MODIFIED="1640270930350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>io.cucumber.core.cli.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/AeviAdminTest$Feature__CorrectLogin.ic" NAME="Feature: CorrectLogin Coverage Results" MODIFIED="1639479961709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>io.cucumber.core.cli.*</FILTER>
+    </SUITE>
+  </component>
+</project>
