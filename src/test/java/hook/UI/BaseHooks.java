@@ -16,7 +16,7 @@ public class BaseHooks {
     @Before
     public void InitializeTest() {
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("['start-maximized']");
+        chromeOptions.addArguments("start-maximized");
         System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
         driver = new ChromeDriver(chromeOptions);
     }

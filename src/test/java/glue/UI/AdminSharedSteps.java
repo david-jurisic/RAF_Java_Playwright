@@ -32,6 +32,12 @@ public class AdminSharedSteps extends BaseUtil {
             case "Organization Units":
                 page = AeviAdminMap.OrganizationUnits.page;
                 break;
+            case "Data Groups":
+                page = AeviAdminMap.DataGroups.page;
+                break;
+            case "Data Groups Add":
+                page = AeviAdminMap.DataGroupsAdd.page;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -60,6 +66,8 @@ public class AdminSharedSteps extends BaseUtil {
                 break;
             case "Log Out":
                 AeviAdminMap.UserSettings.hlkLogOut.click();
+            case "New Record":
+                AeviAdminMap.DataGroups.btnNewRecord.click();
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -86,10 +94,45 @@ public class AdminSharedSteps extends BaseUtil {
             case "Log Out":
                 AeviAdminMap.UserSettings.hlkLogOut.isDisplayed();
                 break;
+            case "New Record":
+                AeviAdminMap.DataGroups.btnNewRecord.isDisplayed();
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
 
+        }
+    }
+
+    @And("I should see the {string} hyperlink in the sidebar menu")
+    public void iShouldSeeTheHyperlinkInTheSidebarMenu(String arg0) {
+        switch(arg0)
+        {
+            case "Form Configs":
+                AeviAdminMap.SideBarMenu.hlkFormConfigs.isDisplayed();
+                break;
+            case "Data Groups":
+                AeviAdminMap.SideBarMenu.hlkDataGroups.isDisplayed();
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+    }
+
+    @When("I click on the {string} hyperlink in the sidebar menu")
+    public void iClickOnTheHyperlinkInTheSidebarMenu(String arg0) {
+        switch(arg0)
+        {
+            case "Form Configs":
+                AeviAdminMap.SideBarMenu.hlkFormConfigs.click();
+                break;
+            case "Data Groups":
+                AeviAdminMap.SideBarMenu.hlkDataGroups.click();
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
         }
     }
 }
