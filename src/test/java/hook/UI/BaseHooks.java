@@ -8,6 +8,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import util.UI.AdminUtil;
 
 public class BaseHooks {
     public static WebDriver driver;
@@ -16,7 +17,7 @@ public class BaseHooks {
     public void InitializeTest() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("['start-maximized']");
-        System.setProperty("webdriver.chrome.driver", "C:\\Automation\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
         driver = new ChromeDriver(chromeOptions);
     }
 
