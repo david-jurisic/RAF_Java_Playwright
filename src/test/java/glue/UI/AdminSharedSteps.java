@@ -6,8 +6,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
+import org.openqa.selenium.WebElement;
+import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.sleep;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AdminSharedSteps extends BaseUtil {
@@ -126,6 +132,7 @@ public class AdminSharedSteps extends BaseUtil {
         {
             case "Form Configs":
                 AeviAdminMap.SideBarMenu.hlkFormConfigs.click();
+                driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                 break;
             case "Data Groups":
                 AeviAdminMap.SideBarMenu.hlkDataGroups.click();
@@ -134,5 +141,58 @@ public class AdminSharedSteps extends BaseUtil {
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
+    }
+
+    @And("I should see the {string} textbox which is enabled and empty")
+    public void iShouldSeeTheTextboxWhichIsEnabledAndEmpty(String arg0) {
+        switch(arg0)
+        {
+            case "Name":
+                AeviAdminMap.DataGroupsAdd.txtName.isDisplayed();
+                AeviAdminMap.DataGroupsAdd.txtName.isEnabled();
+                AeviAdminMap.DataGroupsAdd.txtName.getAttribute("value").isEmpty();
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+    }
+
+    @And("I should see the {string} checkbox which is enabled and {string}")
+    public void iShouldSeeTheCheckboxWhichIsEnabledAnd(String arg0, String arg1) {
+        WebElement checkbox = AeviAdminShared.FindCheckBox(arg0);
+
+        switch(arg1)
+        {
+
+            case "checked":
+                checkbox.isDisplayed();
+                checkbox.isEnabled();
+                assertEquals(checkbox.isSelected(), true);
+                break;
+            case "not checked":
+                checkbox.isDisplayed();
+                checkbox.isEnabled();
+                assertEquals(checkbox.isSelected(),false);
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+    }
+
+    @When("I enter {string} string into {string} textbox")
+    public void iEnterStringIntoTextbox(String arg0, String arg1) {
+        AeviAdminShared.FindTextBox(arg1).sendKeys(arg0);
+    }
+
+    @Then("the {string} textbox should contain {string} string")
+    public void theTextboxShouldContainString(String arg0, String arg1) {
+        AeviAdminShared.FindTextBox(arg0).getAttribute("value").equals(arg1);
+    }
+
+    @When("I click on the {string} checkbox")
+    public void iClickOnTheCheckbox(String arg0) {
+        AeviAdminMap.DataGroupsAdd.chkStatus_Click.click();
     }
 }

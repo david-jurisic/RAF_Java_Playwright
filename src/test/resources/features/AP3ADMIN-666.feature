@@ -1,7 +1,7 @@
 @AeviAdmin @UI
-Feature: SiteID already exists after saving a previously created.
+Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
 
-  @TestCaseCode:TC0002 @AP3ADMIN-666 @Author:Drazen_Kozic @UI
+  @TestCaseCode:TC0001 @AP3ADMIN-666 @Author:Drazen_Kozic @UI
   Scenario: Login to SMCAdmin webpage
     Given I have opened the "SMCAdmin" page
     Then I should see the "Chrome Warning Screen" page
@@ -21,5 +21,12 @@ Feature: SiteID already exists after saving a previously created.
     And I should see the "New Record" button
     When I click on the "New Record" button
     Then I should see the "Data Groups Add" page
+    And I should see the "Name" textbox which is enabled and empty
+    And I should see the "Status" checkbox which is enabled and "not checked"
+    And I should see the "Check Site ID/Terminal ID" checkbox which is enabled and "not checked"
+    When I enter "test1" string into "Name" textbox
+    Then the "Name" textbox should contain "test1" string
+    When I click on the "Status" checkbox
+    Then I should see the "Status" checkbox which is enabled and "checked"
 
 
