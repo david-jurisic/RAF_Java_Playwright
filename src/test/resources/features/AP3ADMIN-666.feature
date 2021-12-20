@@ -19,12 +19,15 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     When I click on the "Data Groups" hyperlink in the sidebar menu
     Then I should see the "Data Groups" page
     And I should see the "New Record" button
+    And I should see the "Name" textbox which is enabled and empty
+    And I should see the "Search" button
     When I click on the "New Record" button
     Then I should see the "Data Groups Add" page
     And I should see the "Name" textbox which is enabled and empty
     And I should see the "Status" checkbox which is enabled and "not checked"
     And I should see the "Check Site ID/Terminal ID" checkbox which is enabled and "not checked"
     And I should see the "Parameters" tab
+    And I should see the "OK" button
     When I enter "test1" string into "Name" textbox
     Then the "Name" textbox should contain "test1" string
     When I click on the "Status" checkbox
@@ -33,7 +36,18 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     Then I should see the "Check Site ID/Terminal ID" checkbox which is enabled and "checked"
     When I click on the "Parameters" tab
     Then I should see the "Parameters" tab
-    And I should see the "TID Generator Template" dropdown
+    And I should see the "TID Generator Template" dropdown menu which is enabled and has "Select" value selected
+    When I select "Based on Site ID" string form the "TID Generator Template" dropdown menu
+    And the "TID Generator Template" dropdown menu should contain "Based on Site ID" string
+    When I click on the "OK" button
+    Then I should see the "Data Groups" page
+    And I should see the "Search" button
+    And I should see the "Name" textbox which is enabled and empty
+    And I should see the "Data Group was created successfully." success message
+    When I enter "test1" string into "Name" textbox
+    Then the "Name" textbox should contain "test1" string
+    When I click on the "Search" button
+    Then And I should see "test1" string in row "1" of the "Name" column in "Data Groups" table
 
 
 

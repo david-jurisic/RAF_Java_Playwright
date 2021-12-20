@@ -40,6 +40,9 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static String page = AdminUtil.WEBPAGE_URL + "/data-groups";
         public static WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+        public static WebElement btnSearch = driver.findElement(By.name("_form1"));
+        public static WebElement txtName = driver.findElement(By.id("criteria.name"));
+        public static WebElement table = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table/tbody/tr/td[4]"));
     }
 
     public static class DataGroupsAdd
@@ -51,11 +54,12 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
         public static WebElement chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
         public static WebElement pageParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+        public static WebElement ddlTIDGeneratorTamplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
+        public static WebElement btnOK = driver.findElement(By.name("_form2"));
     }
 
-    public static class DataGroupsAddParameters
+    public static class DataGroupsAddMessage
     {
-        public static WebElement ddlTIDGeneratorTamplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
-
+        public static WebElement msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
     }
 }

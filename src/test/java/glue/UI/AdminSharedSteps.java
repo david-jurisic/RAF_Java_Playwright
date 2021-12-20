@@ -6,10 +6,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -75,6 +77,9 @@ public class AdminSharedSteps extends BaseUtil {
             case "New Record":
                 AeviAdminMap.DataGroups.btnNewRecord.click();
                 break;
+            case "OK":
+                AeviAdminMap.DataGroupsAdd.btnOK.click();
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -83,31 +88,9 @@ public class AdminSharedSteps extends BaseUtil {
 
     @And("I should see the {string} button")
     public void iShouldSeeTheButton(String arg0) {
-        switch(arg0)
-        {
-            case "Advanced":
-                AeviAdminMap.ChromeWarningPage.btnAdvanced.isDisplayed();
-                break;
-            case "Proceed to":
-                AeviAdminMap.ChromeWarningPage.hlkProceedTo.isDisplayed();
-                break;
-            case "Save Changes":
-                AeviAdminMap.LoginPage.btnSaveChanges.isDisplayed();
-                break;
-            case "User Settings":
-                AeviAdminMap.OrganizationUnits.btnUserSettings.isDisplayed();
-                break;
-            case "Log Out":
-                AeviAdminMap.UserSettings.hlkLogOut.isDisplayed();
-                break;
-            case "New Record":
-                AeviAdminMap.DataGroups.btnNewRecord.isDisplayed();
-                break;
-            default:
-                assertTrue("element not found: " + arg0 ,false);
-                break;
+        WebElement element = AeviAdminShared.FindElement(arg0);
 
-        }
+        element.isDisplayed();
     }
 
     @And("I should see the {string} hyperlink in the sidebar menu")
@@ -150,17 +133,11 @@ public class AdminSharedSteps extends BaseUtil {
 
     @And("I should see the {string} textbox which is enabled and empty")
     public void iShouldSeeTheTextboxWhichIsEnabledAndEmpty(String arg0) {
-        switch(arg0)
-        {
-            case "Name":
-                AeviAdminMap.DataGroupsAdd.txtName.isDisplayed();
-                AeviAdminMap.DataGroupsAdd.txtName.isEnabled();
-                AeviAdminMap.DataGroupsAdd.txtName.getAttribute("value").isEmpty();
-                break;
-            default:
-                assertTrue("element not found: " + arg0 ,false);
-                break;
-        }
+        WebElement textbox = AeviAdminShared.FindTextBox(arg0);
+
+        textbox.isDisplayed();
+        textbox.isEnabled();
+        textbox.getAttribute("value").isEmpty();
     }
 
     @And("I should see the {string} checkbox which is enabled and {string}")
@@ -169,7 +146,6 @@ public class AdminSharedSteps extends BaseUtil {
 
         switch(arg1)
         {
-
             case "checked":
                 checkbox.isDisplayed();
                 checkbox.isEnabled();
@@ -187,12 +163,14 @@ public class AdminSharedSteps extends BaseUtil {
     }
 
     @When("I enter {string} string into {string} textbox")
-    public void iEnterStringIntoTextbox(String arg0, String arg1) {
+    public void iEnterStringIntoTextbox(String arg0, String arg1)
+    {
         AeviAdminShared.FindTextBox(arg1).sendKeys(arg0);
     }
 
     @Then("the {string} textbox should contain {string} string")
-    public void theTextboxShouldContainString(String arg0, String arg1) {
+    public void theTextboxShouldContainString(String arg0, String arg1)
+    {
         AeviAdminShared.FindTextBox(arg0).getAttribute("value").equals(arg1);
     }
 
@@ -219,6 +197,9 @@ public class AdminSharedSteps extends BaseUtil {
             case "Parameters":
                 AeviAdminMap.DataGroupsAdd.pageParameters.click();
                 break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
         }
     }
 
@@ -229,16 +210,84 @@ public class AdminSharedSteps extends BaseUtil {
             case "Parameters":
                 AeviAdminMap.DataGroupsAdd.pageParameters.isDisplayed();
                 break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
         }
     }
 
-    @And("I should see the {string} dropdown")
-    public void iShouldSeeTheDropdown(String arg0) {
+    @And("I should see the {string} dropdown menu which is enabled and has {string} value selected")
+    public void iShouldSeeTheDropdownMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1)
+    {
+        WebElement dropdown = null;
         switch (arg0)
         {
-            case "TID Generator Template";
-            AeviAdminMap.
+            case "TID Generator Template":
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
                 break;
         }
+
+        dropdown.isDisplayed();
+        dropdown.isEnabled();
+        dropdown.getText().equals(arg1);
+    }
+
+    @When("I select {string} string form the {string} dropdown menu")
+    public void iSelectStringFormTheDropdownMenu(String arg0, String arg1) {
+        WebElement dropdown = null;
+        switch (arg1)
+        {
+            case "TID Generator Template":
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+
+        Select s = new Select(dropdown);
+        s.selectByVisibleText(arg0);
+    }
+
+    @And("the {string} dropdown menu should contain {string} string")
+    public void theDropdownMenuShouldContainString(String arg0, String arg1) {
+        WebElement dropdown = null;
+        switch (arg0)
+        {
+            case "TID Generator Template":
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+
+        dropdown.isDisplayed();
+        dropdown.isEnabled();
+        dropdown.getText().equals(arg1);
+    }
+
+    @Then("I should see the {string} success message")
+    public void iShouldSeeTheSuccessMessage(String arg0) {
+        switch (arg0)
+        {
+            case "Data Group was created successfully.":
+                AeviAdminMap.DataGroupsAddMessage.msgSuccess.getText().equals(arg0);
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+
+    }
+
+    @Then("And I should see {string} string in row {string} of the {string} column in {string} table")
+    public void andIShouldSeeStringInRowOfTheColumnInTable(String arg0, String arg1, String arg2, String arg3) {
+        //extend this
+        AeviAdminMap.DataGroups.table.isDisplayed();
+        AeviAdminMap.DataGroups.table.isEnabled();
     }
 }
