@@ -133,6 +133,11 @@ public class AdminSharedSteps extends BaseUtil {
             case "Form Configs":
                 AeviAdminMap.SideBarMenu.hlkFormConfigs.click();
                 driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "Data Groups":
                 AeviAdminMap.SideBarMenu.hlkDataGroups.click();
@@ -193,6 +198,47 @@ public class AdminSharedSteps extends BaseUtil {
 
     @When("I click on the {string} checkbox")
     public void iClickOnTheCheckbox(String arg0) {
-        AeviAdminMap.DataGroupsAdd.chkStatus_Click.click();
+        switch (arg0)
+        {
+            case "Status":
+                AeviAdminMap.DataGroupsAdd.chkStatus_Click.click();;
+                break;
+            case "Check Site ID/Terminal ID":
+                AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click.click();
+                break;
+            default:
+                assertTrue("element not found: " + arg0 ,false);
+                break;
+        }
+    }
+
+    @When("I click on the {string} tab")
+    public void iClickOnTheTab(String arg0) {
+        switch(arg0)
+        {
+            case "Parameters":
+                AeviAdminMap.DataGroupsAdd.pageParameters.click();
+                break;
+        }
+    }
+
+    @And("I should see the {string} tab")
+    public void iShouldSeeTheTab(String arg0) {
+        switch (arg0)
+        {
+            case "Parameters":
+                AeviAdminMap.DataGroupsAdd.pageParameters.isDisplayed();
+                break;
+        }
+    }
+
+    @And("I should see the {string} dropdown")
+    public void iShouldSeeTheDropdown(String arg0) {
+        switch (arg0)
+        {
+            case "TID Generator Template";
+            AeviAdminMap.
+                break;
+        }
     }
 }

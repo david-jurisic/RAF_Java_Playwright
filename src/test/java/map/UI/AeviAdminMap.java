@@ -50,5 +50,12 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement chkStatus_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]"));
         public static WebElement chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
         public static WebElement chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
+        public static WebElement pageParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+    }
+
+    public static class DataGroupsAddParameters
+    {
+        public static WebElement ddlTIDGeneratorTamplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
+
     }
 }
