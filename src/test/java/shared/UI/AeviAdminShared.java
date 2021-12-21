@@ -4,37 +4,9 @@ import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import util.UI.AdminUtil;
 
 public class AeviAdminShared extends BaseUtil {
-    public static WebElement FindCheckBox(String sCheckBoxName)
-    {
-        WebElement element = null;
-        String title = driver.getTitle();
-
-        switch(title)
-        {
-            case "AEVI Pay Admin | Data Group":
-                switch(sCheckBoxName)
-                {
-                    case "Status":
-                        element = AeviAdminMap.DataGroupsAdd.chkStatus;
-                        break;
-                    case "Check Site ID/Terminal ID":
-                        element = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId;
-                        break;
-                    default:
-                }
-                break;
-            default:
-                break;
-
-        }
-
-        return element;
-    }
-
-    public static WebElement FindElement(String sElement)
+    public static WebElement FindElement(String sElement, boolean... clone)
     {
         WebElement element = null;
         String title = driver.getTitle();
@@ -86,6 +58,12 @@ public class AeviAdminShared extends BaseUtil {
                     case "Search":
                         element = AeviAdminMap.DataGroups.btnSearch;
                         break;
+                    case "Name":
+                        element = AeviAdminMap.DataGroups.txtName;
+                        break;
+                    case "Close Message":
+                        element = AeviAdminMap.DataGroupsAddMessage.btnCloseMessage;
+                        break;
                     default:
                         break;
                 }
@@ -95,6 +73,15 @@ public class AeviAdminShared extends BaseUtil {
                 {
                     case "OK":
                         element = AeviAdminMap.DataGroupsAdd.btnOK;
+                        break;
+                    case "Name":
+                        element = AeviAdminMap.DataGroupsAdd.txtName;
+                        break;
+                    case "Status":
+                        element = AeviAdminMap.DataGroupsAdd.chkStatus;
+                        break;
+                    case "Check Site ID/Terminal ID":
+                        element = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId;
                         break;
                     default:
                         break;
@@ -106,37 +93,4 @@ public class AeviAdminShared extends BaseUtil {
 
         return element;
     }
-
-    public static WebElement FindTextBox(String sTextBoxName)
-    {
-        WebElement element = null;
-        String title = driver.getTitle();
-
-        switch(title)
-        {
-            case "AEVI Pay Admin | Data Group":
-                switch(sTextBoxName)
-                {
-                    case "Name":
-                        element = AeviAdminMap.DataGroupsAdd.txtName;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case "AEVI Pay Admin | Data Groups":
-                switch(sTextBoxName)
-                {
-                    case "Name":
-                        element = AeviAdminMap.DataGroups.txtName;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-
-        return element;
-    }
-
 }

@@ -3,7 +3,10 @@ package map.UI;
 import base.UI.BaseUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.picocontainer.behaviors.Stored;
 import util.UI.AdminUtil;
+
+import java.lang.reflect.Type;
 
 public class AeviAdminMap extends BaseUtil {
     public static class ChromeWarningPage
@@ -42,7 +45,6 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
         public static WebElement btnSearch = driver.findElement(By.name("_form1"));
         public static WebElement txtName = driver.findElement(By.id("criteria.name"));
-        public static WebElement table = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table/tbody/tr/td[4]"));
     }
 
     public static class DataGroupsAdd
@@ -61,5 +63,6 @@ public class AeviAdminMap extends BaseUtil {
     public static class DataGroupsAddMessage
     {
         public static WebElement msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
+        public static WebElement btnCloseMessage = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[3]/button"));
     }
 }

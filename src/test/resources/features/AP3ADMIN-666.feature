@@ -41,13 +41,14 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     And the "TID Generator Template" dropdown menu should contain "Based on Site ID" string
     When I click on the "OK" button
     Then I should see the "Data Groups" page
-    And I should see the "Search" button
-    And I should see the "Name" textbox which is enabled and empty
     And I should see the "Data Group was created successfully." success message
+    And I should see the "Close Message" button
+    When I click on the "Close Message" button
+    Then I should see the "Name" textbox which is enabled and empty
     When I enter "test1" string into "Name" textbox
     Then the "Name" textbox should contain "test1" string
     When I click on the "Search" button
-    Then And I should see "test1" string in row "1" of the "Name" column in "Data Groups" table
+    Then I should see the "Data Groups" page
 
 
 

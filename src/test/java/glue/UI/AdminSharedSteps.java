@@ -11,10 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -22,8 +19,9 @@ public class AdminSharedSteps extends BaseUtil {
     private String _url = AdminUtil.WEBPAGE_URL;
 
     @Given("I have opened the {string} page")
-    public void iHaveOpenedThePage(String arg0) {
-        this.driver.get(_url);
+    public void iHaveOpenedThePage(String arg0)
+    {
+        driver.get(_url);
     }
 
     @Then("I should see the {string} page")
@@ -80,6 +78,12 @@ public class AdminSharedSteps extends BaseUtil {
             case "OK":
                 AeviAdminMap.DataGroupsAdd.btnOK.click();
                 break;
+            case "Close Message":
+                AeviAdminMap.DataGroupsAddMessage.btnCloseMessage.click();
+                break;
+            case "Search":
+                AeviAdminMap.DataGroups.btnSearch.click();
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -88,9 +92,16 @@ public class AdminSharedSteps extends BaseUtil {
 
     @And("I should see the {string} button")
     public void iShouldSeeTheButton(String arg0) {
-        WebElement element = AeviAdminShared.FindElement(arg0);
 
-        element.isDisplayed();
+        try {
+            WebElement element = AeviAdminShared.FindElement(arg0);
+            element.isDisplayed();
+        }
+        catch(org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            WebElement element = AeviAdminShared.FindElement(arg0);
+            element.isDisplayed();
+        }
     }
 
     @And("I should see the {string} hyperlink in the sidebar menu")
@@ -133,16 +144,31 @@ public class AdminSharedSteps extends BaseUtil {
 
     @And("I should see the {string} textbox which is enabled and empty")
     public void iShouldSeeTheTextboxWhichIsEnabledAndEmpty(String arg0) {
-        WebElement textbox = AeviAdminShared.FindTextBox(arg0);
+        try {
+            WebElement textbox = AeviAdminShared.FindElement(arg0);
 
-        textbox.isDisplayed();
-        textbox.isEnabled();
-        textbox.getAttribute("value").isEmpty();
+            textbox.isDisplayed();
+            textbox.isEnabled();
+            textbox.getAttribute("value").isEmpty();
+        }
+        catch(org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+            AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+            AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+
+            WebElement textbox = AeviAdminShared.FindElement(arg0);
+
+            textbox.isDisplayed();
+            textbox.isEnabled();
+            textbox.getAttribute("value").isEmpty();
+        }
+
     }
 
     @And("I should see the {string} checkbox which is enabled and {string}")
     public void iShouldSeeTheCheckboxWhichIsEnabledAnd(String arg0, String arg1) {
-        WebElement checkbox = AeviAdminShared.FindCheckBox(arg0);
+        WebElement checkbox = AeviAdminShared.FindElement(arg0);
 
         switch(arg1)
         {
@@ -165,13 +191,13 @@ public class AdminSharedSteps extends BaseUtil {
     @When("I enter {string} string into {string} textbox")
     public void iEnterStringIntoTextbox(String arg0, String arg1)
     {
-        AeviAdminShared.FindTextBox(arg1).sendKeys(arg0);
+        AeviAdminShared.FindElement(arg1).sendKeys(arg0);
     }
 
     @Then("the {string} textbox should contain {string} string")
     public void theTextboxShouldContainString(String arg0, String arg1)
     {
-        AeviAdminShared.FindTextBox(arg0).getAttribute("value").equals(arg1);
+        AeviAdminShared.FindElement(arg0).getAttribute("value").equals(arg1);
     }
 
     @When("I click on the {string} checkbox")
@@ -281,13 +307,5 @@ public class AdminSharedSteps extends BaseUtil {
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
-
-    }
-
-    @Then("And I should see {string} string in row {string} of the {string} column in {string} table")
-    public void andIShouldSeeStringInRowOfTheColumnInTable(String arg0, String arg1, String arg2, String arg3) {
-        //extend this
-        AeviAdminMap.DataGroups.table.isDisplayed();
-        AeviAdminMap.DataGroups.table.isEnabled();
     }
 }
