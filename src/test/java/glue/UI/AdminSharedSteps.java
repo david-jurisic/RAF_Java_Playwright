@@ -10,6 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -190,8 +192,6 @@ public class AdminSharedSteps extends BaseUtil {
             textbox.click();
             textbox.sendKeys(arg0);
         }
-
-
     }
 
     @Then("the {string} textbox should contain {string} string")
@@ -339,5 +339,32 @@ public class AdminSharedSteps extends BaseUtil {
         WebElement dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
 
         dropdown.click();
+    }
+
+    @Then("the {string} dropdown list should contain {string} string")
+    public void theDropdownListShouldContainString(String arg0, String arg1) {
+        try
+        {
+            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+
+            List<WebElement> list = element.findElements(By.tagName("li"));
+            list.get(0).getAttribute("value").equals(arg1);
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+
+            List<WebElement> list = element.findElements(By.tagName("li"));
+            list.get(0).getAttribute("value").equals(arg1);
+        }
+
+    }
+
+    @When("I click on the {string}  dropdown menu item")
+    public void iClickOnTheDropdownMenuItem(String arg0) {
+        WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+
+        List<WebElement> list = element.findElements(By.tagName("li"));
+        list.get(0).click();
     }
 }

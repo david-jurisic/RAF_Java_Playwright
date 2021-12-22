@@ -25,9 +25,11 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     When I click on the "Parent Unit" dropdown menu
     Then I should see the "Parent Unit" textbox which is enabled and empty
     When I enter "ROME" string into "Parent Unit" textbox
-    Then the "Parent Unit" textbox should contain "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" string
-    When I click on the "Site Id Reload" button
-    Then the "Name" textbox should contain "ROSITED" string
+    Then the "Parent Unit" dropdown list should contain "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" string
+    When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)"  dropdown menu item
+    Then I should see the "Parent Unit" dropdown menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
+    When I click on the "Site ID Reload" button
+    Then the "Site ID" textbox should contain "ROSITED" string
 
 
 

@@ -99,7 +99,7 @@ public class AeviAdminShared extends BaseUtil {
                         textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
                         break;
                     case "Parent Unit":
-                        textbox = AeviAdminMap.DropdownSite.txtParentUnit;
+                        textbox = AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch;
                         break;
                 }
                 break;

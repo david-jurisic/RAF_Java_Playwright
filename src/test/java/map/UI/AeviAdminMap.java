@@ -5,12 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import util.UI.AdminUtil;
 
+import java.util.List;
+
 public class AeviAdminMap extends BaseUtil {
     public static class ChromeWarningPage
     {
         public static String chromePage = AdminUtil.WEBPAGE_URL;
         public static WebElement btnAdvanced = driver.findElement(By.id("details-button"));
-        public static WebElement btnProceedTo = driver.findElement(By.xpath("//*[@id=\"proceed-link\"]"));
+        public static WebElement btnProceedTo = driver.findElement(By.id("proceed-link"));
     }
 
     public static class LoginPage
@@ -70,12 +72,17 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
         public static WebElement txtSiteId = driver.findElement(By.id("siteIdInput"));
-        public static WebElement btnSiteIdReload = driver.findElement(By.cs("input-group-append"));
-        public static WebElement ddlParentUnit = driver.findElement(By.xpath("//*[@id=\"select2-organizationUnitInput-container\"]"));
+        public static WebElement btnSiteIdReload = driver.findElement(By.id("basicPropertyGroup"));
+        public static WebElement ddlParentUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
     }
 
-    public static class DropdownSite
+    public static class OrganizationUnitsSiteDropdownSite
     {
-        public static WebElement txtParentUnit = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
+        public static WebElement txtParentUnitSearch = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
+    }
+
+    public static class OrganizationUnitsSiteDropdownSiteList
+    {
+        public static WebElement listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
     }
 }
