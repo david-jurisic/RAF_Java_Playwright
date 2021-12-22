@@ -43,5 +43,10 @@
             <version>${io.cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>5.6.1</version>
+        </dependency>
     </dependencies>
 </project>
