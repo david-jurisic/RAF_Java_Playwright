@@ -10,7 +10,7 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static String chromePage = AdminUtil.WEBPAGE_URL;
         public static WebElement btnAdvanced = driver.findElement(By.id("details-button"));
-        public static WebElement hlkProceedTo = driver.findElement(By.xpath("//*[@id=\"proceed-link\"]"));
+        public static WebElement btnProceedTo = driver.findElement(By.xpath("//*[@id=\"proceed-link\"]"));
     }
 
     public static class LoginPage
@@ -23,17 +23,20 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static String page = AdminUtil.WEBPAGE_URL + "/organization-units";
         public static WebElement btnUserSettings = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div/span[3]"));
+        public static WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button"));
+        public static WebElement ddlChooseAnOption = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul"));
+        public static WebElement btnAddSite = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a"));
     }
 
     public static class UserSettings
     {
-        public static WebElement hlkLogOut = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]/div[2]/div/a"));
+        public static WebElement btnLogOut = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]/div[2]/div/a"));
     }
 
     public static class SideBarMenu
     {
-        public static WebElement hlkFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
-        public static WebElement hlkDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
+        public static WebElement btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
+        public static WebElement btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
     }
 
     public static class DataGroups
@@ -61,5 +64,18 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static WebElement msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
         public static WebElement btnCloseMessage = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[3]/button"));
+    }
+
+    public static class OrganizationUnitsSite
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
+        public static WebElement txtSiteId = driver.findElement(By.id("siteIdInput"));
+        public static WebElement btnSiteIdReload = driver.findElement(By.cs("input-group-append"));
+        public static WebElement ddlParentUnit = driver.findElement(By.xpath("//*[@id=\"select2-organizationUnitInput-container\"]"));
+    }
+
+    public static class DropdownSite
+    {
+        public static WebElement txtParentUnit = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
     }
 }

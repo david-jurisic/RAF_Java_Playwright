@@ -5,91 +5,126 @@ import map.UI.AeviAdminMap;
 import org.openqa.selenium.WebElement;
 
 public class AeviAdminShared extends BaseUtil {
-    public static WebElement FindElement(String sElement, boolean... clone)
-    {
-        WebElement element = null;
-        String title = driver.getTitle();
+    public static WebElement FindButtonByName(String sButtonName) {
+        WebElement button = null;
+        String sPage = driver.getTitle();
 
-        switch (title)
-        {
+        switch (sPage) {
             case "Privacy error":
-                switch (sElement)
-                {
+                switch (sButtonName) {
                     case "Advanced":
-                        element = AeviAdminMap.ChromeWarningPage.btnAdvanced;
+                        button = AeviAdminMap.ChromeWarningPage.btnAdvanced;
                         break;
                     case "Proceed to":
-                        element = AeviAdminMap.ChromeWarningPage.hlkProceedTo;
-                        break;
-                    default:
+                        button = AeviAdminMap.ChromeWarningPage.btnProceedTo;
                         break;
                 }
                 break;
             case "AEVI Pay Admin | Login":
-                switch (sElement)
-                {
+                switch (sButtonName) {
                     case "Save Changes":
-                        element = AeviAdminMap.LoginPage.btnSaveChanges;
-                        break;
-                    default:
+                        button = AeviAdminMap.LoginPage.btnSaveChanges;
                         break;
                 }
                 break;
             case "AEVI Pay Admin | Organization Units":
-                switch (sElement)
-                {
+                switch (sButtonName) {
                     case "User Settings":
-                        element = AeviAdminMap.OrganizationUnits.btnUserSettings;
+                        button = AeviAdminMap.OrganizationUnits.btnUserSettings;
+                        break;
+                    case "New Record":
+                        button = AeviAdminMap.OrganizationUnits.btnNewRecord;
                         break;
                     case "Log Out":
-                        element = AeviAdminMap.UserSettings.hlkLogOut;
+                        button = AeviAdminMap.UserSettings.btnLogOut;
                         break;
-                    default:
+                    case "Add Site":
+                        button = AeviAdminMap.OrganizationUnits.btnAddSite;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Site":
+                switch (sButtonName) {
+                    case "Site ID Reload":
+                        button = AeviAdminMap.OrganizationUnitsSite.btnSiteIdReload;
                         break;
                 }
                 break;
             case "AEVI Pay Admin | Data Groups":
-                switch (sElement)
-                {
+                switch (sButtonName) {
                     case "New Record":
-                        element = AeviAdminMap.DataGroups.btnNewRecord;
+                        button = AeviAdminMap.DataGroups.btnNewRecord;
                         break;
                     case "Search":
-                        element = AeviAdminMap.DataGroups.btnSearch;
-                        break;
-                    case "Name":
-                        element = AeviAdminMap.DataGroups.txtName;
+                        button = AeviAdminMap.DataGroups.btnSearch;
                         break;
                     case "Close Message":
-                        element = AeviAdminMap.DataGroupsAddMessage.btnCloseMessage;
-                        break;
-                    default:
+                        button = AeviAdminMap.DataGroupsAddMessage.btnCloseMessage;
                         break;
                 }
                 break;
             case "AEVI Pay Admin | Data Group":
-                switch (sElement)
-                {
+                switch (sButtonName) {
                     case "OK":
-                        element = AeviAdminMap.DataGroupsAdd.btnOK;
-                        break;
-                    case "Name":
-                        element = AeviAdminMap.DataGroupsAdd.txtName;
-                        break;
-                    case "Status":
-                        element = AeviAdminMap.DataGroupsAdd.chkStatus;
-                        break;
-                    case "Check Site ID/Terminal ID":
-                        element = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId;
-                        break;
-                    default:
+                        button = AeviAdminMap.DataGroupsAdd.btnOK;
                         break;
                 }
                 break;
-            default:
+        }
+        return button;
+    }
+
+    public static WebElement FindTextboxByName(String sTextboxName) {
+        WebElement textbox = null;
+        String sPage = driver.getTitle();
+
+        switch (sPage) {
+            case "AEVI Pay Admin | Data Groups":
+                switch (sTextboxName) {
+                    case "Name":
+                        textbox = AeviAdminMap.DataGroups.txtName;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Data Group":
+                switch (sTextboxName) {
+                    case "Name":
+                        textbox = AeviAdminMap.DataGroupsAdd.txtName;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Site":
+                switch (sTextboxName) {
+                    case "Site ID":
+                        textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
+                        break;
+                    case "Parent Unit":
+                        textbox = AeviAdminMap.DropdownSite.txtParentUnit;
+                        break;
+                }
                 break;
         }
 
-        return element;
+        return textbox;
+    }
+
+    public static WebElement FindCheckboxByName(String sCheckboxName) {
+        WebElement checkbox = null;
+        String sPage = driver.getTitle();
+
+        switch (sPage) {
+            case "AEVI Pay Admin | Data Group":
+                switch (sCheckboxName) {
+                    case "Status":
+                        checkbox = AeviAdminMap.DataGroupsAdd.chkStatus;
+                        break;
+                    case "Check Site ID/Terminal ID":
+                        checkbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId;
+                        break;
+                }
+                break;
+        }
+
+        return checkbox;
     }
 }
