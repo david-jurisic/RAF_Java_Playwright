@@ -2,7 +2,6 @@ package shared.UI;
 
 import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class AeviAdminShared extends BaseUtil {

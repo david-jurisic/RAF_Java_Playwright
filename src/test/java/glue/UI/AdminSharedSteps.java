@@ -10,8 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
-
 import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -249,7 +249,7 @@ public class AdminSharedSteps extends BaseUtil {
         switch (arg0)
         {
             case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -267,7 +267,7 @@ public class AdminSharedSteps extends BaseUtil {
         switch (arg1)
         {
             case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -284,7 +284,7 @@ public class AdminSharedSteps extends BaseUtil {
         switch (arg0)
         {
             case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTamplate;
+                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);

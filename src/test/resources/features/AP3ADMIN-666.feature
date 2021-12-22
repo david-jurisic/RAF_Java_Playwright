@@ -1,8 +1,8 @@
-@AeviAdmin @UI
+@AeviAdmin @UI @AP3ADMIN-666 @AP3ADMIN
 Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
 
-  @TestCaseCode:TC0001 @AP3ADMIN-666 @Author:Drazen_Kozic @UI
-  Scenario: Login to SMCAdmin webpage
+  @TestCaseCode:TC001 @TC001 @Author:Drazen-Kozic @UI @AP3ADMIN-666
+  Scenario: SiteID already exists after saving a previously created.
     Given I have opened the "SMCAdmin" page
     Then I should see the "Chrome Warning Screen" page
     And I should see the "Advanced" button
