@@ -12,6 +12,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
@@ -19,6 +20,7 @@ import util.UI.AdminUtil;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -116,24 +118,21 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} button in the sidebar menu")
     public void iClickOnTheButtonlinkInTheSidebarMenu(String arg0) {
+        WebElement element = null;
         switch(arg0)
         {
             case "Form Configs":
-                AeviAdminMap.SideBarMenu.btnFormConfigs.click();
-                driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                element = AeviAdminMap.SideBarMenu.btnFormConfigs;
+                AeviAdminShared.Wait(2);
                 break;
             case "Data Groups":
-                AeviAdminMap.SideBarMenu.btnDataGroups.click();
+                element = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
+        element.click();
     }
 
     @And("I should see the {string} textbox which is enabled and empty")

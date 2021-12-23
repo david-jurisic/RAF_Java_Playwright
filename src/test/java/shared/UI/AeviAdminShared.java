@@ -4,7 +4,15 @@ import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
 import org.openqa.selenium.WebElement;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class AeviAdminShared extends BaseUtil {
+
+    public static void Wait(int iTime)
+    {
+        driver.manage().timeouts().pageLoadTimeout(iTime, SECONDS);
+    }
+
     public static WebElement FindButtonByName(String sButtonName) {
         WebElement button = null;
         String sPage = driver.getTitle();
