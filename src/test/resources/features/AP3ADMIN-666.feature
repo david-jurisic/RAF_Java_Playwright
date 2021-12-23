@@ -13,10 +13,10 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     And I should see the "Save Changes" button
     When I click on the "Save Changes" button
     Then I should see the "Organization Units" page
-    And I should see the "Form Configs" hyperlink in the sidebar menu
-    When I click on the "Form Configs" hyperlink in the sidebar menu
-    Then I should see the "Data Groups" hyperlink in the sidebar menu
-    When I click on the "Data Groups" hyperlink in the sidebar menu
+    And I should see the "Form Configs" button in the sidebar menu
+    When I click on the "Form Configs" button in the sidebar menu
+    Then I should see the "Data Groups" button in the sidebar menu
+    When I click on the "Data Groups" button in the sidebar menu
     Then I should see the "Data Groups" page
     And I should see the "New Record" button
     And I should see the "Name" textbox which is enabled and empty
