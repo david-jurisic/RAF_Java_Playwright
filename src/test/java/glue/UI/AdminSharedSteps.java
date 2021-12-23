@@ -377,6 +377,7 @@ public class AdminSharedSteps extends BaseUtil{
     public void iClickOnTheDropdownMenuItem(String arg0) {
         WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
+        AeviAdminShared.Wait(2);
         List<WebElement> list = element.findElements(By.tagName("li"));
         list.get(0).click();
     }

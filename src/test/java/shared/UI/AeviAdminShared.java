@@ -10,7 +10,7 @@ public class AeviAdminShared extends BaseUtil {
 
     public static void Wait(int iTime)
     {
-        driver.manage().timeouts().pageLoadTimeout(iTime, SECONDS);
+        driver.manage().timeouts().implicitlyWait(iTime, SECONDS);
     }
 
     public static WebElement FindButtonByName(String sButtonName) {

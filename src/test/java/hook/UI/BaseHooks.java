@@ -8,6 +8,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
 public class BaseHooks {
@@ -27,7 +28,7 @@ public class BaseHooks {
             saveScreenshotsForScenario(scenario);
         }
 
-        this.driver.quit();
+        this.driver.close();
     }
 
     private void saveScreenshotsForScenario(final Scenario scenario) {
