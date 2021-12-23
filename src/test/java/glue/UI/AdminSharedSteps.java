@@ -56,6 +56,12 @@ public class AdminSharedSteps extends BaseUtil{
             case "AEVI Pay Admin| Site":
                 page = AeviAdminMap.OrganizationUnitsSite.page;
                 break;
+            case "AEVI Pay Admin| Terminals":
+                page = AeviAdminMap.Terminals.page;
+                break;
+            case "AEVI Pay Admin| Terminal":
+                page = AeviAdminMap.TerminalsAdd.page;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -79,8 +85,6 @@ public class AdminSharedSteps extends BaseUtil{
 
             button.click();
         }
-
-
     }
 
     @And("I should see the {string} button")
@@ -108,6 +112,9 @@ public class AdminSharedSteps extends BaseUtil{
             case "Data Groups":
                 element = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
+            case "Terminals":
+                element = AeviAdminMap.SideBarMenu.btnTerminals;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -127,6 +134,9 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
             case "Data Groups":
                 element = AeviAdminMap.SideBarMenu.btnDataGroups;
+                break;
+            case "Terminals":
+                AeviAdminMap.SideBarMenu.btnTerminals.click();
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -260,6 +270,12 @@ public class AdminSharedSteps extends BaseUtil{
             case "Parent Unit":
                 dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
                 break;
+            case "Organization Unit":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                break;
+            case "Terminal Profile":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -326,20 +342,6 @@ public class AdminSharedSteps extends BaseUtil{
         button.isEnabled();
     }
 
-    @And("I Should see {string} which is enabled")
-    public void iShouldSeeWhichIsEnabled(String arg0) {
-        
-    }
-
-    @Then("I should see the {string} button dropdown menu")
-    public void iShouldSeeTheButtonDropdownMenu(String arg0) {
-        
-    }
-
-    @When("I click on the {string} Button in the button dropdown menu")
-    public void iClickOnTheButtonlinkInTheButtonDropdownMenu(String arg0) {
-    }
-
     @When("I click on the {string} button in the button dropdown menu")
     public void iClickOnTheButtonInTheButtonDropdownMenu(String arg0) {
         WebElement button = AeviAdminShared.FindButtonByName(arg0);
@@ -349,7 +351,20 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} dropdown menu")
     public void iClickOnTheDropdownMenu(String arg0) {
-        WebElement dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+        WebElement dropdown = null;
+
+        switch(arg0)
+        {
+            case "Parent Unit":
+                dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                break;
+            case "Organization Unit":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                break;
+            case "Terminal Profile":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                break;
+        }
 
         dropdown.click();
     }
@@ -373,12 +388,34 @@ public class AdminSharedSteps extends BaseUtil{
 
     }
 
-    @When("I click on the {string}  dropdown menu item")
+    @When("I click on the {string} dropdown menu item")
     public void iClickOnTheDropdownMenuItem(String arg0) {
         WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
         AeviAdminShared.Wait(2);
         List<WebElement> list = element.findElements(By.tagName("li"));
         list.get(0).click();
+    }
+
+    @When("I select {string} string from the {string} dropdown menu")
+    public void iSelectStringFromTheDropdownMenu(String arg0, String arg1) {
+        WebElement dropdown = null;
+
+        switch (arg1)
+        {
+            case "Terminal Profile":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                break;
+        }
+
+        Select ddlItems = new Select(dropdown);
+        ddlItems.selectByVisibleText(arg0);
+    }
+
+    @Then("I should see the {string} button dropdown menu")
+    public void iShouldSeeTheButtonDropdownMenu(String arg0) {
+        WebElement dropdown = AeviAdminMap.OrganizationUnits.ddlChooseAnOption;
+
+        dropdown.isDisplayed();
     }
 }

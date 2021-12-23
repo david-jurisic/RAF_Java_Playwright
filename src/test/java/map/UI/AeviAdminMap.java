@@ -39,6 +39,7 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static WebElement btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
         public static WebElement btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
+        public static WebElement btnTerminals = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[6]/a/span"));
     }
 
     public static class DataGroups
@@ -84,5 +85,21 @@ public class AeviAdminMap extends BaseUtil {
     public static class OrganizationUnitsSiteDropdownSiteList
     {
         public static WebElement listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
+    }
+
+    public static class Terminals
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "terminals";
+        public static  WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+
+    }
+
+    public static class TerminalsAdd
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "terminals/create";
+        public static  WebElement txtTerminalId = driver.findElement(By.id("terminalIdInput"));
+        public static WebElement ddlOrganizationUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
+        public static WebElement ddlTerminalProfile = driver.findElement(By.id("terminalProfileSelector"));
+        public static WebElement btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
     }
 }

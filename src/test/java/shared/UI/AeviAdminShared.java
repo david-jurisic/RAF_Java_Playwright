@@ -58,6 +58,20 @@ public class AeviAdminShared extends BaseUtil {
                         break;
                 }
                 break;
+            case "AEVI Pay Admin | Terminals":
+                switch (sButtonName) {
+                    case "New Record":
+                        button = AeviAdminMap.Terminals.btnNewRecord;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Terminal":
+                switch (sButtonName) {
+                    case "Terminal ID Reload":
+                        button = AeviAdminMap.TerminalsAdd.btnSiteIdReload;
+                        break;
+                }
+                break;
             case "AEVI Pay Admin | Data Groups":
                 switch (sButtonName) {
                     case "New Record":
@@ -107,6 +121,16 @@ public class AeviAdminShared extends BaseUtil {
                         textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
                         break;
                     case "Parent Unit":
+                        textbox = AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Terminal":
+                switch (sTextboxName) {
+                    case "Terminal ID":
+                        textbox = AeviAdminMap.TerminalsAdd.txtTerminalId;
+                        break;
+                    case "Organization Unit":
                         textbox = AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch;
                         break;
                 }

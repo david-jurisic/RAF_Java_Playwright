@@ -16,7 +16,6 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     And I should see the "New Record" button which is enabled
     When I click on the "New Record" button
     Then I should see the "Choose an option" button dropdown menu
-    And I Should see "Add Site" which is enabled
     When I click on the "Add Site" button in the button dropdown menu
     Then I should see the "AEVI Pay Admin| Site" page
     And I should see the "Site ID" textbox which is enabled and empty
@@ -26,7 +25,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Parent Unit" textbox which is enabled and empty
     When I enter "ROME Organization 1001" string into "Parent Unit" textbox
     Then the "Parent Unit" dropdown list should contain "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" string
-    When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)"  dropdown menu item
+    When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" dropdown menu item
     Then I should see the "Parent Unit" dropdown menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
@@ -45,7 +44,30 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Organization Units" page
     And I should see the "Terminals" button in the sidebar menu
     When I click on the "Terminals" button in the sidebar menu
-    Then I should see the "Data Groups" button in the sidebar menu
+    Then I should see the "AEVI Pay Admin| Terminals" page
+    And I should see the "New Record" button
+    When I click on the "New Record" button
+    Then I should see the "AEVI Pay Admin| Terminal" page
+    And I should see the "Terminal ID" textbox which is enabled and empty
+    And I should see the "Terminal ID Reload" button which is enabled
+    And I should see the "Organization Unit" dropdown menu which is enabled and has "" value selected
+    And I should see the "Terminal Profile" dropdown menu which is enabled and has "Select" value selected
+    When I click on the "Organization Unit" dropdown menu
+    Then I should see the "Organization Unit" textbox which is enabled and empty
+    When I enter "ROME Organization 1002" string into "Organization Unit" textbox
+    Then the "Organization Unit" dropdown list should contain "ROME Organization 1002 SITE_GROUP ROSITE02 (1002)" string
+    When I click on the "ROME Organization 1002 SITE_GROUP ROSITE01 (1002)" dropdown menu item
+    Then I should see the "Organization Unit" dropdown menu which is enabled and has "ROME Organization 1002 SITE_GROUP ROSITE02 (1002)" value selected
+    When I select "ROME TerminalProfile 1002 OPT (1002)" string from the "Terminal Profile" dropdown menu
+    Then I should see the "Terminal Profile" dropdown menu which is enabled and has "ROME TerminalProfile 1002 OPT (1002)" value selected
+    When I click on the "Terminal ID Reload" button
+    Then the "Terminal ID Reload" textbox should contain "ROSITE02YY" string
+
+
+
+
+
+
 
 
 
