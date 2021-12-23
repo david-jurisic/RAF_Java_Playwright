@@ -5,12 +5,12 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
   Scenario: TerminalID Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
     Then I should see the "Chrome Warning Screen" page
-    And I should see the "Advanced" button
+    And I should see the "Advanced" button which is enabled
     When I click on the "Advanced" button
-    Then I should see the "Proceed to" button
+    Then I should see the "Proceed to" button which is enabled
     When I click on the "Proceed to" button
     Then I should see the "Login to Data Group" page
-    And I should see the "Save Changes" button
+    And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
     Then I should see the "Organization Units" page
     And I should see the "New Record" button which is enabled
@@ -34,18 +34,18 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
   Scenario: SiteId Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
     Then I should see the "Chrome Warning Screen" page
-    And I should see the "Advanced" button
+    And I should see the "Advanced" button which is enabled
     When I click on the "Advanced" button
-    Then I should see the "Proceed to" button
+    Then I should see the "Proceed to" button which is enabled
     When I click on the "Proceed to" button
     Then I should see the "Login to Data Group" page
-    And I should see the "Save Changes" button
+    And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
     Then I should see the "Organization Units" page
     And I should see the "Terminals" button in the sidebar menu
     When I click on the "Terminals" button in the sidebar menu
     Then I should see the "AEVI Pay Admin| Terminals" page
-    And I should see the "New Record" button
+    And I should see the "New Record" button which is enabled
     When I click on the "New Record" button
     Then I should see the "AEVI Pay Admin| Terminal" page
     And I should see the "Terminal ID" textbox which is enabled and empty

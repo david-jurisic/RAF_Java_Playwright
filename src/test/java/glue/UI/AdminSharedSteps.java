@@ -1,26 +1,17 @@
 package glue.UI;
 
 import base.UI.BaseUtil;
-import hook.UI.BaseHooks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
-import org.jsoup.Connection;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -77,7 +68,6 @@ public class AdminSharedSteps extends BaseUtil{
         driver.getCurrentUrl().equals(page);
     }
 
-
     @When("I click on the {string} button")
     public void iClickOnTheButton(String arg0) {
         try {
@@ -93,68 +83,55 @@ public class AdminSharedSteps extends BaseUtil{
         }
     }
 
-    @And("I should see the {string} button")
-    public void iShouldSeeTheButton(String arg0) {
-
-        try {
-            WebElement element = AeviAdminShared.FindButtonByName(arg0);
-            element.isDisplayed();
-        }
-        catch(org.openqa.selenium.StaleElementReferenceException ex)
-        {
-            WebElement element = AeviAdminShared.FindButtonByName(arg0);
-            element.isDisplayed();
-        }
-    }
-
     @And("I should see the {string} button in the sidebar menu")
     public void iShouldSeeTheButtonInTheSidebarMenu(String arg0) {
-        WebElement element = null;
+        WebElement button = null;
         switch(arg0)
         {
             case "Form Configs":
-                element = AeviAdminMap.SideBarMenu.btnFormConfigs;
+                button = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
-                element = AeviAdminMap.SideBarMenu.btnDataGroups;
+                button = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
-                element = AeviAdminMap.SideBarMenu.btnTerminals;
+                button = AeviAdminMap.SideBarMenu.btnTerminals;
                 break;
             case "Contracts":
-                element = AeviAdminMap.SideBarMenu.btnContracts;
+                button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
 
-        element.isDisplayed();
+        button.isDisplayed();
     }
 
     @When("I click on the {string} button in the sidebar menu")
     public void iClickOnTheButtonlinkInTheSidebarMenu(String arg0) {
-        WebElement element = null;
+        WebElement button = null;
         switch(arg0)
         {
             case "Form Configs":
-                element = AeviAdminMap.SideBarMenu.btnFormConfigs;
+                button = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 AeviAdminShared.Wait(2);
                 break;
             case "Data Groups":
-                element = AeviAdminMap.SideBarMenu.btnDataGroups;
+                button = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
-                AeviAdminMap.SideBarMenu.btnTerminals.click();
+                button = AeviAdminMap.SideBarMenu.btnTerminals;
                 break;
             case "Contracts":
-                sideBarMenu = AeviAdminMap.SideBarMenu.btnContracts;
+                button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
-        element.click();
+
+        button.click();
     }
 
     @And("I should see the {string} textbox which is enabled and empty")
@@ -185,16 +162,14 @@ public class AdminSharedSteps extends BaseUtil{
     public void iShouldSeeTheCheckboxWhichIsEnabledAnd(String arg0, String arg1) {
         WebElement checkbox = AeviAdminShared.FindCheckboxByName(arg0);
 
+        checkbox.isDisplayed();
+        checkbox.isEnabled();
         switch(arg1)
         {
             case "checked":
-                checkbox.isDisplayed();
-                checkbox.isEnabled();
                 assertEquals(checkbox.isSelected(), true);
                 break;
             case "not checked":
-                checkbox.isDisplayed();
-                checkbox.isEnabled();
                 assertEquals(checkbox.isSelected(),false);
                 break;
             default:
@@ -255,6 +230,7 @@ public class AdminSharedSteps extends BaseUtil{
     public void iShouldSeeTheDropdownMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1)
     {
         WebElement dropdown = null;
+
         switch (arg0)
         {
             case "TID Generator Template":
@@ -282,9 +258,10 @@ public class AdminSharedSteps extends BaseUtil{
         dropdown.getText().equals(arg1);
     }
 
-    @When("I select {string} string form the {string} dropdown menu")
-    public void iSelectStringFormTheDropdownMenu(String arg0, String arg1) {
+    @When("I select {string} string from the {string} dropdown menu")
+    public void iSelectStringFromTheDropdownMenu(String arg0, String arg1) {
         WebElement dropdown = null;
+
         switch (arg1)
         {
             case "TID Generator Template":
@@ -293,18 +270,22 @@ public class AdminSharedSteps extends BaseUtil{
             case "Applications Profile":
                 dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
+            case "Terminal Profile":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
 
-        Select s = new Select(dropdown);
-        s.selectByVisibleText(arg0);
+        Select items = new Select(dropdown);
+        items.selectByVisibleText(arg0);
     }
 
     @And("the {string} dropdown menu should contain {string} string")
     public void theDropdownMenuShouldContainString(String arg0, String arg1) {
         WebElement dropdown = null;
+
         switch (arg0)
         {
             case "TID Generator Template":
@@ -322,15 +303,18 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} success message")
     public void iShouldSeeTheSuccessMessage(String arg0) {
+        WebElement msg = null;
         switch (arg0)
         {
             case "Data Group was created successfully.":
-                AeviAdminMap.DataGroupsAddMessage.msgSuccess.getText().equals(arg0);
+                msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
         }
+
+        msg.getText().equals(arg0);
     }
 
     @And("I should see the {string} button which is enabled")
@@ -394,21 +378,6 @@ public class AdminSharedSteps extends BaseUtil{
         AeviAdminShared.Wait(2);
         List<WebElement> list = element.findElements(By.tagName("li"));
         list.get(0).click();
-    }
-
-    @When("I select {string} string from the {string} dropdown menu")
-    public void iSelectStringFromTheDropdownMenu(String arg0, String arg1) {
-        WebElement dropdown = null;
-
-        switch (arg1)
-        {
-            case "Terminal Profile":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
-                break;
-        }
-
-        Select ddlItems = new Select(dropdown);
-        ddlItems.selectByVisibleText(arg0);
     }
 
     @Then("I should see the {string} button dropdown menu")
