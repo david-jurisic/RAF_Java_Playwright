@@ -40,6 +40,7 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
         public static WebElement btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
         public static WebElement btnTerminals = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[6]/a/span"));
+        public static WebElement btnContracts = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[5]/a/span"));
     }
 
     public static class DataGroups
@@ -58,7 +59,7 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement chkStatus_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]"));
         public static WebElement chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
         public static WebElement chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
-        public static WebElement pageParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+        public static WebElement tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
         public static WebElement ddlTIDGeneratorTemplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
         public static WebElement btnOK = driver.findElement(By.name("_form2"));
     }
@@ -97,9 +98,24 @@ public class AeviAdminMap extends BaseUtil {
     public static class TerminalsAdd
     {
         public static final String page = AdminUtil.WEBPAGE_URL + "terminals/create";
-        public static  WebElement txtTerminalId = driver.findElement(By.id("terminalIdInput"));
+        public static WebElement txtTerminalId = driver.findElement(By.id("terminalIdInput"));
         public static WebElement ddlOrganizationUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
         public static WebElement ddlTerminalProfile = driver.findElement(By.id("terminalProfileSelector"));
         public static WebElement btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
+    }
+
+    public static class Contracts
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "contracts";
+        public static WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button"));
+        public static WebElement ddlChooseAnOption = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul"));
+        public static WebElement btnAddPhysicalContract = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a"));
+    }
+
+    public static class ContractsAdd
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "contracts/create?type=physical";
+        public static WebElement tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+        public static WebElement ddlApplicationsProfile = driver.findElement(By.id("acceptedAppProfilesSelect"));
     }
 }

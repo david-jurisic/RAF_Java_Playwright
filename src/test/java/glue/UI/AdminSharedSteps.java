@@ -62,6 +62,12 @@ public class AdminSharedSteps extends BaseUtil{
             case "AEVI Pay Admin| Terminal":
                 page = AeviAdminMap.TerminalsAdd.page;
                 break;
+            case "AEVI Pay Admin| Contracts":
+                page = AeviAdminMap.Contracts.page;
+                break;
+            case "AEVI Pay Admin| Contract":
+                page = AeviAdminMap.ContractsAdd.page;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -115,6 +121,9 @@ public class AdminSharedSteps extends BaseUtil{
             case "Terminals":
                 element = AeviAdminMap.SideBarMenu.btnTerminals;
                 break;
+            case "Contracts":
+                element = AeviAdminMap.SideBarMenu.btnContracts;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -137,6 +146,9 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
             case "Terminals":
                 AeviAdminMap.SideBarMenu.btnTerminals.click();
+                break;
+            case "Contracts":
+                sideBarMenu = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -234,28 +246,9 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} tab")
     public void iClickOnTheTab(String arg0) {
-        switch(arg0)
-        {
-            case "Parameters":
-                AeviAdminMap.DataGroupsAdd.pageParameters.click();
-                break;
-            default:
-                assertTrue("element not found: " + arg0 ,false);
-                break;
-        }
-    }
+        WebElement tab = AeviAdminShared.FindTabByName(arg0);
 
-    @And("I should see the {string} tab")
-    public void iShouldSeeTheTab(String arg0) {
-        switch (arg0)
-        {
-            case "Parameters":
-                AeviAdminMap.DataGroupsAdd.pageParameters.isDisplayed();
-                break;
-            default:
-                assertTrue("element not found: " + arg0 ,false);
-                break;
-        }
+        tab.click();
     }
 
     @And("I should see the {string} dropdown menu which is enabled and has {string} value selected")
@@ -276,6 +269,9 @@ public class AdminSharedSteps extends BaseUtil{
             case "Terminal Profile":
                 dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
+            case "Applications Profile":
+                dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
+                break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
                 break;
@@ -293,6 +289,9 @@ public class AdminSharedSteps extends BaseUtil{
         {
             case "TID Generator Template":
                 dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
+                break;
+            case "Applications Profile":
+                dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             default:
                 assertTrue("element not found: " + arg0 ,false);
@@ -414,8 +413,28 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} button dropdown menu")
     public void iShouldSeeTheButtonDropdownMenu(String arg0) {
-        WebElement dropdown = AeviAdminMap.OrganizationUnits.ddlChooseAnOption;
+        WebElement dropdown = null;
+        String sPage = driver.getTitle();
+
+        switch (sPage)
+        {
+            case "AEVI Pay Admin | Organization Units":
+                dropdown = AeviAdminMap.OrganizationUnits.ddlChooseAnOption;
+                break;
+            case "AEVI Pay Admin | Contracts":
+                dropdown = AeviAdminMap.Contracts.ddlChooseAnOption;
+                break;
+
+        }
 
         dropdown.isDisplayed();
+    }
+
+    @And("I should see the {string} tab which is enabled")
+    public void iShouldSeeTheTabWhichIsEnabled(String arg0) {
+        WebElement tab = AeviAdminShared.FindTabByName(arg0);
+
+        tab.isDisplayed();
+        tab.isEnabled();
     }
 }

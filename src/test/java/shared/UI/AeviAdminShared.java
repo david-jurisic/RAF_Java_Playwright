@@ -92,6 +92,16 @@ public class AeviAdminShared extends BaseUtil {
                         break;
                 }
                 break;
+            case "AEVI Pay Admin | Contracts":
+                switch (sButtonName) {
+                    case "New Record":
+                        button = AeviAdminMap.Contracts.btnNewRecord;
+                        break;
+                    case "Add Physical Contract":
+                        button = AeviAdminMap.Contracts.btnAddPhysicalContract;
+                        break;
+                }
+                break;
         }
         return button;
     }
@@ -152,6 +162,30 @@ public class AeviAdminShared extends BaseUtil {
                         break;
                     case "Check Site ID/Terminal ID":
                         checkbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId;
+                        break;
+                }
+                break;
+        }
+
+        return checkbox;
+    }
+
+    public static WebElement FindTabByName(String sCheckboxName) {
+        WebElement checkbox = null;
+        String sPage = driver.getTitle();
+
+        switch (sPage) {
+            case "AEVI Pay Admin | Data Group":
+                switch (sCheckboxName) {
+                    case "Parameters":
+                        checkbox = AeviAdminMap.DataGroupsAdd.tabParameters;
+                        break;
+                }
+                break;
+            case "AEVI Pay Admin | Contract":
+                switch (sCheckboxName) {
+                    case "Parameters":
+                        checkbox = AeviAdminMap.ContractsAdd.tabParameters;
                         break;
                 }
                 break;
