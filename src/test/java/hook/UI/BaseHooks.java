@@ -18,7 +18,7 @@ public class BaseHooks {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("start-maximized");
         System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
-        driver = new ChromeDriver(chromeOptions);
+        this.driver = new ChromeDriver(chromeOptions);
     }
 
     @After
@@ -26,6 +26,7 @@ public class BaseHooks {
         if(scenario.isFailed()){
             saveScreenshotsForScenario(scenario);
         }
+
         this.driver.quit();
     }
 

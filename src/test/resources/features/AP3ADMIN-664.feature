@@ -2,7 +2,7 @@
 Feature: AP3ADMIN-664-Reloading buttons don't work
 
   @TestCaseCode:TC001 @TC001 @Author:Drazen-Kozic @UI @AP3ADMIN-664
-  Scenario: SiteId Reloading buttons doesn't work
+  Scenario: TerminalID Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
     Then I should see the "Chrome Warning Screen" page
     And I should see the "Advanced" button
@@ -24,14 +24,28 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     And I should see the "Parent Unit" dropdown menu which is enabled and has "" value selected
     When I click on the "Parent Unit" dropdown menu
     Then I should see the "Parent Unit" textbox which is enabled and empty
-    When I enter "ROME" string into "Parent Unit" textbox
+    When I enter "ROME Organization 1001" string into "Parent Unit" textbox
     Then the "Parent Unit" dropdown list should contain "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" string
     When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)"  dropdown menu item
     Then I should see the "Parent Unit" dropdown menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
 
-
+  @TestCaseCode:TC002 @TC002 @Author:Drazen-Kozic @UI @AP3ADMIN-664
+  Scenario: SiteId Reloading buttons doesn't work
+    Given I have opened the "SMCAdmin" page
+    Then I should see the "Chrome Warning Screen" page
+    And I should see the "Advanced" button
+    When I click on the "Advanced" button
+    Then I should see the "Proceed to" button
+    When I click on the "Proceed to" button
+    Then I should see the "Login to Data Group" page
+    And I should see the "Save Changes" button
+    When I click on the "Save Changes" button
+    Then I should see the "Organization Units" page
+    And I should see the "Terminals" button in the sidebar menu
+    When I click on the "Terminals" button in the sidebar menu
+    Then I should see the "Data Groups" button in the sidebar menu
 
 
 

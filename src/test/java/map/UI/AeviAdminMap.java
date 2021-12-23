@@ -72,7 +72,7 @@ public class AeviAdminMap extends BaseUtil {
     {
         public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
         public static WebElement txtSiteId = driver.findElement(By.id("siteIdInput"));
-        public static WebElement btnSiteIdReload = driver.findElement(By.id("basicPropertyGroup"));
+        public static WebElement btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
         public static WebElement ddlParentUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
     }
 

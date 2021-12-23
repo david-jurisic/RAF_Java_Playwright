@@ -1,12 +1,17 @@
 package glue.UI;
 
 import base.UI.BaseUtil;
+import hook.UI.BaseHooks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
+import org.jsoup.Connection;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
@@ -17,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AdminSharedSteps extends BaseUtil {
+public class AdminSharedSteps extends BaseUtil{
     private String _url = AdminUtil.WEBPAGE_URL;
 
     @Given("I have opened the {string} page")
@@ -204,7 +209,16 @@ public class AdminSharedSteps extends BaseUtil {
 
     @When("I click on the {string} checkbox")
     public void iClickOnTheCheckbox(String arg0) {
-        WebElement checkbox = AeviAdminShared.FindCheckboxByName(arg0);
+        WebElement checkbox = null;
+
+        switch (arg0) {
+            case "Status":
+                checkbox = AeviAdminMap.DataGroupsAdd.chkStatus_Click;
+                break;
+            case "Check Site ID/Terminal ID":
+                checkbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click;
+                break;
+        }
 
         checkbox.click();
     }
