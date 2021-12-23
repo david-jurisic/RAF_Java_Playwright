@@ -26,7 +26,7 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     And I should see the "Name" textbox which is enabled and empty
     And I should see the "Status" checkbox which is enabled and "not checked"
     And I should see the "Check Site ID/Terminal ID" checkbox which is enabled and "not checked"
-    And I should see the "Parameters" tab
+    And I should see the "Parameters" tab which is enabled
     And I should see the "OK" button
     When I enter "test1" string into "Name" textbox
     Then the "Name" textbox should contain "test1" string
@@ -35,7 +35,7 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     When I click on the "Check Site ID/Terminal ID" checkbox
     Then I should see the "Check Site ID/Terminal ID" checkbox which is enabled and "checked"
     When I click on the "Parameters" tab
-    Then I should see the "Parameters" tab
+    Then I should see the "Parameters" tab which is enabled
     And I should see the "TID Generator Template" dropdown menu which is enabled and has "Select" value selected
     When I select "Based on Site ID" string form the "TID Generator Template" dropdown menu
     And the "TID Generator Template" dropdown menu should contain "Based on Site ID" string

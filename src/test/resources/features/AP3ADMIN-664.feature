@@ -61,7 +61,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     When I select "ROME TerminalProfile 1002 OPT (1002)" string from the "Terminal Profile" dropdown menu
     Then I should see the "Terminal Profile" dropdown menu which is enabled and has "ROME TerminalProfile 1002 OPT (1002)" value selected
     When I click on the "Terminal ID Reload" button
-    Then the "Terminal ID Reload" textbox should contain "ROSITE02YY" string
+    Then the "Terminal ID" textbox should contain "ROSITE02" string
 
 
 

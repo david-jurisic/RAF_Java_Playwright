@@ -225,7 +225,7 @@ public class AdminSharedSteps extends BaseUtil{
     {
         WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
 
-        textbox.getAttribute("value").equals(arg1);
+        textbox.getAttribute("value").contains(arg1);
     }
 
     @When("I click on the {string} checkbox")
