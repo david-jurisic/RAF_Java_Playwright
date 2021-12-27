@@ -18,16 +18,6 @@ public class AeviAdminShared extends BaseUtil {
         String sPage = driver.getTitle();
 
         switch (sPage) {
-            case "Privacy error":
-                switch (sButtonName) {
-                    case "Advanced":
-                        button = AeviAdminMap.ChromeWarningPage.btnAdvanced;
-                        break;
-                    case "Proceed to":
-                        button = AeviAdminMap.ChromeWarningPage.btnProceedTo;
-                        break;
-                }
-                break;
             case "AEVI Pay Admin | Login":
                 switch (sButtonName) {
                     case "Save Changes":
@@ -37,14 +27,8 @@ public class AeviAdminShared extends BaseUtil {
                 break;
             case "AEVI Pay Admin | Organization Units":
                 switch (sButtonName) {
-                    case "User Settings":
-                        button = AeviAdminMap.OrganizationUnits.btnUserSettings;
-                        break;
                     case "New Record":
                         button = AeviAdminMap.OrganizationUnits.btnNewRecord;
-                        break;
-                    case "Log Out":
-                        button = AeviAdminMap.UserSettings.btnLogOut;
                         break;
                     case "Add Site":
                         button = AeviAdminMap.OrganizationUnits.btnAddSite;

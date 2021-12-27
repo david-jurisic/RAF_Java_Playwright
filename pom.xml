@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <io.cucumber.version>5.7.0</io.cucumber.version>
+        <io.cucumber.version>7.1.0</io.cucumber.version>
     </properties>
     <dependencies>
         <dependency>

@@ -5,34 +5,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import util.UI.AdminUtil;
 
-import java.util.List;
-
 public class AeviAdminMap extends BaseUtil {
-    public static class ChromeWarningPage
-    {
-        public static String chromePage = AdminUtil.WEBPAGE_URL;
-        public static WebElement btnAdvanced = driver.findElement(By.id("details-button"));
-        public static WebElement btnProceedTo = driver.findElement(By.id("proceed-link"));
-    }
-
     public static class LoginPage
     {
         public static String page = AdminUtil.WEBPAGE_URL + "/user/login";
         public static WebElement btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
     }
 
+    public static class UserCard
+    {
+        public static WebElement ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
+        public static WebElement btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
+        public static WebElement btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
+    }
+
     public static class OrganizationUnits
     {
         public static String page = AdminUtil.WEBPAGE_URL + "/organization-units";
-        public static WebElement btnUserSettings = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div/span[3]"));
         public static WebElement btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button"));
         public static WebElement ddlChooseAnOption = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul"));
         public static WebElement btnAddSite = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a"));
-    }
-
-    public static class UserSettings
-    {
-        public static WebElement btnLogOut = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]/div[2]/div/a"));
     }
 
     public static class SideBarMenu

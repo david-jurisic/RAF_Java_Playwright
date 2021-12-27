@@ -4,11 +4,6 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
   @TestCaseCode:TC001 @TC001 @Author:Drazen-Kozic @UI @AP3ADMIN-664
   Scenario: TerminalID Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
-    Then I should see the "Chrome Warning Screen" page
-    And I should see the "Advanced" button which is enabled
-    When I click on the "Advanced" button
-    Then I should see the "Proceed to" button which is enabled
-    When I click on the "Proceed to" button
     Then I should see the "Login to Data Group" page
     And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
@@ -29,15 +24,15 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Parent Unit" dropdown menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
+    When I click on the "User Card" button user card menu
+    Then I should see the "UserCard" button dropdown user card menu
+    And I should see the "Log Out" button in usercard menu which is enabled
+    When I click on the "Log Out" button in usercard menu
+    Then I should see the "Login to Data Group" page
 
   @TestCaseCode:TC002 @TC002 @Author:Drazen-Kozic @UI @AP3ADMIN-664
   Scenario: SiteId Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
-    Then I should see the "Chrome Warning Screen" page
-    And I should see the "Advanced" button which is enabled
-    When I click on the "Advanced" button
-    Then I should see the "Proceed to" button which is enabled
-    When I click on the "Proceed to" button
     Then I should see the "Login to Data Group" page
     And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
@@ -62,6 +57,11 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Terminal Profile" dropdown menu which is enabled and has "ROME TerminalProfile 1002 OPT (1002)" value selected
     When I click on the "Terminal ID Reload" button
     Then the "Terminal ID" textbox should contain "ROSITE02" string
+    When I click on the "User Card" button user card menu
+    Then I should see the "UserCard" button dropdown user card menu
+    And I should see the "Log Out" button in usercard menu which is enabled
+    When I click on the "Log Out" button in usercard menu
+    Then I should see the "Login to Data Group" page
 
 
 

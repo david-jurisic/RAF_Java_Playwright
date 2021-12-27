@@ -16,12 +16,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AdminSharedSteps extends BaseUtil{
-    private String _url = AdminUtil.WEBPAGE_URL;
+    private final String _url = AdminUtil.WEBPAGE_URL;
 
     @Given("I have opened the {string} page")
     public void iHaveOpenedThePage(String arg0)
     {
-        driver.get(_url);
+        try
+        {
+            driver.get(_url);
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            driver.get(_url);
+        }
     }
 
     @Then("I should see the {string} page")
@@ -29,9 +36,6 @@ public class AdminSharedSteps extends BaseUtil{
         String page = "";
         switch(arg0)
         {
-            case "Chrome Warning Screen":
-                page = AeviAdminMap.ChromeWarningPage.chromePage;
-                break;
             case "Login to Data Group":
                 page = AeviAdminMap.LoginPage.page;
                 break;
@@ -89,15 +93,23 @@ public class AdminSharedSteps extends BaseUtil{
         switch(arg0)
         {
             case "Form Configs":
+                AeviAdminMap.SideBarMenu.btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
                 button = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                AeviAdminMap.SideBarMenu.btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
                 button = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
                 button = AeviAdminMap.SideBarMenu.btnTerminals;
                 break;
             case "Contracts":
+                AeviAdminMap.SideBarMenu.btnContracts = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[5]/a/span"));
                 button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
@@ -115,7 +127,7 @@ public class AdminSharedSteps extends BaseUtil{
         {
             case "Form Configs":
                 button = AeviAdminMap.SideBarMenu.btnFormConfigs;
-                AeviAdminShared.Wait(2);
+                //AeviAdminShared.Wait(2);
                 break;
             case "Data Groups":
                 button = AeviAdminMap.SideBarMenu.btnDataGroups;
@@ -145,9 +157,23 @@ public class AdminSharedSteps extends BaseUtil{
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
-            AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
-            AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
-            AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+            String sPage = driver.getTitle();
+            switch (sPage)
+            {
+                case "AEVI Pay Admin | Terminal":
+                    AeviAdminMap.TerminalsAdd.txtTerminalId = driver.findElement(By.id("terminalIdInput"));
+                    AeviAdminMap.TerminalsAdd.ddlOrganizationUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
+                    AeviAdminMap.TerminalsAdd.ddlTerminalProfile = driver.findElement(By.id("terminalProfileSelector"));
+                    AeviAdminMap.TerminalsAdd.btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
+                    AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
+                    AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
+                    break;
+                case "AEVI Pay Admin | Data Groups":
+                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    break;
+            }
 
             WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
 
@@ -319,10 +345,21 @@ public class AdminSharedSteps extends BaseUtil{
 
     @And("I should see the {string} button which is enabled")
     public void iShouldSeeTheButtonWhichIsEnabled(String arg0) {
-        WebElement button = AeviAdminShared.FindButtonByName(arg0);
+        try
+        {
+            WebElement button = AeviAdminShared.FindButtonByName(arg0);
 
-        button.isDisplayed();
-        button.isEnabled();
+            button.isDisplayed();
+            button.isEnabled();
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
+            WebElement button = AeviAdminShared.FindButtonByName(arg0);
+
+            button.isDisplayed();
+            button.isEnabled();
+        }
     }
 
     @When("I click on the {string} button in the button dropdown menu")
@@ -363,6 +400,7 @@ public class AdminSharedSteps extends BaseUtil{
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
+            AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
             WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
             List<WebElement> list = element.findElements(By.tagName("li"));
@@ -373,11 +411,24 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} dropdown menu item")
     public void iClickOnTheDropdownMenuItem(String arg0) {
-        WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+        try
+        {
+            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
-        AeviAdminShared.Wait(2);
-        List<WebElement> list = element.findElements(By.tagName("li"));
-        list.get(0).click();
+            AeviAdminShared.Wait(2);
+            List<WebElement> list = element.findElements(By.tagName("li"));
+            list.get(0).click();
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+
+            AeviAdminShared.Wait(2);
+            List<WebElement> list = element.findElements(By.tagName("li"));
+            list.get(0).click();
+        }
+
+
     }
 
     @Then("I should see the {string} button dropdown menu")
@@ -405,5 +456,37 @@ public class AdminSharedSteps extends BaseUtil{
 
         tab.isDisplayed();
         tab.isEnabled();
+    }
+
+    @When("I click on the {string} button user card menu")
+    public void iClickOnTheButtonUserCardMenu(String arg0) {
+        AeviAdminMap.UserCard.ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
+        AeviAdminMap.UserCard.btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
+        AeviAdminMap.UserCard.btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
+
+        WebElement button = AeviAdminMap.UserCard.btnUserCard;
+
+        button.click();
+    }
+
+    @Then("I should see the {string} button dropdown user card menu")
+    public void iShouldSeeTheButtonDropdownUserCardMenu(String arg0) {
+        WebElement ddmUserCard = AeviAdminMap.UserCard.ddmUserCard;
+
+        ddmUserCard.isDisplayed();
+    }
+
+    @And("I should see the {string} button in usercard menu which is enabled")
+    public void iShouldSeeTheButtonInUsercardMenuWhichIsEnabled(String arg0) {
+        WebElement button = AeviAdminMap.UserCard.btnLogOut;
+
+        button.isDisplayed();
+    }
+
+    @When("I click on the {string} button in usercard menu")
+    public void iClickOnTheButtonInUsercardMenu(String arg0) {
+        WebElement button = AeviAdminMap.UserCard.btnLogOut;
+
+        button.click();
     }
 }

@@ -1,3 +1,4 @@
+import base.UI.BaseUtil;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import net.masterthought.cucumber.Configuration;
@@ -5,30 +6,24 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.junit.AfterClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = {"src/test/resources/features/"},
-        strict = false,
         plugin = {"pretty",
                     "json:target/cucumber_json_reports/report.json"},
-        glue = {"hook.UI","glue.UI"},
-        monochrome = false)
+        glue = {"hook.UI","glue.UI"})
 
-public class RunAeviAdminTests {
-    @SuppressWarnings("unchecked")
+public class RunAeviAdminTests extends BaseUtil {
+
     @AfterClass
-    public static void generateReport() throws IOException {
-        File reportOutputDirectory = new File("target/cucumber_html_reports");
+    public static void generateReport() {
+        File reportOutputDirectory = new File("target/cucumber_full_html_reports");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber_json_reports/report.json");
 

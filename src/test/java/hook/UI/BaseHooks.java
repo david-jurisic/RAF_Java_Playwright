@@ -1,25 +1,27 @@
 package hook.UI;
 
-import io.cucumber.java.After;
+import base.UI.BaseUtil;
 import io.cucumber.java.Scenario;
+import org.junit.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
-public class BaseHooks {
-    public static WebDriver driver;
-
+public class BaseHooks extends BaseUtil {
     @Before
     public void InitializeTest() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("start-maximized");
-        System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
-        this.driver = new ChromeDriver(chromeOptions);
+        if(this.driver == null)
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("start-maximized");
+            chromeOptions.addArguments("--ignore-ssl-errors=yes");
+            chromeOptions.addArguments("--ignore-certificate-errors");
+            System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
+            this.driver = new ChromeDriver(chromeOptions);
+        }
     }
 
     @After
@@ -28,7 +30,7 @@ public class BaseHooks {
             saveScreenshotsForScenario(scenario);
         }
 
-        this.driver.close();
+        this.driver.quit();
     }
 
     private void saveScreenshotsForScenario(final Scenario scenario) {
