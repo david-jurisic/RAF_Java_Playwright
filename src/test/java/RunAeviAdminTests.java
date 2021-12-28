@@ -23,6 +23,8 @@ public class RunAeviAdminTests extends BaseUtil {
 
     @AfterClass
     public static void generateReport() {
+        driver.quit();
+
         File reportOutputDirectory = new File("target/cucumber_full_html_reports");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber_json_reports/report.json");

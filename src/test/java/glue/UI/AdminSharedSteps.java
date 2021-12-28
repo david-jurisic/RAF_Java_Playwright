@@ -1,19 +1,20 @@
 package glue.UI;
 
 import base.UI.BaseUtil;
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AdminSharedSteps extends BaseUtil{
     private final String _url = AdminUtil.WEBPAGE_URL;
@@ -64,12 +65,11 @@ public class AdminSharedSteps extends BaseUtil{
                 page = AeviAdminMap.ContractsAdd.page;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Page not found: " + arg0);
                 break;
-
         }
 
-        driver.getCurrentUrl().equals(page);
+        Assert.assertEquals(page, driver.getCurrentUrl());
     }
 
     @When("I click on the {string} button")
@@ -97,11 +97,7 @@ public class AdminSharedSteps extends BaseUtil{
                 button = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                AeviAdminShared.ThreadWait(2000);
                 AeviAdminMap.SideBarMenu.btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
                 button = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
@@ -113,7 +109,7 @@ public class AdminSharedSteps extends BaseUtil{
                 button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Button in sidebar menu not found: " + arg0);
                 break;
         }
 
@@ -139,7 +135,7 @@ public class AdminSharedSteps extends BaseUtil{
                 button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Button in sidebar menu not found: " + arg0);
                 break;
         }
 
@@ -153,7 +149,7 @@ public class AdminSharedSteps extends BaseUtil{
 
             textbox.isDisplayed();
             textbox.isEnabled();
-            textbox.getAttribute("value").isEmpty();
+            Assert.assertTrue(textbox.getText().isEmpty());
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
@@ -173,15 +169,17 @@ public class AdminSharedSteps extends BaseUtil{
                     AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
                     AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
                     break;
+                default:
+                    Assert.fail("Missing StaleElementReference for this page");
+                    break;
             }
 
             WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
 
             textbox.isDisplayed();
             textbox.isEnabled();
-            textbox.getAttribute("value").isEmpty();
+            Assert.assertTrue(textbox.getText().isEmpty());
         }
-
     }
 
     @And("I should see the {string} checkbox which is enabled and {string}")
@@ -193,13 +191,13 @@ public class AdminSharedSteps extends BaseUtil{
         switch(arg1)
         {
             case "checked":
-                assertEquals(checkbox.isSelected(), true);
+                assertEquals(true,checkbox.isSelected() );
                 break;
             case "not checked":
-                assertEquals(checkbox.isSelected(),false);
+                assertEquals(false,checkbox.isSelected());
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Checkbox not found: " + arg0);
                 break;
         }
     }
@@ -226,7 +224,7 @@ public class AdminSharedSteps extends BaseUtil{
     {
         WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
 
-        textbox.getAttribute("value").contains(arg1);
+        Assert.assertEquals(arg1, textbox.getAttribute("value"));
     }
 
     @When("I click on the {string} checkbox")
@@ -239,6 +237,9 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
             case "Check Site ID/Terminal ID":
                 checkbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click;
+                break;
+            default:
+                Assert.fail("Checkbox not found: " + arg0);
                 break;
         }
 
@@ -275,13 +276,15 @@ public class AdminSharedSteps extends BaseUtil{
                 dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Dropdow menu element not found: " + arg0);
                 break;
         }
 
         dropdown.isDisplayed();
         dropdown.isEnabled();
-        dropdown.getText().equals(arg1);
+
+        Select items = new Select(dropdown);
+        Assert.assertEquals(arg1, items.getFirstSelectedOption().getText());
     }
 
     @When("I select {string} string from the {string} dropdown menu")
@@ -300,7 +303,7 @@ public class AdminSharedSteps extends BaseUtil{
                 dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Dropdow menu element not found: " + arg1);
                 break;
         }
 
@@ -308,39 +311,20 @@ public class AdminSharedSteps extends BaseUtil{
         items.selectByVisibleText(arg0);
     }
 
-    @And("the {string} dropdown menu should contain {string} string")
-    public void theDropdownMenuShouldContainString(String arg0, String arg1) {
-        WebElement dropdown = null;
-
-        switch (arg0)
-        {
-            case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
-                break;
-            default:
-                assertTrue("element not found: " + arg0 ,false);
-                break;
-        }
-
-        dropdown.isDisplayed();
-        dropdown.isEnabled();
-        dropdown.getText().equals(arg1);
-    }
-
     @Then("I should see the {string} success message")
     public void iShouldSeeTheSuccessMessage(String arg0) {
         WebElement msg = null;
         switch (arg0)
         {
-            case "Data Group was created successfully.":
+            case "Success! Data Group was created successfully.":
                 msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                 break;
             default:
-                assertTrue("element not found: " + arg0 ,false);
+                Assert.fail("Message not found: " + arg0);
                 break;
         }
 
-        msg.getText().equals(arg0);
+        Assert.assertEquals(arg0, msg.getText());
     }
 
     @And("I should see the {string} button which is enabled")
@@ -384,6 +368,9 @@ public class AdminSharedSteps extends BaseUtil{
             case "Terminal Profile":
                 dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
+            default:
+                Assert.fail("Dropdown not found: " + arg0);
+                break;
         }
 
         dropdown.click();
@@ -396,7 +383,8 @@ public class AdminSharedSteps extends BaseUtil{
             WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
             List<WebElement> list = element.findElements(By.tagName("li"));
-            list.get(0).getAttribute("value").equals(arg1);
+            AeviAdminShared.ThreadWait(1000);
+            Assert.assertEquals(arg1, list.get(0).getText());
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
@@ -404,7 +392,7 @@ public class AdminSharedSteps extends BaseUtil{
             WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
             List<WebElement> list = element.findElements(By.tagName("li"));
-            list.get(0).getAttribute("value").equals(arg1);
+            Assert.assertEquals(arg1, list.get(0).getText());
         }
 
     }
@@ -443,6 +431,9 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
             case "AEVI Pay Admin | Contracts":
                 dropdown = AeviAdminMap.Contracts.ddlChooseAnOption;
+                break;
+            default:
+                Assert.fail("Button in dropdown menu not found: " + arg0);
                 break;
 
         }
@@ -488,5 +479,47 @@ public class AdminSharedSteps extends BaseUtil{
         WebElement button = AeviAdminMap.UserCard.btnLogOut;
 
         button.click();
+    }
+
+    @Then("I should see the {string} dropdown text menu which is enabled and has {string} value selected")
+    public void iShouldSeeTheDropdownTextMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1) {
+        WebElement dropdown = null;
+
+        switch (arg0)
+        {
+            case "Parent Unit":
+                dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                break;
+            case "Organization Unit":
+                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                break;
+            default:
+                Assert.fail("Dropdow text menu element not found: " + arg0);
+                break;
+        }
+
+        String value = null;
+        switch (arg1)
+        {
+            case "":
+                arg1 = null;
+                value = dropdown.getAttribute("value");
+                break;
+            default:
+                value = dropdown.getText();
+                break;
+        }
+        dropdown.isDisplayed();
+        dropdown.isEnabled();
+
+        Assert.assertEquals(arg1, value);
+    }
+
+    @Then("the {string} textbox should starts with {string} string")
+    public void theTextboxShouldStartsWithString(String arg0, String arg1) {
+        WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+
+        AeviAdminShared.ThreadWait(1000);
+        Assert.assertTrue (arg1, textbox.getAttribute("value").startsWith(arg1));
     }
 }

@@ -32,10 +32,10 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     When I click on the "Parameters" tab
     Then I should see the "TID Generator Template" dropdown menu which is enabled and has "Select" value selected
     When I select "Based on Site ID" string from the "TID Generator Template" dropdown menu
-    Then the "TID Generator Template" dropdown menu should contain "Based on Site ID" string
+    Then I should see the "TID Generator Template" dropdown menu which is enabled and has "Based on Site ID" value selected
     When I click on the "OK" button
     Then I should see the "Data Groups" page
-    And I should see the "Data Group was created successfully." success message
+    And I should see the "Success! Data Group was created successfully." success message
     And I should see the "Close Message" button which is enabled
     When I click on the "Close Message" button
     Then I should see the "Name" textbox which is enabled and empty
@@ -43,6 +43,11 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     Then the "Name" textbox should contain "test1" string
     When I click on the "Search" button
     Then I should see the "Data Groups" page
+    When I click on the "User Card" button user card menu
+    Then I should see the "UserCard" button dropdown user card menu
+    And I should see the "Log Out" button in usercard menu which is enabled
+    When I click on the "Log Out" button in usercard menu
+    Then I should see the "Login to Data Group" page
 
 
 

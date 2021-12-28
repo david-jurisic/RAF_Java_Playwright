@@ -15,13 +15,13 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "AEVI Pay Admin| Site" page
     And I should see the "Site ID" textbox which is enabled and empty
     And I should see the "Site ID Reload" button which is enabled
-    And I should see the "Parent Unit" dropdown menu which is enabled and has "" value selected
+    And I should see the "Parent Unit" dropdown text menu which is enabled and has "" value selected
     When I click on the "Parent Unit" dropdown menu
     Then I should see the "Parent Unit" textbox which is enabled and empty
     When I enter "ROME Organization 1001" string into "Parent Unit" textbox
     Then the "Parent Unit" dropdown list should contain "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" string
     When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" dropdown menu item
-    Then I should see the "Parent Unit" dropdown menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
+    Then I should see the "Parent Unit" dropdown text menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
     When I click on the "User Card" button user card menu
@@ -45,18 +45,18 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "AEVI Pay Admin| Terminal" page
     And I should see the "Terminal ID" textbox which is enabled and empty
     And I should see the "Terminal ID Reload" button which is enabled
-    And I should see the "Organization Unit" dropdown menu which is enabled and has "" value selected
+    And I should see the "Organization Unit" dropdown text menu which is enabled and has "" value selected
     And I should see the "Terminal Profile" dropdown menu which is enabled and has "Select" value selected
     When I click on the "Organization Unit" dropdown menu
     Then I should see the "Organization Unit" textbox which is enabled and empty
     When I enter "ROME Organization 1002" string into "Organization Unit" textbox
-    Then the "Organization Unit" dropdown list should contain "ROME Organization 1002 SITE_GROUP ROSITE02 (1002)" string
-    When I click on the "ROME Organization 1002 SITE_GROUP ROSITE01 (1002)" dropdown menu item
-    Then I should see the "Organization Unit" dropdown menu which is enabled and has "ROME Organization 1002 SITE_GROUP ROSITE02 (1002)" value selected
+    Then the "Organization Unit" dropdown list should contain "ROME Organization 1002 SITE ROSITE02 (1002)" string
+    When I click on the "ROME Organization 1002 SITE ROSITE02 (1002)" dropdown menu item
+    Then I should see the "Organization Unit" dropdown text menu which is enabled and has "ROME Organization 1002 SITE ROSITE02 (1002)" value selected
     When I select "ROME TerminalProfile 1002 OPT (1002)" string from the "Terminal Profile" dropdown menu
     Then I should see the "Terminal Profile" dropdown menu which is enabled and has "ROME TerminalProfile 1002 OPT (1002)" value selected
     When I click on the "Terminal ID Reload" button
-    Then the "Terminal ID" textbox should contain "ROSITE02" string
+    Then the "Terminal ID" textbox should starts with "ROSITE02" string
     When I click on the "User Card" button user card menu
     Then I should see the "UserCard" button dropdown user card menu
     And I should see the "Log Out" button in usercard menu which is enabled

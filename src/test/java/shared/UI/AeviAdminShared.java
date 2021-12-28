@@ -13,6 +13,15 @@ public class AeviAdminShared extends BaseUtil {
         driver.manage().timeouts().implicitlyWait(iTime, SECONDS);
     }
 
+    public static void ThreadWait(int iTime)
+    {
+        try {
+            Thread.sleep(iTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static WebElement FindButtonByName(String sButtonName) {
         WebElement button = null;
         String sPage = driver.getTitle();
@@ -112,6 +121,7 @@ public class AeviAdminShared extends BaseUtil {
             case "AEVI Pay Admin | Site":
                 switch (sTextboxName) {
                     case "Site ID":
+                        ThreadWait(1000);
                         textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
                         break;
                     case "Parent Unit":
