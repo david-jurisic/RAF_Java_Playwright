@@ -45,10 +45,10 @@ public class AdminSharedSteps extends BaseUtil{
             case "Organization Units":
                 page = AeviAdminMap.OrganizationUnits.page;
                 break;
-            case "Data Groups":
+            case "AEVI Pay Admin| Data Groups":
                 page = AeviAdminMap.DataGroups.page;
                 break;
-            case "Data Groups Add":
+            case "AEVI Pay Admin| Data Group":
                 page = AeviAdminMap.DataGroupsAdd.page;
                 break;
             case "AEVI Pay Admin| Site":
@@ -340,7 +340,20 @@ public class AdminSharedSteps extends BaseUtil{
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
-            AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
+            String sPage = driver.getTitle();
+            switch (sPage)
+            {
+                case "Login to Data Group":
+                    AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
+                    break;
+                case "AEVI Pay Admin | Data Group":
+                    AeviAdminMap.DataGroupsAdd.btnOK = driver.findElement(By.name("_form2"));
+                    break;
+                default:
+                    Assert.fail("Missing StaleElementReference for this page");
+                    break;
+            }
+
             WebElement button = AeviAdminShared.FindButtonByName(arg0);
 
             button.isDisplayed();
@@ -495,14 +508,37 @@ public class AdminSharedSteps extends BaseUtil{
 
     @And("I should see the {string} table")
     public void iShouldSeeTheTable(String arg0) {
-        WebElement table = null;
-        switch (arg0)
-        {
-            case "Accepted Application Profiles":
-                table = AeviAdminMap.ContractsAdd.tblProfile;
-        }
+        try {
+            WebElement table = null;
+            switch (arg0)
+            {
+                case "Accepted Application Profiles":
+                    table = AeviAdminMap.ContractsAdd.tblProfile;
+                    break;
+                case "Data Groups":
+                    table = AeviAdminMap.DataGroups.tblDataGroups;
+                    break;
+            }
 
-        table.isDisplayed();
+            table.isDisplayed();
+        }
+        catch(org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            AeviAdminMap.DataGroups.tblDataGroups = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table"));
+
+            WebElement table = null;
+            switch (arg0)
+            {
+                case "Accepted Application Profiles":
+                    table = AeviAdminMap.ContractsAdd.tblProfile;
+                    break;
+                case "Data Groups":
+                    table = AeviAdminMap.DataGroups.tblDataGroups;
+                    break;
+            }
+
+            table.isDisplayed();
+        }
     }
 
     @When("I logout from {string} page")
@@ -526,23 +562,51 @@ public class AdminSharedSteps extends BaseUtil{
     public void iShouldSeeStringInRowOfTheColumnInTable(String arg0, String arg1, String arg2, String arg3) {
         List<WebElement> headers = null;
         List<WebElement> rowElements = null;
-        String sPage = driver.getTitle();
 
-        switch (sPage) {
-            case "AEVI Pay Admin | Contract":
-                switch (arg3) {
-                    case "Accepted Application Profiles":
-                        headers= AeviAdminMap.ContractsAdd.tblProfileHeaders.findElements(By.tagName("th"));
-                        rowElements = AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow.findElements(
-                                new ByChained(
-                                        By.xpath("./tr[" + (Integer.parseInt(arg1) + 1) + "]"),
-                                        By.tagName("td")));
-                        break;
-                }
+        switch (arg3) {
+            case "Accepted Application Profiles":
+                headers= AeviAdminMap.ContractsAdd.tblProfileHeaders.findElements(By.tagName("th"));
+                rowElements = AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow.findElements(
+                        new ByChained(
+                                By.xpath("./tr[" + (Integer.parseInt(arg1) + 1) + "]"),
+                                By.tagName("td")));
+                break;
+            case "Data Groups":
+                headers= AeviAdminMap.DataGroups.tblDataGroups.findElements(By.tagName("th"));
+                rowElements = AeviAdminMap.DataGroups.tblDataGroups.findElements(
+                        new ByChained(
+                                By.xpath("./tbody/tr[" + arg1 + "]"),
+                                By.tagName("td")));
                 break;
         }
 
         String cellValue = AeviAdminShared.GetCellValueByColumnNameAndRowIndex(headers, rowElements, arg2);
         Assert.assertEquals(arg0, cellValue);
+    }
+
+    @When("I click on the {string} in row {string} of {string} column in {string} table")
+    public void iClickOnTheInRowOfColumnInTable(String arg0, String arg1, String arg2, String arg3) {
+        WebElement element = null;
+
+        switch (arg3) {
+            case "Data Groups":
+                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + 1 + "]"));
+                break;
+        }
+
+        element.click();
+    }
+
+    @Then("I should see the {string} edit page")
+    public void iShouldSeeTheEditPage(String arg0) {
+        String page = "";
+        switch(arg0)
+        {
+            case "AEVI Pay Admin| Data Group":
+                page = AeviAdminMap.DataGroupsAdd.pageEdit;
+                break;
+        }
+
+        Assert.assertTrue (arg0, driver.getCurrentUrl().startsWith(page));
     }
 }

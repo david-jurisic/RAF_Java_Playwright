@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31c7b0a9-ade3-43cd-b3cf-bac559ec02c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/map/UI/AeviAdminMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/map/UI/AeviAdminMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/shared/UI/AeviAdminShared.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shared/UI/AeviAdminShared.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-665.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-665.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,15 +33,15 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.6436782" />
   </component>
-  <component name="RunManager" selected="JUnit.RunAeviAdminTests">
-    <configuration name="Feature: AP3ADMIN-664" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Cucumber Java.Feature: AP3ADMIN-666">
+    <configuration name="Feature: AP3ADMIN-665" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-664.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-665.feature" />
       <option name="GLUE" value="hook.UI glue.UI" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="AeviAdminTest" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-664" />
+      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-665" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -57,14 +53,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Feature: AP3ADMIN-665" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Feature: AP3ADMIN-666" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-665.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/AP3ADMIN-666.feature" />
       <option name="GLUE" value="hook.UI glue.UI" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="AeviAdminTest" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-665" />
+      <option name="SUGGESTED_NAME" value="Feature: AP3ADMIN-666" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -126,11 +122,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Cucumber Java.Feature: AP3ADMIN-666" />
         <item itemvalue="JUnit.RunAeviAdminTests" />
         <item itemvalue="Cucumber Java.Feature: AP3ADMIN-665" />
         <item itemvalue="Cucumber Java.Scenario: TerminalID Reloading buttons doesn't work" />
         <item itemvalue="Cucumber Java.Feature: TestTables" />
-        <item itemvalue="Cucumber Java.Feature: AP3ADMIN-664" />
       </list>
     </recent_temporary>
   </component>
@@ -155,32 +151,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java</url>
-          <line>328</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java</url>
-          <line>513</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java</url>
-          <line>516</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/glue/UI/AdminSharedSteps.java</url>
-          <line>519</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AeviAdminTest$Scenario__SiteId_Reloading_buttons_doesn_t_work.ic" NAME="Scenario: SiteId Reloading buttons doesn't work Coverage Results" MODIFIED="1640268780142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
