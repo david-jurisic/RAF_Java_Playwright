@@ -43,10 +43,7 @@ Feature: AP3ADMIN-666-SiteID already exists after saving a previously created.
     Then the "Name" textbox should contain "test1" string
     When I click on the "Search" button
     Then I should see the "Data Groups" page
-    When I click on the "User Card" button user card menu
-    Then I should see the "UserCard" button dropdown user card menu
-    And I should see the "Log Out" button in usercard menu which is enabled
-    When I click on the "Log Out" button in usercard menu
+    When I logout from "SMCAdmin" page
     Then I should see the "Login to Data Group" page
 
 

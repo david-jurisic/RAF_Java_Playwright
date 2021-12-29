@@ -24,10 +24,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Parent Unit" dropdown text menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
-    When I click on the "User Card" button user card menu
-    Then I should see the "UserCard" button dropdown user card menu
-    And I should see the "Log Out" button in usercard menu which is enabled
-    When I click on the "Log Out" button in usercard menu
+    When I logout from "SMCAdmin" page
     Then I should see the "Login to Data Group" page
 
   @TestCaseCode:TC002 @TC002 @Author:Drazen-Kozic @UI @AP3ADMIN-664
@@ -57,10 +54,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     Then I should see the "Terminal Profile" dropdown menu which is enabled and has "ROME TerminalProfile 1002 OPT (1002)" value selected
     When I click on the "Terminal ID Reload" button
     Then the "Terminal ID" textbox should starts with "ROSITE02" string
-    When I click on the "User Card" button user card menu
-    Then I should see the "UserCard" button dropdown user card menu
-    And I should see the "Log Out" button in usercard menu which is enabled
-    When I click on the "Log Out" button in usercard menu
+    When I logout from "SMCAdmin" page
     Then I should see the "Login to Data Group" page
 
 

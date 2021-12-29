@@ -7,8 +7,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
@@ -449,38 +451,6 @@ public class AdminSharedSteps extends BaseUtil{
         tab.isEnabled();
     }
 
-    @When("I click on the {string} button user card menu")
-    public void iClickOnTheButtonUserCardMenu(String arg0) {
-        AeviAdminMap.UserCard.ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
-        AeviAdminMap.UserCard.btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
-        AeviAdminMap.UserCard.btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
-
-        WebElement button = AeviAdminMap.UserCard.btnUserCard;
-
-        button.click();
-    }
-
-    @Then("I should see the {string} button dropdown user card menu")
-    public void iShouldSeeTheButtonDropdownUserCardMenu(String arg0) {
-        WebElement ddmUserCard = AeviAdminMap.UserCard.ddmUserCard;
-
-        ddmUserCard.isDisplayed();
-    }
-
-    @And("I should see the {string} button in usercard menu which is enabled")
-    public void iShouldSeeTheButtonInUsercardMenuWhichIsEnabled(String arg0) {
-        WebElement button = AeviAdminMap.UserCard.btnLogOut;
-
-        button.isDisplayed();
-    }
-
-    @When("I click on the {string} button in usercard menu")
-    public void iClickOnTheButtonInUsercardMenu(String arg0) {
-        WebElement button = AeviAdminMap.UserCard.btnLogOut;
-
-        button.click();
-    }
-
     @Then("I should see the {string} dropdown text menu which is enabled and has {string} value selected")
     public void iShouldSeeTheDropdownTextMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1) {
         WebElement dropdown = null;
@@ -521,5 +491,58 @@ public class AdminSharedSteps extends BaseUtil{
 
         AeviAdminShared.ThreadWait(1000);
         Assert.assertTrue (arg1, textbox.getAttribute("value").startsWith(arg1));
+    }
+
+    @And("I should see the {string} table")
+    public void iShouldSeeTheTable(String arg0) {
+        WebElement table = null;
+        switch (arg0)
+        {
+            case "Accepted Application Profiles":
+                table = AeviAdminMap.ContractsAdd.tblProfile;
+        }
+
+        table.isDisplayed();
+    }
+
+    @When("I logout from {string} page")
+    public void iLogoutFromPage(String arg0) {
+        AeviAdminMap.UserCard.ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
+        AeviAdminMap.UserCard.btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
+        AeviAdminMap.UserCard.btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
+
+        WebElement userCard = AeviAdminMap.UserCard.btnUserCard;
+        userCard.click();
+
+        WebElement ddUserCard = AeviAdminMap.UserCard.ddmUserCard;
+        ddUserCard.isDisplayed();
+
+        WebElement logOut = AeviAdminMap.UserCard.btnLogOut;
+        logOut.isDisplayed();
+        logOut.click();
+    }
+
+    @And("I should see {string} string in row {string} of the {string} column in {string} table")
+    public void iShouldSeeStringInRowOfTheColumnInTable(String arg0, String arg1, String arg2, String arg3) {
+        List<WebElement> headers = null;
+        List<WebElement> rowElements = null;
+        String sPage = driver.getTitle();
+
+        switch (sPage) {
+            case "AEVI Pay Admin | Contract":
+                switch (arg3) {
+                    case "Accepted Application Profiles":
+                        headers= AeviAdminMap.ContractsAdd.tblProfileHeaders.findElements(By.tagName("th"));
+                        rowElements = AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow.findElements(
+                                new ByChained(
+                                        By.xpath("./tr[" + (Integer.parseInt(arg1) + 1) + "]"),
+                                        By.tagName("td")));
+                        break;
+                }
+                break;
+        }
+
+        String cellValue = AeviAdminShared.GetCellValueByColumnNameAndRowIndex(headers, rowElements, arg2);
+        Assert.assertEquals(arg0, cellValue);
     }
 }

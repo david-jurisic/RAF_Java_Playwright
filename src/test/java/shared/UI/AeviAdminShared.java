@@ -2,15 +2,22 @@ package shared.UI;
 
 import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
+import java.sql.Time;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class AeviAdminShared extends BaseUtil {
 
     public static void Wait(int iTime)
     {
-        driver.manage().timeouts().implicitlyWait(iTime, SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(iTime));
     }
 
     public static void ThreadWait(int iTime)
@@ -30,6 +37,7 @@ public class AeviAdminShared extends BaseUtil {
             case "AEVI Pay Admin | Login":
                 switch (sButtonName) {
                     case "Save Changes":
+                        ThreadWait(1000);
                         button = AeviAdminMap.LoginPage.btnSaveChanges;
                         break;
                 }
@@ -186,5 +194,37 @@ public class AeviAdminShared extends BaseUtil {
         }
 
         return checkbox;
+    }
+
+    public static void VerifyTableColumnExists(List<WebElement> headers, String columnName)
+    {
+        for(WebElement header : headers)
+        {
+            if(header.getText().equals(columnName))
+            {
+                Assert.assertTrue(true);
+                return;
+            }
+        }
+
+        Assert.fail("Table column doesn't exist: " + columnName);
+    }
+
+
+    public static String GetCellValueByColumnNameAndRowIndex(List<WebElement> headers, List<WebElement> row, String columnName)
+    {
+        VerifyTableColumnExists(headers,columnName);
+
+        Integer columnNumber = 0;
+        for(int i = 1; i<=headers.size(); i++)
+        {
+            if(headers.get(i).getText().equals(columnName))
+            {
+                columnNumber = i;
+                break;
+            }
+        }
+
+        return row.get(columnNumber).getText();
     }
 }

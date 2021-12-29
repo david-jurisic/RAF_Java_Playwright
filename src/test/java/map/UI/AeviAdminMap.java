@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import util.UI.AdminUtil;
 
+import java.util.List;
+
 public class AeviAdminMap extends BaseUtil {
     public static class LoginPage
     {
@@ -109,5 +111,8 @@ public class AeviAdminMap extends BaseUtil {
         public static final String page = AdminUtil.WEBPAGE_URL + "contracts/create?type=physical";
         public static WebElement tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
         public static WebElement ddlApplicationsProfile = driver.findElement(By.id("acceptedAppProfilesSelect"));
+        public static WebElement tblProfile = driver.findElement(By.xpath("//*[@id=\"paramPropertyGroup\"]/div[4]/div/table"));
+        public static WebElement tblProfileHeaders = driver.findElement(By.xpath("//*[@id=\"paramPropertyGroup\"]/div[4]/div/table/thead"));
+        public static WebElement tblProfileBodyFirstRow = driver.findElement(By.id("acceptedAppProfilesTable"));
     }
 }

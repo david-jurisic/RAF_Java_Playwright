@@ -21,10 +21,9 @@ Feature: AP3ADMIN-665-Unable to create a contract
     Then I should see the "Applications Profile" dropdown menu which is enabled and has "Select" value selected
     When I select "ROME ApplicationProfileList (1001)" string from the "Applications Profile" dropdown menu
     Then I should see the "Applications Profile" dropdown menu which is enabled and has "ROME ApplicationProfileList (1001)" value selected
-    When I click on the "User Card" button user card menu
-    Then I should see the "UserCard" button dropdown user card menu
-    And I should see the "Log Out" button in usercard menu which is enabled
-    When I click on the "Log Out" button in usercard menu
+    And I should see the "Accepted Application Profiles" table
+    And I should see "ROME CardType BPE 1" string in row "1" of the "Card Type" column in "Accepted Application Profiles" table
+    When I logout from "SMCAdmin" page
     Then I should see the "Login to Data Group" page
 
 
