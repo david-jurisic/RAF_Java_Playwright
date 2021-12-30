@@ -81,8 +81,8 @@ public class AeviAdminShared extends BaseUtil {
                     case "Search":
                         button = AeviAdminMap.DataGroups.btnSearch;
                         break;
-                    case "Close Message":
-                        button = AeviAdminMap.DataGroupsAddMessage.btnCloseMessage;
+                    case "Delete":
+                        button = AeviAdminMap.DataGroups.btnDelete;
                         break;
                 }
                 break;

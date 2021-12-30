@@ -4,10 +4,10 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
   @TestCaseCode:TC001 @TC001 @Author:Drazen-Kozic @UI @AP3ADMIN-664
   Scenario: TerminalID Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
-    Then I should see the "Login to Data Group" page
+    Then I should see the "AEVI Pay Admin | Login" page
     And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
-    Then I should see the "Organization Units" page
+    Then I should see the "AEVI Pay Admin | Organization Units" page
     And I should see the "New Record" button which is enabled
     When I click on the "New Record" button
     Then I should see the "Choose an option" button dropdown menu
@@ -25,15 +25,15 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     When I click on the "Site ID Reload" button
     Then the "Site ID" textbox should contain "ROSITED" string
     When I logout from "SMCAdmin" page
-    Then I should see the "Login to Data Group" page
+    Then I should see the "AEVI Pay Admin | Login" page
 
   @TestCaseCode:TC002 @TC002 @Author:Drazen-Kozic @UI @AP3ADMIN-664
   Scenario: SiteId Reloading buttons doesn't work
     Given I have opened the "SMCAdmin" page
-    Then I should see the "Login to Data Group" page
+    Then I should see the "AEVI Pay Admin | Login" page
     And I should see the "Save Changes" button which is enabled
     When I click on the "Save Changes" button
-    Then I should see the "Organization Units" page
+    Then I should see the "AEVI Pay Admin | Organization Units" page
     And I should see the "Terminals" button in the sidebar menu
     When I click on the "Terminals" button in the sidebar menu
     Then I should see the "AEVI Pay Admin| Terminals" page
@@ -55,7 +55,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     When I click on the "Terminal ID Reload" button
     Then the "Terminal ID" textbox should starts with "ROSITE02" string
     When I logout from "SMCAdmin" page
-    Then I should see the "Login to Data Group" page
+    Then I should see the "AEVI Pay Admin | Login" page
 
 
 

@@ -39,10 +39,10 @@ public class AdminSharedSteps extends BaseUtil{
         String page = "";
         switch(arg0)
         {
-            case "Login to Data Group":
+            case "AEVI Pay Admin | Login":
                 page = AeviAdminMap.LoginPage.page;
                 break;
-            case "Organization Units":
+            case "AEVI Pay Admin | Organization Units":
                 page = AeviAdminMap.OrganizationUnits.page;
                 break;
             case "AEVI Pay Admin| Data Groups":
@@ -83,6 +83,19 @@ public class AdminSharedSteps extends BaseUtil{
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
+            String sPage = driver.getTitle();
+            switch (sPage)
+            {
+                case "AEVI Pay Admin | Data Groups":
+                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
+                    break;
+                default:
+                    Assert.fail("Missing StaleElementReference for this page");
+                    break;
+            }
+
             WebElement button = AeviAdminShared.FindButtonByName(arg0);
 
             button.click();
@@ -224,9 +237,28 @@ public class AdminSharedSteps extends BaseUtil{
     @Then("the {string} textbox should contain {string} string")
     public void theTextboxShouldContainString(String arg0, String arg1)
     {
-        WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+        try {
+            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
 
-        Assert.assertEquals(arg1, textbox.getAttribute("value"));
+            Assert.assertEquals(arg1, textbox.getAttribute("value"));
+        }
+        catch(org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            String sPage = driver.getTitle();
+            switch (sPage)
+            {
+                case "AEVI Pay Admin | Data Groups":
+                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    break;
+                default:
+                    Assert.fail("Missing StaleElementReference for this page");
+                    break;
+            }
+
+            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+
+            Assert.assertEquals(arg1, textbox.getAttribute("value"));
+        }
     }
 
     @When("I click on the {string} checkbox")
@@ -315,18 +347,50 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} success message")
     public void iShouldSeeTheSuccessMessage(String arg0) {
-        WebElement msg = null;
-        switch (arg0)
+        try
         {
-            case "Success! Data Group was created successfully.":
-                msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
-                break;
-            default:
-                Assert.fail("Message not found: " + arg0);
-                break;
-        }
+            WebElement msg = null;
+            switch (arg0)
+            {
+                case "Success! Data Group was created successfully.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                case "Success! Data Group was updated successfully.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                case "Success! Data Group test1 has been successfully removed.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                default:
+                    Assert.fail("Message not found: " + arg0);
+                    break;
+            }
 
-        Assert.assertEquals(arg0, msg.getText());
+            Assert.assertEquals(arg0, msg.getText());
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException ex)
+        {
+            AeviAdminMap.DataGroupsAddMessage.msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
+
+            WebElement msg = null;
+            switch (arg0)
+            {
+                case "Success! Data Group was created successfully.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                case "Success! Data Group was updated successfully.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                case "Success! Data Group test1 has been successfully removed.":
+                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    break;
+                default:
+                    Assert.fail("Message not found: " + arg0);
+                    break;
+            }
+
+            Assert.assertEquals(arg0, msg.getText());
+        }
     }
 
     @And("I should see the {string} button which is enabled")
@@ -343,11 +407,24 @@ public class AdminSharedSteps extends BaseUtil{
             String sPage = driver.getTitle();
             switch (sPage)
             {
-                case "Login to Data Group":
+                case "AEVI Pay Admin | Login":
                     AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
                     break;
                 case "AEVI Pay Admin | Data Group":
                     AeviAdminMap.DataGroupsAdd.btnOK = driver.findElement(By.name("_form2"));
+                    AeviAdminMap.DataGroupsAdd.txtName = driver.findElement(By.id("dataGroup.name"));
+                    AeviAdminMap.DataGroupsAdd.chkStatus = driver.findElement(By.id("status"));
+                    AeviAdminMap.DataGroupsAdd.chkStatus_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]"));
+                    AeviAdminMap.DataGroupsAdd.chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
+                    AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
+                    AeviAdminMap.DataGroupsAdd.tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+                    AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
+                    break;
+                case "AEVI Pay Admin | Data Groups":
+                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
                     break;
                 default:
                     Assert.fail("Missing StaleElementReference for this page");
@@ -584,19 +661,6 @@ public class AdminSharedSteps extends BaseUtil{
         Assert.assertEquals(arg0, cellValue);
     }
 
-    @When("I click on the {string} in row {string} of {string} column in {string} table")
-    public void iClickOnTheInRowOfColumnInTable(String arg0, String arg1, String arg2, String arg3) {
-        WebElement element = null;
-
-        switch (arg3) {
-            case "Data Groups":
-                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + 1 + "]"));
-                break;
-        }
-
-        element.click();
-    }
-
     @Then("I should see the {string} edit page")
     public void iShouldSeeTheEditPage(String arg0) {
         String page = "";
@@ -608,5 +672,70 @@ public class AdminSharedSteps extends BaseUtil{
         }
 
         Assert.assertTrue (arg0, driver.getCurrentUrl().startsWith(page));
+    }
+
+    @When("I click on the row {string} in {string} table")
+    public void iClickOnTheRowInTable(String arg0, String arg1) {
+        WebElement element = null;
+
+        switch (arg1) {
+            case "Data Groups":
+                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + arg0 + "]"));
+                break;
+        }
+
+        element.click();
+    }
+
+    @When("I click on checkbox in row {string} in {string} table")
+    public void iClickOnCheckboxInRowInTable(String arg0, String arg1) {
+        WebElement element = null;
+
+        switch (arg1) {
+            case "Data Groups":
+                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + arg0 + "]/td[2]/input[1]"));
+                break;
+        }
+
+        element.click();
+    }
+
+    @Then("I should see the {string} modal")
+    public void iShouldSeeTheModal(String arg0) {
+        WebElement modal = null;
+        switch (arg0)
+        {
+            case "Delete | Data Group":
+                modal = AeviAdminMap.DataGroupsDeleteModal.modal;
+        }
+
+        modal.isEnabled();
+        modal.isDisplayed();
+    }
+
+    @And("I should see the {string} modal button which is enabled")
+    public void iShouldSeeTheModalButtonWhichIsEnabled(String arg0) {
+        WebElement button = null;
+        switch (arg0)
+        {
+            case "Delete":
+                button = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+        }
+
+        AeviAdminShared.ThreadWait(2000);
+        button.isDisplayed();
+        button.isEnabled();
+    }
+
+    @When("I click on the {string} modal button")
+    public void iClickOnTheModalButton(String arg0) {
+        WebElement button = null;
+        switch (arg0)
+        {
+            case "Delete":
+                button = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+        }
+
+        button.click();
     }
 }

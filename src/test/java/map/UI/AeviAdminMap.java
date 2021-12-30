@@ -44,6 +44,7 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement btnSearch = driver.findElement(By.name("_form1"));
         public static WebElement txtName = driver.findElement(By.id("criteria.name"));
         public static WebElement tblDataGroups = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table"));
+        public static WebElement btnDelete = driver.findElement(By.id("deleteButton"));
     }
 
     public static class DataGroupsAdd
@@ -60,10 +61,15 @@ public class AeviAdminMap extends BaseUtil {
         public static WebElement btnOK = driver.findElement(By.name("_form2"));
     }
 
+    public static class DataGroupsDeleteModal
+    {
+        public static WebElement modal = driver.findElement(By.id("deleteModal"));
+        public static WebElement btnDelete = driver.findElement(By.name("_form-3"));
+    }
+
     public static class DataGroupsAddMessage
     {
         public static WebElement msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
-        public static WebElement btnCloseMessage = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[3]/button"));
     }
 
     public static class OrganizationUnitsSite
