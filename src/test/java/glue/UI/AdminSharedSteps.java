@@ -307,6 +307,7 @@ public class AdminSharedSteps extends BaseUtil{
                 dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             case "Applications Profile":
+                AeviAdminShared.ThreadWait(2000);
                 dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             default:
