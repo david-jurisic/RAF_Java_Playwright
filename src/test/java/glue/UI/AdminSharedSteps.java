@@ -77,9 +77,9 @@ public class AdminSharedSteps extends BaseUtil{
     @When("I click on the {string} button")
     public void iClickOnTheButton(String arg0) {
         try {
-            WebElement button = AeviAdminShared.FindButtonByName(arg0);
+            By button = AeviAdminShared.FindButtonByName(arg0);
 
-            button.click();
+            driver.findElement(button).click();
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
@@ -87,40 +87,40 @@ public class AdminSharedSteps extends BaseUtil{
             switch (sPage)
             {
                 case "AEVI Pay Admin | Data Groups":
-                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
-                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
-                    AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
+                    ///AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    ///AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    ///AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
                     break;
                 default:
                     Assert.fail("Missing StaleElementReference for this page");
                     break;
             }
 
-            WebElement button = AeviAdminShared.FindButtonByName(arg0);
+            By button = AeviAdminShared.FindButtonByName(arg0);
 
-            button.click();
+            driver.findElement(button).click();
         }
     }
 
     @And("I should see the {string} button in the sidebar menu")
     public void iShouldSeeTheButtonInTheSidebarMenu(String arg0) {
-        WebElement button = null;
+        By button = null;
         switch(arg0)
         {
             case "Form Configs":
-                AeviAdminMap.SideBarMenu.btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
+                //AeviAdminMap.SideBarMenu.btnFormConfigs = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/a"));
                 button = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
                 AeviAdminShared.ThreadWait(2000);
-                AeviAdminMap.SideBarMenu.btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
+                //AeviAdminMap.SideBarMenu.btnDataGroups = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[6]/div/ul/li[2]/a/span"));
                 button = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
                 button = AeviAdminMap.SideBarMenu.btnTerminals;
                 break;
             case "Contracts":
-                AeviAdminMap.SideBarMenu.btnContracts = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[5]/a/span"));
+                //AeviAdminMap.SideBarMenu.btnContracts = driver.findElement(By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[5]/a/span"));
                 button = AeviAdminMap.SideBarMenu.btnContracts;
                 break;
             default:
@@ -128,12 +128,12 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
         }
 
-        button.isDisplayed();
+        driver.findElement(button).isDisplayed();
     }
 
     @When("I click on the {string} button in the sidebar menu")
     public void iClickOnTheButtonlinkInTheSidebarMenu(String arg0) {
-        WebElement button = null;
+        By button = null;
         switch(arg0)
         {
             case "Form Configs":
@@ -154,14 +154,15 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
         }
 
-        button.click();
+        driver.findElement(button).click();
     }
 
     @And("I should see the {string} textbox which is enabled and empty")
     public void iShouldSeeTheTextboxWhichIsEnabledAndEmpty(String arg0) {
         try {
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+            By byTextbox = AeviAdminShared.FindTextboxByName(arg0);
 
+            WebElement textbox = driver.findElement(byTextbox);
             textbox.isDisplayed();
             textbox.isEnabled();
             Assert.assertTrue(textbox.getText().isEmpty());
@@ -172,25 +173,26 @@ public class AdminSharedSteps extends BaseUtil{
             switch (sPage)
             {
                 case "AEVI Pay Admin | Terminal":
-                    AeviAdminMap.TerminalsAdd.txtTerminalId = driver.findElement(By.id("terminalIdInput"));
-                    AeviAdminMap.TerminalsAdd.ddlOrganizationUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
-                    AeviAdminMap.TerminalsAdd.ddlTerminalProfile = driver.findElement(By.id("terminalProfileSelector"));
-                    AeviAdminMap.TerminalsAdd.btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
-                    AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
-                    AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
+                    ///AeviAdminMap.TerminalsAdd.txtTerminalId = driver.findElement(By.id("terminalIdInput"));
+                    ///AeviAdminMap.TerminalsAdd.ddlOrganizationUnit = driver.findElement(By.id("select2-organizationUnitInput-container"));
+                    ///AeviAdminMap.TerminalsAdd.ddlTerminalProfile = driver.findElement(By.id("terminalProfileSelector"));
+                    ///AeviAdminMap.TerminalsAdd.btnSiteIdReload = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button"));
+                    ///AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
+                    ///AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
                     break;
                 case "AEVI Pay Admin | Data Groups":
-                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
-                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
-                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    ///AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    ///AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    ///AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
                     break;
                 default:
                     Assert.fail("Missing StaleElementReference for this page");
                     break;
             }
 
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+            By byTextbox = AeviAdminShared.FindTextboxByName(arg0);
 
+            WebElement textbox = driver.findElement(byTextbox);
             textbox.isDisplayed();
             textbox.isEnabled();
             Assert.assertTrue(textbox.getText().isEmpty());
@@ -199,10 +201,13 @@ public class AdminSharedSteps extends BaseUtil{
 
     @And("I should see the {string} checkbox which is enabled and {string}")
     public void iShouldSeeTheCheckboxWhichIsEnabledAnd(String arg0, String arg1) {
-        WebElement checkbox = AeviAdminShared.FindCheckboxByName(arg0);
+        By byCheckbox = AeviAdminShared.FindCheckboxByName(arg0);
+
+        WebElement checkbox = driver.findElement(byCheckbox);
 
         checkbox.isDisplayed();
         checkbox.isEnabled();
+
         switch(arg1)
         {
             case "checked":
@@ -221,13 +226,16 @@ public class AdminSharedSteps extends BaseUtil{
     public void iEnterStringIntoTextbox(String arg0, String arg1)
     {
         try {
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg1);
+            By textbox = AeviAdminShared.FindTextboxByName(arg1);
 
-            textbox.sendKeys(arg0);
+            driver.findElement(textbox).sendKeys(arg0);
         }
         catch(org.openqa.selenium.ElementNotInteractableException ex)
         {
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg1);
+            //WebElement textbox = AeviAdminShared.FindTextboxByName(arg1);
+            By byTextbox = AeviAdminShared.FindTextboxByName(arg1);
+
+            WebElement textbox = driver.findElement(byTextbox);
 
             textbox.click();
             textbox.sendKeys(arg0);
@@ -238,7 +246,9 @@ public class AdminSharedSteps extends BaseUtil{
     public void theTextboxShouldContainString(String arg0, String arg1)
     {
         try {
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+            By byTextbox = AeviAdminShared.FindTextboxByName(arg0);
+
+            WebElement textbox = driver.findElement(byTextbox);
 
             Assert.assertEquals(arg1, textbox.getAttribute("value"));
         }
@@ -248,14 +258,16 @@ public class AdminSharedSteps extends BaseUtil{
             switch (sPage)
             {
                 case "AEVI Pay Admin | Data Groups":
-                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    //AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
                     break;
                 default:
                     Assert.fail("Missing StaleElementReference for this page");
                     break;
             }
 
-            WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+            By byTextbox = AeviAdminShared.FindTextboxByName(arg0);
+
+            WebElement textbox = driver.findElement(byTextbox);
 
             Assert.assertEquals(arg1, textbox.getAttribute("value"));
         }
@@ -263,57 +275,60 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} checkbox")
     public void iClickOnTheCheckbox(String arg0) {
-        WebElement checkbox = null;
+        By byCheckbox = null;
+
 
         switch (arg0) {
             case "Status":
-                checkbox = AeviAdminMap.DataGroupsAdd.chkStatus_Click;
+                byCheckbox = AeviAdminMap.DataGroupsAdd.chkStatus_Click;
                 break;
             case "Check Site ID/Terminal ID":
-                checkbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click;
+                byCheckbox = AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click;
                 break;
             default:
                 Assert.fail("Checkbox not found: " + arg0);
                 break;
         }
 
-        checkbox.click();
+        driver.findElement(byCheckbox).click();
     }
 
     @When("I click on the {string} tab")
     public void iClickOnTheTab(String arg0) {
-        WebElement tab = AeviAdminShared.FindTabByName(arg0);
+        By byTab = AeviAdminShared.FindTabByName(arg0);
 
-        tab.click();
+        driver.findElement(byTab).click();
     }
 
     @And("I should see the {string} dropdown menu which is enabled and has {string} value selected")
     public void iShouldSeeTheDropdownMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1)
     {
-        WebElement dropdown = null;
+        By byDropdown = null;
 
         switch (arg0)
         {
             case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
+                byDropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             case "Parent Unit":
-                dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
                 break;
             case "Organization Unit":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
                 break;
             case "Terminal Profile":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             case "Applications Profile":
                 AeviAdminShared.ThreadWait(2000);
-                dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
+                byDropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             default:
                 Assert.fail("Dropdow menu element not found: " + arg0);
                 break;
         }
+
+        WebElement dropdown = driver.findElement(byDropdown);
 
         dropdown.isDisplayed();
         dropdown.isEnabled();
@@ -324,23 +339,25 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I select {string} string from the {string} dropdown menu")
     public void iSelectStringFromTheDropdownMenu(String arg0, String arg1) {
-        WebElement dropdown = null;
+        By byDropdown = null;
 
         switch (arg1)
         {
             case "TID Generator Template":
-                dropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
+                byDropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             case "Applications Profile":
-                dropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
+                byDropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             case "Terminal Profile":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             default:
                 Assert.fail("Dropdow menu element not found: " + arg1);
                 break;
         }
+
+        WebElement dropdown = driver.findElement(byDropdown);
 
         Select items = new Select(dropdown);
         items.selectByVisibleText(arg0);
@@ -350,46 +367,47 @@ public class AdminSharedSteps extends BaseUtil{
     public void iShouldSeeTheSuccessMessage(String arg0) {
         try
         {
-            WebElement msg = null;
+            By byMsg = null;
             switch (arg0)
             {
                 case "Success! Data Group was created successfully.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 case "Success! Data Group was updated successfully.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 case "Success! Data Group test1 has been successfully removed.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 default:
                     Assert.fail("Message not found: " + arg0);
                     break;
             }
 
+            WebElement msg = driver.findElement(byMsg);
             Assert.assertEquals(arg0, msg.getText());
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
-            AeviAdminMap.DataGroupsAddMessage.msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
+            //AeviAdminMap.DataGroupsAddMessage.msgSuccess = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]"));
 
-            WebElement msg = null;
+            By byMsg = null;
             switch (arg0)
             {
                 case "Success! Data Group was created successfully.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 case "Success! Data Group was updated successfully.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 case "Success! Data Group test1 has been successfully removed.":
-                    msg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                    byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
                     break;
                 default:
                     Assert.fail("Message not found: " + arg0);
                     break;
             }
-
+            WebElement msg = driver.findElement(byMsg);
             Assert.assertEquals(arg0, msg.getText());
         }
     }
@@ -398,8 +416,9 @@ public class AdminSharedSteps extends BaseUtil{
     public void iShouldSeeTheButtonWhichIsEnabled(String arg0) {
         try
         {
-            WebElement button = AeviAdminShared.FindButtonByName(arg0);
+            By byButton = AeviAdminShared.FindButtonByName(arg0);
 
+            WebElement button = driver.findElement(byButton);
             button.isDisplayed();
             button.isEnabled();
         }
@@ -409,30 +428,32 @@ public class AdminSharedSteps extends BaseUtil{
             switch (sPage)
             {
                 case "AEVI Pay Admin | Login":
-                    AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
+                    ///AeviAdminMap.LoginPage.btnSaveChanges = driver.findElement(By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]"));
                     break;
                 case "AEVI Pay Admin | Data Group":
-                    AeviAdminMap.DataGroupsAdd.btnOK = driver.findElement(By.name("_form2"));
-                    AeviAdminMap.DataGroupsAdd.txtName = driver.findElement(By.id("dataGroup.name"));
-                    AeviAdminMap.DataGroupsAdd.chkStatus = driver.findElement(By.id("status"));
-                    AeviAdminMap.DataGroupsAdd.chkStatus_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]"));
-                    AeviAdminMap.DataGroupsAdd.chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
-                    AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
-                    AeviAdminMap.DataGroupsAdd.tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
-                    AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
+                    ///AeviAdminMap.DataGroupsAdd.btnOK = driver.findElement(By.name("_form2"));
+                    ///AeviAdminMap.DataGroupsAdd.txtName = driver.findElement(By.id("dataGroup.name"));
+                    ///AeviAdminMap.DataGroupsAdd.chkStatus = driver.findElement(By.id("status"));
+                    ///AeviAdminMap.DataGroupsAdd.chkStatus_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]"));
+                    ///AeviAdminMap.DataGroupsAdd.chkSiteTerminalId = driver.findElement(By.id("checkSiteTerminalId"));
+                    ///AeviAdminMap.DataGroupsAdd.chkSiteTerminalId_Click = driver.findElement(By.xpath("//*[@id=\"basicPropertyGroup\"]/div[3]/div[1]/div[1]/label/span"));
+                    ///AeviAdminMap.DataGroupsAdd.tabParameters = driver.findElement(By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a"));
+                    ///AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate = driver.findElement(By.id("dataGroup.tidGeneratorTemplate"));
                     break;
                 case "AEVI Pay Admin | Data Groups":
-                    AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
-                    AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
-                    AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
-                    AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
+                    ///AeviAdminMap.DataGroups.btnNewRecord = driver.findElement(By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a"));
+                    ///AeviAdminMap.DataGroups.btnSearch = driver.findElement(By.name("_form1"));
+                    ///AeviAdminMap.DataGroups.txtName = driver.findElement(By.id("criteria.name"));
+                    ///AeviAdminMap.DataGroups.btnDelete = driver.findElement(By.id("deleteButton"));
                     break;
                 default:
                     Assert.fail("Missing StaleElementReference for this page");
                     break;
             }
 
-            WebElement button = AeviAdminShared.FindButtonByName(arg0);
+
+            By byButton = AeviAdminShared.FindButtonByName(arg0);
+            WebElement button = driver.findElement(byButton);
 
             button.isDisplayed();
             button.isEnabled();
@@ -441,49 +462,52 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I click on the {string} button in the button dropdown menu")
     public void iClickOnTheButtonInTheButtonDropdownMenu(String arg0) {
-        WebElement button = AeviAdminShared.FindButtonByName(arg0);
 
-        button.click();
+        By byButton = AeviAdminShared.FindButtonByName(arg0);
+
+        driver.findElement(byButton).click();
     }
 
     @When("I click on the {string} dropdown menu")
     public void iClickOnTheDropdownMenu(String arg0) {
-        WebElement dropdown = null;
+        By byDropdown = null;
 
         switch(arg0)
         {
             case "Parent Unit":
-                dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
                 break;
             case "Organization Unit":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
                 break;
             case "Terminal Profile":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             default:
                 Assert.fail("Dropdown not found: " + arg0);
                 break;
         }
 
-        dropdown.click();
+        driver.findElement(byDropdown).click();
     }
 
     @Then("the {string} dropdown list should contain {string} string")
     public void theDropdownListShouldContainString(String arg0, String arg1) {
         try
         {
-            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
+            WebElement element = driver.findElement(byElement);
             List<WebElement> list = element.findElements(By.tagName("li"));
             AeviAdminShared.ThreadWait(1000);
             Assert.assertEquals(arg1, list.get(0).getText());
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
-            AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
-            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            //AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit = driver.findElement(By.id("select2-organizationUnitInput-results"));
+            By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
 
+            WebElement element = driver.findElement(byElement);
             List<WebElement> list = element.findElements(By.tagName("li"));
             Assert.assertEquals(arg1, list.get(0).getText());
         }
@@ -494,7 +518,8 @@ public class AdminSharedSteps extends BaseUtil{
     public void iClickOnTheDropdownMenuItem(String arg0) {
         try
         {
-            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            WebElement element = driver.findElement(byElement);
 
             AeviAdminShared.Wait(2);
             List<WebElement> list = element.findElements(By.tagName("li"));
@@ -502,7 +527,8 @@ public class AdminSharedSteps extends BaseUtil{
         }
         catch (org.openqa.selenium.StaleElementReferenceException ex)
         {
-            WebElement element = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+            WebElement element = driver.findElement(byElement);
 
             AeviAdminShared.Wait(2);
             List<WebElement> list = element.findElements(By.tagName("li"));
@@ -514,16 +540,16 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} button dropdown menu")
     public void iShouldSeeTheButtonDropdownMenu(String arg0) {
-        WebElement dropdown = null;
+        By byDropdown = null;
         String sPage = driver.getTitle();
 
         switch (sPage)
         {
             case "AEVI Pay Admin | Organization Units":
-                dropdown = AeviAdminMap.OrganizationUnits.ddlChooseAnOption;
+                byDropdown = AeviAdminMap.OrganizationUnits.ddlChooseAnOption;
                 break;
             case "AEVI Pay Admin | Contracts":
-                dropdown = AeviAdminMap.Contracts.ddlChooseAnOption;
+                byDropdown = AeviAdminMap.Contracts.ddlChooseAnOption;
                 break;
             default:
                 Assert.fail("Button in dropdown menu not found: " + arg0);
@@ -531,12 +557,13 @@ public class AdminSharedSteps extends BaseUtil{
 
         }
 
-        dropdown.isDisplayed();
+        driver.findElement(byDropdown).isDisplayed();
     }
 
     @And("I should see the {string} tab which is enabled")
     public void iShouldSeeTheTabWhichIsEnabled(String arg0) {
-        WebElement tab = AeviAdminShared.FindTabByName(arg0);
+        By byTab = AeviAdminShared.FindTabByName(arg0);
+        WebElement tab = driver.findElement(byTab);
 
         tab.isDisplayed();
         tab.isEnabled();
@@ -544,20 +571,22 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} dropdown text menu which is enabled and has {string} value selected")
     public void iShouldSeeTheDropdownTextMenuWhichIsEnabledAndHasValueSelected(String arg0, String arg1) {
-        WebElement dropdown = null;
+        By byDropdown = null;
 
         switch (arg0)
         {
             case "Parent Unit":
-                dropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
                 break;
             case "Organization Unit":
-                dropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
+                byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
                 break;
             default:
                 Assert.fail("Dropdow text menu element not found: " + arg0);
                 break;
         }
+
+        WebElement dropdown = driver.findElement(byDropdown);
 
         String value = null;
         switch (arg1)
@@ -578,7 +607,8 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("the {string} textbox should starts with {string} string")
     public void theTextboxShouldStartsWithString(String arg0, String arg1) {
-        WebElement textbox = AeviAdminShared.FindTextboxByName(arg0);
+        By byTextbox = AeviAdminShared.FindTextboxByName(arg0);
+        WebElement textbox = driver.findElement(byTextbox);
 
         AeviAdminShared.ThreadWait(1000);
         Assert.assertTrue (arg1, textbox.getAttribute("value").startsWith(arg1));
@@ -587,51 +617,52 @@ public class AdminSharedSteps extends BaseUtil{
     @And("I should see the {string} table")
     public void iShouldSeeTheTable(String arg0) {
         try {
-            WebElement table = null;
+            By byTable = null;
             switch (arg0)
             {
                 case "Accepted Application Profiles":
-                    table = AeviAdminMap.ContractsAdd.tblProfile;
+                    byTable = AeviAdminMap.ContractsAdd.tblProfile;
                     break;
                 case "Data Groups":
-                    table = AeviAdminMap.DataGroups.tblDataGroups;
+                    byTable = AeviAdminMap.DataGroups.tblDataGroups;
                     break;
             }
 
-            table.isDisplayed();
+            driver.findElement(byTable).isDisplayed();
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
-            AeviAdminMap.DataGroups.tblDataGroups = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table"));
+            //AeviAdminMap.DataGroups.tblDataGroups = driver.findElement(By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table"));
 
-            WebElement table = null;
+            By byTable = null;
             switch (arg0)
             {
                 case "Accepted Application Profiles":
-                    table = AeviAdminMap.ContractsAdd.tblProfile;
+                    byTable = AeviAdminMap.ContractsAdd.tblProfile;
                     break;
                 case "Data Groups":
-                    table = AeviAdminMap.DataGroups.tblDataGroups;
+                    byTable = AeviAdminMap.DataGroups.tblDataGroups;
                     break;
             }
 
-            table.isDisplayed();
+            driver.findElement(byTable).isDisplayed();
         }
     }
 
     @When("I logout from {string} page")
     public void iLogoutFromPage(String arg0) {
-        AeviAdminMap.UserCard.ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
-        AeviAdminMap.UserCard.btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
-        AeviAdminMap.UserCard.btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
+        ///AeviAdminMap.UserCard.ddmUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]"));
+        ///AeviAdminMap.UserCard.btnUserCard = driver.findElement(By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div"));
+        ///AeviAdminMap.UserCard.btnLogOut = driver.findElement(By.xpath("//a[.='Log Out']"));
 
-        WebElement userCard = AeviAdminMap.UserCard.btnUserCard;
-        userCard.click();
+        By byUserCard = AeviAdminMap.UserCard.btnUserCard;
+        driver.findElement(byUserCard).click();
 
-        WebElement ddUserCard = AeviAdminMap.UserCard.ddmUserCard;
-        ddUserCard.isDisplayed();
+        By byDdUserCard = AeviAdminMap.UserCard.ddmUserCard;
+        driver.findElement(byDdUserCard).isDisplayed();
 
-        WebElement logOut = AeviAdminMap.UserCard.btnLogOut;
+        By byLogOut = AeviAdminMap.UserCard.btnLogOut;
+        WebElement logOut = driver.findElement(byLogOut);
         logOut.isDisplayed();
         logOut.click();
     }
@@ -643,15 +674,15 @@ public class AdminSharedSteps extends BaseUtil{
 
         switch (arg3) {
             case "Accepted Application Profiles":
-                headers= AeviAdminMap.ContractsAdd.tblProfileHeaders.findElements(By.tagName("th"));
-                rowElements = AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow.findElements(
+                headers= driver.findElement(AeviAdminMap.ContractsAdd.tblProfileHeaders).findElements(By.tagName("th"));
+                rowElements = driver.findElement(AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow).findElements(
                         new ByChained(
                                 By.xpath("./tr[" + (Integer.parseInt(arg1) + 1) + "]"),
                                 By.tagName("td")));
                 break;
             case "Data Groups":
-                headers= AeviAdminMap.DataGroups.tblDataGroups.findElements(By.tagName("th"));
-                rowElements = AeviAdminMap.DataGroups.tblDataGroups.findElements(
+                headers= driver.findElement(AeviAdminMap.DataGroups.tblDataGroups).findElements(By.tagName("th"));
+                rowElements = driver.findElement(AeviAdminMap.DataGroups.tblDataGroups).findElements(
                         new ByChained(
                                 By.xpath("./tbody/tr[" + arg1 + "]"),
                                 By.tagName("td")));
@@ -681,7 +712,7 @@ public class AdminSharedSteps extends BaseUtil{
 
         switch (arg1) {
             case "Data Groups":
-                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + arg0 + "]"));
+                element = driver.findElement(AeviAdminMap.DataGroups.tblDataGroups).findElement(By.xpath("./tbody/tr[" + arg0 + "]"));
                 break;
         }
 
@@ -694,7 +725,7 @@ public class AdminSharedSteps extends BaseUtil{
 
         switch (arg1) {
             case "Data Groups":
-                element = AeviAdminMap.DataGroups.tblDataGroups.findElement(By.xpath("./tbody/tr[" + arg0 + "]/td[2]/input[1]"));
+                element = driver.findElement(AeviAdminMap.DataGroups.tblDataGroups).findElement(By.xpath("./tbody/tr[" + arg0 + "]/td[2]/input[1]"));
                 break;
         }
 
@@ -703,40 +734,43 @@ public class AdminSharedSteps extends BaseUtil{
 
     @Then("I should see the {string} modal")
     public void iShouldSeeTheModal(String arg0) {
-        WebElement modal = null;
+        By byModal = null;
         switch (arg0)
         {
             case "Delete | Data Group":
-                modal = AeviAdminMap.DataGroupsDeleteModal.modal;
+                byModal = AeviAdminMap.DataGroupsDeleteModal.modal;
         }
 
+        WebElement modal = driver.findElement(byModal);
         modal.isEnabled();
         modal.isDisplayed();
     }
 
     @And("I should see the {string} modal button which is enabled")
     public void iShouldSeeTheModalButtonWhichIsEnabled(String arg0) {
-        WebElement button = null;
+        By byButton = null;
         switch (arg0)
         {
             case "Delete":
-                button = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+                byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
         }
 
         AeviAdminShared.ThreadWait(2000);
+        WebElement button = driver.findElement(byButton);
+
         button.isDisplayed();
         button.isEnabled();
     }
 
     @When("I click on the {string} modal button")
     public void iClickOnTheModalButton(String arg0) {
-        WebElement button = null;
+        By byButton = null;
         switch (arg0)
         {
             case "Delete":
-                button = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+                byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
         }
 
-        button.click();
+        driver.findElement(byButton).click();
     }
 }

@@ -3,6 +3,7 @@ package shared.UI;
 import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.sql.Time;
@@ -29,8 +30,8 @@ public class AeviAdminShared extends BaseUtil {
         }
     }
 
-    public static WebElement FindButtonByName(String sButtonName) {
-        WebElement button = null;
+    public static By FindButtonByName(String sButtonName) {
+        By button = null;
         String sPage = driver.getTitle();
 
         switch (sPage) {
@@ -107,8 +108,8 @@ public class AeviAdminShared extends BaseUtil {
         return button;
     }
 
-    public static WebElement FindTextboxByName(String sTextboxName) {
-        WebElement textbox = null;
+    public static By FindTextboxByName(String sTextboxName) {
+        By textbox = null;
         String sPage = driver.getTitle();
 
         switch (sPage) {
@@ -152,8 +153,8 @@ public class AeviAdminShared extends BaseUtil {
         return textbox;
     }
 
-    public static WebElement FindCheckboxByName(String sCheckboxName) {
-        WebElement checkbox = null;
+    public static By FindCheckboxByName(String sCheckboxName) {
+        By checkbox = null;
         String sPage = driver.getTitle();
 
         switch (sPage) {
@@ -172,8 +173,8 @@ public class AeviAdminShared extends BaseUtil {
         return checkbox;
     }
 
-    public static WebElement FindTabByName(String sCheckboxName) {
-        WebElement checkbox = null;
+    public static By FindTabByName(String sCheckboxName) {
+        By checkbox = null;
         String sPage = driver.getTitle();
 
         switch (sPage) {
