@@ -481,6 +481,7 @@ public class AdminSharedSteps extends BaseUtil{
 
         switch (arg3) {
             case "Accepted Application Profiles":
+                AeviAdminShared.ThreadWait(1);
                 headers= driver.findElement(AeviAdminMap.ContractsAdd.tblProfileHeaders).findElements(By.tagName("th"));
                 rowElements = driver.findElement(AeviAdminMap.ContractsAdd.tblProfileBodyFirstRow).findElements(
                         new ByChained(
