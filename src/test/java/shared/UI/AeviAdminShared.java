@@ -15,6 +15,15 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class AeviAdminShared {
+    public static void ThreadWait(int iSeconds)
+    {
+        try {
+            Thread.sleep(iSeconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static By FindButtonByName(String sButtonName, String sPage) {
         By button = null;
 
@@ -22,7 +31,6 @@ public class AeviAdminShared {
             case "AEVI Pay Admin | Login":
                 switch (sButtonName) {
                     case "Save Changes":
-                        //ThreadWait(1000);
                         button = AeviAdminMap.LoginPage.btnSaveChanges;
                         break;
                 }
@@ -113,7 +121,6 @@ public class AeviAdminShared {
             case "AEVI Pay Admin | Site":
                 switch (sTextboxName) {
                     case "Site ID":
-                        //ThreadWait(1000);
                         textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
                         break;
                     case "Parent Unit":

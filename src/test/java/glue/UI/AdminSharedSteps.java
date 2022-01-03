@@ -26,14 +26,7 @@ public class AdminSharedSteps extends BaseUtil{
     @Given("I have opened the {string} page")
     public void iHaveOpenedThePage(String arg0)
     {
-        try
-        {
-            driver.get(_url);
-        }
-        catch (org.openqa.selenium.StaleElementReferenceException ex)
-        {
-            //driver.get(_url);
-        }
+        driver.get(_url);
     }
 
     @Then("I should see the {string} page")
@@ -42,7 +35,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch(arg0)
         {
             case "AEVI Pay Admin | Login":
-                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
+                AeviAdminShared.ThreadWait(2);
                 page = AeviAdminMap.LoginPage.page;
                 break;
             case "AEVI Pay Admin | Organization Units":
@@ -93,7 +86,6 @@ public class AdminSharedSteps extends BaseUtil{
                 byButton = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
-                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
                 byButton = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
@@ -104,15 +96,6 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
             default:
                 Assert.fail("Button in sidebar menu not found: " + arg0);
-                break;
-        }
-
-        switch (arg0)
-        {
-            case "Data Groups":
-                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
-                break;
-            default:
                 break;
         }
 
@@ -189,6 +172,15 @@ public class AdminSharedSteps extends BaseUtil{
     {
         By byTextbox = AeviAdminShared.FindTextboxByName(arg0, driver.getTitle());
 
+        switch (arg0)
+        {
+            case "Site ID":
+                AeviAdminShared.ThreadWait(1);
+                break;
+            default:
+                break;
+        }
+
         WebElement textbox = driver.findElement(byTextbox);
 
         Assert.assertEquals(arg1, textbox.getAttribute("value"));
@@ -241,7 +233,6 @@ public class AdminSharedSteps extends BaseUtil{
                 byDropdown = AeviAdminMap.TerminalsAdd.ddlTerminalProfile;
                 break;
             case "Applications Profile":
-                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
                 byDropdown = AeviAdminMap.ContractsAdd.ddlApplicationsProfile;
                 break;
             default:
@@ -351,10 +342,9 @@ public class AdminSharedSteps extends BaseUtil{
     public void theDropdownListShouldContainString(String arg0, String arg1)
     {
         By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-
         WebElement element = driver.findElement(byElement);
+
+        AeviAdminShared.ThreadWait(1);
         List<WebElement> list = element.findElements(By.tagName("li"));
         Assert.assertEquals(arg1, list.get(0).getText());
     }
@@ -365,7 +355,6 @@ public class AdminSharedSteps extends BaseUtil{
         By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
         WebElement element = driver.findElement(byElement);
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
         List<WebElement> list = element.findElements(By.tagName("li"));
         list.get(0).click();
     }
@@ -440,9 +429,18 @@ public class AdminSharedSteps extends BaseUtil{
     @Then("the {string} textbox should starts with {string} string")
     public void theTextboxShouldStartsWithString(String arg0, String arg1) {
         By byTextbox = AeviAdminShared.FindTextboxByName(arg0, driver.getTitle());
+
+        switch (arg0)
+        {
+            case "Terminal ID":
+                AeviAdminShared.ThreadWait(1);
+                break;
+            default:
+                break;
+        }
+
         WebElement textbox = driver.findElement(byTextbox);
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
         Assert.assertTrue (arg1, textbox.getAttribute("value").startsWith(arg1));
     }
 
@@ -564,8 +562,6 @@ public class AdminSharedSteps extends BaseUtil{
                 byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
-
         WebElement button = driver.findElement(byButton);
 
         button.isDisplayed();
@@ -578,6 +574,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch (arg0)
         {
             case "Delete":
+                AeviAdminShared.ThreadWait(1);
                 byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
         }
 
