@@ -14,31 +14,15 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class AeviAdminShared extends BaseUtil {
-
-    public static void Wait(int iTime)
-    {
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(iTime));
-    }
-
-    public static void ThreadWait(int iTime)
-    {
-        try {
-            Thread.sleep(iTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static By FindButtonByName(String sButtonName) {
+public class AeviAdminShared {
+    public static By FindButtonByName(String sButtonName, String sPage) {
         By button = null;
-        String sPage = driver.getTitle();
 
         switch (sPage) {
             case "AEVI Pay Admin | Login":
                 switch (sButtonName) {
                     case "Save Changes":
-                        ThreadWait(1000);
+                        //ThreadWait(1000);
                         button = AeviAdminMap.LoginPage.btnSaveChanges;
                         break;
                 }
@@ -108,9 +92,8 @@ public class AeviAdminShared extends BaseUtil {
         return button;
     }
 
-    public static By FindTextboxByName(String sTextboxName) {
+    public static By FindTextboxByName(String sTextboxName, String sPage) {
         By textbox = null;
-        String sPage = driver.getTitle();
 
         switch (sPage) {
             case "AEVI Pay Admin | Data Groups":
@@ -130,7 +113,7 @@ public class AeviAdminShared extends BaseUtil {
             case "AEVI Pay Admin | Site":
                 switch (sTextboxName) {
                     case "Site ID":
-                        ThreadWait(1000);
+                        //ThreadWait(1000);
                         textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
                         break;
                     case "Parent Unit":
@@ -153,9 +136,8 @@ public class AeviAdminShared extends BaseUtil {
         return textbox;
     }
 
-    public static By FindCheckboxByName(String sCheckboxName) {
+    public static By FindCheckboxByName(String sCheckboxName, String sPage) {
         By checkbox = null;
-        String sPage = driver.getTitle();
 
         switch (sPage) {
             case "AEVI Pay Admin | Data Group":
@@ -173,9 +155,8 @@ public class AeviAdminShared extends BaseUtil {
         return checkbox;
     }
 
-    public static By FindTabByName(String sCheckboxName) {
+    public static By FindTabByName(String sCheckboxName, String sPage) {
         By checkbox = null;
-        String sPage = driver.getTitle();
 
         switch (sPage) {
             case "AEVI Pay Admin | Data Group":
