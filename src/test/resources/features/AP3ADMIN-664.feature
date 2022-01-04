@@ -23,7 +23,7 @@ Feature: AP3ADMIN-664-Reloading buttons don't work
     When I click on the "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" dropdown menu item
     Then I should see the "Parent Unit" dropdown text menu which is enabled and has "ROME Organization 1001 SITE_GROUP ROSITE01 (1001)" value selected
     When I click on the "Site ID Reload" button
-    Then the "Site ID" textbox should contain "ROSITED" string
+    Then the "Site ID" textbox should starts with "ROSIT" string
     When I logout from "SMCAdmin" page
     Then I should see the "AEVI Pay Admin | Login" page
 

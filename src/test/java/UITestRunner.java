@@ -19,8 +19,7 @@ import java.util.List;
                     "json:target/cucumber_json_reports/report.json"},
         glue = {"hook.UI","glue.UI"})
 
-public class RunAeviAdminTests extends BaseUtil {
-
+public class UITestRunner extends BaseUtil {
     @AfterClass
     public static void generateReport() {
         driver.quit();

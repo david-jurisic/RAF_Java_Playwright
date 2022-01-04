@@ -435,6 +435,8 @@ public class AdminSharedSteps extends BaseUtil{
             case "Terminal ID":
                 AeviAdminShared.ThreadWait(1);
                 break;
+            case "Site ID":
+                AeviAdminShared.ThreadWait(1);
             default:
                 break;
         }

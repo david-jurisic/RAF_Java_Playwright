@@ -39,5 +39,5 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-/Test Results - RunAeviAdminTests.html
+/Test Results - UITestRunner.html
 .idea/workspace.xml
