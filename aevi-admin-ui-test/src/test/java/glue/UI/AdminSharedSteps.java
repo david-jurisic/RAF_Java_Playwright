@@ -86,6 +86,7 @@ public class AdminSharedSteps extends BaseUtil{
                 byButton = AeviAdminMap.SideBarMenu.btnFormConfigs;
                 break;
             case "Data Groups":
+                AeviAdminShared.ThreadWait(2);
                 byButton = AeviAdminMap.SideBarMenu.btnDataGroups;
                 break;
             case "Terminals":
@@ -344,7 +345,7 @@ public class AdminSharedSteps extends BaseUtil{
         By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
         WebElement element = driver.findElement(byElement);
 
-        AeviAdminShared.ThreadWait(1);
+        AeviAdminShared.ThreadWait(2);
         List<WebElement> list = element.findElements(By.tagName("li"));
         Assert.assertEquals(arg1, list.get(0).getText());
     }
