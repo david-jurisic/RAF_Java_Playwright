@@ -29,7 +29,7 @@ public class UITestRunner extends BaseUtil {
         jsonFiles.add("target/cucumber_json_reports/report.json");
 
         String buildNumber = "1";
-        String projectName = "AeviAdminTest";
+        String projectName = "aevi-admin-ui-test";
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setBuildNumber(buildNumber);
 
