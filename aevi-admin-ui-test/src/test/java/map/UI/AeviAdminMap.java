@@ -8,21 +8,9 @@ public class AeviAdminMap {
     {
         public static String page = AdminUtil.WEBPAGE_URL + "user/login";
         public static By btnSaveChanges = By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]");
-    }
-
-    public static class UserCard
-    {
         public static By ddmUserCard = By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]");
         public static By btnUserCard = By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div");
         public static By btnLogOut = By.xpath("//a[.='Log Out']");
-    }
-
-    public static class OrganizationUnits
-    {
-        public static String page = AdminUtil.WEBPAGE_URL + "organization-units";
-        public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button");
-        public static By ddlChooseAnOption = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul");
-        public static By btnAddSite = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a");
     }
 
     public static class SideBarMenu
@@ -33,6 +21,24 @@ public class AeviAdminMap {
         public static By btnContracts = By.xpath("//*[@id=\"kt_aside_menu\"]/ul/li[2]/div/ul/li[5]/a/span");
     }
 
+    public static class OrganizationUnits
+    {
+        public static String page = AdminUtil.WEBPAGE_URL + "organization-units";
+        public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button");
+        public static By ddlChooseAnOption = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul");
+        public static By btnAddSite = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a");
+    }
+
+    public static class OrganizationUnitsAddSite
+    {
+        public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
+        public static By txtSiteId = By.id("siteIdInput");
+        public static By btnSiteIdReload = By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button");
+        public static By ddlParentUnit = By.id("select2-organizationUnitInput-container");
+        public static By txtParentUnitSearch = By.xpath("/html/body/span/span/span[1]/input");
+        public static By listParentUnit = By.id("select2-organizationUnitInput-results");
+    }
+
     public static class DataGroups
     {
         public static String page = AdminUtil.WEBPAGE_URL + "data-groups";
@@ -41,6 +47,9 @@ public class AeviAdminMap {
         public static By txtName = By.id("criteria.name");
         public static By tblDataGroups = By.xpath("//*[@id=\"command\"]/div[2]/div[5]/div[1]/div/table");
         public static By btnDelete = By.id("deleteButton");
+        public static By modal = By.id("deleteModal");
+        public static By btnModalDelete = By.name("_form-3");
+        public static By msgSuccess = By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]");
     }
 
     public static class DataGroupsAdd
@@ -55,42 +64,13 @@ public class AeviAdminMap {
         public static By tabParameters = By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a");
         public static By ddlTIDGeneratorTemplate = By.id("dataGroup.tidGeneratorTemplate");
         public static By btnOK = By.name("_form2");
-    }
 
-    public static class DataGroupsDeleteModal
-    {
-        public static By modal = By.id("deleteModal");
-        public static By btnDelete = By.name("_form-3");
-    }
-
-    public static class DataGroupsAddMessage
-    {
-        public static By msgSuccess = By.xpath("//*[@id=\"kt_content\"]/div[1]/div[2]");
-    }
-
-    public static class OrganizationUnitsSite
-    {
-        public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
-        public static By txtSiteId = By.id("siteIdInput");
-        public static By btnSiteIdReload = By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button");
-        public static By ddlParentUnit = By.id("select2-organizationUnitInput-container");
-    }
-
-    public static class OrganizationUnitsSiteDropdownSite
-    {
-        public static By txtParentUnitSearch = By.xpath("/html/body/span/span/span[1]/input");
-    }
-
-    public static class OrganizationUnitsSiteDropdownSiteList
-    {
-        public static By listParentUnit = By.id("select2-organizationUnitInput-results");
     }
 
     public static class Terminals
     {
         public static final String page = AdminUtil.WEBPAGE_URL + "terminals";
         public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a");
-
     }
 
     public static class TerminalsAdd

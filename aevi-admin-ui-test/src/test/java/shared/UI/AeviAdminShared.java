@@ -48,7 +48,7 @@ public class AeviAdminShared {
             case "AEVI Pay Admin | Site":
                 switch (sButtonName) {
                     case "Site ID Reload":
-                        button = AeviAdminMap.OrganizationUnitsSite.btnSiteIdReload;
+                        button = AeviAdminMap.OrganizationUnitsAddSite.btnSiteIdReload;
                         break;
                 }
                 break;
@@ -121,10 +121,10 @@ public class AeviAdminShared {
             case "AEVI Pay Admin | Site":
                 switch (sTextboxName) {
                     case "Site ID":
-                        textbox = AeviAdminMap.OrganizationUnitsSite.txtSiteId;
+                        textbox = AeviAdminMap.OrganizationUnitsAddSite.txtSiteId;
                         break;
                     case "Parent Unit":
-                        textbox = AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch;
+                        textbox = AeviAdminMap.OrganizationUnitsAddSite.txtParentUnitSearch;
                         break;
                 }
                 break;
@@ -134,7 +134,7 @@ public class AeviAdminShared {
                         textbox = AeviAdminMap.TerminalsAdd.txtTerminalId;
                         break;
                     case "Organization Unit":
-                        textbox = AeviAdminMap.OrganizationUnitsSiteDropdownSite.txtParentUnitSearch;
+                        textbox = AeviAdminMap.OrganizationUnitsAddSite.txtParentUnitSearch;
                         break;
                 }
                 break;

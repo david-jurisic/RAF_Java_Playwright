@@ -48,7 +48,7 @@ public class AdminSharedSteps extends BaseUtil{
                 page = AeviAdminMap.DataGroupsAdd.page;
                 break;
             case "AEVI Pay Admin| Site":
-                page = AeviAdminMap.OrganizationUnitsSite.page;
+                page = AeviAdminMap.OrganizationUnitsAddSite.page;
                 break;
             case "AEVI Pay Admin| Terminals":
                 page = AeviAdminMap.Terminals.page;
@@ -225,7 +225,7 @@ public class AdminSharedSteps extends BaseUtil{
                 byDropdown = AeviAdminMap.DataGroupsAdd.ddlTIDGeneratorTemplate;
                 break;
             case "Parent Unit":
-                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsAddSite.ddlParentUnit;
                 break;
             case "Organization Unit":
                 byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
@@ -282,13 +282,13 @@ public class AdminSharedSteps extends BaseUtil{
         switch (arg0)
         {
             case "Success! Data Group was created successfully.":
-                byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                byMsg = AeviAdminMap.DataGroups.msgSuccess;
                 break;
             case "Success! Data Group was updated successfully.":
-                byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                byMsg = AeviAdminMap.DataGroups.msgSuccess;
                 break;
             case "Success! Data Group test1 has been successfully removed.":
-                byMsg = AeviAdminMap.DataGroupsAddMessage.msgSuccess;
+                byMsg = AeviAdminMap.DataGroups.msgSuccess;
                 break;
             default:
                 Assert.fail("Message not found: " + arg0);
@@ -323,7 +323,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch(arg0)
         {
             case "Parent Unit":
-                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsAddSite.ddlParentUnit;
                 break;
             case "Organization Unit":
                 byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
@@ -342,7 +342,7 @@ public class AdminSharedSteps extends BaseUtil{
     @Then("the {string} dropdown list should contain {string} string")
     public void theDropdownListShouldContainString(String arg0, String arg1)
     {
-        By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+        By byElement = AeviAdminMap.OrganizationUnitsAddSite.listParentUnit;
         WebElement element = driver.findElement(byElement);
 
         AeviAdminShared.ThreadWait(2);
@@ -353,7 +353,7 @@ public class AdminSharedSteps extends BaseUtil{
     @When("I click on the {string} dropdown menu item")
     public void iClickOnTheDropdownMenuItem(String arg0)
     {
-        By byElement = AeviAdminMap.OrganizationUnitsSiteDropdownSiteList.listParentUnit;
+        By byElement = AeviAdminMap.OrganizationUnitsAddSite.listParentUnit;
         WebElement element = driver.findElement(byElement);
 
         List<WebElement> list = element.findElements(By.tagName("li"));
@@ -398,7 +398,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch (arg0)
         {
             case "Parent Unit":
-                byDropdown = AeviAdminMap.OrganizationUnitsSite.ddlParentUnit;
+                byDropdown = AeviAdminMap.OrganizationUnitsAddSite.ddlParentUnit;
                 break;
             case "Organization Unit":
                 byDropdown = AeviAdminMap.TerminalsAdd.ddlOrganizationUnit;
@@ -465,13 +465,13 @@ public class AdminSharedSteps extends BaseUtil{
 
     @When("I logout from {string} page")
     public void iLogoutFromPage(String arg0) {
-        By byUserCard = AeviAdminMap.UserCard.btnUserCard;
+        By byUserCard = AeviAdminMap.LoginPage.btnUserCard;
         driver.findElement(byUserCard).click();
 
-        By byDdUserCard = AeviAdminMap.UserCard.ddmUserCard;
+        By byDdUserCard = AeviAdminMap.LoginPage.ddmUserCard;
         driver.findElement(byDdUserCard).isDisplayed();
 
-        By byLogOut = AeviAdminMap.UserCard.btnLogOut;
+        By byLogOut = AeviAdminMap.LoginPage.btnLogOut;
         WebElement logOut = driver.findElement(byLogOut);
         logOut.isDisplayed();
         logOut.click();
@@ -549,7 +549,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch (arg0)
         {
             case "Delete | Data Group":
-                byModal = AeviAdminMap.DataGroupsDeleteModal.modal;
+                byModal = AeviAdminMap.DataGroups.modal;
         }
 
         WebElement modal = driver.findElement(byModal);
@@ -563,7 +563,7 @@ public class AdminSharedSteps extends BaseUtil{
         switch (arg0)
         {
             case "Delete":
-                byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+                byButton = AeviAdminMap.DataGroups.btnModalDelete;
         }
 
         WebElement button = driver.findElement(byButton);
@@ -579,7 +579,7 @@ public class AdminSharedSteps extends BaseUtil{
         {
             case "Delete":
                 AeviAdminShared.ThreadWait(1);
-                byButton = AeviAdminMap.DataGroupsDeleteModal.btnDelete;
+                byButton = AeviAdminMap.DataGroups.btnModalDelete;
         }
 
         driver.findElement(byButton).click();
