@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import util.UI.AdminUtil;
 
 public class AeviAdminMap {
+    private static final String WEBPAGE_URL = AdminUtil.GetSettingsValue("webpage_url") ;
+
     public static class LoginPage
     {
-        public static String page = AdminUtil.WEBPAGE_URL + "user/login";
+        public static String page = WEBPAGE_URL + "user/login";
         public static By btnSaveChanges = By.xpath("//*[@id=\"command\"]/div/div[3]/button[2]");
         public static By ddmUserCard = By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[2]");
         public static By btnUserCard = By.xpath("//*[@id=\"kt_header\"]/div[3]/div[2]/div[1]/div");
@@ -23,7 +25,7 @@ public class AeviAdminMap {
 
     public static class OrganizationUnits
     {
-        public static String page = AdminUtil.WEBPAGE_URL + "organization-units";
+        public static String page = WEBPAGE_URL + "organization-units";
         public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button");
         public static By ddlChooseAnOption = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul");
         public static By btnAddSite = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a");
@@ -31,7 +33,7 @@ public class AeviAdminMap {
 
     public static class OrganizationUnitsAddSite
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "organization-units/create?type=site";
+        public static final String page = WEBPAGE_URL + "organization-units/create?type=site";
         public static By txtSiteId = By.id("siteIdInput");
         public static By btnSiteIdReload = By.xpath("//*[@id=\"basicPropertyGroup\"]/div[1]/div[1]/div[1]/div/button");
         public static By ddlParentUnit = By.id("select2-organizationUnitInput-container");
@@ -41,7 +43,7 @@ public class AeviAdminMap {
 
     public static class DataGroups
     {
-        public static String page = AdminUtil.WEBPAGE_URL + "data-groups";
+        public static String page = WEBPAGE_URL + "data-groups";
         public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a");
         public static By btnSearch = By.name("_form1");
         public static By txtName = By.id("criteria.name");
@@ -54,8 +56,8 @@ public class AeviAdminMap {
 
     public static class DataGroupsAdd
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "data-groups/create";
-        public static final String pageEdit = AdminUtil.WEBPAGE_URL + "data-groups/edit/";
+        public static final String page = WEBPAGE_URL + "data-groups/create";
+        public static final String pageEdit = WEBPAGE_URL + "data-groups/edit/";
         public static By txtName = By.id("dataGroup.name");
         public static By chkStatus = By.id("status");
         public static By chkStatus_Click = By.xpath("//*[@id=\"basicPropertyGroup\"]/div[2]/div[1]/div[1]");
@@ -69,13 +71,13 @@ public class AeviAdminMap {
 
     public static class Terminals
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "terminals";
+        public static final String page = WEBPAGE_URL + "terminals";
         public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/a");
     }
 
     public static class TerminalsAdd
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "terminals/create";
+        public static final String page = WEBPAGE_URL + "terminals/create";
         public static By txtTerminalId = By.id("terminalIdInput");
         public static By ddlOrganizationUnit = By.id("select2-organizationUnitInput-container");
         public static By ddlTerminalProfile = By.id("terminalProfileSelector");
@@ -84,7 +86,7 @@ public class AeviAdminMap {
 
     public static class Contracts
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "contracts";
+        public static final String page = WEBPAGE_URL + "contracts";
         public static By btnNewRecord = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/button");
         public static By ddlChooseAnOption = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul");
         public static By btnAddPhysicalContract = By.xpath("//*[@id=\"command\"]/div[1]/div[2]/div/div/div/div/ul/li[2]/a");
@@ -92,7 +94,7 @@ public class AeviAdminMap {
 
     public static class ContractsAdd
     {
-        public static final String page = AdminUtil.WEBPAGE_URL + "contracts/create?type=physical";
+        public static final String page = WEBPAGE_URL + "contracts/create?type=physical";
         public static By tabParameters = By.xpath("//*[@id=\"kt_content\"]/div[2]/div/div/ul/li[2]/a");
         public static By ddlApplicationsProfile = By.id("acceptedAppProfilesSelect");
         public static By tblProfile = By.xpath("//*[@id=\"paramPropertyGroup\"]/div[4]/div/table");

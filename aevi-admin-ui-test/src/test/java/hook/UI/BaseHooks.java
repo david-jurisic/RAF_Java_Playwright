@@ -19,7 +19,7 @@ public class BaseHooks extends BaseUtil {
             chromeOptions.addArguments("start-maximized");
             chromeOptions.addArguments("--ignore-ssl-errors=yes");
             chromeOptions.addArguments("--ignore-certificate-errors");
-            System.setProperty("webdriver.chrome.driver", AdminUtil.CHROME_DRIVER_LOCATION);
+            System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
             driver = new ChromeDriver(chromeOptions);
         }
     }

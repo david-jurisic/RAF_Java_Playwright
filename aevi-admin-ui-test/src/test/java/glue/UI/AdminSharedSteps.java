@@ -15,13 +15,14 @@ import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
 import util.UI.AdminUtil;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class AdminSharedSteps extends BaseUtil{
-    private final String _url = AdminUtil.WEBPAGE_URL;
+    private final String _url = WEBPAGE_URL;
 
     @Given("I have opened the {string} page")
     public void iHaveOpenedThePage(String arg0)
