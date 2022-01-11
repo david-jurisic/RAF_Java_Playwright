@@ -1,18 +1,10 @@
 package shared.UI;
 
-import base.UI.BaseUtil;
 import map.UI.AeviAdminMap;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.sql.Time;
-import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import org.testng.Assert;
 
 public class AeviAdminShared {
     public static void ThreadWait(int iSeconds)

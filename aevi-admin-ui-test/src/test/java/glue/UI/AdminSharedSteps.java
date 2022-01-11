@@ -1,25 +1,17 @@
 package glue.UI;
 
 import base.UI.BaseUtil;
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import map.UI.AeviAdminMap;
-import org.apache.velocity.runtime.directive.Foreach;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.Select;
 import shared.UI.AeviAdminShared;
-import util.UI.AdminUtil;
-
-import java.io.IOException;
-import java.time.Duration;
+import org.testng.Assert;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class AdminSharedSteps extends BaseUtil{
     private final String _url = WEBPAGE_URL;
@@ -150,10 +142,10 @@ public class AdminSharedSteps extends BaseUtil{
         switch(arg1)
         {
             case "checked":
-                assertEquals(true,checkbox.isSelected() );
+                Assert.assertEquals(true,checkbox.isSelected() );
                 break;
             case "not checked":
-                assertEquals(false,checkbox.isSelected());
+                Assert.assertEquals(false,checkbox.isSelected());
                 break;
             default:
                 Assert.fail("Checkbox not found: " + arg0);
@@ -445,7 +437,7 @@ public class AdminSharedSteps extends BaseUtil{
 
         WebElement textbox = driver.findElement(byTextbox);
 
-        Assert.assertTrue (arg1, textbox.getAttribute("value").startsWith(arg1));
+        Assert.assertTrue (textbox.getAttribute("value").startsWith(arg1));
     }
 
     @And("I should see the {string} table")
@@ -515,7 +507,7 @@ public class AdminSharedSteps extends BaseUtil{
                 break;
         }
 
-        Assert.assertTrue (arg0, driver.getCurrentUrl().startsWith(page));
+        Assert.assertTrue (driver.getCurrentUrl().startsWith(page));
     }
 
     @When("I click on the row {string} in {string} table")
