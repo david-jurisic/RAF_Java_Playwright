@@ -1,5 +1,5 @@
-@API @AEVI @AP3ADMIN
-Feature: ROMEIPT103 Test
+@API @AEVI @AP3ADMIN @AP3ADMIN-706
+Feature: AP3ADMIN-706-500 error message for SITE - POST when using in the request body a promptForDebit value, which is not in the enum list
 
   Background:
     * url baseUrl
