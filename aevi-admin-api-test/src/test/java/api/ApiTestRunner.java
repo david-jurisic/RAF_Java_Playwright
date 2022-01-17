@@ -13,9 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 class ApiTestRunner {
-    
-    // this will run all *.feature files that exist in sub-directories
-    // see https://github.com/intuit/karate#naming-conventions   
+
     @Karate.Test
     Karate testAll() {
         Results results = Runner.parallel(getClass(), 5);
