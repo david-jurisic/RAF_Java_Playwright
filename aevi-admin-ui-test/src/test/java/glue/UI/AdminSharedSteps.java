@@ -577,4 +577,22 @@ public class AdminSharedSteps extends BaseUtil{
 
         driver.findElement(byButton).click();
     }
+
+    @Then("the {string} textbox should have valid GUID string")
+    public void theTextboxShouldHaveValidGUIDString(String arg0) {
+    }
+
+    @And("I should see the checkbox in row {string} of {string} table which is enable and {string}")
+    public void iShouldSeeTheCheckboxInRowOfTableWhichIsEnableAnd(String arg0, String arg1, String arg2) {
+
+
+    }
+
+    @When("I click on checkbox in row {string} of {string} table")
+    public void iClickOnCheckboxInRowOfTable(String arg0, String arg1) {
+    }
+
+    @Then("the {string} textbox should contain unique GUID")
+    public void theTextboxShouldContainUniqueGUID(String arg0) {
+    }
 }
