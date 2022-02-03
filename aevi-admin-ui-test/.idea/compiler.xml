@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aevi-admin-ui-test" />
-        <module name="AeviAdminTest" />
       </profile>
     </annotationProcessing>
   </component>

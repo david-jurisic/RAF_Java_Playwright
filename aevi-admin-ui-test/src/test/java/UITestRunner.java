@@ -1,4 +1,4 @@
-import base.UI.BaseUtil;
+import base.ui.BaseUtil;
 import io.cucumber.testng.*;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CucumberOptions(
-        features = {"src/test/resources/features/"},
-        plugin = {"pretty",
-                    "json:target/cucumber_json_reports/report.json"},
-        glue = {"hook.UI","glue.UI"})
+    features = {"src/test/resources/features/"},
+    plugin = {"pretty", "json:target/cucumber_json_reports/report.json"},
+    glue = {"hook.ui", "glue.ui"})
 
-public class UITestRunner extends BaseUtil {
+public class UiTestRunner extends BaseUtil {
     private TestNGCucumberRunner testNGCucumberRunner;
 
     @BeforeClass(alwaysRun = true)
@@ -41,11 +40,11 @@ public class UITestRunner extends BaseUtil {
     public void tearDownClass() {
         testNGCucumberRunner.finish();
         driver.quit();
+        generateReport();
     }
 
-    @AfterClass
-    public void generateReport() {
-        File reportOutputDirectory = new File("target/cucumber_full_html_reports");
+    private void generateReport() {
+        File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber_json_reports/report.json");
 
@@ -60,7 +59,6 @@ public class UITestRunner extends BaseUtil {
         configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
         configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
         configuration.setQualifier("sample", "Chrome 80, mobile");
-        configuration.setTrendsStatsFile(new File("target/test-classes/demo-trends.json"));
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         reportBuilder.generateReports();

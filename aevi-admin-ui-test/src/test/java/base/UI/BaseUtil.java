@@ -1,11 +1,11 @@
-package base.UI;
+package base.ui;
 
 import org.openqa.selenium.WebDriver;
-import util.UI.AdminUtil;
+import util.ui.Settings;
 
-public class BaseUtil {
+public abstract class BaseUtil {
     public static WebDriver driver = null;
 
-    public static final String WEBPAGE_URL = AdminUtil.GetSettingsValue("webpage_url");
-    public static final String CHROME_DRIVER_LOCATION = AdminUtil.GetSettingsValue("chrome_driver_location");
+    public static final String WEBPAGE_URL = Settings.getSettingsValue("webpage_url");
+    public static final String CHROME_DRIVER_LOCATION = Settings.getSettingsValue("chrome_driver_location");
 }

@@ -2,5 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="webpage_url">https://localhost:8443/SMCAdmin/</entry>
-    <entry key="chrome_driver_location">C:\Automation\chromedriver.exe</entry>
+    <entry key="chrome_driver_location">\target\chromedriver.exe</entry>
 </properties>

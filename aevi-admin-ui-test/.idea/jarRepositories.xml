@@ -12,16 +12,6 @@
       <option name="url" value="https://aevi.jfrog.io/aevi/aevi-services" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="https://repo.maven.apache.org/maven2" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Maven Central repository" />
-      <option name="url" value="https://repo1.maven.org/maven2" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="org.source.repo" />
       <option name="name" value="org.source.repo" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
@@ -45,6 +35,11 @@
       <option name="id" value="jcenter-cache" />
       <option name="name" value="jcenter-cache" />
       <option name="url" value="https://aevi.jfrog.io/aevi/jcenter-cache" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />

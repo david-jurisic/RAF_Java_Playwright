@@ -1,20 +1,31 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Introduction
+Automated tests project for UI testing of Aevi Pay Admin. Project is using Selenium, Cucumber and TestNG.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Installation
+Install following plugins inside IntelliJ:
+* JUnit
+* TestNG
+* Create TestNG XML
+* Cucuber for Java
+* Gherkin
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Edit settings.xml file inside root folder:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="webpage_url">https://localhost:8443/SMCAdmin/</entry>
+    <entry key="chrome_driver_location">\target\chromedriver.exe</entry>
+</properties>
+```
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Change keys inside settings.xml accordingly:
+```properties
+webpage_url = point to Aevi Pay Admin URL
+chrome_driver_location = point to location inside project where you will hold chrome driver file (chromedriver.exe) for testing
+```
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Run automated tests using UiTestRunner.java or inside terminal using:
+```bash
+mvn test
+```
