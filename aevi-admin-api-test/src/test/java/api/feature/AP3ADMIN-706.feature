@@ -4,9 +4,10 @@ Feature: AP3ADMIN-706-500 error message for SITE - POST when using in the reques
   Background:
     * url baseUrl
     * configure ssl = true
-    * def requestBody = '{"siteId":"Q0075579","name":"Q0075579Name","parentUnitSiteId":"0003","placeIdentification":{"street":"Laurinova","houseNumber":"1","city":"Prague","postalCode":"12800","region":"Prague","country":203,"telephone":"88888888","email":"888@888.com"},"siteOperator":{"id":"SO0123456789","name":"TestSiteOperator1","placeIdentification":{"street":"Laurinova","houseNumber":"4","city":"Prague","postalCode":"12800","region":"siteOperatorPrague","country":203,"telephone":"9876541235","email":"999@999.com"}},"defaultLanguage":"en","timezone":"Europe/Prague","promptForDebit":"PROMPT"}'
+    * def requestBody = '{"siteId":"Q0000706","name":"Q0000706Name","parentUnitSiteId":"USANY001","placeIdentification":{"street":"Laurinova","houseNumber":"1","city":"Prague","postalCode":"12800","region":"Prague","country":203,"telephone":"88888888","email":"888@888.com"},"siteOperator":{"id":"SO0123456789","name":"TestSiteOperator1","placeIdentification":{"street":"Laurinova","houseNumber":"4","city":"Prague","postalCode":"12800","region":"siteOperatorPrague","country":203,"telephone":"9876541235","email":"999@999.com"}},"defaultLanguage":"en","timezone":"Europe/Prague","promptForDebit":"PROMPT"}'
 
-  Scenario: Check status code and response body for 'onboarding-api/v1/dataGroups/ITALY/sites' path
+  Scenario: 500 error message for SITE - POST when using in the request body a promptForDebit value, which is not in the enum list
+
     Given path 'onboarding-api/v1/dataGroups/ITALY/sites'
     When header Content-Type = 'application/json'
     And header Authorization = 'Bearer ' + token

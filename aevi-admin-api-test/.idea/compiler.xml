@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aevi-admin-api-test" />
+        <module name="aevi-admin-api-test - Copy" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="aevi-admin-api-test" options="-Werror" />
+      <module name="aevi-admin-api-test" options="" />
+      <module name="aevi-admin-api-test - Copy" options="-Werror" />
     </option>
   </component>
 </project>
