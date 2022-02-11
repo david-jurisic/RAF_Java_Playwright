@@ -1,8 +1,9 @@
-package root;
+package RAF3kGUItesting.WebTesting.BaseTypes;
 
-import jdk.jfr.StackTrace;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import RAF3kShared.ControlObject;
+import RAF3kGUItesting.UIReferences;
 
 public class WebControlBase extends ControlObject {
     public Boolean bDisplayed = true;

@@ -1,6 +1,9 @@
-package root;
+package RAF3kGUItesting;
 
+import RAF3kShared.Helpers;
+import RAF3kShared.Logging.Evaluator;
 import org.openqa.selenium.WebDriver;
+import RAF3kGUItesting.WebTesting.WebEngine;
 
 public class UIReferences {
     public static String CurrentPageContext;
@@ -23,10 +26,21 @@ public class UIReferences {
     }
 
     private static Helpers _Hlpr;
+
     public static Helpers Hlpr() {
 
         if (_Hlpr == null)
             _Hlpr = new Helpers();
         return _Hlpr;
+    }
+
+    private static Evaluator _Eval;
+
+    public static Evaluator Eval() {
+        if (_Eval == null)
+            _Eval = new Evaluator(getWebDriver());
+        if (_Eval.driver == null)
+            _Eval = new Evaluator(getWebDriver());
+        return _Eval;
     }
 }

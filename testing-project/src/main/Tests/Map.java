@@ -1,9 +1,7 @@
-package run;
-
+import TestProject.ExtendedTypes.UI.WbEditEx;
+import TestProject.ExtendedTypes.UI.WbPageEx;
 import org.openqa.selenium.By;
-import root.UIReferences;
-import root.WbEditEx;
-import root.WbPageEx;
+import RAF3kGUItesting.UIReferences;
 
 public final class Map {
     public static void Initialize() {

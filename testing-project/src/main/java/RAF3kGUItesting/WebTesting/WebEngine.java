@@ -1,9 +1,10 @@
-package root;
+package RAF3kGUItesting.WebTesting;
 
+import RAF3kGUItesting.WebTesting.BaseTypes.WebControlBase;
+import RAF3kGUItesting.UIReferences;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;

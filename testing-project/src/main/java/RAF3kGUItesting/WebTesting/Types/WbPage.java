@@ -1,4 +1,7 @@
-package root;
+package RAF3kGUItesting.WebTesting.Types;
+
+import RAF3kGUItesting.WebTesting.BaseTypes.WebControlBase;
+import RAF3kGUItesting.UIReferences;
 
 import java.net.MalformedURLException;
 import java.net.URL;
