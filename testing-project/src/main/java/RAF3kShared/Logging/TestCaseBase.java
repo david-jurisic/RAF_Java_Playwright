@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TestCaseBase {
     public ArrayList<Step> Steps = new ArrayList<Step>();
-    private Step CurrentStep;
+    private Step CurrentStep = new Step();
     private Evaluator Eval = new Evaluator(null);
     public String sTestCaseName;
     public String sTestCaseCode;
@@ -73,15 +73,16 @@ public class TestCaseBase {
     }
 
     //change type from Success to void
-    public void Success() {
+    public Success Success(Success newSuccess) {
+
         Substep Step = new Substep();
-        //Step.Start = value.StepStart;
-        //Step.Finish = value.StepFinish;
-        //Step.Ex = value.Ex;
-        //Step.Passed = value.bPassed;
-        //Step.Screenshot = value.sScreenshot;
+        Step.Start = newSuccess.StepStart;
+        Step.Finish = newSuccess.StepFinish;
+        Step.Ex = newSuccess.Ex;
+        Step.Passed = newSuccess.bPassed;
+        Step.Screenshot = newSuccess.sScreenshot;
         //Step.Name = $ "{value.sPath}.{value.sAlias}.{value.sMethodName}({value.sMethodArguments})";
-        //Step.MessageAddon = value.sMessageAddon;
+        Step.MessageAddon = newSuccess.sMessageAddon;
         CurrentStep.Substeps.add(Step);
 
         if (!Step.Passed) {
@@ -93,6 +94,8 @@ public class TestCaseBase {
             //    Assert.Fail("Step failed. Finishing test case...");
             //}
         }
+
+        return newSuccess;
     }
 
     //[OneTimeTearDown]

@@ -2,6 +2,7 @@ package RAF3kGUItesting.WebTesting.Types;
 
 import RAF3kGUItesting.WebTesting.BaseTypes.WebControlBase;
 import RAF3kGUItesting.UIReferences;
+import RAF3kShared.Logging.Success;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +22,7 @@ public class WbPage extends WebControlBase {
     {
         try {
             this.setPageURL(new URL(new URL(UIReferences.CurrentPageContext), sPath));
+            this.setsAlias(sAlias);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -28,7 +30,7 @@ public class WbPage extends WebControlBase {
         this.setsAlias(sAlias);
     }
 
-    public void Navigate() {
-        UIReferences.getWebDriver().navigate().to(PageURL);
+    public Success Navigate() {
+        return UIReferences.Eval().Evaluate(() -> UIReferences.getWebDriver().navigate().to(PageURL),this,"");
     }
 }

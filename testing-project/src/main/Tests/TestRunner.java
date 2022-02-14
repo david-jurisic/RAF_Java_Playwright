@@ -5,7 +5,7 @@ public class TestRunner extends UITestCase {
     @Test
     void First() throws Exception {
         Map.Initialize();
-        Map.Login.page.Navigate();
-        Map.Login.txtEmail.SetText("test",false,false,false);
+        Success(Map.Login.page.Navigate());
+        Success(Map.Login.txtEmail.SetText("test",false,false,false));
     }
 }

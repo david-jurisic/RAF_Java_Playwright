@@ -25,7 +25,7 @@ public class ControlObject {
         return sControlType;
     }
 
-    public void setsControlType(String sControlType) {
-        this.sControlType = sControlType;
+    public void setsControlType(String newControlType) {
+        this.sControlType = newControlType;
     }
 }

@@ -14,7 +14,7 @@ public class Success {
     public Boolean bPassed;
     public Exception Ex;
     public LocalDateTime StepStart;
-    public LocalDateTime StepFinished;
+    public LocalDateTime StepFinish;
 
     public Success(ControlObject Caller) {
         StepStart = LocalDateTime.now();
@@ -29,7 +29,7 @@ public class Success {
     }
 
     public Success Finish(Exception ex) {
-        this.StepFinished = LocalDateTime.now();
+        this.StepFinish = LocalDateTime.now();
         if (ex != null) {
             this.Ex = ex;
             this.bPassed = false;

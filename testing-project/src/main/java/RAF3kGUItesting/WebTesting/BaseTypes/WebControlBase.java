@@ -1,9 +1,12 @@
 package RAF3kGUItesting.WebTesting.BaseTypes;
 
+import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import RAF3kShared.ControlObject;
 import RAF3kGUItesting.UIReferences;
+
+import java.util.stream.Stream;
 
 public class WebControlBase extends ControlObject {
     public Boolean bDisplayed = true;
@@ -41,22 +44,19 @@ public class WebControlBase extends ControlObject {
         }
     }
 
-    public WebControlBase()
-    {
-        this.setsControlType(this.getClass().getName());
-        this.setsPath(UIReferences.Hlpr().CleanupPath(""));
+    public WebControlBase() {
+        this.setsControlType(this.getClass().getSimpleName());
+        this.setsPath(this.getClass().getName());
     }
 
-    public WebControlBase(By SearchBy, String Alias)
-    {
+    public WebControlBase(By SearchBy, String Alias) {
         this.setsControlType(this.getClass().getName());
         this.setSearchBy(SearchBy);
         this.setsAlias(Alias);
         this.setsPath(UIReferences.Hlpr().CleanupPath(""));
     }
 
-    public WebControlBase(By SearchBy, WebControlBase Parent, String Alias)
-    {
+    public WebControlBase(By SearchBy, WebControlBase Parent, String Alias) {
         this.setsControlType(this.getClass().getName());
         this.setSearchBy(SearchBy);
         this.setsAlias(Alias);
