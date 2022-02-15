@@ -1,5 +1,6 @@
 package RAF3kGUItesting.WebTesting.BaseTypes;
 
+import RAF3kShared.DebugLog;
 import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,7 +40,7 @@ public class WebControlBase extends ControlObject {
                 _Controlreference = UIReferences.getWebEng().FindControl(getsControlType(), getsPath(), getSearchBy(), getParent(), sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
             return _Controlreference;
         } catch (Exception ex) {
-            System.out.println(ex);
+            DebugLog.Add(ex);
             return null;
         }
     }

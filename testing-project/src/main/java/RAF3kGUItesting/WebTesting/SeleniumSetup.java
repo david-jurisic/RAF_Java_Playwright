@@ -1,6 +1,7 @@
 package RAF3kGUItesting.WebTesting;
 
 import RAF3kGUItesting.UIReferences;
+import RAF3kShared.SharedVariables;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,10 +11,8 @@ public class SeleniumSetup {
     {
         if (CustomWebDriver == null)
         {
-            //String Browser = SharedVariables.Configuration.GetEntryValue("Browser");
-            String Browser = "Chrome";
-            //String sWebDriverPath = SharedVariables.Configuration.GetEntryValue("SeleniumWebDriverPath");
-            String sWebDriverPath = "c:\\Automation\\chromedriver.exe";
+            String Browser = SharedVariables.Configuration.getProperty("browser");
+            String sWebDriverPath = SharedVariables.Configuration.getProperty("seleniumWebDriverPath") + "\\chromedriver.exe";
 
             switch (Browser.toLowerCase())
             {

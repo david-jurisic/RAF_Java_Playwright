@@ -1,8 +1,12 @@
 package RAF3kShared.Logging;
 
+import RAF3kShared.ConfigurationHelper;
+import RAF3kShared.DebugLog;
 import RAF3kShared.Logging.Evaluator;
 import RAF3kShared.Logging.Step;
+import RAF3kShared.SharedVariables;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class TestCaseBase {
@@ -28,10 +32,9 @@ public class TestCaseBase {
         sTestCaseName = "Not Defined";
         sTestCaseCode = "Not Defined";
         sTestCaseAuthor = "Not Defined";
-        System.out.println("Warning *** No RAFtestCase attribute found, log data might be inconclusive");
+        //DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", );
         //}
-        //String path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Settings", @"Settings.xml");
-        //SharedVariables.Configuration = new ConfigurationHelper(path);
+        SharedVariables.Configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }
 
@@ -42,7 +45,7 @@ public class TestCaseBase {
         sTestCaseAuthor = TestCaseAuthor;
 
         //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Settings", @"Settings.xml");
-        //SharedVariables.Configuration = new ConfigurationHelper(path);
+        SharedVariables.Configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }
 
@@ -53,8 +56,8 @@ public class TestCaseBase {
         CurrentStep = new Step();
         CurrentStep.StepNumber = iNumber;
         CurrentStep.StepName = sName;
-        CurrentStep.Substeps = new ArrayList<Substep>();
-        //DebugLog.Add($"Added new step: {iNumber.ToString()} : {sName}", 2);
+        CurrentStep.Substeps = new ArrayList<>();
+        DebugLog.Add("Added new step: {iNumber.ToString()} : {sName}", 2);
     }
 
     public void AddBDDStep(String sName) {
@@ -103,7 +106,7 @@ public class TestCaseBase {
     {
         if (CurrentStep != null)
             Steps.add(CurrentStep);
-        //LogConstructor.GenerateLog(this);
+        LogConstructor.GenerateLog(this);
     }
 }
 

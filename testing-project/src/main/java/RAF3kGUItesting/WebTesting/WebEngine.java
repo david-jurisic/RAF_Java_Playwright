@@ -2,6 +2,7 @@ package RAF3kGUItesting.WebTesting;
 
 import RAF3kGUItesting.WebTesting.BaseTypes.WebControlBase;
 import RAF3kGUItesting.UIReferences;
+import RAF3kShared.DebugLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,7 +33,7 @@ public class WebEngine {
 
             return Control;
         } catch (Exception e) {
-            System.out.println("Error Finding control: " + sControlPath);
+            DebugLog.Add("Error Finding control: " + sControlPath, 3);
             return null;
         }
 

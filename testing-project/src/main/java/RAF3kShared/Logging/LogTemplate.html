@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log results</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 20px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: scroll;
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .arrowMoreInfo {
+            float: right;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+            .arrowMoreInfo:hover,
+            .arrowMoreInfo:focus {
+
+                cursor: pointer;
+            }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        body {
+            font-family: VErdana, Charcoal, sans-serif;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 50px auto;
+        }
+
+        .results:nth-child(even) {
+            background: #CCC
+        }
+
+        .results:nth-child(odd) {
+            background: #FFF
+        }
+
+        .wrapper {
+            width: 90%;
+            margin: 50px auto;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        td, th {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            font-size: 12px;
+            vertical-align: top;
+        }
+
+        .labels tr td {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .success {
+            background-color: #4CAF50;
+        }
+
+        .info {
+            background-color: #2196F3;
+        }
+
+        .warning {
+            background-color: #ff9800;
+        }
+
+        .danger {
+            background-color: #f44336;
+        }
+
+        .label tr td label {
+            display: block;
+        }
+
+        [data-toggle="toggle"] {
+            display: none;
+        }
+        #DialogImage {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+
+            width: auto;
+            max-height: 100%;
+            max-width: 100%
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="toggle"]').change(function () {
+                $(this).parents().next('.hide').toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="screenModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="DialogImage" src="" />
+    </div>
+</div>
+<div class="wrapper">
+    <h1>[TestCaseCode] - [TestCaseName]</h1>
+    <p>Test case Duration: [TestCaseDuration]</p>
+    <p>Test case Author: [TestCaseAuthor]</p>
+    <hr>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Step</th>
+        <th>Duration</th>
+        <th>Scrn</th>
+    </tr>
+    </thead>
+    [TableData]
+</table>
+
+<script>
+        var modal = document.getElementById("screenModal");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function DisplayScreenshot(e) {
+            var modal = document.getElementById("screenModal");
+            var span = document.getElementsByClassName("close")[0];
+            if (!e)
+                e = window.event;
+            var sender = e.srcElement || e.target;
+
+            var ImageBase = sender.getAttribute("data-image");
+            document.getElementById("DialogImage").setAttribute('src', 'data:image/png;base64,' + ImageBase);
+            modal.style.display = "block";
+
+        }
+        function ExpandMesageAddon(e) {
+            var MessageAddon = document.getElementById(e);
+            var AddonSpan = document.getElementById("Span" + e);
+            if (MessageAddon.style.display === "none") {
+                MessageAddon.style.display = "";
+                AddonSpan.innerHTML = "-";
+            } else {
+                MessageAddon.style.display = "none";
+                AddonSpan.innerHTML = "+";
+            }
+        }
+    </script>
+</body>
+</html>

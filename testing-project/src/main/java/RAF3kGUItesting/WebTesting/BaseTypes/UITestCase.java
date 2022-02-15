@@ -1,6 +1,7 @@
 package RAF3kGUItesting.WebTesting.BaseTypes;
 
 import RAF3kGUItesting.WebTesting.SeleniumSetup;
+import RAF3kShared.DebugLog;
 import RAF3kShared.Logging.TestCaseBase;
 import RAF3kGUItesting.UIReferences;
 
@@ -23,16 +24,16 @@ public class UITestCase extends TestCaseBase {
             {
                 SeleniumSetup setup = new SeleniumSetup();
                 setup.SetupWebDriver(null);
-                //DebugLog.Add("Driver setup complete", 2);
+                DebugLog.Add("Driver setup complete", 2);
             }
             else
             {
-                //DebugLog.Add("Driver already running", 2);
+                DebugLog.Add("Driver already running", 2);
             }
         }
         catch (Exception ex)
         {
-            //DebugLog.Add(ex);
+            DebugLog.Add(ex);
             return;
         }
     }

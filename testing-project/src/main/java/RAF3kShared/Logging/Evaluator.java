@@ -1,9 +1,11 @@
 package RAF3kShared.Logging;
 
+import RAF3kShared.DebugLog;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import javax.swing.*;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Evaluator {
             TakesScreenshot ss = ((TakesScreenshot) driver);
             return ss.getScreenshotAs(OutputType.BASE64);
         } catch (Exception ex) {
-            System.out.println(ex);
+            DebugLog.Add(ex);
             return "";
         }
     }
@@ -70,10 +72,10 @@ public class Evaluator {
             suc.sPath = CallersPathvalue;
             suc.sAlias = CallersAliasValue;
             //if (action.toString().contains("<") && action.toString().contains(">"))
-                //suc.sMethodName = action.Method.Name.Substring(action.Method.Name.IndexOf("<")+1, action.Method.Name.IndexOf(">") - action.Method.Name.IndexOf("<")-1);
-                //suc.sMethodName = action.toString();
+            //suc.sMethodName = action.Method.Name.Substring(action.Method.Name.IndexOf("<")+1, action.Method.Name.IndexOf(">") - action.Method.Name.IndexOf("<")-1);
+            //suc.sMethodName = action.toString();
             //else
-                suc.sMethodName = action.toString();
+            suc.sMethodName = action.toString();
             suc.sMessageAddon = MessageAddon;
 
             Field args = action.getClass().getDeclaredField("arg$1");
@@ -84,9 +86,9 @@ public class Evaluator {
                 fieldInfo.setAccessible(true);
                 String sFieldName = fieldInfo.getName();
                 if (sFieldName.startsWith("<>"))
-                  continue;
-                Object oVal = fieldInfo.getClass().getDeclaredField("action").get(this);
-                String sValue = oVal == null ? "NULL" : oVal.toString();
+                    continue;
+                String oVal = fieldInfo.get(caller).toString();
+                String sValue = oVal == null ? "NULL" : oVal;
 
                 lsMethodArguments.add(sValue);
             }
