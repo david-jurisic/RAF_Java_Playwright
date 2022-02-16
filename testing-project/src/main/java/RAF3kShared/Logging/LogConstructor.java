@@ -1,31 +1,38 @@
 package RAF3kShared.Logging;
 
+import RAF3kShared.DebugLog;
 import RAF3kShared.SharedVariables;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 public class LogConstructor {
-    private static String defaultLogTemplate = "RAF3kShared.Logging.LogTemplate.html";
-    private static String sLogPath;
+    private static String defaultLogTemplate = "LogTemplate.html";
+    private static Path sLogPath;
 
     public static void GenerateLog(TestCaseBase TestCase) {
-        String sLogType = SharedVariables.Configuration.GetEntryValue("LogExportType");
+        String sLogType = SharedVariables.Configuration.getProperty("logExportType");
         switch (sLogType) {
             case "html":
                 GenerateHTMLLog(TestCase);
                 break;
             case "json":
-                GenerateJsonLog(TestCase);
+                //GenerateJsonLog(TestCase);
                 break;
             default:
                 GenerateHTMLLog(TestCase);
                 break;
         }
 
-        AttachLogFileToRun(sLogPath);
+        //AttachLogFileToRun(sLogPath);
     }
 
-    public static void GenerateHTMLLog(TestCaseBase TestCase) {
+    private static void GenerateHTMLLog(TestCaseBase TestCase) {
         String sRowColor = "success";
         String sLogData = "";
         for (Step step : TestCase.Steps) {
@@ -58,7 +65,7 @@ public class LogConstructor {
                         if (SubStep.Ex != null)
                             sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.StepNumber) + String.valueOf(i) + ")'>" + SubStep.Name +
                                     " <span id='Span" + String.valueOf(step.StepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
-                                    SubStep.Ex.Message + "</b></td>";
+                                    SubStep.Ex.getMessage() + "</b></td>";
                         else
                             sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.StepNumber) + String.valueOf(i) + ")'>" +
                                     SubStep.Name + " <span id='Span" + String.valueOf(step.StepNumber) + String.valueOf(i) +
@@ -85,39 +92,78 @@ public class LogConstructor {
         }
 
         String sHtmlLog = "";
-        if (String.IsNullOrEmpty(SharedVariables.Configuration.GetEntryValue("LogTemplateFilePath"))) {
+
+        String logTemplateFilePath = SharedVariables.Configuration.getProperty("logTemplateFilePath");
+        if (logTemplateFilePath == null || logTemplateFilePath.isEmpty()) {
             sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
         } else {
             try {
-                sHtmlLog = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), SharedVariables.Configuration.GetEntryValue("LogTemplateFilePath")));
-
-                if (string.IsNullOrEmpty(sHtmlLog)) {
-                    DebugLog.Add($"File '{SharedVariables.Configuration.GetEntryValue("LogTemplateFilePath")}' is empty. Default log template is used instead. ", 1);
-                    sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
+                ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+                try (InputStream is = classLoader.getResourceAsStream(logTemplateFilePath)) {
+                    if (is == null)
+                        sHtmlLog = null;
+                    try (InputStreamReader isr = new InputStreamReader(is);
+                         BufferedReader reader = new BufferedReader(isr)) {
+                        sHtmlLog = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                    }
                 }
 
+                if (sHtmlLog == null || sHtmlLog.isEmpty()) {
+                    DebugLog.Add("File '" + SharedVariables.Configuration.getProperty("LogTemplateFilePath") + "' is empty. Default log template is used instead. ", 1);
+                    sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
+                }
             } catch (Exception e) {
-                DebugLog.Add($"File '{SharedVariables.Configuration.GetEntryValue("LogTemplateFilePath")}' does not exist or can't be opened." +
+                DebugLog.Add("File '" + SharedVariables.Configuration.getProperty("LogTemplateFilePath") + "' does not exist or can't be opened." +
                         " Default log template is used instead." +
-                        "\n Detailed error message: " + e.StackTrace, 1);
+                        "\n Detailed error message: " + e.getMessage(), 1);
                 sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
             }
         }
 
-        string sExport = sHtmlLog.Replace("[TableData]", sLogData);
-        sExport = sExport.Replace("[TestCaseCode]", $" {TestCase.sTestCaseCode}");
-        sExport = sExport.Replace("[TestCaseName]", $" {TestCase.sTestCaseName}");
-        sExport = sExport.Replace("[TestCaseDuration]", $"{TimeSpan.FromSeconds(TestCase.Steps.Sum(s => s.Duration.TotalSeconds)).TotalSeconds.ToString("
-        0.##")} sec");
-        sExport = sExport.Replace("[TestCaseAuthor]", $"{TestCase.sTestCaseAuthor}");
+        String sExport = sHtmlLog.replace("[TableData]", sLogData);
+        sExport = sExport.replace("[TestCaseCode]", " " + TestCase.sTestCaseCode);
+        sExport = sExport.replace("[TestCaseName]", " " + TestCase.sTestCaseName);
+        sExport = sExport.replace("[TestCaseDuration]", String.valueOf(Duration.ofSeconds(TestCase.Steps.stream()
+                .filter(m -> m.Durations().getSeconds() > 0).mapToLong(n -> n.Durations().getSeconds()).sum())) + " sec");
+        sExport = sExport.replace("[TestCaseAuthor]", TestCase.sTestCaseAuthor);
 
-        string sFolderPath = Path.Combine(SharedVariables.Configuration.GetEntryValue("LogFilePath"), TestCase.sTestCaseCode);
+        Path sFolderPath = Path.of(SharedVariables.Configuration.getProperty("logFilePath"), TestCase.sTestCaseCode);
 
-        if (!Directory.Exists(sFolderPath)) {
-            Directory.CreateDirectory(sFolderPath);
+        if (!Files.exists(sFolderPath)) {
+            try {
+                Files.createDirectory(sFolderPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        sLogPath = Path.Combine(sFolderPath, DateTime.Now.ToString("ddMMyyyhhss") + ".html");
-        File.WriteAllText(sLogPath, sExport);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
+        sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".html");
+
+        FileWriter myWriter = null;
+        try {
+            myWriter = new FileWriter(sLogPath.toString());
+            myWriter.write(sExport);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String GetLogTemplateFromAssembly(String fileName) {
+        StringBuilder resultStringBuilder = new StringBuilder();
+
+        try (InputStream in = ClassLoader.getSystemResourceAsStream(fileName);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                resultStringBuilder.append(line).append("\n");
+            }
+        } catch (Exception ex) {
+            DebugLog.Add(ex);
+        }
+
+        return resultStringBuilder.toString();
     }
 }

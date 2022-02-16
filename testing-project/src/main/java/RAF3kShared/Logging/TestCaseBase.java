@@ -2,13 +2,17 @@ package RAF3kShared.Logging;
 
 import RAF3kShared.ConfigurationHelper;
 import RAF3kShared.DebugLog;
-import RAF3kShared.Logging.Evaluator;
-import RAF3kShared.Logging.Step;
+import RAF3kShared.RAFtestCaseAttribute;
 import RAF3kShared.SharedVariables;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.TestInstance;
 
-import java.nio.file.Path;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCaseBase {
     public ArrayList<Step> Steps = new ArrayList<Step>();
     private Step CurrentStep = new Step();
@@ -20,19 +24,16 @@ public class TestCaseBase {
     public Boolean bPass = true;
 
     public TestCaseBase() {
-        //RAFtestCaseAttribute Attribuite = this.GetType().GetCustomAttributes(true)[0] as RAFtestCaseAttribute;
-        //if (Attribuite != null)
-        //{
-        //    sTestCaseName = Attribuite._TestCaseName;
-        //    sTestCaseCode = Attribuite._TestCaseCode;
-        //    sTestCaseAuthor = Attribuite._Author;
-        //}
-        //else
-        //{
-        sTestCaseName = "Not Defined";
-        sTestCaseCode = "Not Defined";
-        sTestCaseAuthor = "Not Defined";
-        //DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", );
+        //RAFtestCaseAttribute attr = method.getAnnotation(RAFtestCaseAttribute.class);
+        //if (attr != null) {
+        //    sTestCaseName = attr.testCaseName();
+        //    sTestCaseCode = attr.testCaseCode();
+        //    sTestCaseAuthor = attr.author();
+        //} else {
+            sTestCaseName = "Not Defined";
+            sTestCaseCode = "Not Defined";
+            sTestCaseAuthor = "Not Defined";
+            DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
         //}
         SharedVariables.Configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
@@ -57,7 +58,7 @@ public class TestCaseBase {
         CurrentStep.StepNumber = iNumber;
         CurrentStep.StepName = sName;
         CurrentStep.Substeps = new ArrayList<>();
-        DebugLog.Add("Added new step: {iNumber.ToString()} : {sName}", 2);
+        DebugLog.Add("Added new step: " + String.valueOf(iNumber) + " : " + sName, 2);
     }
 
     public void AddBDDStep(String sName) {
@@ -101,9 +102,8 @@ public class TestCaseBase {
         return newSuccess;
     }
 
-    //[OneTimeTearDown]
-    public void TearDown()
-    {
+    @AfterAll
+    public void TearDown() {
         if (CurrentStep != null)
             Steps.add(CurrentStep);
         LogConstructor.GenerateLog(this);
