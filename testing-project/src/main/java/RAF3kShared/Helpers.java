@@ -3,7 +3,7 @@ package RAF3kShared;
 public class Helpers {
     public String CleanupPath(String sPath)
     {
-        return sPath.replace("+", ".");
+        return sPath.replace("$", ".");
     }
 
     public static void WaitForAction(int iWaitTIme)

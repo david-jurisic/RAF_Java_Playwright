@@ -41,7 +41,7 @@ public class LogConstructor {
             String sTableData = "<tbody class='labels'>";
             sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.StepNumber + "'>" + step.StepNumber + "  " +
                     step.StepName + "</label><input type='checkbox' name='" + step.StepNumber + " ' id='" + step.StepNumber +
-                    "' data-toggle='toggle'></td><td>" + String.valueOf(step.Durations().getSeconds()) + "</td><td></td></tr>";
+                    "' data-toggle='toggle'></td><td>" + String.valueOf((float) step.Durations().toMillis() / 1000) + "</td><td></td></tr>";
             sTableData += "</tbody><tbody class='hide'>";
             int i = 1;
             for (Substep SubStep : step.Substeps) {
@@ -73,7 +73,7 @@ public class LogConstructor {
                     }
 
                 }
-                sTableData += "<td>" + Duration.between(SubStep.Finish, SubStep.Start).getSeconds() + "</td>";
+                sTableData += "<td>" + String.valueOf((float) Duration.between(SubStep.Start, SubStep.Finish).toMillis() / 1000) + "</td>";
                 if (SubStep.Passed)
                     sTableData += "<td></td>";
                 else if (SubStep.Screenshot != null && !SubStep.Screenshot.isEmpty())
@@ -123,8 +123,8 @@ public class LogConstructor {
         String sExport = sHtmlLog.replace("[TableData]", sLogData);
         sExport = sExport.replace("[TestCaseCode]", " " + TestCase.sTestCaseCode);
         sExport = sExport.replace("[TestCaseName]", " " + TestCase.sTestCaseName);
-        sExport = sExport.replace("[TestCaseDuration]", String.valueOf(Duration.ofSeconds(TestCase.Steps.stream()
-                .filter(m -> m.Durations().getSeconds() > 0).mapToLong(n -> n.Durations().getSeconds()).sum())) + " sec");
+        sExport = sExport.replace("[TestCaseDuration]", String.valueOf(
+                (float) TestCase.Steps.stream().filter(m -> m.Durations().getSeconds() > 0).mapToLong(n -> n.Durations().toMillis()).sum() / 1000) + " sec");
         sExport = sExport.replace("[TestCaseAuthor]", TestCase.sTestCaseAuthor);
 
         Path sFolderPath = Path.of(SharedVariables.Configuration.getProperty("logFilePath"), TestCase.sTestCaseCode);

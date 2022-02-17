@@ -75,7 +75,7 @@ public class Evaluator {
             //suc.sMethodName = action.Method.Name.Substring(action.Method.Name.IndexOf("<")+1, action.Method.Name.IndexOf(">") - action.Method.Name.IndexOf("<")-1);
             //suc.sMethodName = action.toString();
             //else
-            suc.sMethodName = action.toString();
+            suc.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             suc.sMessageAddon = MessageAddon;
 
             Field args = action.getClass().getDeclaredField("arg$1");

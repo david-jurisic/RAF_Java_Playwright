@@ -10,7 +10,7 @@ public class Step {
 
     public Duration Durations() {
         if(Substeps.size()>0)
-            return Duration.between(Substeps.get(Substeps.size() - 1).Finish, Substeps.get(0).Start);
+            return Duration.between(Substeps.get(0).Start, Substeps.get(Substeps.size() - 1).Finish);
 
         return Duration.ofSeconds(0);
     }

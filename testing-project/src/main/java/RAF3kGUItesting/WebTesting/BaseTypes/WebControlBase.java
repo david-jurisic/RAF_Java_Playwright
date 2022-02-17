@@ -47,21 +47,21 @@ public class WebControlBase extends ControlObject {
 
     public WebControlBase() {
         this.setsControlType(this.getClass().getSimpleName());
-        this.setsPath(this.getClass().getName());
+        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
     }
 
     public WebControlBase(By SearchBy, String Alias) {
         this.setsControlType(this.getClass().getName());
         this.setSearchBy(SearchBy);
         this.setsAlias(Alias);
-        this.setsPath(UIReferences.Hlpr().CleanupPath(""));
+        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
     }
 
     public WebControlBase(By SearchBy, WebControlBase Parent, String Alias) {
         this.setsControlType(this.getClass().getName());
         this.setSearchBy(SearchBy);
         this.setsAlias(Alias);
-        this.setsPath(UIReferences.Hlpr().CleanupPath(""));
+        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
         this.setParent(Parent);
     }
 

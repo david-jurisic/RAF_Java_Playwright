@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCaseBase {
     public ArrayList<Step> Steps = new ArrayList<Step>();
-    private Step CurrentStep = new Step();
+    private Step CurrentStep;
     private Evaluator Eval = new Evaluator(null);
     public String sTestCaseName;
     public String sTestCaseCode;
@@ -24,17 +24,12 @@ public class TestCaseBase {
     public Boolean bPass = true;
 
     public TestCaseBase() {
-        //RAFtestCaseAttribute attr = method.getAnnotation(RAFtestCaseAttribute.class);
-        //if (attr != null) {
-        //    sTestCaseName = attr.testCaseName();
-        //    sTestCaseCode = attr.testCaseCode();
-        //    sTestCaseAuthor = attr.author();
-        //} else {
-            sTestCaseName = "Not Defined";
-            sTestCaseCode = "Not Defined";
-            sTestCaseAuthor = "Not Defined";
-            DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
-        //}
+
+        sTestCaseName = "Not Defined";
+        sTestCaseCode = "Not Defined";
+        sTestCaseAuthor = "Not Defined";
+        DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
+
         SharedVariables.Configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }
@@ -76,7 +71,6 @@ public class TestCaseBase {
         }
     }
 
-    //change type from Success to void
     public Success Success(Success newSuccess) {
 
         Substep Step = new Substep();
@@ -85,7 +79,7 @@ public class TestCaseBase {
         Step.Ex = newSuccess.Ex;
         Step.Passed = newSuccess.bPassed;
         Step.Screenshot = newSuccess.sScreenshot;
-        //Step.Name = $ "{value.sPath}.{value.sAlias}.{value.sMethodName}({value.sMethodArguments})";
+        Step.Name = newSuccess.sPath + "." + newSuccess.sAlias + "." + newSuccess.sMethodName + "(" + newSuccess.sMethodArguments + ")";
         Step.MessageAddon = newSuccess.sMessageAddon;
         CurrentStep.Substeps.add(Step);
 
