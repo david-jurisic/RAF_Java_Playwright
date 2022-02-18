@@ -7,16 +7,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 public class WbEdit extends WebControlBase {
-    public WbEdit(By SearchBy, String Alias) {
-        super(SearchBy, Alias);
+    public WbEdit(By searchBy, String alias) {
+        super(searchBy, alias);
     }
 
-    public WbEdit(By SearchBy, WebControlBase Parent, String Alias) {
-        super(SearchBy, Parent, Alias);
+    public WbEdit(By searchBy, WebControlBase parent, String alias) {
+        super(searchBy, parent, alias);
     }
 
-    public Success SetText(String sText, Boolean bSetValue, Boolean bSetWithAction, Boolean bClickControl) {
-        return UIReferences.Eval().Evaluate(() ->
+    public Success setText(String sText, Boolean bSetValue, Boolean bSetWithAction, Boolean bClickControl) {
+        return UIReferences.eval().evaluate(() ->
         {
             if (bSetWithAction && bSetValue) {
                 try {
@@ -27,16 +27,16 @@ public class WbEdit extends WebControlBase {
             }
 
             if (bClickControl)
-                Control().click();
+                control().click();
 
-            if (!getsAlias().toLowerCase().contains("password")) {
-                Control().clear();
+            if (!sAlias.toLowerCase().contains("password")) {
+                control().clear();
             } else {
-                Control().sendKeys(Keys.CONTROL + "a");
-                Control().sendKeys(Keys.DELETE);
+                control().sendKeys(Keys.CONTROL + "a");
+                control().sendKeys(Keys.DELETE);
             }
 
-            Control().sendKeys(sText);
+            control().sendKeys(sText);
         }, this, "");
     }
 }

@@ -7,12 +7,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SeleniumSetup {
-    public void SetupWebDriver(WebDriver CustomWebDriver)
+    public void setupWebDriver(WebDriver customWebDriver)
     {
-        if (CustomWebDriver == null)
+        if (customWebDriver == null)
         {
-            String Browser = SharedVariables.Configuration.getProperty("browser");
-            String sWebDriverPath = SharedVariables.Configuration.getProperty("seleniumWebDriverPath") + "\\chromedriver.exe";
+            String Browser = SharedVariables.configuration.getProperty("browser");
+            String sWebDriverPath = SharedVariables.configuration.getProperty("seleniumWebDriverPath") + "\\chromedriver.exe";
 
             switch (Browser.toLowerCase())
             {
@@ -35,7 +35,7 @@ public class SeleniumSetup {
         }
         else
         {
-            UIReferences.setWebDriver(CustomWebDriver);
+            UIReferences.setWebDriver(customWebDriver);
         }
         UIReferences.getWebDriver().manage().window().maximize();
     }

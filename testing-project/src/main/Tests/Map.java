@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import RAF3kGUItesting.UIReferences;
 
 public final class Map {
-    public static void Initialize() {
-        UIReferences.CurrentPageContext = "https://roxoftkale.azurewebsites.net";
+    public static void initialize() {
+        UIReferences.currentPageContext = "https://roxoftkale.azurewebsites.net";
     }
 
     public static class Login {

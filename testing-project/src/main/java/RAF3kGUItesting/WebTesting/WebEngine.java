@@ -15,25 +15,25 @@ import java.util.List;
 
 public class WebEngine {
     public WebEngine() {
-        AllAsyncLoaders = new ArrayList<By>();
+        allAsyncLoaders = new ArrayList<By>();
     }
 
-    private List<By> AllAsyncLoaders = new ArrayList<By>();
+    private List<By> allAsyncLoaders = new ArrayList<By>();
 
-    public WebElement FindControl(String sControlType, String sControlPath, By searchBy, WebControlBase Parent, String sError, Boolean bDisplayed, Boolean bMustBeVisible, int iTimeoutOverride) {
+    public WebElement findControl(String sControlType, String sControlPath, By searchBy, WebControlBase Parent, String sError, Boolean bDisplayed, Boolean bMustBeVisible, int iTimeoutOverride) {
         sError = "";
 
         try {
-            WebElement Control = null;
+            WebElement control = null;
             //TimeSpan WaitTime = TimeSpan.FromSeconds(Convert.ToInt32(SharedVariables.Configuration.GetEntryValue("controlWaitTime")));
 
 
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(5));
-            Control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
+            control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
 
-            return Control;
+            return control;
         } catch (Exception e) {
-            DebugLog.Add("Error Finding control: " + sControlPath, 3);
+            DebugLog.add("Error Finding control: " + sControlPath, 3);
             return null;
         }
 

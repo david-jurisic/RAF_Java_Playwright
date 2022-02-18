@@ -11,11 +11,11 @@ public class TestRunner extends UITestCase {
     @Test
     void First() {
 
-        Map.Initialize();
+        Map.initialize();
 
         NewStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");
         Success(Map.Login.page.Navigate());
-        Success(Map.Login.txtEmail.SetText("test",false,false,false));
-        Success(Map.Login.txtPassword.SetText("password",false,false,false));
+        Success(Map.Login.txtEmail.setText("test@test.com",false,false,false));
+        Success(Map.Login.txtPassword.setText("test1234",false,false,false));
     }
 }

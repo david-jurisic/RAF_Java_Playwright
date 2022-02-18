@@ -12,29 +12,28 @@ import java.util.stream.Collectors;
 import static java.lang.StackWalker.Option.RETAIN_CLASS_REFERENCE;
 
 public class WbPage extends WebControlBase {
-    private URL PageURL;
+    private URL pageURL;
 
     public URL getPageURL() {
-        return PageURL;
+        return pageURL;
     }
 
     public void setPageURL(URL newPageUrl) {
-        PageURL = newPageUrl;
+        pageURL = newPageUrl;
     }
 
-    public WbPage(String sPath, String sAlias)
-    {
+    public WbPage(String sPath, String sAlias) {
         try {
-            this.setPageURL(new URL(new URL(UIReferences.CurrentPageContext), sPath));
-            this.setsAlias(sAlias);
+            this.setPageURL(new URL(new URL(UIReferences.currentPageContext), sPath));
+            this.sAlias = sAlias;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        this.setsAlias(sAlias);
+        this.sAlias = sAlias;
     }
 
     public Success Navigate() {
-        return UIReferences.Eval().Evaluate(() -> UIReferences.getWebDriver().navigate().to(PageURL),this,"");
+        return UIReferences.eval().evaluate(() -> UIReferences.getWebDriver().navigate().to(pageURL), this, "");
     }
 }

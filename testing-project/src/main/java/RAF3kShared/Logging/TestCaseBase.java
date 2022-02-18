@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCaseBase {
-    public ArrayList<Step> Steps = new ArrayList<Step>();
-    private Step CurrentStep;
-    private Evaluator Eval = new Evaluator(null);
+    public ArrayList<Step> steps = new ArrayList<Step>();
+    private Step currentStep;
+    private Evaluator eval = new Evaluator(null);
     public String sTestCaseName;
     public String sTestCaseCode;
     public String sTestCaseAuthor;
-    private int BDDStepNumber = 1;
+    private int bDDStepNumber = 1;
     public Boolean bPass = true;
 
     public TestCaseBase() {
@@ -28,62 +28,62 @@ public class TestCaseBase {
         sTestCaseName = "Not Defined";
         sTestCaseCode = "Not Defined";
         sTestCaseAuthor = "Not Defined";
-        DebugLog.Add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
+        DebugLog.add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
 
-        SharedVariables.Configuration = new ConfigurationHelper();
+        SharedVariables.configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }
 
-    public TestCaseBase(String TestCaseName, String TestCaseCode, String TestCaseAuthor) {
+    public TestCaseBase(String testCaseName, String testCaseCode, String testCaseAuthor) {
 
-        sTestCaseName = TestCaseName;
-        sTestCaseCode = TestCaseCode;
-        sTestCaseAuthor = TestCaseAuthor;
+        sTestCaseName = testCaseName;
+        sTestCaseCode = testCaseCode;
+        sTestCaseAuthor = testCaseAuthor;
 
         //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Settings", @"Settings.xml");
-        SharedVariables.Configuration = new ConfigurationHelper();
+        SharedVariables.configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }
 
     public void NewStep(int iNumber, String sName) {
-        if (CurrentStep != null)
-            Steps.add(CurrentStep);
+        if (currentStep != null)
+            steps.add(currentStep);
 
-        CurrentStep = new Step();
-        CurrentStep.StepNumber = iNumber;
-        CurrentStep.StepName = sName;
-        CurrentStep.Substeps = new ArrayList<>();
-        DebugLog.Add("Added new step: " + String.valueOf(iNumber) + " : " + sName, 2);
+        currentStep = new Step();
+        currentStep.stepNumber = iNumber;
+        currentStep.stepName = sName;
+        currentStep.substeps = new ArrayList<>();
+        DebugLog.add("Added new step: " + String.valueOf(iNumber) + " : " + sName, 2);
     }
 
     public void AddBDDStep(String sName) {
-        CurrentStep = new Step();
-        CurrentStep.StepNumber = BDDStepNumber++;
-        CurrentStep.StepName = sName;
-        if (CurrentStep != null)
-            Steps.add(CurrentStep);
+        currentStep = new Step();
+        currentStep.stepNumber = bDDStepNumber++;
+        currentStep.stepName = sName;
+        if (currentStep != null)
+            steps.add(currentStep);
 
     }
 
     public void FinishBDDStep() throws Exception {
-        if (!CurrentStep.bSuccess()) {
-            throw new Exception(Eval.GenerateCucumberErrorReport(CurrentStep));
+        if (!currentStep.bSuccess()) {
+            throw new Exception(eval.generateCucumberErrorReport(currentStep));
         }
     }
 
     public Success Success(Success newSuccess) {
 
         Substep Step = new Substep();
-        Step.Start = newSuccess.StepStart;
-        Step.Finish = newSuccess.StepFinish;
-        Step.Ex = newSuccess.Ex;
-        Step.Passed = newSuccess.bPassed;
-        Step.Screenshot = newSuccess.sScreenshot;
-        Step.Name = newSuccess.sPath + "." + newSuccess.sAlias + "." + newSuccess.sMethodName + "(" + newSuccess.sMethodArguments + ")";
-        Step.MessageAddon = newSuccess.sMessageAddon;
-        CurrentStep.Substeps.add(Step);
+        Step.start = newSuccess.stepStart;
+        Step.finish = newSuccess.stepFinish;
+        Step.ex = newSuccess.Ex;
+        Step.passed = newSuccess.bPassed;
+        Step.screenshot = newSuccess.sScreenshot;
+        Step.name = newSuccess.sPath + "." + newSuccess.sAlias + "." + newSuccess.sMethodName + "(" + newSuccess.sMethodArguments + ")";
+        Step.messageAddon = newSuccess.sMessageAddon;
+        currentStep.substeps.add(Step);
 
-        if (!Step.Passed) {
+        if (!Step.passed) {
             this.bPass = false;
 
             //String sStopOnError = SharedVariables.Configuration.GetEntryValue("StopOnError");
@@ -98,9 +98,9 @@ public class TestCaseBase {
 
     @AfterAll
     public void TearDown() {
-        if (CurrentStep != null)
-            Steps.add(CurrentStep);
-        LogConstructor.GenerateLog(this);
+        if (currentStep != null)
+            steps.add(currentStep);
+        LogConstructor.generateLog(this);
     }
 }
 

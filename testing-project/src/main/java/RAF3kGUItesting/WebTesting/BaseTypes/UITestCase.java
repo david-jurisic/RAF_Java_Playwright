@@ -7,33 +7,33 @@ import RAF3kGUItesting.UIReferences;
 
 //[Binding]
 public class UITestCase extends TestCaseBase {
-    public UITestCase(String TestCaseName, String TestCaseCode, String TestCaseAuthor) {
-        super(TestCaseName, TestCaseCode, TestCaseAuthor);
-        SetupWebDriver();
+    public UITestCase(String testCaseName, String testCaseCode, String testCaseAuthor) {
+        super(testCaseName, testCaseCode, testCaseAuthor);
+        setupWebDriver();
     }
     public UITestCase() {
         super();
-        SetupWebDriver();
+        setupWebDriver();
     }
 
-    private void SetupWebDriver()
+    private void setupWebDriver()
     {
         try
         {
             if (UIReferences.getWebDriver() == null)
             {
                 SeleniumSetup setup = new SeleniumSetup();
-                setup.SetupWebDriver(null);
-                DebugLog.Add("Driver setup complete", 2);
+                setup.setupWebDriver(null);
+                DebugLog.add("Driver setup complete", 2);
             }
             else
             {
-                DebugLog.Add("Driver already running", 2);
+                DebugLog.add("Driver already running", 2);
             }
         }
         catch (Exception ex)
         {
-            DebugLog.Add(ex);
+            DebugLog.add(ex);
             return;
         }
     }

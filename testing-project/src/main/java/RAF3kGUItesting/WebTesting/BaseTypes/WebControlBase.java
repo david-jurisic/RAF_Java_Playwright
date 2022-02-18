@@ -14,58 +14,42 @@ public class WebControlBase extends ControlObject {
     public Boolean bMustBeVisible = true;
     public int iTimeoutOverride = -1;
     private WebElement _Controlreference;
-    private By SearchBy;
+    private By searchBy;
     private WebControlBase parent;
 
-    public By getSearchBy() {
-        return SearchBy;
-    }
-
-    public void setSearchBy(By newSearchBy) {
-        SearchBy = newSearchBy;
-    }
-
-    public WebControlBase getParent() {
-        return parent;
-    }
-
-    public void setParent(WebControlBase newParent) {
-        parent = newParent;
-    }
-
-    public WebElement Control() {
+    public WebElement control() {
         try {
             String sError = "";
-            if (CheckIfControlStale())
-                _Controlreference = UIReferences.getWebEng().FindControl(getsControlType(), getsPath(), getSearchBy(), getParent(), sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
+            if (checkIfControlStale())
+                _Controlreference = UIReferences.getWebEng().findControl(sControlType, sPath, searchBy, parent, sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
             return _Controlreference;
         } catch (Exception ex) {
-            DebugLog.Add(ex);
+            DebugLog.add(ex);
             return null;
         }
     }
 
     public WebControlBase() {
-        this.setsControlType(this.getClass().getSimpleName());
-        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
+        this.sControlType = this.getClass().getSimpleName();
+        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
     }
 
-    public WebControlBase(By SearchBy, String Alias) {
-        this.setsControlType(this.getClass().getName());
-        this.setSearchBy(SearchBy);
-        this.setsAlias(Alias);
-        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
+    public WebControlBase(By searchBy, String alias) {
+        this.sControlType = this.getClass().getName();
+        this.searchBy = searchBy;
+        this.sAlias = alias;
+        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
     }
 
-    public WebControlBase(By SearchBy, WebControlBase Parent, String Alias) {
-        this.setsControlType(this.getClass().getName());
-        this.setSearchBy(SearchBy);
-        this.setsAlias(Alias);
-        this.setsPath(UIReferences.Hlpr().CleanupPath(Thread.currentThread().getStackTrace()[4].getClassName()));
-        this.setParent(Parent);
+    public WebControlBase(By searchBy, WebControlBase parent, String alias) {
+        this.sControlType = this.getClass().getName();
+        this.searchBy = searchBy;
+        this.sAlias=alias;
+        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.parent = parent;
     }
 
-    private Boolean CheckIfControlStale() {
+    private Boolean checkIfControlStale() {
         try {
             if (_Controlreference != null) {
                 if (_Controlreference.isDisplayed())

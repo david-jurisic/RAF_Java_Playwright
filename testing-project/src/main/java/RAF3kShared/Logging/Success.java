@@ -13,23 +13,23 @@ public class Success {
     public String sScreenshot;
     public Boolean bPassed;
     public Exception Ex;
-    public LocalDateTime StepStart;
-    public LocalDateTime StepFinish;
+    public LocalDateTime stepStart;
+    public LocalDateTime stepFinish;
 
-    public Success(ControlObject Caller) {
-        StepStart = LocalDateTime.now();
+    public Success(ControlObject caller) {
+        stepStart = LocalDateTime.now();
         this.bPassed = true;
 
-        if (Caller != null) {
+        if (caller != null) {
             //StackTrace stackTrace = new StackTrace();
-            this.sPath = Caller.getsPath();
-            this.sAlias = Caller.getsAlias();
+            this.sPath = caller.sPath;
+            this.sAlias = caller.sAlias;
             //this.sMethodName = stackTrace.GetFrame(1).GetMethod().Name;
         }
     }
 
-    public Success Finish(Exception ex) {
-        this.StepFinish = LocalDateTime.now();
+    public Success finish(Exception ex) {
+        this.stepFinish = LocalDateTime.now();
         if (ex != null) {
             this.Ex = ex;
             this.bPassed = false;
@@ -38,14 +38,14 @@ public class Success {
         return this;
     }
 
-    public void AddMethodDataToLog(ControlObject Caller, String sMethodName) {
-        this.sPath = Caller.getsPath();
-        this.sAlias = Caller.getsAlias();
+    public void addMethodDataToLog(ControlObject caller, String sMethodName) {
+        this.sPath = caller.sPath;
+        this.sAlias = caller.sAlias;
         this.sMethodName = sMethodName;
 
     }
 
-    public void AddArgumentsOfMethodForLog(String sArgumentName, Object oArgumentValue, Boolean bIsOutParameter) {
+    public void addArgumentsOfMethodForLog(String sArgumentName, Object oArgumentValue, Boolean bIsOutParameter) {
         String sToAdd = "";
         if (oArgumentValue == null) {
             sMethodArguments = sArgumentName + ": NULL";

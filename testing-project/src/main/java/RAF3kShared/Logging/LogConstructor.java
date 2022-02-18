@@ -15,74 +15,74 @@ public class LogConstructor {
     private static String defaultLogTemplate = "LogTemplate.html";
     private static Path sLogPath;
 
-    public static void GenerateLog(TestCaseBase TestCase) {
-        String sLogType = SharedVariables.Configuration.getProperty("logExportType");
+    public static void generateLog(TestCaseBase TestCase) {
+        String sLogType = SharedVariables.configuration.getProperty("logExportType");
         switch (sLogType) {
             case "html":
-                GenerateHTMLLog(TestCase);
+                generateHTMLLog(TestCase);
                 break;
             case "json":
-                //GenerateJsonLog(TestCase);
+                //generateJsonLog(TestCase);
                 break;
             default:
-                GenerateHTMLLog(TestCase);
+                generateHTMLLog(TestCase);
                 break;
         }
 
         //AttachLogFileToRun(sLogPath);
     }
 
-    private static void GenerateHTMLLog(TestCaseBase TestCase) {
+    private static void generateHTMLLog(TestCaseBase testCase) {
         String sRowColor = "success";
         String sLogData = "";
-        for (Step step : TestCase.Steps) {
+        for (Step step : testCase.steps) {
             if (step.bSuccess()) sRowColor = "success";
             else sRowColor = "danger";
             String sTableData = "<tbody class='labels'>";
-            sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.StepNumber + "'>" + step.StepNumber + "  " +
-                    step.StepName + "</label><input type='checkbox' name='" + step.StepNumber + " ' id='" + step.StepNumber +
-                    "' data-toggle='toggle'></td><td>" + String.valueOf((float) step.Durations().toMillis() / 1000) + "</td><td></td></tr>";
+            sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.stepNumber + "'>" + step.stepNumber + "  " +
+                    step.stepName + "</label><input type='checkbox' name='" + step.stepNumber + " ' id='" + step.stepNumber +
+                    "' data-toggle='toggle'></td><td>" + String.valueOf((float) step.durations().toMillis() / 1000) + "</td><td></td></tr>";
             sTableData += "</tbody><tbody class='hide'>";
             int i = 1;
-            for (Substep SubStep : step.Substeps) {
+            for (Substep SubStep : step.substeps) {
                 sTableData += "<tr class='results'>";
-                sTableData += "<td>" + step.StepNumber + "." + i + "</td>";
-                if (SubStep.Passed) {
-                    if (SubStep.MessageAddon == null || SubStep.MessageAddon.isEmpty())
-                        sTableData += "<td>" + SubStep.Name + "</td>";
+                sTableData += "<td>" + step.stepNumber + "." + i + "</td>";
+                if (SubStep.passed) {
+                    if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty())
+                        sTableData += "<td>" + SubStep.name + "</td>";
                     else
-                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.StepNumber) + String.valueOf(i) + ")'>{SubStep.Name} <span id='Span" +
-                                String.valueOf(step.StepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span></td>";
+                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>{SubStep.Name} <span id='Span" +
+                                String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span></td>";
 
                 } else {
-                    if (SubStep.MessageAddon == null || SubStep.MessageAddon.isEmpty()) {
+                    if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty()) {
                         //HTMLencode removed
-                        if (SubStep.Ex != null)
-                            sTableData += "<td>" + SubStep.Name + " <br><b>" + SubStep.Ex.getMessage() + "</b></td>";
+                        if (SubStep.ex != null)
+                            sTableData += "<td>" + SubStep.name + " <br><b>" + SubStep.ex.getMessage() + "</b></td>";
                         else
-                            sTableData += "<td>" + SubStep.Name + " <br><b>" + "Unknown error occured" + "</b></td>";
+                            sTableData += "<td>" + SubStep.name + " <br><b>" + "Unknown error occured" + "</b></td>";
                     } else {
-                        if (SubStep.Ex != null)
-                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.StepNumber) + String.valueOf(i) + ")'>" + SubStep.Name +
-                                    " <span id='Span" + String.valueOf(step.StepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
-                                    SubStep.Ex.getMessage() + "</b></td>";
+                        if (SubStep.ex != null)
+                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" + SubStep.name +
+                                    " <span id='Span" + String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
+                                    SubStep.ex.getMessage() + "</b></td>";
                         else
-                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.StepNumber) + String.valueOf(i) + ")'>" +
-                                    SubStep.Name + " <span id='Span" + String.valueOf(step.StepNumber) + String.valueOf(i) +
+                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" +
+                                    SubStep.name + " <span id='Span" + String.valueOf(step.stepNumber) + String.valueOf(i) +
                                     "' class='arrowMoreInfo'><b>+</b></span> <br><b>" + "Unknown error occured" + "</b></td>";
                     }
 
                 }
-                sTableData += "<td>" + String.valueOf((float) Duration.between(SubStep.Start, SubStep.Finish).toMillis() / 1000) + "</td>";
-                if (SubStep.Passed)
+                sTableData += "<td>" + String.valueOf((float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000) + "</td>";
+                if (SubStep.passed)
                     sTableData += "<td></td>";
-                else if (SubStep.Screenshot != null && !SubStep.Screenshot.isEmpty())
-                    sTableData += "<td><button data-image='" + SubStep.Screenshot + "' onclick='DisplayScreenshot()'>...</button></td>";
+                else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty())
+                    sTableData += "<td><button data-image='" + SubStep.screenshot + "' onclick='DisplayScreenshot()'>...</button></td>";
                 else
                     sTableData += "<td>N/A</td>";
                 sTableData += "</tr>";
-                if (SubStep.MessageAddon != null && !SubStep.MessageAddon.isEmpty()) {
-                    sTableData += "<tr id='" + String.valueOf(step.StepNumber) + String.valueOf(i) +
+                if (SubStep.messageAddon != null && !SubStep.messageAddon.isEmpty()) {
+                    sTableData += "<tr id='" + String.valueOf(step.stepNumber) + String.valueOf(i) +
                             "' style=\"display: none;\"><td colspan='4'>" + "SubStep.MessageAddon" + "</td></tr>";
                 }
                 i++;
@@ -93,9 +93,9 @@ public class LogConstructor {
 
         String sHtmlLog = "";
 
-        String logTemplateFilePath = SharedVariables.Configuration.getProperty("logTemplateFilePath");
+        String logTemplateFilePath = SharedVariables.configuration.getProperty("logTemplateFilePath");
         if (logTemplateFilePath == null || logTemplateFilePath.isEmpty()) {
-            sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
+            sHtmlLog = getLogTemplateFromAssembly(defaultLogTemplate);
         } else {
             try {
                 ClassLoader classLoader = ClassLoader.getSystemClassLoader();
@@ -109,25 +109,25 @@ public class LogConstructor {
                 }
 
                 if (sHtmlLog == null || sHtmlLog.isEmpty()) {
-                    DebugLog.Add("File '" + SharedVariables.Configuration.getProperty("LogTemplateFilePath") + "' is empty. Default log template is used instead. ", 1);
-                    sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
+                    DebugLog.add("File '" + SharedVariables.configuration.getProperty("logTemplateFilePath") + "' is empty. Default log template is used instead. ", 1);
+                    sHtmlLog = getLogTemplateFromAssembly(defaultLogTemplate);
                 }
             } catch (Exception e) {
-                DebugLog.Add("File '" + SharedVariables.Configuration.getProperty("LogTemplateFilePath") + "' does not exist or can't be opened." +
+                DebugLog.add("File '" + SharedVariables.configuration.getProperty("LogTemplateFilePath") + "' does not exist or can't be opened." +
                         " Default log template is used instead." +
                         "\n Detailed error message: " + e.getMessage(), 1);
-                sHtmlLog = GetLogTemplateFromAssembly(defaultLogTemplate);
+                sHtmlLog = getLogTemplateFromAssembly(defaultLogTemplate);
             }
         }
 
         String sExport = sHtmlLog.replace("[TableData]", sLogData);
-        sExport = sExport.replace("[TestCaseCode]", " " + TestCase.sTestCaseCode);
-        sExport = sExport.replace("[TestCaseName]", " " + TestCase.sTestCaseName);
+        sExport = sExport.replace("[TestCaseCode]", " " + testCase.sTestCaseCode);
+        sExport = sExport.replace("[TestCaseName]", " " + testCase.sTestCaseName);
         sExport = sExport.replace("[TestCaseDuration]", String.valueOf(
-                (float) TestCase.Steps.stream().filter(m -> m.Durations().getSeconds() > 0).mapToLong(n -> n.Durations().toMillis()).sum() / 1000) + " sec");
-        sExport = sExport.replace("[TestCaseAuthor]", TestCase.sTestCaseAuthor);
+                (float) testCase.steps.stream().filter(m -> m.durations().getSeconds() > 0).mapToLong(n -> n.durations().toMillis()).sum() / 1000) + " sec");
+        sExport = sExport.replace("[TestCaseAuthor]", testCase.sTestCaseAuthor);
 
-        Path sFolderPath = Path.of(SharedVariables.Configuration.getProperty("logFilePath"), TestCase.sTestCaseCode);
+        Path sFolderPath = Path.of(SharedVariables.configuration.getProperty("logFilePath"), testCase.sTestCaseCode);
 
         if (!Files.exists(sFolderPath)) {
             try {
@@ -150,7 +150,7 @@ public class LogConstructor {
         }
     }
 
-    private static String GetLogTemplateFromAssembly(String fileName) {
+    private static String getLogTemplateFromAssembly(String fileName) {
         StringBuilder resultStringBuilder = new StringBuilder();
 
         try (InputStream in = ClassLoader.getSystemResourceAsStream(fileName);
@@ -161,7 +161,7 @@ public class LogConstructor {
                 resultStringBuilder.append(line).append("\n");
             }
         } catch (Exception ex) {
-            DebugLog.Add(ex);
+            DebugLog.add(ex);
         }
 
         return resultStringBuilder.toString();

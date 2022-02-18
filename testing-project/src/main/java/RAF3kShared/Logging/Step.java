@@ -4,13 +4,13 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 public class Step {
-    public int StepNumber;
-    public String StepName;
-    public ArrayList<Substep> Substeps = new ArrayList<Substep>();
+    public int stepNumber;
+    public String stepName;
+    public ArrayList<Substep> substeps = new ArrayList<Substep>();
 
-    public Duration Durations() {
-        if(Substeps.size()>0)
-            return Duration.between(Substeps.get(0).Start, Substeps.get(Substeps.size() - 1).Finish);
+    public Duration durations() {
+        if(substeps.size()>0)
+            return Duration.between(substeps.get(0).start, substeps.get(substeps.size() - 1).finish);
 
         return Duration.ofSeconds(0);
     }

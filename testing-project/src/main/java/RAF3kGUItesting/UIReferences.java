@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import RAF3kGUItesting.WebTesting.WebEngine;
 
 public class UIReferences {
-    public static String CurrentPageContext;
+    public static String currentPageContext;
     private static WebDriver _WebDriver;
 
     public static WebDriver getWebDriver() {
@@ -27,7 +27,7 @@ public class UIReferences {
 
     private static Helpers _Hlpr;
 
-    public static Helpers Hlpr() {
+    public static Helpers hlpr() {
 
         if (_Hlpr == null)
             _Hlpr = new Helpers();
@@ -36,7 +36,7 @@ public class UIReferences {
 
     private static Evaluator _Eval;
 
-    public static Evaluator Eval() {
+    public static Evaluator eval() {
         if (_Eval == null)
             _Eval = new Evaluator(getWebDriver());
         if (_Eval.driver == null)
