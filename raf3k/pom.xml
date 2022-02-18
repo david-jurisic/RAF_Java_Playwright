@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.automated.testing</groupId>
-    <artifactId>testing-project</artifactId>
+    <groupId>org.raf3k</groupId>
+    <artifactId>raf3k</artifactId>[
     <version>1.0-SNAPSHOT</version>
 
     <properties>
