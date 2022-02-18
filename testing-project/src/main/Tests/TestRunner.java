@@ -1,6 +1,4 @@
-import RAF3kGUItesting.WebTesting.BaseTypes.UITestCase;
-import RAF3kShared.RAFtestCaseAttribute;
-import RAF3kShared.TestType;
+import org.raf3k.guittesting.webtesting.basetypes.UITestCase;
 import org.junit.jupiter.api.Test;
 
 //@RAFtestCaseAttribute( testCaseName = "Incorrect login", testCaseCode = "TC001", testType = TestType.UI, author = "Dražen Kozić")

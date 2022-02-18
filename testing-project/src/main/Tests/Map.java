@@ -1,7 +1,7 @@
-import TestProject.ExtendedTypes.UI.WbEditEx;
-import TestProject.ExtendedTypes.UI.WbPageEx;
+import org.raf3k.testproject.extendedtypes.ui.WbEditEx;
+import org.raf3k.testproject.extendedtypes.ui.WbPageEx;
 import org.openqa.selenium.By;
-import RAF3kGUItesting.UIReferences;
+import org.raf3k.guittesting.UIReferences;
 
 public final class Map {
     public static void initialize() {
