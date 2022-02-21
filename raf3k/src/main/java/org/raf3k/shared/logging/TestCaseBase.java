@@ -1,5 +1,6 @@
 package org.raf3k.shared.logging;
 
+import org.junit.jupiter.api.Assertions;
 import org.raf3k.shared.ConfigurationHelper;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
@@ -82,11 +83,12 @@ public class TestCaseBase {
         if (!Step.passed) {
             this.bPass = false;
 
-            //String sStopOnError = SharedVariables.Configuration.GetEntryValue("StopOnError");
-            //if (!sStopOnError.ToLower().Equals("false")) {
-            //    DebugLog.Add("Step failed. Finishing test case...", 1);
-            //    Assert.Fail("Step failed. Finishing test case...");
-            //}
+            String sStopOnError = SharedVariables.configuration.getProperty("stopOnError");
+            if (!sStopOnError.equalsIgnoreCase("false"))
+            {
+                DebugLog.add("Step failed. Finishing test case...", 1);
+                Assertions.fail("Step failed. Finishing test case...");
+            }
         }
 
         return newSuccess;

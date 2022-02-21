@@ -36,8 +36,11 @@ public class LogConstructor {
         String sRowColor = "success";
         String sLogData = "";
         for (Step step : testCase.steps) {
-            if (step.bSuccess()) sRowColor = "success";
-            else sRowColor = "danger";
+            if (step.bSuccess()) {
+                sRowColor = "success";
+            } else {
+                sRowColor = "danger";
+            }
             String sTableData = "<tbody class='labels'>";
             sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.stepNumber + "'>" + step.stepNumber + "  " +
                     step.stepName + "</label><input type='checkbox' name='" + step.stepNumber + " ' id='" + step.stepNumber +

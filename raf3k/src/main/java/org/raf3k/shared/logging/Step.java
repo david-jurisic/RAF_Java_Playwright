@@ -16,7 +16,6 @@ public class Step {
     }
 
     public Boolean bSuccess() {
-        //return Substeps.Where(s => !s.Passed).ToList().Count == 0;
-        return true;
+        return substeps.stream().allMatch(m -> m.passed);
     }
 }
