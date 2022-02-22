@@ -10,18 +10,9 @@ import java.net.URL;
 public class WbPage extends WebControlBase {
     private URL pageURL;
 
-    public URL getPageURL() {
-        return pageURL;
-    }
-
-    public void setPageURL(URL newPageUrl) {
-        pageURL = newPageUrl;
-    }
-
     public WbPage(String sPath, String sAlias) {
         try {
-            this.setPageURL(new URL(new URL(UIReferences.currentPageContext), sPath));
-            this.sAlias = sAlias;
+            pageURL = new URL(new URL(UIReferences.currentPageContext), sPath);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -29,7 +20,7 @@ public class WbPage extends WebControlBase {
         this.sAlias = sAlias;
     }
 
-    public Success Navigate() {
+    public Success navigate() {
         return UIReferences.eval().evaluate(() -> UIReferences.getWebDriver().navigate().to(pageURL), this, "");
     }
 }
