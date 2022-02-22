@@ -12,20 +12,20 @@ public class TestRunnerWbEdit extends UITestCase {
 
         Map.initialize();
 
-        NewStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");
-        Success(Map.Login.page.Navigate());
-        Success(Map.Login.txtEmail.verifyEmpty(true));
-        Success(Map.Login.txtPassword.verifyEmpty(true));
-        Success(Map.Login.txtEmail.setText("test@test.com", false, false, false));
-        Success(Map.Login.txtPassword.setText("test1234", false, false, false));
-        Success(Map.Login.txtEmail.verifyText("test@test.com"));
-        Success(Map.Login.txtEmail.getText());
+        newStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");
+        success(Map.Login.page.navigate());
+        success(Map.Login.txtEmail.verifyEmpty(true));
+        success(Map.Login.txtPassword.verifyEmpty(true));
+        success(Map.Login.txtEmail.setText("test@test.com", false, false, false));
+        success(Map.Login.txtPassword.setText("test1234", false, false, false));
+        success(Map.Login.txtEmail.verifyText("test@test.com"));
+        success(Map.Login.txtEmail.getText());
         System.out.println("txtEmail: " + Map.Login.txtEmail.getTextValue);
-        Success(Map.Login.txtPassword.getText());
+        success(Map.Login.txtPassword.getText());
         System.out.println("txtPassword: " + Map.Login.txtPassword.getTextValue);
-        Success(Map.Login.txtEmail.verifyTextContains("st@"));
-        Success(Map.Login.txtPassword.verifyTextContains("st1"));
-        Success(Map.Login.txtEmail.clear(false));
-        Success(Map.Login.txtPassword.clear(true));
+        success(Map.Login.txtEmail.verifyTextContains("st@"));
+        success(Map.Login.txtPassword.verifyTextContains("st1"));
+        success(Map.Login.txtEmail.clear(false));
+        success(Map.Login.txtPassword.clear(true));
     }
 }

@@ -1,5 +1,6 @@
 package org.raf3k.guittesting;
 
+import org.openqa.selenium.interactions.Actions;
 import org.raf3k.guittesting.webtesting.WebEngine;
 import org.raf3k.shared.Helpers;
 import org.raf3k.shared.logging.Evaluator;
@@ -42,5 +43,13 @@ public class UIReferences {
         if (_Eval.driver == null)
             _Eval = new Evaluator(getWebDriver());
         return _Eval;
+    }
+
+    private static Actions _ActionsBuilder;
+    public static Actions actionsBuilder()
+    {
+        if (_ActionsBuilder == null)
+            _ActionsBuilder = new Actions(getWebDriver());
+        return _ActionsBuilder;
     }
 }

@@ -5,6 +5,7 @@ import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.shared.logging.Success;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class WbEdit extends WebControlBase {
     public String getTextValue = null;
@@ -34,13 +35,8 @@ public class WbEdit extends WebControlBase {
             }
 
             String controlText = getControlText();
-            if (controlText != null && !controlText.isEmpty()) {
-                try {
-                    throw new RuntimeException("Control " + sAlias + " text not cleared.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            if (controlText != null && !controlText.isEmpty())
+                throw new RuntimeException("Control " + sAlias + " text not cleared.");
 
         }, this, "");
     }
@@ -57,13 +53,8 @@ public class WbEdit extends WebControlBase {
     public Success setText(String sText, Boolean bSetValue, Boolean bSetWithAction, Boolean bClickControl) {
         return UIReferences.eval().evaluate(() ->
         {
-            if (bSetWithAction && bSetValue) {
-                try {
-                    throw new RuntimeException("Only one parameter can be set to true,either 'bSetValue' or 'bSetWithAction'.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            if (bSetWithAction && bSetValue)
+                throw new RuntimeException("Only one parameter can be set to true,either 'bSetValue' or 'bSetWithAction'.");
 
             if (bClickControl)
                 control().click();
@@ -75,7 +66,13 @@ public class WbEdit extends WebControlBase {
                 control().sendKeys(Keys.DELETE);
             }
 
-            control().sendKeys(sText);
+            if (bSetValue)
+                ((JavascriptExecutor) UIReferences.getWebDriver()).executeScript("arguments[0].value='" + sText + "'", control());
+            else if (bSetWithAction)
+                UIReferences.actionsBuilder().sendKeys(control(), sText).build().perform();
+            else
+                control().sendKeys(sText);
+
         }, this, "");
     }
 
@@ -92,6 +89,7 @@ public class WbEdit extends WebControlBase {
 
             if (!sControlvalue.equals(sText))
                 throw new RuntimeException("Text not verified. Text box text: " + sControlvalue + " , searched text " + sText + ".");
+
         }, this, "");
     }
 
@@ -107,11 +105,8 @@ public class WbEdit extends WebControlBase {
             String sControlvalue = control().getAttribute("value");
 
             if (!sControlvalue.contains(sText))
-                try {
-                    throw new RuntimeException("Text not verified. Text box text: " + control().getText() + " , searched text " + sText + ".");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                throw new RuntimeException("Text not verified. Text box text: " + control().getText() + " , searched text " + sText + ".");
+
         }, this, "");
     }
 
@@ -128,21 +123,11 @@ public class WbEdit extends WebControlBase {
 
             String sControlvalue = control().getAttribute("value").trim();
 
-            if (bEmpty && sControlvalue != null && !sControlvalue.isEmpty()) {
-                try {
-                    throw new RuntimeException("Control " + sAlias + " text is not empty.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            if (bEmpty && sControlvalue != null && !sControlvalue.isEmpty())
+                throw new RuntimeException("Control " + sAlias + " text is not empty.");
 
-            if (!bEmpty && sControlvalue == null && sControlvalue.isEmpty()) {
-                try {
-                    throw new RuntimeException("Control " + sAlias + " text is empty.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            if (!bEmpty && sControlvalue == null && sControlvalue.isEmpty())
+                throw new RuntimeException("Control " + sAlias + " text is empty.");
 
         }, this, "");
     }
