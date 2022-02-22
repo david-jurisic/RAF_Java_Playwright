@@ -47,6 +47,27 @@ public class WebControlBase extends ControlObject {
         this.parent = parent;
     }
 
+    public WebControlBase(WebElement control, String alias) {
+        this.sControlType = this.getClass().getName();
+        this.sAlias = alias;
+        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+
+        _Controlreference = control;
+    }
+
+    public WebControlBase(By searchBy, WebElement Parent, String Alias) {
+        this.sControlType = this.getClass().getName();
+        this.searchBy = searchBy;
+        this.sAlias = Alias;
+        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+
+        this.parent = new WebControlBase();
+        this.parent._Controlreference = Parent;
+        this.parent.sControlType = "inner";
+        this.parent.sAlias = "Control parent";
+        this.parent.sPath = this.sPath + ".Parent";
+    }
+
     private Boolean checkIfControlStale() {
         try {
             if (_Controlreference != null) {
@@ -61,6 +82,7 @@ public class WebControlBase extends ControlObject {
 
     /**
      * Method retrieves web control value.If textbox type is 'password' it will return empty string.
+     *
      * @return Web control value
      */
     public String getControlText() {
@@ -76,8 +98,9 @@ public class WebControlBase extends ControlObject {
 
     /**
      * Method verifies if web control exists.
+     *
      * @param iControlWaitTime Control wait time.
-     * @param bExists Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
+     * @param bExists          Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
      * @return Success object.
      */
     public Success exists(int iControlWaitTime, boolean bExists) {

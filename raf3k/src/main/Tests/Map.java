@@ -1,7 +1,4 @@
-import org.raf3k.testproject.extendedtypes.ui.WbCheckBoxEx;
-import org.raf3k.testproject.extendedtypes.ui.WbEditEx;
-import org.raf3k.testproject.extendedtypes.ui.WbLabelEx;
-import org.raf3k.testproject.extendedtypes.ui.WbPageEx;
+import org.raf3k.testproject.extendedtypes.ui.*;
 import org.openqa.selenium.By;
 import org.raf3k.guittesting.UIReferences;
 
@@ -16,5 +13,6 @@ public final class Map {
         public static final WbEditEx txtEmail = new WbEditEx(By.id("Email"), "txtEmail");
         public static final WbEditEx txtPassword = new WbEditEx(By.id("password"), "txtPassword");
         public static final WbCheckBoxEx chkRememberMe = new WbCheckBoxEx(By.id("RememberMe"), "chkRememberMe");
+        public static final WbButtonEx btnSignIn = new WbButtonEx(By.xpath("/html/body/main/div/section/div/form/div[4]/div/input"),"btnSignIn");
     }
 }
