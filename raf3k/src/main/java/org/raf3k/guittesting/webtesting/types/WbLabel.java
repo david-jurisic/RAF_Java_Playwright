@@ -11,6 +11,13 @@ public class WbLabel extends WebControlBase {
     public  WbLabel(By searchBy, String alias) {super(searchBy, alias); }
     public  WbLabel(By searchBy, WebControlBase parent, String alias) {super(searchBy, parent, alias); }
 
+
+    /**
+     * Verifies if the text of WebLabel is valid or not.
+     * @param sText Expected text of a label.
+     * @param bExists If true, checks if text exists; if false, checks if text does not exists.
+     * @return Success object
+     */
     public Success verifyText(String sText, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
