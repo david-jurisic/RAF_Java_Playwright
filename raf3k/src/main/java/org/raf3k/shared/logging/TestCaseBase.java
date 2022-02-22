@@ -42,7 +42,7 @@ public class TestCaseBase {
         //SharedVariables.TestData = new TestDataHelper();
     }
 
-    public void NewStep(int iNumber, String sName) {
+    public void newStep(int iNumber, String sName) {
         if (currentStep != null)
             steps.add(currentStep);
 
@@ -53,7 +53,7 @@ public class TestCaseBase {
         DebugLog.add("Added new step: " + String.valueOf(iNumber) + " : " + sName, 2);
     }
 
-    public void AddBDDStep(String sName) {
+    public void addBDDStep(String sName) {
         currentStep = new Step();
         currentStep.stepNumber = bDDStepNumber++;
         currentStep.stepName = sName;
@@ -62,13 +62,13 @@ public class TestCaseBase {
 
     }
 
-    public void FinishBDDStep() throws Exception {
+    public void finishBDDStep() throws Exception {
         if (!currentStep.bSuccess()) {
             throw new Exception(eval.generateCucumberErrorReport(currentStep));
         }
     }
 
-    public Success Success(Success newSuccess) {
+    public Success success(Success newSuccess) {
 
         Substep Step = new Substep();
         Step.start = newSuccess.stepStart;

@@ -1,5 +1,6 @@
 package org.raf3k.guittesting.webtesting.basetypes;
 
+import org.junit.jupiter.api.AfterAll;
 import org.raf3k.guittesting.webtesting.SeleniumSetup;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.TestCaseBase;
@@ -33,6 +34,18 @@ public class UITestCase extends TestCaseBase {
         }
         catch (Exception ex)
         {
+            DebugLog.add(ex);
+            return;
+        }
+    }
+
+    @AfterAll
+    public void uiTeardown() {
+        try {
+            if(UIReferences.getWebDriver() != null)
+                UIReferences.getWebDriver().quit();
+            DebugLog.add("Driver Closed", 2);
+        }catch(Exception ex) {
             DebugLog.add(ex);
             return;
         }

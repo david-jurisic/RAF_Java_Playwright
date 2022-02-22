@@ -1,6 +1,7 @@
 import org.raf3k.guittesting.webtesting.basetypes.UITestCase;
 import org.junit.jupiter.api.Test;
 
+
 public class LabelTestRunner extends UITestCase {
     public LabelTestRunner() {
         super("label test case","TC002","Denis Milič");
