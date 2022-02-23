@@ -70,24 +70,16 @@ public class Evaluator {
 
             suc.sPath = callersPathValue;
             suc.sAlias = callersAliasValue;
-            //if (action.toString().contains("<") && action.toString().contains(">"))
-            //suc.sMethodName = action.Method.Name.Substring(action.Method.Name.IndexOf("<")+1, action.Method.Name.IndexOf(">") - action.Method.Name.IndexOf("<")-1);
-            //suc.sMethodName = action.toString();
-            //else
             suc.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             suc.sMessageAddon = messageAddon;
 
-            Field args = action.getClass().getDeclaredField("arg$1");
-            args.setAccessible(true);
-            Field[] childFields = args.get(action).getClass().getSuperclass().getFields();
+            Field[] fields = action.getClass().getDeclaredFields();
+
             ArrayList<String> lsMethodArguments = new ArrayList<>();
-            for (var fieldInfo : childFields) {
+            for (var fieldInfo : fields) {
+                if (fieldInfo == fields[0]) continue;
                 fieldInfo.setAccessible(true);
-                String sFieldName = fieldInfo.getName();
-                if (sFieldName.startsWith("<>"))
-                    continue;
-                var oVal = fieldInfo.get(caller);
-                String sValue = oVal == null ? "NULL" : oVal.toString();
+                String sValue = fieldInfo.get(action).toString();
 
                 lsMethodArguments.add(sValue);
             }
@@ -104,7 +96,7 @@ public class Evaluator {
         } catch (Exception ex) {
             suc.stepFinish = LocalDateTime.now();
             suc.Ex = ex;
-            suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getMessage();
+            suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getStackTrace()[0].toString();
             suc.bPassed = false;
             suc.sScreenshot = getScreenshot();
 
