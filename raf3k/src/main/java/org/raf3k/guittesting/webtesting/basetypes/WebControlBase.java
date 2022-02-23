@@ -97,6 +97,18 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method clicks on web control.
+     *
+     * @return Success object
+     */
+    public Success click() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.control().click();
+        }, this, "");
+    }
+
+    /**
      * Method verifies if web control exists.
      *
      * @param iControlWaitTime Control wait time.
