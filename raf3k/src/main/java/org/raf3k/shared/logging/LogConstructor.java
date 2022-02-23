@@ -86,7 +86,7 @@ public class LogConstructor {
                 sTableData += "</tr>";
                 if (SubStep.messageAddon != null && !SubStep.messageAddon.isEmpty()) {
                     sTableData += "<tr id='" + String.valueOf(step.stepNumber) + String.valueOf(i) +
-                            "' style=\"display: none;\"><td colspan='4'>" + "SubStep.MessageAddon" + "</td></tr>";
+                            "' style=\"display: none;\"><td colspan='4'>" + SubStep.messageAddon + "</td></tr>";
                 }
                 i++;
             }

@@ -96,7 +96,7 @@ public class Evaluator {
         } catch (Exception ex) {
             suc.stepFinish = LocalDateTime.now();
             suc.Ex = ex;
-            suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getMessage();
+            suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getStackTrace()[0].toString();
             suc.bPassed = false;
             suc.sScreenshot = getScreenshot();
 
