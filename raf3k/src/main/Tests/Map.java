@@ -19,6 +19,8 @@ public final class Map {
     public static class Home {
         public static WbPageEx page = new WbPageEx("","Page");
         public static WbButtonEx btnProjects = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"),"btnProjects");
+        public static WbLinkEx link1 = new WbLinkEx(By.xpath("/html/body/main/div/section/div[2]/div/ul/li[2]/a"),"link1");
+        public static WbLinkEx link2 = new WbLinkEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"),"link2");
     }
 
     public static class Projects {
