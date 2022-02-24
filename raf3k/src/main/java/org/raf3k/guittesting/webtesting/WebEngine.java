@@ -1,5 +1,7 @@
 package org.raf3k.guittesting.webtesting;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
@@ -21,15 +23,20 @@ public class WebEngine {
     private List<By> allAsyncLoaders = new ArrayList<By>();
 
     public WebElement findControl(String sControlType, String sControlPath, By searchBy, WebControlBase Parent, String sError, Boolean bDisplayed, Boolean bMustBeVisible, int iTimeoutOverride) {
-        sError = "";
-
         try {
             WebElement control = null;
             //TimeSpan WaitTime = TimeSpan.FromSeconds(Convert.ToInt32(SharedVariables.Configuration.GetEntryValue("controlWaitTime")));
 
 
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(5));
-            control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
+
+            if (Parent == null) {
+                control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
+            } else {
+                control = (WebElement) wait.until(
+                        ExpectedConditions.presenceOfNestedElementLocatedBy(Parent.control(), searchBy)
+                );
+            }
 
             return control;
         } catch (Exception e) {
@@ -38,4 +45,5 @@ public class WebEngine {
         }
 
     }
+
 }

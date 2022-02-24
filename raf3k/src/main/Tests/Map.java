@@ -9,11 +9,12 @@ public final class Map {
 
     public static class Login {
         public static final WbPageEx page = new WbPageEx("Account/Login", "Page");
-        public static final WbLabelEx lblMemberLogin = new WbLabelEx(By.xpath("//h2[@style='font-style: oblique;']"), "lblMmemberLogin");
+        public static final WbLabelEx lblParent = new WbLabelEx(By.xpath("//div[@align='center']"), "parent");
+        public static final WbLabelEx lblMemberLogin = new WbLabelEx(By.xpath(".//h2[@style='font-style: oblique;']"), lblParent, "lblMmemberLogin");
         public static final WbEditEx txtEmail = new WbEditEx(By.id("Email"), "txtEmail");
         public static final WbEditEx txtPassword = new WbEditEx(By.id("password"), "txtPassword");
         public static final WbCheckBoxEx chkRememberMe = new WbCheckBoxEx(By.id("RememberMe"), "chkRememberMe");
-        public static final WbButtonEx btnSignIn = new WbButtonEx(By.xpath("/html/body/main/div/section/div/form/div[4]/div/input"),"btnSignIn");
+        public static final WbButtonEx btnSignIn = new WbButtonEx(By.xpath("/html/body/main/div/section/div/form/div[4]/div/input"), "btnSignIn");
     }
 
     public static class Home {
@@ -24,13 +25,13 @@ public final class Map {
     }
 
     public static class Projects {
-        public static WbPageEx page = new WbPageEx("Projects","Projects");
-        public static WbButtonEx btnCreate = new WbButtonEx(By.xpath("//*[@id=\"main\"]/div/input"),"btnCreate");
+        public static WbPageEx page = new WbPageEx("Projects", "Projects");
+        public static WbButtonEx btnCreate = new WbButtonEx(By.xpath("//*[@id=\"main\"]/div/input"), "btnCreate");
     }
 
     public static class NewProject {
-       public static WbPageEx page = new WbPageEx("Projects/Create","NewProject");
-       public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d","Index");
+        public static WbPageEx page = new WbPageEx("Projects/Create", "NewProject");
+        public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d", "Index");
     }
 
 }
