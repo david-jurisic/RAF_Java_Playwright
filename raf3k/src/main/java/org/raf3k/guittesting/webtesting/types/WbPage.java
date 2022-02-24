@@ -43,7 +43,11 @@ public class WbPage extends WebControlBase {
         }, this, "");
     }
 
-
+    /**
+     * TODO not working
+     *
+     * @return
+     */
     public Success verifyDisplayedByLink() {
         return UIReferences.eval().evaluate(() ->
         {
@@ -66,7 +70,7 @@ public class WbPage extends WebControlBase {
             String sLink = null;
 
             try {
-                sLink = new URI(pageUrl.getProtocol(),pageUrl.getUserInfo(),pageUrl.getHost(),pageUrl.getPort(),pageUrl.getPath(),pageUrl.getQuery(), null).toString();
+                sLink = new URI(pageUrl.getProtocol(), pageUrl.getUserInfo(), pageUrl.getHost(), pageUrl.getPort(), pageUrl.getPath(), pageUrl.getQuery(), null).toString();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -74,6 +78,94 @@ public class WbPage extends WebControlBase {
             if (!UIReferences.getWebDriver().getCurrentUrl().contains(sLink))
                 throw new RuntimeException(MessageFormat.format("Web page is not displayed.Searched webpage {0}, current webpage {1}",
                         UIReferences.currentPageContext, UIReferences.getWebDriver().getCurrentUrl()));
-        }, this,"");
+        }, this, "");
+    }
+
+    /**
+     * Method verifies the page is displayed by taking driver current URL and checking.
+     *
+     * @return boolean
+     */
+    public boolean booleanVerifyDisplayedByLink() {
+
+        try {
+            String sMainUrlWithoutApi = UIReferences.getWebDriver().getCurrentUrl();
+
+            if (sMainUrlWithoutApi.contains("?")) {
+                String sChunk = sMainUrlWithoutApi.substring(0, sMainUrlWithoutApi.indexOf('?'));
+
+                sMainUrlWithoutApi = sChunk.replace("?", "");
+            }
+
+            URL pageUrl = null;
+
+            try {
+                pageUrl = new URL(sMainUrlWithoutApi);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            String sLink = null;
+
+            try {
+                sLink = new URI(pageUrl.getProtocol(), pageUrl.getUserInfo(), pageUrl.getHost(), pageUrl.getPort(), pageUrl.getPath(),
+                        pageUrl.getQuery(), null).toString();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+
+            if (!UIReferences.getWebDriver().getCurrentUrl().contains(sLink))
+                throw new RuntimeException(MessageFormat.format("Web page is not displayed.Searched webpage {0}, current webpage {1}",
+                        UIReferences.currentPageContext, UIReferences.getWebDriver().getCurrentUrl()));
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Method verifies the page is displayed by taking driver current URL and checking and returning bool.
+     *
+     * @return boolean
+     */
+    public boolean verifyDisplayedAndReturnBoolean() {
+        if (verifyDisplayed().Ex != null)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * Method switches to main tab.
+     *
+     * @return Succes Object
+     */
+    public Success switchToMainTab() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (UIReferences.getWebDriver().getWindowHandles().stream().count() > 1) {
+                UIReferences.getWebDriver().switchTo().window(UIReferences.getWebDriver().getWindowHandles().stream().findFirst().toString());
+            }
+        }, this, "");
+    }
+
+    /**
+     * TODO not completed
+     *
+     * @param sChunk
+     * @return
+     */
+    public Success verifyURLChunk(String sChunk) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            String sError;
+            //if (!UIReferences.WebEng.WaitForPageLoading(out sError))
+            //    throw new RuntimeException(sError);
+
+            if (!UIReferences.getWebDriver().getCurrentUrl().contains(sChunk))
+                throw new RuntimeException(MessageFormat.format("Cannot find specific chunk in URL. <br> Current URL: {0} <br> Searched chunk: {1}",
+                        UIReferences.getWebDriver().getCurrentUrl(), sChunk));
+        }, this, "");
     }
 }

@@ -28,6 +28,7 @@ public final class Map {
 
     public static class NewProject {
        public static WbPageEx page = new WbPageEx("Projects/Create","NewProject");
+       public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d","Index");
     }
 
 }
