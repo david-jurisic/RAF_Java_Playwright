@@ -1,3 +1,4 @@
+import org.raf3k.guittesting.webtesting.types.WbMenu;
 import org.raf3k.guittesting.webtesting.types.WbRadioButton;
 import org.raf3k.testproject.extendedtypes.ui.*;
 import org.openqa.selenium.By;
@@ -42,6 +43,12 @@ public final class Map {
         public static WbReadioButtonEx rbQuickBook = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[5]/input"), "rbQuickBook");
         public static WbReadioButtonEx rbBeginner = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[8]/input"), "rbBeginner");
         public static WbReadioButtonEx rbIntermediate = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[9]/input"), "rbIntermediate");
+    }
+
+    public static class Menu {
+        public static WbPageEx page = new WbPageEx("howto/howto_css_icon_bar.asp","page");
+        public static WbButtonEx btnAccept = new WbButtonEx(By.id("accept-choices"),"btnAccept");
+        public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"),"menu");
     }
 
 }

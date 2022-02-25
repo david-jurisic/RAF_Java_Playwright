@@ -53,9 +53,18 @@ public class Evaluator {
         try {
             String callersPathValue = "";
             String callersAliasValue = "";
+            Field callersPath = null;
+            Field callersAlias = null;
 
-            Field callersPath = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sPath");
-            Field callersAlias = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sAlias");
+            if(caller.getClass().getSuperclass().getSuperclass().getSuperclass().getName().contains("org.raf3k")) {
+                callersPath = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sPath");
+                callersAlias = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sAlias");
+            }
+            else {
+                callersPath = caller.getClass().getSuperclass().getSuperclass().getDeclaredField("sPath");
+                callersAlias = caller.getClass().getSuperclass().getSuperclass().getDeclaredField("sAlias");
+            }
+
 
             if (callersPath != null) {
                 callersPath.setAccessible(true);

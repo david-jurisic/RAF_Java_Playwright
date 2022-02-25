@@ -1,5 +1,6 @@
 package org.raf3k.guittesting.webtesting.basetypes;
 
+import org.openqa.selenium.interactions.Actions;
 import org.raf3k.shared.DebugLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ public class WebControlBase extends ControlObject {
     private WebElement _Controlreference;
     private By searchBy;
     private WebControlBase parent;
+    public Actions actionsBuilder;
 
     public WebElement control() {
         try {
