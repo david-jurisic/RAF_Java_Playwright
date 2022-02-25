@@ -9,7 +9,6 @@ public class ConfigurationHelper {
 
     public ConfigurationHelper()
     {
-        //Private constructor to restrict new instances
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
         try {
             configProp.load(in);

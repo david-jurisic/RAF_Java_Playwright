@@ -1,5 +1,7 @@
 package org.raf3k.guittesting.webtesting.types;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.logging.Success;
@@ -9,6 +11,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.time.Duration;
 
 public class WbPage extends WebControlBase {
     private URL pageURL;
@@ -44,9 +47,26 @@ public class WbPage extends WebControlBase {
     }
 
     /**
-     * TODO not working
+     * Method verifies the page is displayed by taking driver current URL and checking against the WebPage URL.
+     * @param iTime Duration(seconds) that the WebDriver waits for the URL to be contained.
+     * @return Success object
+     */
+    public Success verifyDisplayed(int iTime) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            WebDriverWait Wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(iTime));
+
+            if (!Wait.until(ExpectedConditions.urlContains(pageURL.toExternalForm()))) {
+                throw new RuntimeException("Page not displayed");
+            }
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies the page is displayed by taking driver current URL and checking.
      *
-     * @return
+     * @return Success object
      */
     public Success verifyDisplayedByLink() {
         return UIReferences.eval().evaluate(() ->

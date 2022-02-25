@@ -1,6 +1,7 @@
 package org.raf3k.guittesting.webtesting.basetypes;
 
 import org.junit.jupiter.api.AfterAll;
+import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.raf3k.guittesting.webtesting.SeleniumSetup;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.TestCaseBase;
@@ -10,21 +11,25 @@ import org.raf3k.guittesting.UIReferences;
 public class UITestCase extends TestCaseBase {
     public UITestCase(String testCaseName, String testCaseCode, String testCaseAuthor) {
         super(testCaseName, testCaseCode, testCaseAuthor);
-        setupWebDriver();
+        setupWebDriver(null);
     }
     public UITestCase() {
         super();
-        setupWebDriver();
+        setupWebDriver(null);
     }
 
-    private void setupWebDriver()
+    private void setupWebDriver(AbstractDriverOptions driverOptions)
     {
         try
         {
             if (UIReferences.getWebDriver() == null)
             {
                 SeleniumSetup setup = new SeleniumSetup();
-                setup.setupWebDriver(null);
+                if(driverOptions == null)
+                    setup.setupWebDriver(null, null);
+                else
+                    setup.setupWebDriver(driverOptions,null);
+
                 DebugLog.add("Driver setup complete", 2);
             }
             else

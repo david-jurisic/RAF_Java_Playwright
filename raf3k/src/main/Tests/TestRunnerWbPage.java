@@ -25,9 +25,9 @@ public class TestRunnerWbPage extends UITestCase {
 
         //success(Map.Projects.btnCreate.click());
 
-        success(Map.NewProject.page2.navigate());
-        System.out.println(Map.NewProject.page.booleanVerifyDisplayedByLink());
-
+        success(Map.Login.page.navigate());
+        //success(Map.NewProject.page2.verifyDisplayedByLink());
+        success(Map.Login.page.verifyDisplayed(5));
         //Map.NewProject.page.Test();
 
     }
