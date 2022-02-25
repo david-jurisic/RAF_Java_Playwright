@@ -1,5 +1,10 @@
 import org.raf3k.guittesting.webtesting.types.*;
 import org.raf3k.testproject.extendedtypes.ui.*;
+import org.raf3k.apitesting.APIReferences;
+import org.raf3k.apitesting.basetypes.QueryString;
+import org.raf3k.testproject.extendedtypes.ui.WbEditEx;
+import org.raf3k.testproject.extendedtypes.ui.WbLabelEx;
+import org.raf3k.testproject.extendedtypes.ui.WbPageEx;
 import org.openqa.selenium.By;
 import org.raf3k.guittesting.UIReferences;
 
@@ -10,6 +15,10 @@ public final class Map {
 
     public static void initialize2() {
         UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
+    }
+    
+    public static void initializeAPI() {
+        APIReferences.currentPageContext = "https://reqres.in/";
     }
 
     public static class Login {
@@ -71,6 +80,10 @@ public final class Map {
     public static class TableTest {
         public static WbPageEx page = new WbPageEx("","page");
         public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"),"tblExample");
+    }
+
+    public static class API{
+        public static final QueryString Get = new QueryString("api/users/2");
     }
 
 }

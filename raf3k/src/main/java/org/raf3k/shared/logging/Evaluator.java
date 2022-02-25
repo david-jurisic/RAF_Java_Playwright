@@ -15,6 +15,9 @@ import java.util.List;
 public class Evaluator {
     public WebDriver driver;
 
+    public Evaluator() {
+    }
+
     public Evaluator(WebDriver _driver) {
         driver = _driver;
     }
@@ -71,6 +74,7 @@ public class Evaluator {
 
             if (callersAlias != null) {
                 callersAlias.setAccessible(true);
+                //ne dobije se dobar alias treba biti api/users tj query string sta bude
                 String oCaller = (String) callersAlias.get(caller);
                 callersAliasValue = oCaller == null ? "NULL" : oCaller;
             }
