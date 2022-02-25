@@ -1,5 +1,6 @@
 package org.raf3k.guittesting.webtesting;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 
 public class WebEngine {
@@ -46,4 +48,32 @@ public class WebEngine {
 
     }
 
+    /**
+     * Checks if page loaded or not using JavaScript
+     * @return Boolean if page loaded or not
+     */
+    public Boolean waitForPageLoading() {
+        try {
+            //TimeSpan WaitTime = TimeSpan.FromSeconds(Convert.ToInt32(SharedVariables.Configuration.GetEntryValue("PageLoadWaitTime")));
+            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(5));
+            wait.until(new Function<WebDriver, Boolean>() {
+                public Boolean apply(WebDriver driver) {
+                    try {
+                        var pageStatus = ((JavascriptExecutor) driver).executeScript("return document.readyState");
+                        if(pageStatus == null)
+                            return true;
+                        if(pageStatus.toString().equalsIgnoreCase("completed"))
+                            return true;
+                        return false;
+                    } catch (Exception ex) {
+                        return false;
+                    }
+                }
+            });
+            return true;
+        } catch (Exception ex) {
+            return false;
+
+        }
+    }
 }

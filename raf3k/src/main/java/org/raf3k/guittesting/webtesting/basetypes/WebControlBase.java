@@ -20,6 +20,7 @@ public class WebControlBase extends ControlObject {
     public WebElement control() {
         try {
             String sError = "";
+            waitForLoaders();
             if (checkIfControlStale())
                 _Controlreference = UIReferences.getWebEng().findControl(sControlType, sPath, searchBy, parent, sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
             return _Controlreference;
@@ -80,6 +81,11 @@ public class WebControlBase extends ControlObject {
         } catch (Exception ex) {
             return true;
         }
+    }
+
+    private void waitForLoaders() {
+        UIReferences.getWebEng().waitForPageLoading();
+        //UIReferences.WebEng.WaitForLoaders();
     }
 
     /**
