@@ -37,6 +37,10 @@ public class WbPage extends WebControlBase {
                 this, "");
     }
 
+    /**
+     * Method verifies the page is displayed by taking driver current URL and checking.
+     * @return Success object.
+     */
     public Success verifyDisplayed() {
         return UIReferences.eval().evaluate(() ->
         {
@@ -146,7 +150,6 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method verifies the page is displayed by taking driver current URL and checking and returning bool.
-     *
      * @return boolean
      */
     public boolean verifyDisplayedAndReturnBoolean() {
@@ -158,7 +161,6 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method switches to main tab.
-     *
      * @return Succes Object
      */
     public Success switchToMainTab() {
@@ -171,10 +173,9 @@ public class WbPage extends WebControlBase {
     }
 
     /**
-     * TODO not completed
-     *
-     * @param sChunk
-     * @return
+     * method verifies if URL contains specific chunk of string
+     * @param sChunk string chunk to be verified
+     * @return Success object
      */
     public Success verifyURLChunk(String sChunk) {
         return UIReferences.eval().evaluate(() ->

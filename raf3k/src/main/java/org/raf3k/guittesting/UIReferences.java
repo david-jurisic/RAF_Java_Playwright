@@ -1,7 +1,7 @@
 package org.raf3k.guittesting;
 
 import org.openqa.selenium.interactions.Actions;
-import org.raf3k.guittesting.webtesting.WebEngine;
+import org.raf3k.guittesting.webtesting.engine.WebEngine;
 import org.raf3k.shared.Helpers;
 import org.raf3k.shared.logging.Evaluator;
 import org.openqa.selenium.WebDriver;
