@@ -21,6 +21,7 @@ public class TestRunnerWbEdit extends UITestCase {
         success(Map.Login.txtPassword.enabled(true, null));
         success(Map.Login.txtPassword.displayed(true));
         success(Map.Login.txtPassword.verifyEmpty(true));
+        success(Map.Login.txtPassword.verifyAttributeValue("placeholder", "Password"));
         success(Map.Login.txtEmail.setText("test@test.com", false, false, false));
         success(Map.Login.txtPassword.setText("test1234", false, false, false));
         success(Map.Login.txtEmail.verifyText("test@test.com"));

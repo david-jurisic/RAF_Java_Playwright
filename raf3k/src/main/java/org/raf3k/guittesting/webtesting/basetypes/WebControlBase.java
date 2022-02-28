@@ -189,11 +189,11 @@ public class WebControlBase extends ControlObject {
             this.exists(true);
             var attributes = getAllControlAttributes();
             var attributesKeysJoined = attributes.keySet().stream()
-                    .map(o -> o + ",").toString();
+                    .map(o -> o + ", ").collect(Collectors.joining());
             var attributesValuesJoined = attributes.values().stream()
-                    .map(o -> o.toString() + ",").toString();
+                    .map(o -> o.toString() + ", ").collect(Collectors.joining());
 
-            if (attributes.containsKey(sAttribute))
+            if (!attributes.containsKey(sAttribute))
                 throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
 
             var filteredAttributes = attributes.entrySet()
