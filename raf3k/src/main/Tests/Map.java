@@ -1,3 +1,4 @@
+import org.raf3k.guittesting.webtesting.types.WbDropDownList;
 import org.raf3k.guittesting.webtesting.types.WbMenu;
 import org.raf3k.guittesting.webtesting.types.WbRadioButton;
 import org.raf3k.testproject.extendedtypes.ui.*;
@@ -22,6 +23,7 @@ public final class Map {
     public static class Home {
         public static WbPageEx page = new WbPageEx("", "Page");
         public static WbButtonEx btnProjects = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"), "btnProjects");
+        public static WbButtonEx btnTags = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[3]/a"),"btnTags");
         public static WbLinkEx link1 = new WbLinkEx(By.xpath("/html/body/main/div/section/div[2]/div/ul/li[2]/a"), "link1");
         public static WbLinkEx link2 = new WbLinkEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"), "link2");
     }
@@ -31,6 +33,9 @@ public final class Map {
         public static WbButtonEx btnCreate = new WbButtonEx(By.xpath("//*[@id=\"main\"]/div/input"), "btnCreate");
     }
 
+    public static class Tags {
+        public static WbDropDownListEx ddlPageSize = new WbDropDownListEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"),"ddlPageSize");
+    }
     public static class NewProject {
         public static WbPageEx page = new WbPageEx("Projects/Create", "NewProject");
         public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d", "Index");
@@ -50,5 +55,7 @@ public final class Map {
         public static WbButtonEx btnAccept = new WbButtonEx(By.id("accept-choices"),"btnAccept");
         public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"),"menu");
     }
+
+
 
 }
