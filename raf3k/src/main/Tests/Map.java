@@ -1,6 +1,7 @@
 import org.raf3k.guittesting.webtesting.types.WbDropDownList;
 import org.raf3k.guittesting.webtesting.types.WbMenu;
 import org.raf3k.guittesting.webtesting.types.WbRadioButton;
+import org.raf3k.guittesting.webtesting.types.WbWrapper;
 import org.raf3k.testproject.extendedtypes.ui.*;
 import org.openqa.selenium.By;
 import org.raf3k.guittesting.UIReferences;
@@ -18,6 +19,7 @@ public final class Map {
         public static final WbEditEx txtPassword = new WbEditEx(By.id("password"), "txtPassword");
         public static final WbCheckBoxEx chkRememberMe = new WbCheckBoxEx(By.id("RememberMe"), "chkRememberMe");
         public static final WbButtonEx btnSignIn = new WbButtonEx(By.xpath("/html/body/main/div/section/div/form/div[4]/div/input"), "btnSignIn");
+        public static final WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("/html/body/main/div"),"wrpMain");
     }
 
     public static class Home {
@@ -38,6 +40,8 @@ public final class Map {
     }
     public static class NewProject {
         public static WbPageEx page = new WbPageEx("Projects/Create", "NewProject");
+        public static WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("//*[@id=\"New\"]/div/form/div[1]"),"wrpMain");
+        public static WbEditEx txtName = new WbEditEx(By.name("Name"),"txtName");
         public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d", "Index");
     }
 
