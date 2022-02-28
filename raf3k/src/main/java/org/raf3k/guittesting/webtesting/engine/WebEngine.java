@@ -1,4 +1,4 @@
-package org.raf3k.guittesting.webtesting;
+package org.raf3k.guittesting.webtesting.engine;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -60,9 +60,7 @@ public class WebEngine {
                 public Boolean apply(WebDriver driver) {
                     try {
                         var pageStatus = ((JavascriptExecutor) driver).executeScript("return document.readyState");
-                        if(pageStatus == null)
-                            return true;
-                        if(pageStatus.toString().equalsIgnoreCase("completed"))
+                        if(pageStatus == null || pageStatus.toString().equalsIgnoreCase("completed"))
                             return true;
                         return false;
                     } catch (Exception ex) {
