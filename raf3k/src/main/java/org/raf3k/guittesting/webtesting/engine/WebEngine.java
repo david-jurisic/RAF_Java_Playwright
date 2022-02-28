@@ -60,7 +60,7 @@ public class WebEngine {
                 public Boolean apply(WebDriver driver) {
                     try {
                         var pageStatus = ((JavascriptExecutor) driver).executeScript("return document.readyState");
-                        if(pageStatus == null || pageStatus.toString().equalsIgnoreCase("completed"))
+                        if(pageStatus == null || pageStatus.toString().equalsIgnoreCase("complete"))
                             return true;
                         return false;
                     } catch (Exception ex) {
