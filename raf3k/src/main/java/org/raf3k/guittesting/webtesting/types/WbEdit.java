@@ -119,7 +119,7 @@ public class WbEdit extends WebControlBase {
     public Success verifyEmpty(boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(2, true);
+            this.exists(true);
 
             String sControlvalue = control().getAttribute("value").trim();
 
