@@ -13,12 +13,16 @@ public class TestRunnerWbEdit extends UITestCase {
         Map.initialize();
 
         newStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");
+        System.out.println("Here 1");
         success(Map.Login.page.navigate());
+        success(Map.Login.txtEmail.enabled(true, null));
+        success(Map.Login.txtEmail.displayed(true));
         success(Map.Login.txtEmail.verifyEmpty(true));
+        success(Map.Login.txtPassword.enabled(true, null));
+        success(Map.Login.txtPassword.displayed(true));
         success(Map.Login.txtPassword.verifyEmpty(true));
         success(Map.Login.txtEmail.setText("test@test.com", false, false, false));
         success(Map.Login.txtPassword.setText("test1234", false, false, false));
-        Map.Login.txtPassword.verifyAttributeValue("test", "test");
         success(Map.Login.txtEmail.verifyText("test@test.com"));
         success(Map.Login.txtEmail.getText());
         System.out.println("txtEmail: " + Map.Login.txtEmail.getTextValue);

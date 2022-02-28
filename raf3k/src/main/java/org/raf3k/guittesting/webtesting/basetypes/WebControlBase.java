@@ -13,6 +13,7 @@ import javax.management.RuntimeMBeanException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WebControlBase extends ControlObject {
     public Boolean bDisplayed = true;
@@ -148,13 +149,7 @@ public class WebControlBase extends ControlObject {
     public Success enabled(Boolean bEnabled, Integer iControlWait) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists( true);
-
-            if (iControlWait == null) {
-                iTimeoutOverride = 2;
-            } else {
-                iTimeoutOverride = iControlWait;
-            }
+            this.exists(true);
 
             if (!bEnabled && control().isEnabled()) {
                 throw new RuntimeException("Control is enabled.");
@@ -164,15 +159,13 @@ public class WebControlBase extends ControlObject {
                 throw new RuntimeException("Control is not enabled");
             }
 
-            iTimeoutOverride = -1;
-
         }, this, "");
     }
 
     /**
      * Method verifies if web control exists.
      *
-     * @param bExists          Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
+     * @param bExists Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
      * @return Success object.
      */
     public Success exists(Boolean bExists) {
@@ -190,16 +183,36 @@ public class WebControlBase extends ControlObject {
         }, this, "");
     }
 
-    public Success verifyAttributeValue(String sAttribute, String sAttributeValue){
+    public Success verifyAttributeValue(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists(true);
             var attributes = getAllControlAttributes();
+            var attributesKeysJoined = attributes.keySet().stream()
+                    .map(o -> o + ",").toString();
+            var attributesValuesJoined = attributes.values().stream()
+                    .map(o -> o.toString() + ",").toString();
+
+            if (attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+
+            var filteredAttributes = attributes.entrySet()
+                    .stream()
+                    .filter(x -> x.getKey().equalsIgnoreCase(sAttribute) && x.getValue().toString().equalsIgnoreCase(sAttributeValue));
+
+            if (filteredAttributes.count() < 1)
+                throw new RuntimeException(MessageFormat.format("\"Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
+
         }, this, "");
     }
 
+    /**
+     * Method retrieves all control attributes.
+     *
+     * @return map of attributes.
+     */
     private Map<String, Object> getAllControlAttributes() {
-        var executor = ((JavascriptExecutor)UIReferences.getWebDriver());
+        var executor = ((JavascriptExecutor) UIReferences.getWebDriver());
         var attributes = (Map<String, Object>) executor.executeScript
                 ("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;"
                         , control());
