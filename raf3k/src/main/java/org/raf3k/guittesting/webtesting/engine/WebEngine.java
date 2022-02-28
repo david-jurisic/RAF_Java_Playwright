@@ -29,6 +29,10 @@ public class WebEngine {
             WebElement control = null;
             //TimeSpan WaitTime = TimeSpan.FromSeconds(Convert.ToInt32(SharedVariables.Configuration.GetEntryValue("controlWaitTime")));
 
+            Duration waitTime = Duration.ofSeconds(5);
+
+            if(iTimeoutOverride != -1)
+                waitTime = Duration.ofSeconds(iTimeoutOverride);
 
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(5));
 

@@ -1,5 +1,6 @@
 package org.raf3k.guittesting.webtesting.basetypes;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.raf3k.shared.DebugLog;
 import org.openqa.selenium.By;
@@ -7,6 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.logging.Success;
+
+import javax.management.RuntimeMBeanException;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebControlBase extends ControlObject {
     public Boolean bDisplayed = true;
@@ -117,34 +123,86 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method verifies the web control is displayed.
+     *
+     * @param bDisplayed Bool parameter, if set to false, verifies the web control is not displayed.
+     * @return Success object
+     */
+    public Success displayed(Boolean bDisplayed) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (bDisplayed && !control().isDisplayed())
+                throw new RuntimeException(MessageFormat.format("Web control {0} is not displayed.", sAlias));
+            if (!bDisplayed && control().isDisplayed())
+                throw new RuntimeException(MessageFormat.format("Web control {0} is displayed.", sAlias));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies web control is enabled.
+     *
+     * @param bEnabled     Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled
+     * @param iControlWait Int of time to wait for the control. In seconds. Default is 2 if you send null
+     * @return Success object
+     */
+    public Success enabled(Boolean bEnabled, Integer iControlWait) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists( true);
+
+            if (iControlWait == null) {
+                iTimeoutOverride = 2;
+            } else {
+                iTimeoutOverride = iControlWait;
+            }
+
+            if (!bEnabled && control().isEnabled()) {
+                throw new RuntimeException("Control is enabled.");
+            }
+
+            if (bEnabled && !control().isEnabled()) {
+                throw new RuntimeException("Control is not enabled");
+            }
+
+            iTimeoutOverride = -1;
+
+        }, this, "");
+    }
+
+    /**
      * Method verifies if web control exists.
      *
-     * @param iControlWaitTime Control wait time.
      * @param bExists          Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
      * @return Success object.
      */
-    public Success exists(int iControlWaitTime, boolean bExists) {
+    public Success exists(Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            iTimeoutOverride = iControlWaitTime;
 
             if (bExists) {
                 if (control() == null)
-                    try {
-                        throw new Exception("Web control " + sAlias + " does not exist.");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    throw new RuntimeException(MessageFormat.format("Web control {0} does not exists.", sAlias));
             } else {
                 if (control() != null)
-                    try {
-                        throw new Exception("Web control " + sAlias + " exists.");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                    throw new RuntimeException(MessageFormat.format("Web control {0} exists.", sAlias));
             }
-            iTimeoutOverride = -1;
+
         }, this, "");
+    }
+
+    public Success verifyAttributeValue(String sAttribute, String sAttributeValue){
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var attributes = getAllControlAttributes();
+        }, this, "");
+    }
+
+    private Map<String, Object> getAllControlAttributes() {
+        var executor = ((JavascriptExecutor)UIReferences.getWebDriver());
+        var attributes = (Map<String, Object>) executor.executeScript
+                ("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;"
+                        , control());
+        return attributes;
     }
 }
