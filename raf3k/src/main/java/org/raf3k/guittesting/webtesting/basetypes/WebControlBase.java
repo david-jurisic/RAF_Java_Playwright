@@ -124,6 +124,32 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Moves to element and clicks.
+     *
+     * @return Success object.
+     */
+    public Success moveToElementAndClick() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Actions actions = new Actions(UIReferences.getWebDriver());
+            actions.moveToElement(control()).click().build().perform();
+        }, this, "");
+    }
+
+    /**
+     * Method moves the mouse to the element
+     *
+     * @return Success object.
+     */
+    public Success scrollIntoView() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Actions actions = new Actions(UIReferences.getWebDriver());
+            actions.moveToElement(control()).build().perform();
+        }, this, "");
+    }
+
+    /**
      * Method verifies the web control is displayed.
      *
      * @param bDisplayed Bool parameter, if set to false, verifies the web control is not displayed.
