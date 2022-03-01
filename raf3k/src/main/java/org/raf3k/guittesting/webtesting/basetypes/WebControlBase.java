@@ -166,6 +166,48 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method verifies size of the web control.
+     *
+     * @param iWidth  Expected width of web control.
+     * @param iHeight Expected height of web control.
+     * @return Success object.
+     */
+    public Success verifySize(Integer iWidth, Integer iHeight) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var size = control().getSize();
+            if (size.height != iHeight)
+                throw new RuntimeException(MessageFormat.format("Height not verified. Height is {0} but expected height is {1}"
+                        , size.height, iHeight));
+            if (size.width != iWidth)
+                throw new RuntimeException(MessageFormat.format("Width not verified. Width is {0} but expected Width is {1}"
+                        , size.width, iWidth));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies size of the web control
+     *
+     * @param iXAxis Expected width of web control.
+     * @param iYAxis Expected height of web control.
+     * @return Success object.
+     */
+    public Success verifyPosition(Integer iXAxis, Integer iYAxis) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var location = control().getLocation();
+            if (location.getX() != iXAxis)
+                throw new RuntimeException(MessageFormat.format("Location not verified. X axis is {0} but expected value is {1}"
+                        , location.getX(), iXAxis));
+            if (location.getY() != iYAxis)
+                throw new RuntimeException(MessageFormat.format("Location not verified. Y axis is {0} but expected value is {1}"
+                        , location.getY(), iYAxis));
+        }, this, "");
+    }
+
+    /**
      * Method verifies web control is enabled.
      *
      * @param bEnabled     Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled
@@ -256,7 +298,37 @@ public class WebControlBase extends ControlObject {
                     .filter(x -> x.getKey().equalsIgnoreCase(sAttribute) && x.getValue().toString().equalsIgnoreCase(sAttributeValue));
 
             if (filteredAttributes.count() < 1)
-                throw new RuntimeException(MessageFormat.format("\"Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
+                throw new RuntimeException(MessageFormat.format("Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if element attribute contains value.
+     *
+     * @param sAttribute      Expected element attribute.
+     * @param sAttributeValue Expected element attribute value.
+     * @return Success object.
+     */
+    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue){
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var attributes = getAllControlAttributes();
+            var attributesKeysJoined = attributes.keySet().stream()
+                    .map(o -> o + ", ").collect(Collectors.joining());
+            var attributesValuesJoined = attributes.values().stream()
+                    .map(o -> o.toString() + ", ").collect(Collectors.joining());
+
+            if (!attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+
+            var filteredAttributes = attributes.entrySet()
+                    .stream()
+                    .filter(x -> x.getKey().equalsIgnoreCase(sAttribute) && x.getValue().toString().toLowerCase().contains(sAttributeValue));
+
+            if (filteredAttributes.count() < 1)
+                throw new RuntimeException(MessageFormat.format("Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
 
         }, this, "");
     }
