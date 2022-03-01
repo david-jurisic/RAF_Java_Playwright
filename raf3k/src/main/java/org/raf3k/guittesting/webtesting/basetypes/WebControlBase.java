@@ -124,6 +124,32 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Moves to element and clicks.
+     *
+     * @return Success object.
+     */
+    public Success moveToElementAndClick() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Actions actions = new Actions(UIReferences.getWebDriver());
+            actions.moveToElement(control()).click().build().perform();
+        }, this, "");
+    }
+
+    /**
+     * Method moves the mouse to the element
+     *
+     * @return Success object.
+     */
+    public Success scrollIntoView() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Actions actions = new Actions(UIReferences.getWebDriver());
+            actions.moveToElement(control()).build().perform();
+        }, this, "");
+    }
+
+    /**
      * Method verifies the web control is displayed.
      *
      * @param bDisplayed Bool parameter, if set to false, verifies the web control is not displayed.
@@ -136,6 +162,48 @@ public class WebControlBase extends ControlObject {
                 throw new RuntimeException(MessageFormat.format("Web control {0} is not displayed.", sAlias));
             if (!bDisplayed && control().isDisplayed())
                 throw new RuntimeException(MessageFormat.format("Web control {0} is displayed.", sAlias));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies size of the web control.
+     *
+     * @param iWidth  Expected width of web control.
+     * @param iHeight Expected height of web control.
+     * @return Success object.
+     */
+    public Success verifySize(Integer iWidth, Integer iHeight) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var size = control().getSize();
+            if (size.height != iHeight)
+                throw new RuntimeException(MessageFormat.format("Height not verified. Height is {0} but expected height is {1}"
+                        , size.height, iHeight));
+            if (size.width != iWidth)
+                throw new RuntimeException(MessageFormat.format("Width not verified. Width is {0} but expected Width is {1}"
+                        , size.width, iWidth));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies size of the web control
+     *
+     * @param iXAxis Expected width of web control.
+     * @param iYAxis Expected height of web control.
+     * @return Success object.
+     */
+    public Success verifyPosition(Integer iXAxis, Integer iYAxis) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var location = control().getLocation();
+            if (location.getX() != iXAxis)
+                throw new RuntimeException(MessageFormat.format("Location not verified. X axis is {0} but expected value is {1}"
+                        , location.getX(), iXAxis));
+            if (location.getY() != iYAxis)
+                throw new RuntimeException(MessageFormat.format("Location not verified. Y axis is {0} but expected value is {1}"
+                        , location.getY(), iYAxis));
         }, this, "");
     }
 
@@ -183,6 +251,35 @@ public class WebControlBase extends ControlObject {
         }, this, "");
     }
 
+    /**
+     * Method verifies if element has given attribute.
+     *
+     * @param sAttribute Expected element attribute.
+     * @param bExists    If true, checks if attribute exists, if false, check if attribute does not exist.
+     * @return Success object.
+     */
+    public Success verifyAttributeExists(String sAttribute, Boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var attributes = getAllControlAttributes();
+            var attributesKeysJoined = attributes.keySet().stream()
+                    .map(o -> o + ", ").collect(Collectors.joining());
+
+            if (bExists && !attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+            if (!bExists && attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element contains attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if element attribute has value.
+     *
+     * @param sAttribute      Expected element attribute.
+     * @param sAttributeValue Expected element attribute value.
+     * @return Success object.
+     */
     public Success verifyAttributeValue(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
@@ -201,9 +298,52 @@ public class WebControlBase extends ControlObject {
                     .filter(x -> x.getKey().equalsIgnoreCase(sAttribute) && x.getValue().toString().equalsIgnoreCase(sAttributeValue));
 
             if (filteredAttributes.count() < 1)
-                throw new RuntimeException(MessageFormat.format("\"Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
+                throw new RuntimeException(MessageFormat.format("Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
 
         }, this, "");
+    }
+
+    /**
+     * Method verifies if element attribute contains value.
+     *
+     * @param sAttribute      Expected element attribute.
+     * @param sAttributeValue Expected element attribute value.
+     * @return Success object.
+     */
+    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue){
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var attributes = getAllControlAttributes();
+            var attributesKeysJoined = attributes.keySet().stream()
+                    .map(o -> o + ", ").collect(Collectors.joining());
+            var attributesValuesJoined = attributes.values().stream()
+                    .map(o -> o.toString() + ", ").collect(Collectors.joining());
+
+            if (!attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+
+            var filteredAttributes = attributes.entrySet()
+                    .stream()
+                    .filter(x -> x.getKey().equalsIgnoreCase(sAttribute) && x.getValue().toString().toLowerCase().contains(sAttributeValue));
+
+            if (filteredAttributes.count() < 1)
+                throw new RuntimeException(MessageFormat.format("Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
+
+        }, this, "");
+    }
+
+    /**
+     * Method retrieves value of element attribute.
+     *
+     * @param sAttribute Expected element attribute.
+     * @return Attribute value as string
+     */
+    public String getAttributeValue(String sAttribute) {
+        this.exists(true);
+        var attributes = getAllControlAttributes();
+
+        return attributes.get(sAttribute).toString();
     }
 
     /**
