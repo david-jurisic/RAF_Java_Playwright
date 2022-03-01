@@ -183,6 +183,35 @@ public class WebControlBase extends ControlObject {
         }, this, "");
     }
 
+    /**
+     * Method verifies if element has given attribute.
+     *
+     * @param sAttribute Expected element attribute.
+     * @param bExists    If true, checks if attribute exists, if false, check if attribute does not exist.
+     * @return Success object.
+     */
+    public Success verifyAttributeExists(String sAttribute, Boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            var attributes = getAllControlAttributes();
+            var attributesKeysJoined = attributes.keySet().stream()
+                    .map(o -> o + ", ").collect(Collectors.joining());
+
+            if (bExists && !attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element does not contain attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+            if (!bExists && attributes.containsKey(sAttribute))
+                throw new RuntimeException(MessageFormat.format("Element contains attribute {0}. Element attributes: {1}.", sAttribute, attributesKeysJoined));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if element attribute has value.
+     *
+     * @param sAttribute      Expected element attribute.
+     * @param sAttributeValue Expected element attribute value.
+     * @return Success object.
+     */
     public Success verifyAttributeValue(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
@@ -204,6 +233,19 @@ public class WebControlBase extends ControlObject {
                 throw new RuntimeException(MessageFormat.format("\"Element attribute '{0}' does not contain value '{1}'. Element attribute values: {2}.", sAttribute, sAttributeValue, attributesValuesJoined));
 
         }, this, "");
+    }
+
+    /**
+     * Method retrieves value of element attribute.
+     *
+     * @param sAttribute Expected element attribute.
+     * @return Attribute value as string
+     */
+    public String getAttributeValue(String sAttribute) {
+        this.exists(true);
+        var attributes = getAllControlAttributes();
+
+        return attributes.get(sAttribute).toString();
     }
 
     /**
