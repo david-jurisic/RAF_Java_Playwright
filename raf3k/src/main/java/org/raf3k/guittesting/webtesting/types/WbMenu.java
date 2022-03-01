@@ -33,7 +33,7 @@ public class WbMenu extends WebControlBase {
                 allMenuITems = control().findElements(By.tagName("a"));
             }
 
-            WebElement item = allMenuITems.stream().filter(m -> m.getText().toLowerCase().trim().equals(sItem.toLowerCase().trim())).findFirst().get();
+            WebElement item = allMenuITems.stream().filter(m -> m.getText().toLowerCase().trim().equals(sItem.toLowerCase().trim())).findFirst().orElse(null);
             if (item != null) {
                 UIReferences.actionsBuilder().moveToElement(item).click().build().perform();
             } else {
