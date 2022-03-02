@@ -1,7 +1,4 @@
-import org.raf3k.guittesting.webtesting.types.WbDropDownList;
-import org.raf3k.guittesting.webtesting.types.WbMenu;
-import org.raf3k.guittesting.webtesting.types.WbRadioButton;
-import org.raf3k.guittesting.webtesting.types.WbWrapper;
+import org.raf3k.guittesting.webtesting.types.*;
 import org.raf3k.testproject.extendedtypes.ui.*;
 import org.openqa.selenium.By;
 import org.raf3k.guittesting.UIReferences;
@@ -37,6 +34,7 @@ public final class Map {
 
     public static class Tags {
         public static WbDropDownListEx ddlPageSize = new WbDropDownListEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"),"ddlPageSize");
+        public static WbDropDownEx ddPageSize = new WbDropDownEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"),"ddPageSize");
     }
     public static class NewProject {
         public static WbPageEx page = new WbPageEx("Projects/Create", "NewProject");

@@ -27,6 +27,10 @@ public class WbDropDown extends WebControlBase {
         super(searchBy, parent, alias);
     }
 
+    public String firstSelectedOption = null;
+    public String itemText = null;
+    public String itemValue = null;
+
     private String _sItemText;
     private boolean _ddlOpened;
     private int _iItemIndex = -1;
@@ -236,7 +240,7 @@ public class WbDropDown extends WebControlBase {
     }
 
     /**
-     * Methods types value into web control and presses 'Return' key.
+     * Method set value into web control and presses 'Return' key.
      *
      * @param sText Text to be set in web control.
      * @return boolean
@@ -267,7 +271,7 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
-            actionsBuilder.moveToElement(control()).click().build().perform();
+            UIReferences.actionsBuilder().moveToElement(control()).click().build().perform();
             _ddlOpened = true;
 
         }, this, "");
@@ -304,7 +308,7 @@ public class WbDropDown extends WebControlBase {
             sText = allOptions().stream().filter(m -> m.selected).findFirst().get().text;
             if (!sText.contains(sTextContains))
                 throw new RuntimeException(MessageFormat.format("Selected option text does not contain expected substring. <br> Expected substring: " +
-                        "'{0}' <br> Actual: '{1}'", sTextContains, sText));
+                        "{0} <br> Actual: {1}", sTextContains, sText));
 
             Suc.addArgumentsOfMethodForLog("sTextContains", sTextContains, true);
 
@@ -312,24 +316,6 @@ public class WbDropDown extends WebControlBase {
         } catch (Exception ex) {
             return Suc.finish(ex);
         }
-    }
-
-    /**
-     * Method sets item in drop down by ID, which is value of selectable item.
-     *
-     * @param sId     Value of item that needs to be set.
-     * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
-     * @return Success object
-     */
-    public Success setItemByValue(String sId, int iScroll) {
-
-        return UIReferences.eval().evaluate(() ->
-        {
-            this._sItemValue = sId;
-            scrollVertical(iScroll);
-            getSelectedOption().selectedElement.click();
-
-        }, this, "");
     }
 
     /**
@@ -354,7 +340,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @return ArrayList<String>
      */
-    public ArrayList<String> GetAllOptions() {
+    public ArrayList<String> getAllOptions() {
         try {
             ArrayList<String> sAllOptions = new ArrayList<>();
 
@@ -392,12 +378,195 @@ public class WbDropDown extends WebControlBase {
         }, this, "");
     }
 
-//    public Success setItem(int iItemIndex, out string sSelectedItem, int iScroll = 0)
-//    {
+    /**
+     * Method verifies if item is selected by its values.
+     *
+     * @param sId       String value of item to be verified.
+     * @param bSelected If true, checks if item is selected, if false, check if item not selected.
+     * @return Success object
+     */
+    public Success verifyItemSelectedByValue(String sId, boolean bSelected) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Option selectedOption = getSelectedOption();
+            if (bSelected && !selectedOption.value.equals(sId))
+                throw new RuntimeException(MessageFormat.format("Element not selected.<br> Expected element: {0}<br> Selected element value: {1}, Selected element text: {2}", sId, selectedOption.value, selectedOption.text));
 
+            if (!bSelected && selectedOption.value.equals(sId))
+                throw new RuntimeException(MessageFormat.format("Element is selected.<br> Expected element not to be selected: {0}<br> Selected element value:{1}, Selected element text: {2}", sId, selectedOption.value, selectedOption.text));
+        }, this, "");
+    }
 
-//    }
+    /**
+     * Method verifies if item exists in dropdown menu.
+     *
+     * @param sItem   String value of item to be verified.
+     * @param bExists If true, checks if item exists, if false, check if item does not exist.
+     * @return Success object
+     */
+    public Success verifyItemExists(String sItem, boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this._sItemText = sItem;
+            Option selectedOption = getSelectedOption();
+            if (selectedOption == null && bExists)
+                throw new RuntimeException(MessageFormat.format("Item does not exist in drop down.<br> Searched item {0}", sItem));
 
+            if (selectedOption != null && !bExists)
+                throw new RuntimeException(MessageFormat.format("Item exists in drop down but is not expected.<br> Searched item {0}", sItem));
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if items exist in dropdown menu.
+     *
+     * @param selectedItems List of items to be verified.
+     * @param bExists       If true, checks if items exists, if false, check if items does not exist.
+     * @return Success object
+     */
+    public Success verifyItemExists(ArrayList<String> selectedItems, boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            ArrayList<String> lsExistingItems = new ArrayList<>();
+
+            lsExistingItems.addAll(getAllOptions());
+
+            ArrayList<String> lsItems = new ArrayList<>();
+            if (bExists) {
+                for (String sItem : selectedItems) {
+                    if (!lsExistingItems.contains(sItem))
+                        lsItems.add(sItem);
+                }
+            }
+
+            if (!bExists) {
+                for (String sItem : selectedItems) {
+                    if (lsExistingItems.contains(sItem))
+                        lsItems.add(sItem);
+                }
+            }
+
+            if (lsItems.size() > 0) {
+                if (bExists)
+                    throw new RuntimeException("Items does exist in element, but it should not: " + String.join(", ", lsItems));
+
+                if (!bExists)
+                    throw new RuntimeException("Items does not exist in element, but it should: " + String.join(", ", lsItems));
+            }
+
+        }, this, "");
+    }
+
+    /**
+     * Method which returns text of currently Selected Option in a dropdown.
+     *
+     * @return firstSelectedOption, Success object
+     */
+    public Success getFirstSelectedOptionText() {
+        firstSelectedOption = null;
+        Success Suc = new Success(this);
+        try {
+            firstSelectedOption = allOptions().stream().filter(m -> m.selected).findFirst().get().text;
+            return Suc.finish(null);
+        } catch (Exception ex) {
+            return Suc.finish(ex);
+        }
+    }
+
+    /**
+     * This method select and double click on option in dropdown menu.
+     *
+     * @param Idx     Index of expected item.
+     * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
+     * @return Success object
+     */
+    public Success selectAndDoubleClickOnOption(int Idx, int iScroll) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this._iItemIndex = Idx;
+            scrollVertical(iScroll);
+            UIReferences.actionsBuilder().moveToElement(control()).doubleClick(getSelectedOption().selectedElement).build().perform();
+            _ddlOpened = false;
+
+        }, this, "");
+    }
+
+    /**
+     * This method select and double click on option in dropdown menu.
+     *
+     * @param sItem   Name of expected item.
+     * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
+     * @return Success object
+     */
+    public Success selectAndDoubleClickOnOption(String sItem, int iScroll) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this._sItemText = sItem;
+            scrollVertical(iScroll);
+            UIReferences.actionsBuilder().moveToElement(control()).doubleClick(getSelectedOption().selectedElement).build().perform();
+            _ddlOpened = false;
+
+        }, this, "");
+    }
+
+    /**
+     * Verifies that any item is selected, verifies that Not selected item is not selected.
+     *
+     * @return Success object
+     */
+    public Success verifyNotEmpty() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (allOptions() == null)
+                throw new RuntimeException("Dropdown is empty");
+        }, this, "");
+    }
+
+    /**
+     * Method gets item text in dropdown by value.
+     *
+     * @param sId Gets text of item which contains sId.
+     * @return itemText, Success object
+     */
+    public Success getItemTextByValue(String sId) {
+        Success Suc = new Success(this);
+        itemText = null;
+        this._sItemText = null;
+
+        try {
+            this._sItemValue = sId;
+            String selectedOptionText = getSelectedOption().text;
+            if (selectedOptionText.equals(sId))
+                itemText = selectedOptionText;
+
+            return Suc.finish(null);
+        } catch (Exception ex) {
+            return Suc.finish(ex);
+        }
+    }
+
+    /**
+     * Method gets items 'value' attribute value in dropdown by item text.
+     *
+     * @param sItemText Item text for which value should be found and returned.
+     * @return itemValue, Success object
+     */
+    public Success getItemValueByText(String sItemText) {
+        Success Suc = new Success(this);
+        itemValue = null;
+        this._sItemValue = null;
+
+        try {
+            this._sItemText = sItemText;
+            String selectedOptionText = getSelectedOption().value;
+            if (selectedOptionText.equals(sItemText))
+                itemValue = selectedOptionText;
+            return Suc.finish(null);
+        } catch (Exception ex) {
+            return Suc.finish(ex);
+        }
+    }
 }
 
 class Option {
