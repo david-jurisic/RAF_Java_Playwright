@@ -58,6 +58,12 @@ public final class Map {
         public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"),"menu");
     }
 
-
+public static class ListTest {
+    public static void initialize() {
+        UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
+    }
+    public static WbPageEx page = new WbPageEx("", "page");
+    public static WbList list = new WbList(By.xpath("/html/body/ul"), "list");
+}
 
 }
