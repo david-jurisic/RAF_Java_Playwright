@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Evaluator {
     public WebDriver driver;
@@ -56,15 +59,10 @@ public class Evaluator {
             Field callersPath = null;
             Field callersAlias = null;
 
-            if(caller.getClass().getSuperclass().getSuperclass().getSuperclass().getName().contains("org.raf3k")) {
-                callersPath = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sPath");
-                callersAlias = caller.getClass().getSuperclass().getSuperclass().getSuperclass().getDeclaredField("sAlias");
-            }
-            else {
-                callersPath = caller.getClass().getSuperclass().getSuperclass().getDeclaredField("sPath");
-                callersAlias = caller.getClass().getSuperclass().getSuperclass().getDeclaredField("sAlias");
-            }
+            var callerFields = getAllFields(new LinkedList<Field>(), caller.getClass());
 
+            callersPath = callerFields.stream().filter(f -> f.getName().equalsIgnoreCase("sPath")).findFirst().orElse(null);
+            callersAlias = callerFields.stream().filter(f -> f.getName().equalsIgnoreCase("sAlias")).findFirst().orElse(null);
 
             if (callersPath != null) {
                 callersPath.setAccessible(true);
@@ -82,11 +80,11 @@ public class Evaluator {
             suc.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             suc.sMessageAddon = messageAddon;
 
-            Field[] fields = action.getClass().getDeclaredFields();
+            List<Field> fields = getAllFields(new ArrayList<Field>(), action.getClass());
 
             ArrayList<String> lsMethodArguments = new ArrayList<>();
             for (var fieldInfo : fields) {
-                if (fieldInfo == fields[0]) continue;
+                if (fieldInfo == fields.stream().findFirst().orElse(null)) continue;
                 fieldInfo.setAccessible(true);
                 String sValue = fieldInfo.get(action).toString();
 
@@ -111,5 +109,14 @@ public class Evaluator {
 
             return suc;
         }
+    }
+
+    public static List<Field> getAllFields(List<Field> fields, Class<?> object) {
+        fields.addAll(Arrays.asList(object.getDeclaredFields()));
+
+        if (object.getSuperclass() != null)
+            getAllFields(fields, object.getSuperclass());
+
+        return fields;
     }
 }
