@@ -17,7 +17,7 @@ import io.restassured.*;
 
 public class QueryString extends ControlObject {
     private String sQueryString;
-    public static RAFRestResponse response = null;
+    public RAFRestResponse response = null;
 
     public QueryString(String _sQueryString) {
         String sControl = this.getClass().toString();
