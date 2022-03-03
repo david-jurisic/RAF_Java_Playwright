@@ -7,6 +7,9 @@ public final class Map {
     public static void initialize() {
         UIReferences.currentPageContext = "https://roxoftkale.azurewebsites.net/";
     }
+    public static void initialize2() {
+        UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
+    }
 
     public static class Login {
         public static final WbPageEx page = new WbPageEx("Account/Login", "Page");
@@ -58,6 +61,9 @@ public final class Map {
         public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"),"menu");
     }
 
-
+public static class ListTest {
+    public static WbPageEx page = new WbPageEx("", "page");
+    public static WbList list = new WbList(By.xpath("/html/body/ul"), "list");
+}
 
 }
