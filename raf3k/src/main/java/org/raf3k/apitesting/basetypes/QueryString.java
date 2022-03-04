@@ -1,5 +1,6 @@
 package org.raf3k.apitesting.basetypes;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.raf3k.apitesting.APIReferences;
@@ -10,6 +11,7 @@ import java.text.MessageFormat;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import io.restassured.*;
 
@@ -31,31 +33,53 @@ public class QueryString extends ControlObject {
     public QueryString() {
     }
 
-    public String generateTableFromDict(String sNameHeader, String sValueHeader, List<Object> dDictionary) {
-        if (dDictionary == null) return "";
-        //var trs = dDictionary.stream().map());
-        //var tableContents = String.Concat(trs);
-        //return String.format("<table><tr><th>{0}</th><th>{1}</th></tr>\" + 2 + \"</table>", sNameHeader,sValueHeader,tableContents);
-        return "";
-    }
+    /**
+     * Mathod generates html string for a table
+     *
+     * @param sNameHeader  name header
+     * @param sValueHeader value header
+     * @param map          map of headers
+     * @return Html string of a table
+     */
+    public String generateTableFromMap(String sNameHeader, String sValueHeader, Map<String, String> map) {
+        if (map == null) return "";
+        var trs = map.entrySet()
+                .stream()
+                .map(x -> MessageFormat.format("<tr><td>{0}</td><td>{1}</td></tr>", x.getKey(), x.getValue()))
+                .collect(Collectors.toList());
 
-    public boolean isDictionary(Object o) {
-        if (o == null) return false;
-        return o instanceof Dictionary<?, ?>;
-        /**return o is IDictionary &&
-         o.GetType().IsGenericType &&
-         o.GetType().GetGenericTypeDefinition().IsAssignableFrom(typeof(Dictionary<,>));*/
+        var tableContents = String.join("", trs);
+
+        return "<table><tr><th>" + sNameHeader + "</th><th>" + sValueHeader + "</th></tr>" + tableContents + "</table>";
     }
 
     /**
-     * public static Dictionary<string, TValue> ToDictionary<TValue>(object obj)
-     * {
-     * var json = JsonConvert.SerializeObject(obj);
-     * var dictionary = JsonConvert.DeserializeObject<Dictionary<string, TValue>>(json);
-     * return dictionary;
-     * }
+     * Mathod generates html string for a table from a map which contains object
+     *
+     * @param sNameHeader  name header
+     * @param sValueHeader value header
+     * @param map          map of headers
+     * @return Html string of a table
      */
+    public String generateTableFromMapWithObject(String sNameHeader, String sValueHeader, Map<String, Object> map) {
+        if (map == null) return "";
+        var trs = map.entrySet()
+                .stream()
+                .map(x -> MessageFormat.format("<tr><td>{0}</td><td>{1}</td></tr>", x.getKey(), x.getValue().toString()))
+                .collect(Collectors.toList());
 
+        var tableContents = String.join("", trs);
+
+        return "<table><tr><th>" + sNameHeader + "</th><th>" + sValueHeader + "</th></tr>" + tableContents + "</table>";
+    }
+
+    /**
+     * Method requests data from a specified resource.
+     *
+     * @param sUrlParameters Url parameters to be set.
+     * @param headers        Headers to be set.
+     * @return Success object.
+     */
     public Success get(String sUrlParameters, Map<String, String> headers) {
         response = null;
         Response rest = null;
@@ -63,13 +87,11 @@ public class QueryString extends ControlObject {
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
-            if (sUrlParameters != null)
-                if (!sUrlParameters.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
 
-            if (headers != null) {
-                //sMessageAddon += "<h3> Request headers:</h3> <br>" + GenerateTableFromDict("Header", "Value", headers);
-            }
+            if (headers != null)
+                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
 
             suc.sMessageAddon = sMessageAddon;
 
@@ -93,24 +115,30 @@ public class QueryString extends ControlObject {
         }
     }
 
-    public Success postJson(String sUrlParameters, String sBody, Map<String, String> headers) {
+    /**
+     * Method sends given data to create a resource
+     *
+     * @param sUrlParameters Url parameters to be set.
+     * @param body           Body to be set
+     * @param headers        Headers to be set.
+     * @return Success object.
+     */
+    public Success post(String sUrlParameters, Map<String, Object> body, Map<String, String> headers) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
-            if (sUrlParameters != null)
-                if (!sUrlParameters.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
 
-            if (sBody != null)
-                if (!sBody.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (body != null)
+                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
 
-            if (headers != null) {
-                //sMessageAddon += "<h3> Request headers:</h3> <br>" + GenerateTableFromDict("Header", "Value", headers);
-            }
+            if (headers != null)
+                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
+
 
             suc.sMessageAddon = sMessageAddon;
 
@@ -122,8 +150,9 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            if (sBody != null)
-                req.body(sBody);
+            req.contentType(ContentType.JSON);
+            if (body != null && body.size() > 1)
+                req.body(body);
 
             rest = req.when().post(sPath);
             RAFRestResponse resp = new RAFRestResponse(this, rest);
@@ -135,24 +164,29 @@ public class QueryString extends ControlObject {
         }
     }
 
-    public Success putJson(String sUrlParameters, String sBody, Map<String, String> headers) {
+    /**
+     * Method sends given data to update a resource
+     *
+     * @param sUrlParameters Url parameters to be set.
+     * @param body           Body to be set
+     * @param headers        Headers to be set.
+     * @return Success object.
+     */
+    public Success put(String sUrlParameters, Map<String, Object> body, Map<String, String> headers) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
-            if (sUrlParameters != null)
-                if (!sUrlParameters.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
 
-            if (sBody != null)
-                if (!sBody.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (body != null)
+                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
 
-            if (headers != null) {
-                //sMessageAddon += "<h3> Request headers:</h3> <br>" + GenerateTableFromDict("Header", "Value", headers);
-            }
+            if (headers != null)
+                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
 
             suc.sMessageAddon = sMessageAddon;
 
@@ -164,8 +198,9 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            if (sBody != null)
-                req.body(sBody);
+            req.contentType(ContentType.JSON);
+            if (body != null && body.size() > 1)
+                req.body(body);
 
             rest = req.when().put(sPath);
             RAFRestResponse resp = new RAFRestResponse(this, rest);
@@ -177,6 +212,13 @@ public class QueryString extends ControlObject {
         }
     }
 
+    /**
+     * Method deletes data from a resource.
+     *
+     * @param sUrlParameters Url parameters to be set.
+     * @param headers        Headers to be set.
+     * @return Success object.
+     */
     public Success delete(String sUrlParameters, Map<String, String> headers) {
         response = null;
         Response rest = null;
@@ -184,13 +226,11 @@ public class QueryString extends ControlObject {
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
-            if (sUrlParameters != null)
-                if (!sUrlParameters.isEmpty())
-                    sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
 
-            if (headers != null) {
-                //sMessageAddon += "<h3> Request headers:</h3> <br>" + GenerateTableFromDict("Header", "Value", headers);
-            }
+            if (headers != null)
+                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
 
             suc.sMessageAddon = sMessageAddon;
 
