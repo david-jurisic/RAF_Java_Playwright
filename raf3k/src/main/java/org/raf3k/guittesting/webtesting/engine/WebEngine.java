@@ -34,7 +34,7 @@ public class WebEngine {
             if(iTimeoutOverride != -1)
                 waitTime = Duration.ofSeconds(iTimeoutOverride);
 
-            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(2));
+            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), waitTime);
 
             if (Parent == null) {
                 control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
