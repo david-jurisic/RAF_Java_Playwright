@@ -6,6 +6,7 @@ import org.raf3k.apitesting.APIReferences;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.logging.Success;
 
+import java.text.MessageFormat;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class QueryString extends ControlObject {
     public QueryString(String _sQueryString) {
         String sControl = this.getClass().toString();
         this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
-        this.sAlias = String.format("({0})", sQueryString);
+        this.sAlias = MessageFormat.format("({0})", _sQueryString);
         this.sQueryString = _sQueryString;
         if (this.sControlType.toLowerCase().substring(this.sControlType.length() - 2).contains("ex"))
             this.sPath = APIReferences.get_Hlpr().cleanupPath(Thread.currentThread().getStackTrace()[2].getClassName());
@@ -72,7 +73,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            String sPath = APIReferences.currentPageContext;
+            String sPath = APIReferences.currentPageContext + sQueryString;
 
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
