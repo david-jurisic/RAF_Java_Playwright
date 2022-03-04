@@ -7,6 +7,7 @@ public final class Map {
     public static void initialize() {
         UIReferences.currentPageContext = "https://roxoftkale.azurewebsites.net/";
     }
+
     public static void initialize2() {
         UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
     }
@@ -19,13 +20,13 @@ public final class Map {
         public static final WbEditEx txtPassword = new WbEditEx(By.id("password"), "txtPassword");
         public static final WbCheckBoxEx chkRememberMe = new WbCheckBoxEx(By.id("RememberMe"), "chkRememberMe");
         public static final WbButtonEx btnSignIn = new WbButtonEx(By.xpath("/html/body/main/div/section/div/form/div[4]/div/input"), "btnSignIn");
-        public static final WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("/html/body/main/div"),"wrpMain");
+        public static final WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("/html/body/main/div"), "wrpMain");
     }
 
     public static class Home {
         public static WbPageEx page = new WbPageEx("", "Page");
         public static WbButtonEx btnProjects = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"), "btnProjects");
-        public static WbButtonEx btnTags = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[3]/a"),"btnTags");
+        public static WbButtonEx btnTags = new WbButtonEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[3]/a"), "btnTags");
         public static WbLinkEx link1 = new WbLinkEx(By.xpath("/html/body/main/div/section/div[2]/div/ul/li[2]/a"), "link1");
         public static WbLinkEx link2 = new WbLinkEx(By.xpath("//*[@id=\"collapse_target\"]/ul[1]/li[2]/a"), "link2");
     }
@@ -36,19 +37,20 @@ public final class Map {
     }
 
     public static class Tags {
-        public static WbDropDownListEx ddlPageSize = new WbDropDownListEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"),"ddlPageSize");
-        public static WbDropDownEx ddPageSize = new WbDropDownEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"),"ddPageSize");
+        public static WbDropDownListEx ddlPageSize = new WbDropDownListEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"), "ddlPageSize");
+        public static WbDropDownEx ddPageSize = new WbDropDownEx(By.xpath("/html/body/main/div/section/div[1]/div/form/div/select"), "ddPageSize");
     }
+
     public static class NewProject {
         public static WbPageEx page = new WbPageEx("Projects/Create", "NewProject");
-        public static WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("//*[@id=\"New\"]/div/form/div[1]"),"wrpMain");
-        public static WbEditEx txtName = new WbEditEx(By.name("Name"),"txtName");
+        public static WbWrapperEx wrpMain = new WbWrapperEx(By.xpath("//*[@id=\"New\"]/div/form/div[1]"), "wrpMain");
+        public static WbEditEx txtName = new WbEditEx(By.name("Name"), "txtName");
         public static WbPageEx page2 = new WbPageEx("https://www.index.hr/vijesti/clanak/traju-velike-borbe-diljem-zemlje-ukrajina-ubili-smo-desetke-rusa-oborili-6-aviona/2342018.aspx?index_ref=naslovnica_vijesti_prva_d", "Index");
     }
 
     public static class RadioButton {
         public static WbPageEx page = new WbPageEx("internet/web-contact-form-example-radio-buttons.shtml", "Page");
-        public static WbButtonEx btnAcceptAll = new WbButtonEx(By.xpath("//*[@id=\"save\"]/span[2]"),"btnAcceptAll");
+        public static WbButtonEx btnAcceptAll = new WbButtonEx(By.xpath("//*[@id=\"save\"]/span[2]"), "btnAcceptAll");
         public static WbReadioButtonEx rbExcel = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[4]/input"), "rbExcel");
         public static WbReadioButtonEx rbQuickBook = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[5]/input"), "rbQuickBook");
         public static WbReadioButtonEx rbBeginner = new WbReadioButtonEx(By.xpath("//*[@id=\"align\"]/span[8]/input"), "rbBeginner");
@@ -56,14 +58,19 @@ public final class Map {
     }
 
     public static class Menu {
-        public static WbPageEx page = new WbPageEx("howto/howto_css_icon_bar.asp","page");
-        public static WbButtonEx btnAccept = new WbButtonEx(By.id("accept-choices"),"btnAccept");
-        public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"),"menu");
+        public static WbPageEx page = new WbPageEx("howto/howto_css_icon_bar.asp", "page");
+        public static WbButtonEx btnAccept = new WbButtonEx(By.id("accept-choices"), "btnAccept");
+        public static WbMenu menu = new WbMenu(By.id("leftmenuinnerinner"), "menu");
     }
 
-public static class ListTest {
-    public static WbPageEx page = new WbPageEx("", "page");
-    public static WbList list = new WbList(By.xpath("/html/body/ul"), "list");
-}
+    public static class ListTest {
+        public static WbPageEx page = new WbPageEx("", "page");
+        public static WbList list = new WbList(By.xpath("/html/body/ul"), "list");
+    }
+
+    public static class TableTest {
+        public static WbPageEx page = new WbPageEx("","page");
+        public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"),"tblExample");
+    }
 
 }

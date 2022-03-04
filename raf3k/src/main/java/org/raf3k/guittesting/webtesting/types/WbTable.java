@@ -207,4 +207,133 @@ public class WbTable extends WebControlBase {
 
         }, this, "");
     }
+
+    /**
+     * Method retrieves current table row count.
+     *
+     * @return rowCount, Success object
+     */
+    public Success getRowCount() {
+        rowCount = 0;
+        Success suc = new Success(this);
+        try {
+            rowCount = tableBodyRows().size();
+
+            return suc.finish(null);
+        } catch (Exception ex) {
+            return suc.finish(ex);
+        }
+    }
+
+    /**
+     * Method verifies table row count.
+     *
+     * @param iExpectedRowCount Expected number of rows in a table.
+     * @param operation         Verifies that table has equal/less/more then rows specified.
+     * @return Success object
+     */
+    public Success verifyRowCount(int iExpectedRowCount, Operations operation) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            int iRowCount = tableBodyRows().size();
+
+            switch (operation) {
+                case Equals:
+                    if (iRowCount != iExpectedRowCount)
+                        throw new RuntimeException(MessageFormat.format("Row count not as expected. <br>Expected: {0} <br> Current: {1}",
+                                iExpectedRowCount, iRowCount));
+                    break;
+                case LessThan:
+                    if (iRowCount >= iExpectedRowCount)
+                        throw new RuntimeException(MessageFormat.format("Row count not as expected.<br>Expected to be less than: {0} <br> Current: {1}",
+                                iExpectedRowCount, iRowCount));
+                    break;
+                case MoreThan:
+                    if (iRowCount <= iExpectedRowCount)
+                        throw new RuntimeException(MessageFormat.format("Row count not as expected.<br>Expected to be more than: {0} <br> Current: {1}",
+                                iExpectedRowCount, iRowCount));
+                    break;
+            }
+        }, this, "");
+    }
+
+    /**
+     * Verifies if the table is empty or not.
+     *
+     * @param bEmpty Set to 'false' if you want to check if table is empty.
+     * @return Success object
+     */
+    public Success verifyEmpty(boolean bEmpty) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+            ArrayList<WebElement> tableRows = tableBodyRows();
+
+            if (bEmpty) {
+                if (tableRows.size() > 0)
+                    throw new RuntimeException(MessageFormat.format("Table is not empty. Number of rows counted: {0}", tableRows.size()));
+            }
+            if (!bEmpty) {
+                if (tableRows.size() == 0)
+                    throw new RuntimeException("Table is empty.");
+            }
+        }, this, "");
+    }
+
+    /**
+     * Clicks on header
+     *
+     * @param sHeader Name of header in a table.
+     * @return Success object
+     */
+    public Success clickOnHeader(String sHeader) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+
+            ArrayList<WebElement> allRows = (ArrayList<WebElement>) control().findElements(By.cssSelector("tr"));
+            int iCellNumber = 0;
+            boolean bfound = false;
+            ArrayList<WebElement> allHeaders = (ArrayList<WebElement>) allRows.get(0).findElements(By.cssSelector("th"));
+            for (int i = 0; i < allHeaders.size(); i++) {
+                if (allHeaders.get(i).getText().toLowerCase().contains(sHeader.toLowerCase())) {
+                    iCellNumber = i;
+                    bfound = true;
+                    break;
+                }
+            }
+            if (bfound)
+                allHeaders.get(iCellNumber).click();
+
+            if (!bfound)
+                throw new RuntimeException("Cannot find table header: " + sHeader);
+        }, this, "");
+    }
+
+    /**
+     * Verifies term in table exists.
+     *
+     * @param sText Text expected to be found.
+     * @return Success object
+     */
+    public Success verifyTermExists(String sText) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            this.exists(true);
+
+            ArrayList<WebElement> allCells = (ArrayList<WebElement>) control().findElements(By.tagName("tr"));
+            boolean bFound = false;
+            int i = 0;
+
+            for (WebElement cell : allCells) {
+                if (cell.getText().toLowerCase().contains(sText.toLowerCase())) {
+                    bFound = true;
+                    break;
+                }
+                i++;
+            }
+            if (!bFound)
+                throw new RuntimeException("Table does not contain specified text. Searched for: " + sText);
+        }, this, "");
+    }
 }
