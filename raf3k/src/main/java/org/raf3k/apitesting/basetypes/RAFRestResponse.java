@@ -2,6 +2,7 @@ package org.raf3k.apitesting.basetypes;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.devtools.Message;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
@@ -9,6 +10,7 @@ import org.raf3k.shared.logging.Success;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.MessageFormat;
 
 public class RAFRestResponse {
     public RequestSpecification Request;
@@ -42,7 +44,16 @@ public class RAFRestResponse {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
-            var temp1 = Response.then().statusCode(responseCode);
+            //try {
+               Response.then().statusCode(responseCode);
+
+               /*
+            } catch (AssertionError ex) {
+                throw new RuntimeException(MessageFormat.format("Failed. Response code is {0}, expected response code {1}"
+                        , Response.statusCode(), responseCode));
+            }
+                */
+
 
         }, this, "");
     }
@@ -79,7 +90,7 @@ public class RAFRestResponse {
         }, this, "");
     }
 
-    public String getResponseBody(){
+    public String getResponseBody() {
         if (Ex != null)
             throw new RuntimeException(Ex);
 
@@ -88,7 +99,7 @@ public class RAFRestResponse {
         return sResponseContent;
     }
 
-    public int getResponseCode(){
+    public int getResponseCode() {
         if (Ex != null)
             throw new RuntimeException(Ex);
 

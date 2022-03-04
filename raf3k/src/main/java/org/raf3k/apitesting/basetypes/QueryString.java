@@ -6,10 +6,7 @@ import org.raf3k.apitesting.APIReferences;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.logging.Success;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,8 +83,7 @@ public class QueryString extends ControlObject {
 
             rest = req.when().get(sPath);
 
-            RAFRestResponse resp = new RAFRestResponse(this, rest);
-            response = resp;
+            response = new RAFRestResponse(this, rest);
             return suc.finish(null);
 
         } catch (Exception ex) {
@@ -96,7 +92,7 @@ public class QueryString extends ControlObject {
         }
     }
 
-    public Success post(String sUrlParameters, String sBody, Map<String, String> headers) {
+    public Success postJson(String sUrlParameters, String sBody, Map<String, String> headers) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -138,7 +134,7 @@ public class QueryString extends ControlObject {
         }
     }
 
-    public Success put(String sUrlParameters, String sBody, Map<String, String> headers) {
+    public Success putJson(String sUrlParameters, String sBody, Map<String, String> headers) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();

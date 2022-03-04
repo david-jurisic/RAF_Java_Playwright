@@ -9,10 +9,10 @@ public class ApiTestRunner extends APITestCase {
     }
     @Test
     void First() {
-        Map.initialize();
-        newStep(1, "Send request to 'https://api.agify.io/' endpoint.");
-        success(Map.API.Get.put("?name=Tutuavfgaa&job=Developer",null, HeadersConfig.headers("Content-Type", "application/json")));
+        Map.initializeAPI();
+        newStep(1, "Send request to 'https://swapi.dev/api/' endpoint.");
+        success(Map.API.Get.get("people/1", null));
         RAFRestResponse resp = Map.API.Get.response;
-        success(resp.verifyResponseCode(200));
+        success(resp.verifyResponseCode(201));
     }
 }

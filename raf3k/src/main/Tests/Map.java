@@ -18,7 +18,7 @@ public final class Map {
     }
     
     public static void initializeAPI() {
-        APIReferences.currentPageContext = "https://reqres.in/";
+        APIReferences.currentPageContext = "https://swapi.dev/api/";
     }
 
     public static class Login {
@@ -77,12 +77,16 @@ public final class Map {
         public static WbList list = new WbList(By.xpath("/html/body/ul"), "list");
     }
 
+<<<<<<< HEAD
     public static class TableTest {
         public static WbPageEx page = new WbPageEx("","page");
         public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"),"tblExample");
     }
 
     public static class API{
+=======
+    public static class API {
+>>>>>>> cb9cd95 (RAFRestResponse fixing error catch)
         public static final QueryString Get = new QueryString("api/users/2");
     }
 
