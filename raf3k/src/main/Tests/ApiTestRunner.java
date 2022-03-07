@@ -10,8 +10,9 @@ public class ApiTestRunner extends APITestCase {
     void First() {
         Map.initializeAPI();
         newStep(1, "Send request to 'https://swapi.dev/api/' endpoint.");
-        success(Map.API.Get.get("", null));
+        success(Map.API.Get.get("/1", null));
         RAFRestResponse resp = Map.API.Get.response;
         success(resp.verifyResponseCode(200));
+        success(resp.verifyValue("id", 1, true));
     }
 }

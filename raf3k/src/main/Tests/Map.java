@@ -19,7 +19,7 @@ public final class Map {
     }
     
     public static void initializeAPI() {
-        APIReferences.currentPageContext = "https://swapi.dev/api/";
+        APIReferences.currentPageContext = "https://pokeapi.co/api/v2/";
     }
 
     public static class Login {
@@ -84,7 +84,7 @@ public final class Map {
     }
 
     public static class API{
-        public static QueryStringEx Get = new QueryStringEx("people/1");
+        public static QueryStringEx Get = new QueryStringEx("pokemon");
     }
 
 }

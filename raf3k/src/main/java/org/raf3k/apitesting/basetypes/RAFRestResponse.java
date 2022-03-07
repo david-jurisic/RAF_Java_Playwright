@@ -2,6 +2,7 @@ package org.raf3k.apitesting.basetypes;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.hamcrest.Matchers;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
@@ -82,10 +83,54 @@ public class RAFRestResponse {
         }, this, "");
     }
 
-    public Success verifyValue(String sJPath, String sValue, Boolean bExists){
+    /**
+     * Method verifies if value exists in the response.
+     *
+     * @param sPath  Path to the field in the response.
+     * @param sValue Value to be verified.
+     * @param bExists Value exists or not.
+     * @return Success object.
+     */
+    public Success verifyValue(String sPath, Object sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            response.then().body(sJPath, equalTo(sValue));
+            if(bExists){
+                response.then().body(sPath, Matchers.equalTo(sValue));
+            }else{
+                response.then().body(sPath, Matchers.not(Matchers.equalTo(sValue)));
+            }
+
+        }, this, "");
+    }
+
+    public Success verifyEmpty(String sPath, Boolean bEmpty){
+        return UIReferences.eval().evaluate(() ->
+        {
+            if(bEmpty){
+                response.then().body(sPath, Matchers.nullValue());
+            }else{
+                response.then().body(sPath, Matchers.notNullValue());
+            }
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if a path contains a value.
+     *
+     * @param sPath  Path to the field in the response.
+     * @param sValue Value to be verified.
+     * @param bExists value contains or not.
+     * @return
+     */
+    public Success verifyContains(String sPath, Object sValue, Boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if(bExists){
+                response.then().body(sPath, Matchers.contains(sValue));
+            }else{
+                response.then().body(sPath, Matchers.not(Matchers.contains(sValue)));
+            }
         }, this, "");
     }
 
