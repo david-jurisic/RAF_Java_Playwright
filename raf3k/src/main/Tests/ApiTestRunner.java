@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import org.raf3k.apitesting.basetypes.APITestCase;
-import org.raf3k.apitesting.basetypes.HeadersConfig;
 import org.raf3k.apitesting.basetypes.RAFRestResponse;
 
 public class ApiTestRunner extends APITestCase {

@@ -2,19 +2,15 @@ package org.raf3k.apitesting.basetypes;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.openqa.selenium.devtools.Message;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
 
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.text.MessageFormat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class RAFRestResponse {
     public RequestSpecification Request;
-    public static Response Response;
+    public static Response response;
     public Exception Ex;
     public String sAlias;
     public String sPath;
@@ -22,7 +18,7 @@ public class RAFRestResponse {
     public QueryString QueryStringBase;
 
     public RAFRestResponse(QueryString query, Response resp) {
-        Response = resp;
+        response = resp;
         sAlias = query.sAlias;
         sPath = query.sPath;
         QueryStringBase = query;
@@ -34,76 +30,89 @@ public class RAFRestResponse {
         DebugLog.add(ex);
     }
 
-    public RAFRestResponse() {
-
-    }
-
-    public Success verifyResponseCode(int responseCode) {
+    /**
+     * Method verifies response code
+     *
+     * @param responseCode Response code to be verified.
+     * @return Success Object.
+     */
+    public Success verifyResponseCode(Integer responseCode) {
         return UIReferences.eval().evaluate(() ->
         {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
-            //try {
-               Response.then().statusCode(responseCode);
-
-               /*
-            } catch (AssertionError ex) {
-                throw new RuntimeException(MessageFormat.format("Failed. Response code is {0}, expected response code {1}"
-                        , Response.statusCode(), responseCode));
-            }
-                */
-
+            response.then().statusCode(responseCode);
 
         }, this, "");
     }
 
+    /**
+     * Method verifies response message.
+     *
+     * @param responseMessage Text to be verified.
+     * @return Success object.
+     */
     public Success verifyResponseMessage(String responseMessage) {
         return UIReferences.eval().evaluate(() ->
         {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
-            String sResponseMessage = Response.statusLine();
-
-            if (sResponseMessage.contains(responseMessage))
-                throw new RuntimeException(String.format("Failed. Response message is: {0}", sResponseMessage));
+            response.then().statusLine(responseMessage);
 
         }, this, "");
     }
 
-    public Success verifyResponseCodeAndMessage(int responseCode, String responseMessage) {
+    /**
+     * Method verifies response code and message.
+     *
+     * @param responseCode    Response code to be verified.
+     * @param responseMessage Response message to be verified.
+     * @return Success object.
+     */
+    public Success verifyResponseCodeAndMessage(Integer responseCode, String responseMessage) {
         return UIReferences.eval().evaluate(() ->
         {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
-            String sResponseMessage = Response.body().toString();
-            int iResponseCode = Response.statusCode();
-
-            if (iResponseCode != responseCode)
-                throw new RuntimeException(String.format("Failed. Response code is: {0}", iResponseCode));
-
-            if (sResponseMessage.contains(responseMessage))
-                throw new RuntimeException(String.format("Failed. Response message is: {0}", sResponseMessage));
+            response.then().statusCode(responseCode).statusLine(responseMessage);
 
         }, this, "");
     }
 
+    public Success verifyValue(String sJPath, String sValue, Boolean bExists){
+        return UIReferences.eval().evaluate(() ->
+        {
+            response.then().body(sJPath, equalTo(sValue));
+        }, this, "");
+    }
+
+    /**
+     * Method returns response content.
+     *
+     * @return Response content.
+     */
     public String getResponseBody() {
         if (Ex != null)
             throw new RuntimeException(Ex);
 
-        String sResponseContent = Response.body().asString();
+        String sResponseContent = response.body().asString();
 
         return sResponseContent;
     }
 
+    /**
+     * Method returns response status code.
+     *
+     * @return Response status code.
+     */
     public int getResponseCode() {
         if (Ex != null)
             throw new RuntimeException(Ex);
 
-        int iResponseCode = Response.statusCode();
+        int iResponseCode = response.statusCode();
 
         return iResponseCode;
     }
