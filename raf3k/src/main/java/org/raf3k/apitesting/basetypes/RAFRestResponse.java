@@ -7,7 +7,7 @@ import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 public class RAFRestResponse {
     public RequestSpecification Request;
@@ -86,29 +86,36 @@ public class RAFRestResponse {
     /**
      * Method verifies if value exists in the response.
      *
-     * @param sPath  Path to the field in the response.
-     * @param sValue Value to be verified.
+     * @param sPath   Path to the field in the response.
+     * @param sValue  Value to be verified.
      * @param bExists Value exists or not.
      * @return Success object.
      */
     public Success verifyValue(String sPath, Object sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            if(bExists){
+            if (bExists) {
                 response.then().body(sPath, Matchers.equalTo(sValue));
-            }else{
+            } else {
                 response.then().body(sPath, Matchers.not(Matchers.equalTo(sValue)));
             }
 
         }, this, "");
     }
 
-    public Success verifyEmpty(String sPath, Boolean bEmpty){
+    /**
+     * Method verifies if json field is empty or not.
+     *
+     * @param sPath  Path to the field in the response.
+     * @param bEmpty >Verifies if the json field is empty or not
+     * @return Success object.
+     */
+    public Success verifyEmpty(String sPath, Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
-            if(bEmpty){
+            if (bEmpty) {
                 response.then().body(sPath, Matchers.nullValue());
-            }else{
+            } else {
                 response.then().body(sPath, Matchers.notNullValue());
             }
 
@@ -118,21 +125,60 @@ public class RAFRestResponse {
     /**
      * Method verifies if a path contains a value.
      *
-     * @param sPath  Path to the field in the response.
-     * @param sValue Value to be verified.
+     * @param sPath   Path to the field in the response.
+     * @param sValue  Value to be verified.
      * @param bExists value contains or not.
      * @return
      */
     public Success verifyContains(String sPath, Object sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            if(bExists){
+            if (bExists) {
                 response.then().body(sPath, Matchers.contains(sValue));
-            }else{
+            } else {
                 response.then().body(sPath, Matchers.not(Matchers.contains(sValue)));
             }
         }, this, "");
     }
+
+    /**
+     * Method verifies if an array exists and contains a value.
+     *
+     * @param sPath     Path to the field in the response.
+     * @param sValue    Value to be verified.
+     * @param bContains Should array contain the value or not
+     * @return Success object.
+     */
+    public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (bContains) {
+                response.then().body(sPath, Matchers.hasItem(sValue));
+            } else {
+                response.then().body(sPath, Matchers.not(Matchers.hasItem(sValue)));
+            }
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if an array is empty or not.
+     * @param sPath Path to the json field.
+     * @param bEmpty Verifies if an array is empty or not.
+     * @return
+     */
+    public Success verifyArrayEmpty(String sPath, Boolean bEmpty){
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (bEmpty) {
+                response.then().body(sPath, Matchers.hasSize(lessThan(1)));
+            } else {
+                response.then().body(sPath, Matchers.hasSize(greaterThan(0)));
+            }
+
+        }, this, "");
+    }
+
 
     /**
      * Method returns response content.
