@@ -1,7 +1,6 @@
 package org.raf3k.apitesting.basetypes;
 
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
@@ -10,25 +9,27 @@ import org.raf3k.shared.logging.Success;
 import static org.hamcrest.Matchers.*;
 
 public class RAFRestResponse {
-    public RequestSpecification Request;
-    public static Response response;
+    public Response response;
     public Exception Ex;
     public String sAlias;
     public String sPath;
 
-    public QueryString QueryStringBase;
+    public QueryString queryStringBase;
 
     public RAFRestResponse(QueryString query, Response resp) {
         response = resp;
         sAlias = query.sAlias;
         sPath = query.sPath;
-        QueryStringBase = query;
+        queryStringBase = query;
     }
 
     public RAFRestResponse(Exception ex) {
         Ex = new RuntimeException(String.format("Error getting response : <br> {0}", ex.getMessage()));
         DebugLog.add(Ex);
         DebugLog.add(ex);
+    }
+
+    public RAFRestResponse() {
     }
 
     /**
@@ -163,11 +164,12 @@ public class RAFRestResponse {
 
     /**
      * Method verifies if an array is empty or not.
-     * @param sPath Path to the json field.
+     *
+     * @param sPath  Path to the json field.
      * @param bEmpty Verifies if an array is empty or not.
      * @return
      */
-    public Success verifyArrayEmpty(String sPath, Boolean bEmpty){
+    public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
             if (bEmpty) {
