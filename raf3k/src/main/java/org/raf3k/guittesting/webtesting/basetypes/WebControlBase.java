@@ -9,7 +9,9 @@ import org.raf3k.shared.ControlObject;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.logging.Success;
 
+import javax.management.RuntimeMBeanException;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,7 @@ public class WebControlBase extends ControlObject {
 
     public WebControlBase() {
         this.sControlType = this.getClass().getSimpleName();
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
     }
 
     public WebControlBase(By searchBy, String alias) {
@@ -358,16 +360,17 @@ public class WebControlBase extends ControlObject {
     }
 
     private String getFullsPath() {
-        String rootFolders = Thread.currentThread().getStackTrace()[6].getClassName();
+        String rootClass = Thread.currentThread().getStackTrace()[6].getClassName();
         String mapFolders = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[5].getClassName());
 
-        if (rootFolders.contains(".")) {
-            String[] arrayFolders = rootFolders.split(".");
-            for (int i = 0; i < rootFolders.length() - 1; i++) {
-                rootFolders += arrayFolders[i];
+        if (rootClass.contains(".")) {
+            String[] arrayFolders = rootClass.split("\\.");
+            String rootFolder = "";
+            for (int i = 0; i < arrayFolders.length - 1; i++) {
+                rootFolder += arrayFolders[i] + ".";
             }
 
-            return rootFolders + "." + mapFolders;
+            return rootFolder + mapFolders;
         } else {
             return mapFolders;
         }
