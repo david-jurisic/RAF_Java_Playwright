@@ -13,7 +13,7 @@ public class RAFRestResponseEx extends RAFRestResponse {
         super();
         response = rafRestResponse.response;
         sAlias = rafRestResponse.sAlias;
-        sPath = rafRestResponse.sAlias;
+        sPath = rafRestResponse.sPath;
         queryStringBase = rafRestResponse.queryStringBase;
     }
 }
