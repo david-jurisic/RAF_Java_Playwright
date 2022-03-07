@@ -9,9 +9,7 @@ import org.raf3k.shared.ControlObject;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.logging.Success;
 
-import javax.management.RuntimeMBeanException;
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -46,21 +44,21 @@ public class WebControlBase extends ControlObject {
         this.sControlType = this.getClass().getName();
         this.searchBy = searchBy;
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
     }
 
     public WebControlBase(By searchBy, WebControlBase parent, String alias) {
         this.sControlType = this.getClass().getName();
         this.searchBy = searchBy;
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
         this.parent = parent;
     }
 
     public WebControlBase(WebElement control, String alias) {
         this.sControlType = this.getClass().getName();
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
 
         _Controlreference = control;
     }
@@ -310,7 +308,7 @@ public class WebControlBase extends ControlObject {
      * @param sAttributeValue Expected element attribute value.
      * @return Success object.
      */
-    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue){
+    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists(true);
@@ -357,5 +355,21 @@ public class WebControlBase extends ControlObject {
                 ("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;"
                         , control());
         return attributes;
+    }
+
+    private String getFullsPath() {
+        String rootFolders = Thread.currentThread().getStackTrace()[6].getClassName();
+        String mapFolders = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[5].getClassName());
+
+        if (rootFolders.contains(".")) {
+            String[] arrayFolders = rootFolders.split(".");
+            for (int i = 0; i < rootFolders.length() - 1; i++) {
+                rootFolders += arrayFolders[i];
+            }
+
+            return rootFolders + "." + mapFolders;
+        } else {
+            return mapFolders;
+        }
     }
 }
