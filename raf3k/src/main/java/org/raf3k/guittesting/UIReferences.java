@@ -1,6 +1,7 @@
 package org.raf3k.guittesting;
 
 import org.openqa.selenium.interactions.Actions;
+import org.raf3k.guittesting.webtesting.basetypes.UITestCase;
 import org.raf3k.guittesting.webtesting.engine.WebEngine;
 import org.raf3k.shared.Helpers;
 import org.raf3k.shared.logging.Evaluator;
@@ -46,10 +47,12 @@ public class UIReferences {
     }
 
     private static Actions _ActionsBuilder;
-    public static Actions actionsBuilder()
-    {
+
+    public static Actions actionsBuilder() {
         if (_ActionsBuilder == null)
             _ActionsBuilder = new Actions(getWebDriver());
         return _ActionsBuilder;
     }
+
+    public static UITestCase UITestCase;
 }
