@@ -131,13 +131,13 @@ public class RAFRestResponse {
      * @param bExists value contains or not.
      * @return
      */
-    public Success verifyContains(String sPath, Object sValue, Boolean bExists) {
+    public Success verifyContains(String sPath, String sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
             if (bExists) {
-                response.then().body(sPath, Matchers.contains(sValue));
+                response.then().body(sPath, Matchers.containsString(sValue));
             } else {
-                response.then().body(sPath, Matchers.not(Matchers.contains(sValue)));
+                response.then().body(sPath, Matchers.not(Matchers.containsString(sValue)));
             }
         }, this, "");
     }
