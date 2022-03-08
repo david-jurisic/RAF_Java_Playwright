@@ -54,7 +54,7 @@ public class LogConstructor {
                     if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty())
                         sTableData += "<td>" + SubStep.name + "</td>";
                     else
-                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>{SubStep.Name} <span id='Span" +
+                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" + SubStep.name + "<span id='Span" +
                                 String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span></td>";
 
                 } else {

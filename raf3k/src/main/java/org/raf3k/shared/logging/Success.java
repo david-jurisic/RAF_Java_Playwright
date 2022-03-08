@@ -21,10 +21,9 @@ public class Success {
         this.bPassed = true;
 
         if (caller != null) {
-            //StackTrace stackTrace = new StackTrace();
             this.sPath = caller.sPath;
             this.sAlias = caller.sAlias;
-            //this.sMethodName = stackTrace.GetFrame(1).GetMethod().Name;
+            this.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
         }
     }
 
