@@ -60,6 +60,7 @@ public class ApiTestRunner extends UITestCase {
         success(Map.TwitterMap.RequestToken.txtScope.setText("tweet.write tweet.read users.read follows.read follows.write offline.access like.write tweet.moderate.write mute.write", false, false, false));
         success(Map.TwitterMap.RequestToken.btnRequest.click());
         Map.twitterMapInit();
+        TimeUnit.SECONDS.sleep(2);
         success(Map.TwitterMap.OAuth.btnLogin.click());
         success(Map.TwitterMap.OAuth.txtUsername.setText("DMilic5", false, false, true));
         success(Map.TwitterMap.OAuth.btnNext.click());
