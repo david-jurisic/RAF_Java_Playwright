@@ -166,6 +166,18 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method retrieves web control display value.
+     *
+     * @return Web control displayed bool value.
+     */
+    public Boolean isDisplayed() {
+        if (control() == null)
+            return false;
+
+        return control().isDisplayed();
+    }
+
+    /**
      * Method verifies size of the web control.
      *
      * @param iWidth  Expected width of web control.

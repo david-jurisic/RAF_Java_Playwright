@@ -22,6 +22,24 @@ public final class Map {
         APIReferences.currentPageContext = "https://pokeapi.co/api/v2/";
     }
 
+    public static void initializeAPITweeter() {
+        APIReferences.currentPageContext = "https://api.twitter.com/2/";
+    }
+
+    public static void accessToken()
+    {
+        UIReferences.currentPageContext = "https://reacthttprequestapp.web.app/";
+    }
+    public static void twitterMapInit()
+    {
+        UIReferences.currentPageContext = "https://twitter.com/";
+    }
+
+    public static void corsAnyWhere()
+    {
+        UIReferences.currentPageContext = "https://cors-anywhere.herokuapp.com/corsdemo";
+    }
+
     public static class Login {
         public static final WbPageEx page = new WbPageEx("Account/Login", "Page");
         public static final WbLabelEx lblParent = new WbLabelEx(By.xpath("//div[@align='center']"), "parent");
@@ -83,8 +101,38 @@ public final class Map {
         public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"),"tblExample");
     }
 
+    public static class TwitterMap{
+        public static class RequestToken
+        {
+            public static WbPageEx page = new WbPageEx("", "page");
+            public static WbLinkEx lnkTempAccess = new WbLinkEx(By.name("corsLinkDemo"), "lnkTempAccess");
+            public static WbEditEx txtClientId = new WbEditEx(By.name("ClientId"), "txtClientId");
+            public static WbEditEx txtClientSecret = new WbEditEx(By.name("ClientSecret"), "txtClientSecret");
+            public static WbEditEx txtScope = new WbEditEx(By.name("Scope"), "txtScope");
+            public static WbButtonEx btnRequest = new WbButtonEx(By.name("requestButton"), "btnRequest");
+            public static WbLabelEx lblAccessToken = new WbLabelEx(By.name("access_token"), "lblAccessToken");
+        }
+
+        public static class RequestAccess
+        {
+            public static WbPageEx page = new WbPageEx("", "page");
+            public static WbButtonEx btnRequest = new WbButtonEx(By.xpath("//*[@type='submit']"), "btnRequest");
+        }
+
+        public static class OAuth
+        {
+            public static WbButtonEx btnNext = new WbButtonEx(By.xpath("//*[text()='Next']"), "btnNext");
+            public static WbButtonEx btnLogin = new WbButtonEx(By.xpath("//*[text()='Log in']"), "btnLogin");
+            public static WbEditEx txtUsername = new WbEditEx(By.name("text"), "txtUsername");
+            public static WbLabelEx txtPhoneOrEmail = new WbLabelEx(By.xpath("//*[text() = 'Enter your phone number or email address']"), "txtPhoneOrEmail");
+            public static WbEditEx txtPassword = new WbEditEx(By.name("password"), "txtPassword");
+            public static WbButtonEx btnAuthorize = new WbButtonEx(By.xpath("//*[@data-testid='OAuth_Consent_Button']"), "btnAuthorize");
+        }
+    }
+
     public static class API{
         public static QueryStringEx Get = new QueryStringEx("pokemon");
+        public static QueryStringEx Tweet = new QueryStringEx("tweets");
     }
 
 }
