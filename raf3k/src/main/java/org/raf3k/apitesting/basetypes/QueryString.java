@@ -123,7 +123,7 @@ public class QueryString extends ControlObject {
      * @param headers        Headers to be set.
      * @return Success object.
      */
-    public Success post(String sUrlParameters, Map<String, Object> body, Map<String, String> headers) {
+    public Success post(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -142,7 +142,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            String sPath = APIReferences.currentPageContext;
+            String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
@@ -150,8 +150,16 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            req.contentType(ContentType.JSON);
-            if (body != null && body.size() > 1)
+            switch(contentType) {
+                case json:
+                    req.contentType(ContentType.JSON);
+                    break;
+                case xwwwformurlencoded:
+                    req.contentType("application/x-www-form-urlencoded; charset=utf-8");
+                    break;
+            }
+
+            if (body != null && body.size() > 0)
                 req.body(body);
 
             rest = req.when().post(sPath);
@@ -172,7 +180,7 @@ public class QueryString extends ControlObject {
      * @param headers        Headers to be set.
      * @return Success object.
      */
-    public Success put(String sUrlParameters, Map<String, Object> body, Map<String, String> headers) {
+    public Success put(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -190,7 +198,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            String sPath = APIReferences.currentPageContext;
+            String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
@@ -198,8 +206,16 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            req.contentType(ContentType.JSON);
-            if (body != null && body.size() > 1)
+            switch(contentType) {
+                case json:
+                    req.contentType(ContentType.JSON);
+                    break;
+                case xwwwformurlencoded:
+                    req.contentType("application/x-www-form-urlencoded; charset=utf-8");
+                    break;
+            }
+
+            if (body != null && body.size() > 0)
                 req.body(body);
 
             rest = req.when().put(sPath);
@@ -234,7 +250,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            String sPath = APIReferences.currentPageContext;
+            String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
@@ -250,5 +266,10 @@ public class QueryString extends ControlObject {
             RAFRestResponse resp = new RAFRestResponse(ex);
             return suc.finish(ex);
         }
+    }
+
+    public enum contentType {
+        json,
+        xwwwformurlencoded
     }
 }
