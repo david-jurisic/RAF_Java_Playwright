@@ -54,5 +54,5 @@ public class UIReferences {
         return _ActionsBuilder;
     }
 
-    public static UITestCase UITestCase;
+    public static UITestCase uiTestCase;
 }
