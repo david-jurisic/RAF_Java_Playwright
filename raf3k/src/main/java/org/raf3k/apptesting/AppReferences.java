@@ -1,6 +1,8 @@
 package org.raf3k.apptesting;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.raf3k.apptesting.basetypes.AppTestCase;
 import org.raf3k.shared.Helpers;
@@ -13,6 +15,14 @@ public class AppReferences {
 
     public static AppiumDriver getAppDriver() {
         return _AppDriver;
+    }
+
+    public static AndroidDriver getAndroidDriver(){
+        return (AndroidDriver) _AppDriver;
+    }
+
+    public static IOSDriver getIOSDriver(){
+        return (IOSDriver) _AppDriver;
     }
 
     public static void setAppDriver(AppiumDriver driver) {
