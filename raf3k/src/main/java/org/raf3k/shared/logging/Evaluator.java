@@ -15,6 +15,9 @@ import java.util.List;
 public class Evaluator {
     public WebDriver driver;
 
+    public Evaluator() {
+    }
+
     public Evaluator(WebDriver _driver) {
         driver = _driver;
     }
@@ -100,9 +103,9 @@ public class Evaluator {
 
             return suc;
 
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             suc.stepFinish = LocalDateTime.now();
-            suc.Ex = ex;
+            suc.Ex = new Exception(ex);
             suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getStackTrace()[0].toString();
             suc.bPassed = false;
             suc.sScreenshot = getScreenshot();

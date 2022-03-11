@@ -39,28 +39,28 @@ public class WebControlBase extends ControlObject {
 
     public WebControlBase() {
         this.sControlType = this.getClass().getSimpleName();
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
     }
 
     public WebControlBase(By searchBy, String alias) {
         this.sControlType = this.getClass().getName();
         this.searchBy = searchBy;
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
     }
 
     public WebControlBase(By searchBy, WebControlBase parent, String alias) {
         this.sControlType = this.getClass().getName();
         this.searchBy = searchBy;
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
         this.parent = parent;
     }
 
     public WebControlBase(WebElement control, String alias) {
         this.sControlType = this.getClass().getName();
         this.sAlias = alias;
-        this.sPath = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[4].getClassName());
+        this.sPath = getFullsPath();
 
         _Controlreference = control;
     }
@@ -163,6 +163,18 @@ public class WebControlBase extends ControlObject {
             if (!bDisplayed && control().isDisplayed())
                 throw new RuntimeException(MessageFormat.format("Web control {0} is displayed.", sAlias));
         }, this, "");
+    }
+
+    /**
+     * Method retrieves web control display value.
+     *
+     * @return Web control displayed bool value.
+     */
+    public Boolean isDisplayed() {
+        if (control() == null)
+            return false;
+
+        return control().isDisplayed();
     }
 
     /**
@@ -310,7 +322,7 @@ public class WebControlBase extends ControlObject {
      * @param sAttributeValue Expected element attribute value.
      * @return Success object.
      */
-    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue){
+    public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists(true);
@@ -357,5 +369,22 @@ public class WebControlBase extends ControlObject {
                 ("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;"
                         , control());
         return attributes;
+    }
+
+    private String getFullsPath() {
+        String rootClass = Thread.currentThread().getStackTrace()[6].getClassName();
+        String mapFolders = UIReferences.hlpr().cleanupPath(Thread.currentThread().getStackTrace()[5].getClassName());
+
+        if (rootClass.contains(".")) {
+            String[] arrayFolders = rootClass.split("\\.");
+            String rootFolder = "";
+            for (int i = 0; i < arrayFolders.length - 1; i++) {
+                rootFolder += arrayFolders[i] + ".";
+            }
+
+            return rootFolder + mapFolders;
+        } else {
+            return mapFolders;
+        }
     }
 }

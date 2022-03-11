@@ -1,5 +1,9 @@
 package org.raf3k.shared.logging;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.extension.TestInstanceFactoryContext;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 
@@ -22,7 +26,7 @@ public class LogConstructor {
                 generateHTMLLog(TestCase);
                 break;
             case "json":
-                //generateJsonLog(TestCase);
+                generateJsonLog(TestCase);
                 break;
             default:
                 generateHTMLLog(TestCase);
@@ -54,7 +58,7 @@ public class LogConstructor {
                     if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty())
                         sTableData += "<td>" + SubStep.name + "</td>";
                     else
-                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>{SubStep.Name} <span id='Span" +
+                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" + SubStep.name + "<span id='Span" +
                                 String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span></td>";
 
                 } else {
@@ -142,6 +146,39 @@ public class LogConstructor {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
         sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".html");
+
+        FileWriter myWriter = null;
+        try {
+            myWriter = new FileWriter(sLogPath.toString());
+            myWriter.write(sExport);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void generateJsonLog(TestCaseBase testCase) {
+        ObjectMapper mapper = new ObjectMapper();
+        String sExport = "";
+        try {
+            sExport = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(testCase.steps);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        Path sFolderPath = Path.of(SharedVariables.configuration.getProperty("logFilePath"), testCase.sTestCaseCode);
+
+        if (!Files.exists(sFolderPath)) {
+            try {
+                Files.createDirectory(sFolderPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
+        sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".json");
 
         FileWriter myWriter = null;
         try {

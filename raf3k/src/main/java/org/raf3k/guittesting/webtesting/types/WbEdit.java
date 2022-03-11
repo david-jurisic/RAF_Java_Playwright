@@ -77,6 +77,27 @@ public class WbEdit extends WebControlBase {
     }
 
     /**
+     * Method sets text inside the textbox.
+     *
+     * @param sText Text to be set.
+     * @return Success object
+     */
+    public Success setText(String sText) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (!sAlias.toLowerCase().contains("password")) {
+                control().clear();
+            } else {
+                control().sendKeys(Keys.CONTROL + "a");
+                control().sendKeys(Keys.DELETE);
+            }
+
+            control().sendKeys(sText);
+
+        }, this, "");
+    }
+
+    /**
      * Method verifies text in textbox.
      *
      * @param sText Text to be verified inside the textbox.

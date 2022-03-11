@@ -62,9 +62,9 @@ public class TestCaseBase {
 
     }
 
-    public void finishBDDStep() throws Exception {
+    public void finishBDDStep() {
         if (!currentStep.bSuccess()) {
-            throw new Exception(eval.generateCucumberErrorReport(currentStep));
+            throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
         }
     }
 
@@ -84,8 +84,7 @@ public class TestCaseBase {
             this.bPass = false;
 
             String sStopOnError = SharedVariables.configuration.getProperty("stopOnError");
-            if (!sStopOnError.equalsIgnoreCase("false"))
-            {
+            if (!sStopOnError.equalsIgnoreCase("false")) {
                 DebugLog.add("Step failed. Finishing test case...", 1);
                 Assertions.fail("Step failed. Finishing test case...");
             }
