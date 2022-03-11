@@ -27,7 +27,7 @@ public class AppControlBase extends ControlObject {
     public WebElement control() {
         try {
             String sError = "";
-            if (_ControlReference == null) return _ControlReference;
+            if (_ControlReference != null) return _ControlReference;
             return AppReferences.appEng().findControl(sControlType, sPath, searchBy, parent, sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
         } catch (Exception ex) {
             DebugLog.add(ex);
@@ -242,47 +242,6 @@ public class AppControlBase extends ControlObject {
                 if (control() != null)
                     throw new RuntimeException(String.format("Web control {0} exists.", sAlias));
             }
-        }, this, "");
-    }
-
-    /**
-     * Method clicks on the web control and holds mouse button down for one second before releasing.
-     *
-     * @return Success object.
-     */
-    public Success clickAndHold() {
-        return AppReferences.eval().evaluate(() -> {
-
-            AppReferences.touchActionsBuilder().longPress(control()).pause(Duration.ofSeconds(1)).release().perform();
-
-        }, this, "");
-    }
-
-    /**
-     * Method returns click and hold metrics.
-     *
-     * @return Metrics of click and hold.
-     */
-    public double clickAndHoldReturnMetric() {
-        long startTime = System.currentTimeMillis();
-
-        AppReferences.touchActionsBuilder().longPress(control()).pause(Duration.ofSeconds(1)).release().perform();
-
-        long endTime = System.currentTimeMillis();
-
-        return TimeUnit.MILLISECONDS.toSeconds(startTime) - TimeUnit.MILLISECONDS.toSeconds(endTime);
-    }
-
-    /**
-     * Method moves the mouse to the element.
-     *
-     * @return Success object.
-     */
-    public Success scrollIntoView() {
-        return AppReferences.eval().evaluate(() -> {
-
-            AppReferences.touchActionsBuilder().moveToElement(control()).perform();
-
         }, this, "");
     }
 

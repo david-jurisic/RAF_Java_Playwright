@@ -61,7 +61,7 @@ public class MbEdit extends AppControlBase {
             if (bCleanAll)
                 control().clear();
 
-            if (SharedVariables.configuration.getProperty("platformName").toLowerCase() != "ios") {
+            if (!SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("ios")) {
                 if (bSetWithTouchAction) {
                     TouchActions act = new TouchActions(AppReferences.getAppDriver());
 
@@ -72,6 +72,44 @@ public class MbEdit extends AppControlBase {
             } else
                 control().sendKeys(sText);
 
+        }, this, "");
+    }
+
+    /**
+     * Method sets the text inside the textbox.
+     *
+     * @param sText Text to be set.
+     * @return Success object.
+     */
+    public Success setText(String sText) {
+        return AppReferences.eval().evaluate(() -> {
+
+            control().sendKeys(sText);
+
+        }, this, "");
+    }
+
+    /**
+     * Method sets the text inside the textbox.
+     *
+     * @param sText        Text to be set.
+     * @param hideKeyboard Set to 'true' if you want to hide the keyboard after entering text if keyboard shows up.
+     * @return Success object.
+     */
+    public Success setText(String sText, boolean hideKeyboard) {
+        return AppReferences.eval().evaluate(() -> {
+
+            if (!SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("ios")) {
+
+                control().sendKeys(sText);
+
+                if (hideKeyboard)
+                    AppReferences.getAndroidDriver().pressKey(new KeyEvent(AndroidKey.BACK));
+            } else {
+                control().sendKeys(sText);
+                if (hideKeyboard)
+                    AppReferences.getIOSDriver().hideKeyboard();
+            }
         }, this, "");
     }
 
@@ -89,7 +127,7 @@ public class MbEdit extends AppControlBase {
             if (bEmpty && !sControlValue.isBlank())
                 throw new RuntimeException(String.format("Control {0} text is not empty.", sAlias));
 
-            if (!bEmpty && !sControlValue.isBlank())
+            if (!bEmpty && sControlValue.isBlank())
                 throw new RuntimeException(String.format("Control {0} text is empty.", sAlias));
 
         }, this, "");

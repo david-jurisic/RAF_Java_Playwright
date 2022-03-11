@@ -63,7 +63,7 @@ public class Application extends AppControlBase {
 
         ApplicationState currentAppState;
 
-        if (SharedVariables.configuration.getProperty("platformName").toLowerCase() == "android") {
+        if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
             currentAppState = ((AndroidDriver) AppReferences.getAppDriver()).queryAppState(sApplicationPackageName);
         } else {
             currentAppState = ((IOSDriver) AppReferences.getAppDriver()).queryAppState(sApplicationPackageName);
@@ -112,7 +112,7 @@ public class Application extends AppControlBase {
     public Success sendToBackground(){
         return AppReferences.eval().evaluate(() -> {
 
-            if (SharedVariables.configuration.getProperty("platformName").toLowerCase() == "android") {
+            if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
                 AppReferences.getAndroidDriver().runAppInBackground(null);
             } else {
                 AppReferences.getIOSDriver().runAppInBackground(null);
@@ -129,7 +129,7 @@ public class Application extends AppControlBase {
     public Success open(){
         return AppReferences.eval().evaluate(() -> {
 
-            if (SharedVariables.configuration.getProperty("platformName").toLowerCase() == "android") {
+            if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
                 AppReferences.getAndroidDriver().activateApp(sApplicationPackageName);
             } else {
                 AppReferences.getIOSDriver().activateApp(sApplicationPackageName);
@@ -146,7 +146,7 @@ public class Application extends AppControlBase {
     public Success reset(){
         return AppReferences.eval().evaluate(() -> {
 
-            if (SharedVariables.configuration.getProperty("platformName").toLowerCase() == "android") {
+            if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
                 AppReferences.getAndroidDriver().resetApp();
             } else {
                 AppReferences.getIOSDriver().resetApp();
@@ -163,7 +163,7 @@ public class Application extends AppControlBase {
     public Success terminate(){
         return AppReferences.eval().evaluate(() -> {
 
-            if (SharedVariables.configuration.getProperty("platformName").toLowerCase() == "android") {
+            if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
                 AppReferences.getAndroidDriver().terminateApp(sApplicationPackageName);
             } else {
                 AppReferences.getIOSDriver().terminateApp(sApplicationPackageName);

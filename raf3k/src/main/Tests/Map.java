@@ -1,3 +1,5 @@
+import org.raf3k.apptesting.AppReferences;
+import org.raf3k.apptesting.types.*;
 import org.raf3k.guittesting.webtesting.types.*;
 import org.raf3k.testproject.extendedtypes.ui.*;
 import org.openqa.selenium.By;
@@ -10,6 +12,10 @@ public final class Map {
 
     public static void initialize2() {
         UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
+    }
+
+    public static void initialize3() {
+        AppReferences.sAppPackageName = "io.appium.android.apis";
     }
 
     public static class Login {
@@ -69,8 +75,30 @@ public final class Map {
     }
 
     public static class TableTest {
-        public static WbPageEx page = new WbPageEx("","page");
-        public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"),"tblExample");
+        public static WbPageEx page = new WbPageEx("", "page");
+        public static WbTableEx tblExample = new WbTableEx(By.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div/div[1]/div[5]/table"), "tblExample");
+    }
+
+    public static class AndroidApp {
+        public static Application App = new Application("APIDemos");
+
+        public static class MainMenu {
+            public static MbButton btnFirst = new MbButton("btnFirst", By.id("android:id/button1"), null);
+            public static MbWrapper wrpMain = new MbWrapper("wrpMain", By.id("android:id/list"), null);
+            public static MbButton btnViews = new MbButton("btnViews", By.xpath("//android.widget.TextView[@content-desc='Views']"), null);
+            public static MbButton btnControls = new MbButton("btnControls", By.xpath("//android.widget.TextView[@content-desc='Controls']"), null);
+            public static MbButton btnDarkTheme = new MbButton("btnDarkTheme", By.xpath("//android.widget.TextView[@content-desc='2. Dark Theme']"), null);
+            public static MbButton btnEnabledSave = new MbButton("btnEnabledSave", By.id("io.appium.android.apis:id/button"), null);
+            public static MbButton btnDisabledSave = new MbButton("btnDisabledSave", By.id("io.appium.android.apis:id/button_disabled"), null);
+            public static MbEdit txtHint = new MbEdit("txtHint", By.id("io.appium.android.apis:id/edit"), null);
+            public static MbCheckBox chkCheckbox1 = new MbCheckBox("chkCheckbox1", By.id("io.appium.android.apis:id/check1"), null);
+            public static MbRadioButton radRadioButton1 = new MbRadioButton("radRadioButton1", By.id("io.appium.android.apis:id/radio1"), null);
+            public static MbCheckBox chkToggle = new MbCheckBox("chkToggle", By.id("io.appium.android.apis:id/toggle1"), null);
+            public static MbButton btnDropdown = new MbButton("btnDropdown", By.id("io.appium.android.apis:id/spinner1"), null);
+            public static MbButton btnMars = new MbButton("btnMars", By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.CheckedTextView[4]"), null);
+            public static MbLabel lblTextColorPrimary = new MbLabel("lblTextColorPrimary", By.id("textColorPrimary"), null);
+            public static MbButton lblScroll = new MbButton("lblScroll", By.xpath("//android.widget.TextView[@content-desc='Hover Events']"), null);
+        }
     }
 
 }
