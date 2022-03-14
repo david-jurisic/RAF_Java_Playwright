@@ -1,5 +1,7 @@
 package org.raf3k.guittesting.webtesting;
 
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
@@ -31,7 +33,16 @@ public class SeleniumSetup {
                         UIReferences.setWebDriver(new FirefoxDriver((FirefoxOptions)driverOptions));
                     }
                     break;
-                case "internetexplorer":
+                case "edge":
+                    System.setProperty("webdriver.edge.driver", sWebDriverPath + "\\msedgedriver.exe");
+
+                    if(driverOptions == null) {
+                        EdgeOptions edgeOptions = new EdgeOptions();
+                        UIReferences.setWebDriver(new EdgeDriver(edgeOptions));
+                    }
+                    else {
+                        UIReferences.setWebDriver(new EdgeDriver((EdgeOptions)driverOptions));
+                    }
                     break;
                 case "chrome":
                 default:
