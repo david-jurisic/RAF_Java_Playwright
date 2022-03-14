@@ -1,9 +1,6 @@
 package org.raf3k.shared.logging;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.extension.TestInstanceFactoryContext;
-import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 
@@ -22,12 +19,10 @@ public class LogConstructor {
     public static void generateLog(TestCaseBase TestCase) {
         String sLogType = SharedVariables.configuration.getProperty("logExportType");
         switch (sLogType) {
-            case "html":
-                generateHTMLLog(TestCase);
-                break;
             case "json":
                 generateJsonLog(TestCase);
                 break;
+            case "html":
             default:
                 generateHTMLLog(TestCase);
                 break;
@@ -37,7 +32,7 @@ public class LogConstructor {
     }
 
     private static void generateHTMLLog(TestCaseBase testCase) {
-        String sRowColor = "success";
+        String sRowColor;
         String sLogData = "";
         for (Step step : testCase.steps) {
             if (step.bSuccess()) {
@@ -48,7 +43,7 @@ public class LogConstructor {
             String sTableData = "<tbody class='labels'>";
             sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.stepNumber + "'>" + step.stepNumber + "  " +
                     step.stepName + "</label><input type='checkbox' name='" + step.stepNumber + " ' id='" + step.stepNumber +
-                    "' data-toggle='toggle'></td><td>" + String.valueOf((float) step.durations().toMillis() / 1000) + "</td><td></td></tr>";
+                    "' data-toggle='toggle'></td><td>" + String.format("%.2f", (float) step.durations().toMillis() / 1000) + "</td><td></td></tr>";
             sTableData += "</tbody><tbody class='hide'>";
             int i = 1;
             for (Substep SubStep : step.substeps) {
@@ -58,8 +53,8 @@ public class LogConstructor {
                     if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty())
                         sTableData += "<td>" + SubStep.name + "</td>";
                     else
-                        sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" + SubStep.name + "<span id='Span" +
-                                String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span></td>";
+                        sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name + "<span id='Span" +
+                                step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span></td>";
 
                 } else {
                     if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty()) {
@@ -70,17 +65,17 @@ public class LogConstructor {
                             sTableData += "<td>" + SubStep.name + " <br><b>" + "Unknown error occured" + "</b></td>";
                     } else {
                         if (SubStep.ex != null)
-                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" + SubStep.name +
-                                    " <span id='Span" + String.valueOf(step.stepNumber) + String.valueOf(i) + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
+                            sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
+                                    " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
                                     SubStep.ex.getMessage() + "</b></td>";
                         else
-                            sTableData += "<td onclick='ExpandMesageAddon(" + String.valueOf(step.stepNumber) + String.valueOf(i) + ")'>" +
-                                    SubStep.name + " <span id='Span" + String.valueOf(step.stepNumber) + String.valueOf(i) +
+                            sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" +
+                                    SubStep.name + " <span id='Span" + step.stepNumber + i +
                                     "' class='arrowMoreInfo'><b>+</b></span> <br><b>" + "Unknown error occured" + "</b></td>";
                     }
 
                 }
-                sTableData += "<td>" + String.valueOf((float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000) + "</td>";
+                sTableData += "<td>" + String.format("%.2f", (float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000) + "</td>";
                 if (SubStep.passed)
                     sTableData += "<td></td>";
                 else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty())
@@ -89,7 +84,7 @@ public class LogConstructor {
                     sTableData += "<td>N/A</td>";
                 sTableData += "</tr>";
                 if (SubStep.messageAddon != null && !SubStep.messageAddon.isEmpty()) {
-                    sTableData += "<tr id='" + String.valueOf(step.stepNumber) + String.valueOf(i) +
+                    sTableData += "<tr id='" + step.stepNumber + i +
                             "' style=\"display: none;\"><td colspan='4'>" + SubStep.messageAddon + "</td></tr>";
                 }
                 i++;
@@ -98,7 +93,7 @@ public class LogConstructor {
             sLogData += sTableData;
         }
 
-        String sHtmlLog = "";
+        String sHtmlLog;
 
         String logTemplateFilePath = SharedVariables.configuration.getProperty("logTemplateFilePath");
         if (logTemplateFilePath == null || logTemplateFilePath.isEmpty()) {
@@ -130,8 +125,8 @@ public class LogConstructor {
         String sExport = sHtmlLog.replace("[TableData]", sLogData);
         sExport = sExport.replace("[TestCaseCode]", " " + testCase.sTestCaseCode);
         sExport = sExport.replace("[TestCaseName]", " " + testCase.sTestCaseName);
-        sExport = sExport.replace("[TestCaseDuration]", String.valueOf(
-                (float) testCase.steps.stream().filter(m -> m.durations().getSeconds() > 0).mapToLong(n -> n.durations().toMillis()).sum() / 1000) + " sec");
+        sExport = sExport.replace("[TestCaseDuration]",String.format("%.2f",
+                (float) testCase.steps.stream().filter(m -> m.durations().toMillis() > 0).mapToLong(n -> n.durations().toMillis()).sum() / 1000) + " sec");
         sExport = sExport.replace("[TestCaseAuthor]", testCase.sTestCaseAuthor);
 
         Path sFolderPath = Path.of(SharedVariables.configuration.getProperty("logFilePath"), testCase.sTestCaseCode);
@@ -147,7 +142,7 @@ public class LogConstructor {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
         sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".html");
 
-        FileWriter myWriter = null;
+        FileWriter myWriter;
         try {
             myWriter = new FileWriter(sLogPath.toString());
             myWriter.write(sExport);
@@ -180,7 +175,7 @@ public class LogConstructor {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
         sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".json");
 
-        FileWriter myWriter = null;
+        FileWriter myWriter;
         try {
             myWriter = new FileWriter(sLogPath.toString());
             myWriter.write(sExport);
