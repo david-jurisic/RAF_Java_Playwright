@@ -21,7 +21,7 @@ public class SeleniumSetup {
             {
 
                 case "firefox":
-                    System.setProperty("webdriver.gecko.driver", sWebDriverPath + "\\firefox.exe");
+                    System.setProperty("webdriver.gecko.driver", sWebDriverPath + "\\geckodriver.exe");
 
                     if(driverOptions == null) {
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
