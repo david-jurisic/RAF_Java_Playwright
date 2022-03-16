@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -96,15 +97,15 @@ public class Evaluator {
 
             suc.sMethodArguments = String.join(", ", lsMethodArguments);
 
-            suc.stepStart = LocalDateTime.now();
+            suc.stepStart = ZonedDateTime.now();
             action.run();
-            suc.stepFinish = LocalDateTime.now();
+            suc.stepFinish = ZonedDateTime.now();
             suc.bPassed = true;
 
             return suc;
 
         } catch (Throwable ex) {
-            suc.stepFinish = LocalDateTime.now();
+            suc.stepFinish = ZonedDateTime.now();
             suc.Ex = new Exception(ex);
             suc.sMessageAddon = "<br> <b> Error stacktrace: </b></br>" + ex.getStackTrace()[0].toString();
             suc.bPassed = false;

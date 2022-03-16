@@ -3,6 +3,7 @@ package org.raf3k.shared.logging;
 import org.raf3k.shared.ControlObject;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class Success {
     public String sAlias;
@@ -13,11 +14,11 @@ public class Success {
     public String sScreenshot;
     public Boolean bPassed;
     public Exception Ex;
-    public LocalDateTime stepStart;
-    public LocalDateTime stepFinish;
+    public ZonedDateTime stepStart;
+    public ZonedDateTime stepFinish;
 
     public Success(ControlObject caller) {
-        stepStart = LocalDateTime.now();
+        stepStart = ZonedDateTime.now();
         this.bPassed = true;
 
         if (caller != null) {
@@ -28,7 +29,7 @@ public class Success {
     }
 
     public Success finish(Exception ex) {
-        this.stepFinish = LocalDateTime.now();
+        this.stepFinish = ZonedDateTime.now();
         if (ex != null) {
             this.Ex = ex;
             this.bPassed = false;
