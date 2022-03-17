@@ -1,6 +1,6 @@
-package org.raf3k.guittesting.webtesting.engine.ngsearchby;
+package org.raf3k.guittesting.webtesting.engine.ngsearchby.filters;
 
-public class JSScripts {
+class JSScripts {
     /**
      * Tries to find $$testability and possibly $injector for an ng1 app
      * <p>
@@ -64,7 +64,7 @@ public class JSScripts {
      * arguments[0] {string} The selector housing an ng-app
      * arguments[1] {function} callback
      */
-    public final String waitForAngular = getNg1HooksHelper + """
+    public static final String waitForAngular = getNg1HooksHelper + """
                 var rootSelector = arguments[0];
                 var callback = arguments[1];
             if (window.angular && !(window.angular.version && window.angular.version.major > 1)) {
@@ -116,7 +116,7 @@ public class JSScripts {
      * Tests whether the angular global variable is present on a page.
      * Retries in case the page is just loading slowly.
      */
-    public final String testForAngular = """
+    public static final String testForAngular = """
             var asyncCallback = arguments[0];
             var callback = function(args) {
                 setTimeout(function() {
@@ -158,7 +158,7 @@ public class JSScripts {
      * <p>
      * arguments[0] {array} The module names to load.
      */
-    public final String esumeAngularBootstrap = """
+    public static final String esumeAngularBootstrap = """
             window.__TESTABILITY__NG1_APP_ROOT_INJECTOR__ =
                     angular.resumeBootstrap(arguments[0].length ? arguments[0].split(',') : []);""";
 
@@ -167,7 +167,7 @@ public class JSScripts {
      * <p>
      * arguments[0] {string} The selector housing an ng-app
      */
-    public final String getLocation = getNg1HooksHelper + """
+    public static final String getLocation = getNg1HooksHelper + """
                 var hooks = getNg1Hooks(arguments[0]);
             if (angular.getTestability) {
                     return hooks.$$testability.getLocation();
@@ -180,7 +180,7 @@ public class JSScripts {
      * arguments[0] {string} The selector housing an ng-app
      * arguments[1] {string} In page URL using the same syntax as $location.url()
      */
-    public final String setLocation = getNg1HooksHelper + """
+    public static final String setLocation = getNg1HooksHelper + """
                 var hooks = getNg1Hooks(arguments[0]);
                 var url = arguments[1];
             if (angular.getTestability) {
@@ -203,7 +203,7 @@ public class JSScripts {
      *
      * @return {?Object} The result of the evaluation.
      */
-    public final String evaluate = """
+    public static final String evaluate = """
                 var element = arguments[0];
                 var expression = arguments[1];
             return angular.element(element).scope().$eval(expression);""";
@@ -259,7 +259,7 @@ public class JSScripts {
      *
      * @return {Array.WebElement} The matching input elements.
      */
-    public final String findModel = getNg1HooksHelper + """
+    public static final String findModel = getNg1HooksHelper + """
                 var model = arguments[0];
                 var using = arguments[2] || document;
             if (angular.getTestability) {
@@ -284,7 +284,7 @@ public class JSScripts {
      *
      * @return {Array.WebElement} The matching select elements.
      */
-    public final String findSelectedOptions = """
+    public static final String findSelectedOptions = """
                 var model = arguments[0];
                 var using = arguments[2] || document;
                 var prefixes = ['ng-', 'ng_', 'data-ng-', 'x-ng-', 'ng\\:'];
@@ -306,7 +306,7 @@ public class JSScripts {
      *
      * @return {Array.WebElement} All rows of the repeater.
      */
-    public final String findAllRepeaterRows = """
+    public static final String findAllRepeaterRows = """
                 var repeaterMatch = function(ngRepeat, repeater, exact) {
                     if (exact) {
                         return ngRepeat.split(' track by ')[0].split(' as ')[0].split('|')[0].

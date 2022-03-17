@@ -19,7 +19,7 @@ public class JavaScriptBy extends By {
      * @param script The JavaScript code to execute.
      * @param args   The arguments to the script.
      */
-    public JavaScriptBy(String script, Object[] args) {
+    public JavaScriptBy(String script, Object... args) {
         this.script = script;
         this.args = args;
     }
