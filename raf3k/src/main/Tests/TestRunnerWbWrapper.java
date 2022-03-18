@@ -1,6 +1,5 @@
-import org.junit.jupiter.api.Test;
-import org.raf3k.guittesting.UIReferences;
 import org.raf3k.guittesting.webtesting.basetypes.UITestCase;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 

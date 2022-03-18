@@ -1,18 +1,18 @@
 package org.raf3k.guittesting.webtesting.basetypes;
 
-import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.raf3k.guittesting.webtesting.SeleniumSetup;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.TestCaseBase;
 import org.raf3k.guittesting.UIReferences;
+import org.testng.annotations.AfterTest;
 
-//[Binding]
 public class UITestCase extends TestCaseBase {
     public UITestCase(String testCaseName, String testCaseCode, String testCaseAuthor) {
         super(testCaseName, testCaseCode, testCaseAuthor);
         setupWebDriver(null);
     }
+
     public UITestCase() {
         super();
         setupWebDriver(null);
@@ -44,7 +44,7 @@ public class UITestCase extends TestCaseBase {
         }
     }
 
-    @AfterAll
+    @AfterTest
     public void uiTeardown() {
         try {
             if(UIReferences.getWebDriver() != null)
