@@ -72,7 +72,7 @@ public class LogConstructor {
                         if (SubStep.ex != null)
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
                                     " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
-                                    SubStep.ex.getMessage() + "</b></td>";
+                                    SubStep.ex.getCause().getMessage() + "</b></td>";
                         else
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" +
                                     SubStep.name + " <span id='Span" + step.stepNumber + i +
