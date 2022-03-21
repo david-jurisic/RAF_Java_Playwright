@@ -10,7 +10,7 @@ public class TestRunnerWbWrapper extends UITestCase {
     }
 
     @Test
-    void First() {
+    public void First() {
         Map.initialize();
 
         newStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");

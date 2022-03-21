@@ -13,6 +13,7 @@ public class UITestCase extends TestCaseBase {
         super(testCaseName, testCaseCode, testCaseAuthor);
         setupWebDriver(null);
     }
+
     public UITestCase() {
         super();
         setupWebDriver(null);
@@ -45,7 +46,7 @@ public class UITestCase extends TestCaseBase {
     }
 
     @AfterAll
-    public void uiTeardown() {
+    public static void uiTeardown() {
         try {
             if(UIReferences.getWebDriver() != null)
                 UIReferences.getWebDriver().quit();
