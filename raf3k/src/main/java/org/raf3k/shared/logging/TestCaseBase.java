@@ -1,11 +1,11 @@
 package org.raf3k.shared.logging;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.raf3k.shared.ConfigurationHelper;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 
@@ -85,7 +85,7 @@ public class TestCaseBase {
             String sStopOnError = SharedVariables.configuration.getProperty("stopOnError");
             if (!sStopOnError.equalsIgnoreCase("false")) {
                 DebugLog.add("Step failed. Finishing test case...", 1);
-                Assert.fail("Step failed. Finishing test case...");
+                Assertions.fail("Step failed. Finishing test case...");
             }
         }
 
@@ -93,7 +93,7 @@ public class TestCaseBase {
     }
 
     @AfterAll
-    public void TearDown() {
+    public void tearDown() {
         if (currentStep != null)
             steps.add(currentStep);
         LogConstructor.generateLog(this);
