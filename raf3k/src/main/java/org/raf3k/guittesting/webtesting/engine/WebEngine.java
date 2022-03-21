@@ -58,7 +58,7 @@ public class WebEngine {
      */
     public Boolean waitForPageLoading() {
         try {
-            int waitTime = Integer.parseInt(SharedVariables.configuration.getProperty("PageLoadWaitTime"));
+            int waitTime = Integer.parseInt(SharedVariables.configuration.getProperty("pageLoadWaitTime"));
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(waitTime));
             wait.until(new Function<WebDriver, Boolean>() {
                 public Boolean apply(WebDriver driver) {
