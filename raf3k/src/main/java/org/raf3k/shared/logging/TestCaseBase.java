@@ -35,7 +35,6 @@ public class TestCaseBase {
         sTestCaseCode = testCaseCode;
         sTestCaseAuthor = testCaseAuthor;
 
-        //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Settings", @"Settings.xml");
         SharedVariables.configuration = new ConfigurationHelper();
         //SharedVariables.TestData = new TestDataHelper();
     }

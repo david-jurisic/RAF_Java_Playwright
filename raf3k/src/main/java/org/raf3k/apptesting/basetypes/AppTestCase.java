@@ -29,8 +29,6 @@ public class AppTestCase extends TestCaseBase {
         setupAppiumLocalService();
     }
 
-    //region Methods
-
     private void setupAppiumLocalService() {
         try {
 
@@ -54,9 +52,6 @@ public class AppTestCase extends TestCaseBase {
         }
     }
 
-    //endregion
-
-    //region Teardown
     @AfterAll
     public void appiumTeardown() {
         try {
@@ -74,5 +69,4 @@ public class AppTestCase extends TestCaseBase {
             return;
         }
     }
-    //endregion
 }

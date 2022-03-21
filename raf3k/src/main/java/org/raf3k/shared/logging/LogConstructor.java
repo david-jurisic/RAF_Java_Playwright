@@ -63,7 +63,6 @@ public class LogConstructor {
 
                 } else {
                     if (SubStep.messageAddon == null || SubStep.messageAddon.isEmpty()) {
-                        //HTMLencode removed
                         if (SubStep.ex != null)
                             sTableData += "<td>" + SubStep.name + " <br><b>" + SubStep.ex.getMessage() + "</b></td>";
                         else

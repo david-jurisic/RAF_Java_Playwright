@@ -58,8 +58,8 @@ public class WebEngine {
      */
     public Boolean waitForPageLoading() {
         try {
-            //TimeSpan WaitTime = TimeSpan.FromSeconds(Convert.ToInt32(SharedVariables.Configuration.GetEntryValue("PageLoadWaitTime")));
-            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(5));
+            int waitTime = Integer.parseInt(SharedVariables.configuration.getProperty("PageLoadWaitTime"));
+            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(waitTime));
             wait.until(new Function<WebDriver, Boolean>() {
                 public Boolean apply(WebDriver driver) {
                     try {
