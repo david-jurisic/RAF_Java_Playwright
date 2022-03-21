@@ -11,6 +11,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.raf3k.guittesting.UIReferences.uiTestCase;
+
 public class TestHooks {
     private static UITestCase uiTestCase;
     private int currentStepDefIndex = 0;
@@ -46,6 +48,12 @@ public class TestHooks {
     @AfterStep
     public void afterStep() {
         uiTestCase.finishBDDStep();
+    }
+
+    @AfterAll
+    public static void afterTestExecution() {
+        if (uiTestCase != null)
+            uiTestCase.uiTeardown();
     }
 
     private String findTagValue(Scenario scenario, String tagName) {

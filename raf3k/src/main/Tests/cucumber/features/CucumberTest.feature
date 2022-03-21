@@ -2,7 +2,7 @@
 Feature: Kale Login
   As a developer I want to test the functionality of the Login page on the Kale app.
 
-  @Test @TestCaseCode:CCTC001 @CCTC001 @Author:Drazen_Kozic @UI @CorrectLogin
+  @TestCaseCode:CCTC001 @CCTC001 @Author:Drazen_Kozic @UI @CorrectLogin
   Scenario: Correct Login
     Given I navigate to the "Login" page
     Then I should see the "Login" page
@@ -22,7 +22,7 @@ Feature: Kale Login
     When I click on the "Sign out" button
     Then I should see the "Login" page
 
-  @Test @TestCaseCode:CCTC002 @CCTC002 @Author:Ivan_Cukovic @UI @IncorrectLogin
+  @TestCaseCode:CCTC002 @CCTC002 @Author:Ivan_Cukovic @UI @IncorrectLogin
   Scenario: Incorrect Login
     Given I navigate to the "Login" page
     Then I should see the "Login" page

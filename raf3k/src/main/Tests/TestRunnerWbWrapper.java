@@ -1,5 +1,6 @@
+import org.junit.jupiter.api.Test;
+import org.raf3k.guittesting.UIReferences;
 import org.raf3k.guittesting.webtesting.basetypes.UITestCase;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ public class TestRunnerWbWrapper extends UITestCase {
     }
 
     @Test
-    void First() {
+    public void First() {
         Map.initialize();
 
         newStep(1, "Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");

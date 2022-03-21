@@ -1,3 +1,4 @@
+import cucumber.hooks.TestHooks;
 import io.cucumber.testng.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -32,8 +33,6 @@ public class TestNGRunner {
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         testNGCucumberRunner.finish();
-        if (uiTestCase != null) {
-            uiTestCase.uiTeardown();
-        }
+        TestHooks.afterTestExecution();
     }
 }
