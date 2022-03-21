@@ -1,13 +1,15 @@
 package org.raf3k.shared.logging;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.TestInstance;
 import org.raf3k.shared.ConfigurationHelper;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 
 import java.util.ArrayList;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCaseBase {
     public ArrayList<Step> steps = new ArrayList<Step>();
     private Step currentStep;
@@ -90,7 +92,7 @@ public class TestCaseBase {
         return newSuccess;
     }
 
-    @AfterTest
+    @AfterAll
     public void TearDown() {
         if (currentStep != null)
             steps.add(currentStep);
