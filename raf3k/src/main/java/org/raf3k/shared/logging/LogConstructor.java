@@ -99,24 +99,21 @@ public class LogConstructor {
         }
 
         String sHtmlLog;
-
         String logTemplateFilePath = SharedVariables.configuration.getProperty("logTemplateFilePath");
+
         if (logTemplateFilePath == null || logTemplateFilePath.isEmpty()) {
             sHtmlLog = getLogTemplateFromAssembly(defaultLogTemplate);
         } else {
             try {
                 ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-                try (InputStream is = classLoader.getResourceAsStream(logTemplateFilePath)) {
-                    if (is == null)
-                        sHtmlLog = null;
-                    try (InputStreamReader isr = new InputStreamReader(is);
-                         BufferedReader reader = new BufferedReader(isr)) {
-                        sHtmlLog = reader.lines().collect(Collectors.joining(System.lineSeparator()));
-                    }
-                }
+                InputStream is = classLoader.getResourceAsStream(logTemplateFilePath);
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader reader = new BufferedReader(isr);
+                sHtmlLog = reader.lines().collect(Collectors.joining(System.lineSeparator()));
 
                 if (sHtmlLog == null || sHtmlLog.isEmpty()) {
-                    DebugLog.add("File '" + SharedVariables.configuration.getProperty("logTemplateFilePath") + "' is empty. Default log template is used instead. ", 1);
+                    DebugLog.add("File '" + SharedVariables.configuration.getProperty("logTemplateFilePath")
+                            + "' is empty. Default log template is used instead. ", 1);
                     sHtmlLog = getLogTemplateFromAssembly(defaultLogTemplate);
                 }
             } catch (Exception e) {
