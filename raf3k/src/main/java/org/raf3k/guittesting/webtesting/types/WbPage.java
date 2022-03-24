@@ -180,9 +180,8 @@ public class WbPage extends WebControlBase {
     public Success verifyURLChunk(String sChunk) {
         return UIReferences.eval().evaluate(() ->
         {
-            String sError;
-            //if (!UIReferences.WebEng.WaitForPageLoading(out sError))
-            //    throw new RuntimeException(sError);
+            if (!UIReferences.getWebEng().waitForPageLoading())
+                throw new RuntimeException();
 
             if (!UIReferences.getWebDriver().getCurrentUrl().contains(sChunk))
                 throw new RuntimeException(MessageFormat.format("Cannot find specific chunk in URL. <br> Current URL: {0} <br> Searched chunk: {1}",

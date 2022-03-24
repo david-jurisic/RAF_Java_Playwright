@@ -92,7 +92,7 @@ public class WebControlBase extends ControlObject {
 
     private void waitForLoaders() {
         UIReferences.getWebEng().waitForPageLoading();
-        //UIReferences.getWebEng().waitForLoaders();
+        UIReferences.getWebEng().waitForLoaders();
     }
 
     /**
