@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.raf3k.shared.ConfigurationHelper;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
+import org.raf3k.shared.testdata.TestDataHelper;
 
 import java.util.ArrayList;
 
@@ -21,24 +22,22 @@ public class TestCaseBase {
     public Boolean bPass = true;
 
     public TestCaseBase() {
-
         sTestCaseName = "Not Defined";
         sTestCaseCode = "Not Defined";
         sTestCaseAuthor = "Not Defined";
         DebugLog.add("Warning *** No RAFtestCase attribute found, log data might be inconclusive", 0);
 
         SharedVariables.configuration = new ConfigurationHelper();
-        //SharedVariables.TestData = new TestDataHelper();
+        SharedVariables.testData = new TestDataHelper();
     }
 
     public TestCaseBase(String testCaseName, String testCaseCode, String testCaseAuthor) {
-
         sTestCaseName = testCaseName;
         sTestCaseCode = testCaseCode;
         sTestCaseAuthor = testCaseAuthor;
 
         SharedVariables.configuration = new ConfigurationHelper();
-        //SharedVariables.TestData = new TestDataHelper();
+        SharedVariables.testData = new TestDataHelper();
     }
 
     public void newStep(int iNumber, String sName) {
@@ -49,7 +48,7 @@ public class TestCaseBase {
         currentStep.stepNumber = iNumber;
         currentStep.stepName = sName;
         currentStep.substeps = new ArrayList<>();
-        DebugLog.add("Added new step: " + String.valueOf(iNumber) + " : " + sName, 2);
+        DebugLog.add("Added new step: " + iNumber + " : " + sName, 2);
     }
 
     public void addBDDStep(String sName) {
