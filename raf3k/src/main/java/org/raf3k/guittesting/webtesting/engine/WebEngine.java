@@ -1,8 +1,6 @@
 package org.raf3k.guittesting.webtesting.engine;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.DebugLog;
@@ -15,17 +13,16 @@ import org.raf3k.shared.SharedVariables;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 
 public class WebEngine {
     public WebEngine() {
-        allAsyncLoaders = new ArrayList<By>();
+        allAsyncLoaders = new ArrayList<>();
     }
 
-    private List<By> allAsyncLoaders = new ArrayList<By>();
+    private List<By> allAsyncLoaders;
 
-    public WebElement findControl(String sControlType, String sControlPath, By searchBy, WebControlBase parent, String sError, Boolean bDisplayed, Boolean bMustBeVisible, int iTimeoutOverride) {
+    public WebElement findControl(String sControlPath, By searchBy, WebControlBase parent, Boolean bMustBeVisible, int iTimeoutOverride) {
         try {
             WebElement control;
             String timeSeconds = SharedVariables.configuration.getProperty("controlWaitTime");
@@ -58,16 +55,14 @@ public class WebEngine {
         try {
             int waitTime = Integer.parseInt(SharedVariables.configuration.getProperty("pageLoadWaitTime"));
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(waitTime));
-            wait.until(new Function<WebDriver, Boolean>() {
-                public Boolean apply(WebDriver driver) {
-                    try {
-                        var pageStatus = ((JavascriptExecutor) driver).executeScript("return document.readyState");
-                        if (pageStatus == null || pageStatus.toString().equalsIgnoreCase("complete"))
-                            return true;
-                        return false;
-                    } catch (Exception ex) {
-                        return false;
-                    }
+            wait.until((driver) -> {
+                try {
+                    var pageStatus = ((JavascriptExecutor) driver).executeScript("return document.readyState");
+                    if (pageStatus == null || pageStatus.toString().equalsIgnoreCase("complete"))
+                        return true;
+                    return false;
+                } catch (Exception ex) {
+                    return false;
                 }
             });
             return true;
@@ -94,8 +89,7 @@ public class WebEngine {
             int waitTime = Integer.parseInt(SharedVariables.configuration.getProperty("pageLoadWaitTime"));
             WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(waitTime));
 
-            wait.until((driver) ->
-            {
+            wait.until((driver) -> {
                 try {
                     if (driver.findElement(searchBy).isDisplayed())
                         return false;

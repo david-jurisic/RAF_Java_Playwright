@@ -26,10 +26,9 @@ public class WebControlBase extends ControlObject {
 
     public WebElement control() {
         try {
-            String sError = "";
             waitForLoaders();
             if (checkIfControlStale())
-                _Controlreference = UIReferences.getWebEng().findControl(sControlType, sPath, searchBy, parent, sError, bDisplayed, bMustBeVisible, iTimeoutOverride);
+                _Controlreference = UIReferences.getWebEng().findControl(sControlType, searchBy, parent, bMustBeVisible, iTimeoutOverride);
             return _Controlreference;
         } catch (Exception ex) {
             DebugLog.add(ex);
@@ -364,8 +363,8 @@ public class WebControlBase extends ControlObject {
      * @return map of attributes.
      */
     private Map<String, Object> getAllControlAttributes() {
-        var executor = ((JavascriptExecutor) UIReferences.getWebDriver());
-        var attributes = (Map<String, Object>) executor.executeScript
+        JavascriptExecutor executor = ((JavascriptExecutor) UIReferences.getWebDriver());
+        Map<String, Object> attributes = (Map<String, Object>) executor.executeScript
                 ("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;"
                         , control());
         return attributes;
