@@ -150,17 +150,25 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            switch(contentType) {
+            switch (contentType) {
                 case json:
                     req.contentType(ContentType.JSON);
                     break;
                 case xwwwformurlencoded:
-                    req.contentType("application/x-www-form-urlencoded; charset=utf-8");
+                    req.contentType("application/x-www-form-urlencoded");
                     break;
             }
 
-            if (body != null && body.size() > 0)
-                req.body(body);
+            if (body != null && body.size() > 0) {
+                switch (contentType) {
+                    case xwwwformurlencoded:
+                        req.formParams(body);
+                        break;
+                    default:
+                        req.body(body);
+                        break;
+                }
+            }
 
             rest = req.when().post(sPath);
             RAFRestResponse resp = new RAFRestResponse(this, rest);
@@ -206,17 +214,25 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 req.headers(headers);
 
-            switch(contentType) {
+            switch (contentType) {
                 case json:
                     req.contentType(ContentType.JSON);
                     break;
                 case xwwwformurlencoded:
-                    req.contentType("application/x-www-form-urlencoded; charset=utf-8");
+                    req.contentType("application/x-www-form-urlencoded");
                     break;
             }
 
-            if (body != null && body.size() > 0)
-                req.body(body);
+            if (body != null && body.size() > 0) {
+                switch (contentType) {
+                    case xwwwformurlencoded:
+                        req.formParams(body);
+                        break;
+                    default:
+                        req.body(body);
+                        break;
+                }
+            }
 
             rest = req.when().put(sPath);
             RAFRestResponse resp = new RAFRestResponse(this, rest);
