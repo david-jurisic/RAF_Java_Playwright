@@ -249,9 +249,11 @@ public class QueryString extends ControlObject {
      *
      * @param sUrlParameters Url parameters to be set.
      * @param headers        Headers to be set.
+     * @param body           Body to be set
+     * @param contentType    contentType to be set
      * @return Success object.
      */
-    public Success delete(String sUrlParameters, Map<String, String> headers) {
+    public Success delete(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -260,19 +262,39 @@ public class QueryString extends ControlObject {
             String sMessageAddon = "";
             if (sUrlParameters != null && !sUrlParameters.isEmpty())
                 sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
-
+            if (body != null)
+                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
             if (headers != null)
                 sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
-
             suc.sMessageAddon = sMessageAddon;
-
             String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
-
             if (headers != null)
                 req.headers(headers);
+
+            if (contentType != null) {
+                switch (contentType) {
+                    case json:
+                        req.contentType(ContentType.JSON);
+                        break;
+                    case xwwwformurlencoded:
+                        req.contentType("application/x-www-form-urlencoded");
+                        break;
+                }
+            }
+
+            if (body != null && body.size() > 0) {
+                switch (contentType) {
+                    case xwwwformurlencoded:
+                        req.formParams(body);
+                        break;
+                    default:
+                        req.body(body);
+                        break;
+                }
+            }
 
             rest = req.when().delete(sPath);
             RAFRestResponse resp = new RAFRestResponse(this, rest);

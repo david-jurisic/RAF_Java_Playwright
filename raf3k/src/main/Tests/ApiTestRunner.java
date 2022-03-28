@@ -88,7 +88,7 @@ public class ApiTestRunner extends UITestCase {
         success(Map.API.Tweet.post("", body, headers, QueryString.contentType.json));
         var tweetId = Map.API.Tweet.response.response.jsonPath().getJsonObject("data.id").toString();
         success(Map.API.Tweet.response.verifyResponseCode(201));
-        success(Map.API.Tweet.delete("/" + tweetId, headers));
+        success(Map.API.Tweet.delete("/" + tweetId, null, headers, null));
         success(Map.API.Tweet.response.verifyResponseCode(200));
     }
 }
