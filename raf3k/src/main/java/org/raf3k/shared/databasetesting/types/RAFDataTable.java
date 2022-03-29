@@ -1,9 +1,9 @@
 package org.raf3k.shared.databasetesting.types;
 
-import db.DataRow;
-import db.DataTable;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.SharedReferences;
+import org.raf3k.shared.databasetesting.librarytypes.LibDataRow;
+import org.raf3k.shared.databasetesting.librarytypes.LibDataTable;
 import org.raf3k.shared.enumerations.Operations;
 import org.raf3k.shared.logging.Success;
 
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class RAFDataTable extends ControlObject {
 
-    DataTable dtTable;
+    LibDataTable dtTable;
     public int iRowCount;
 
-    public RAFDataTable(DataTable table, String sAlias) {
+    public RAFDataTable(LibDataTable table, String sAlias) {
         String sControl = this.getClass().toString();
         this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
         this.sAlias = MessageFormat.format("({0})", sAlias);
@@ -38,12 +38,12 @@ public class RAFDataTable extends ControlObject {
      * @param bExists     'true' check that the value exists, 'false' checks that a value doesn't exist
      * @return Success object.
      */
-    public Success VerifyTableValue(String sColumnName, String sValue, Boolean bExists) {
+    public Success verifyTableValue(String sColumnName, String sValue, Boolean bExists) {
         return SharedReferences.eval().evaluate(() -> {
             int iRowCount = dtTable.Rows.size();
             List<String> rows = new ArrayList<String>(iRowCount);
 
-            for (DataRow row : dtTable.Rows) {
+            for (LibDataRow row : dtTable.Rows) {
                 try {
                     String columnName = row.Get(sColumnName).toString();
                     rows.add(columnName);
@@ -142,7 +142,7 @@ public class RAFDataTable extends ControlObject {
             int iRowCount = dtTable.Rows.size();
             List<String> rows = new ArrayList<String>(iRowCount);
 
-            for (DataRow row : dtTable.Rows) {
+            for (LibDataRow row : dtTable.Rows) {
                 rows.add(row.toString());
             }
 
