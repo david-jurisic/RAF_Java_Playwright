@@ -2,6 +2,7 @@ package org.raf3k.apitesting;
 
 import org.raf3k.apitesting.basetypes.APITestCase;
 import org.raf3k.guittesting.UIReferences;
+import org.raf3k.shared.Helpers;
 import org.raf3k.shared.logging.Evaluator;
 
 public class APIReferences {

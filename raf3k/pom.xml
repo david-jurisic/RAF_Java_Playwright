@@ -12,7 +12,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <org.selenium.version>4.1.2</org.selenium.version>
-        <io.cucumber.version>7.2.3</io.cucumber.version>
         <com.fasterxml.jackson.version>2.13.2</com.fasterxml.jackson.version>
     </properties>
     <dependencies>
