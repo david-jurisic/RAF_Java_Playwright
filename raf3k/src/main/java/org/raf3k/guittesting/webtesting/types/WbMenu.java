@@ -10,6 +10,9 @@ import java.util.List;
 
 public class WbMenu extends WebControlBase {
 
+    public WbMenu() {
+    }
+
     public WbMenu(By searchBy, String alias) {
         super(searchBy, alias);
     }

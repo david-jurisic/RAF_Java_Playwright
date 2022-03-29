@@ -9,6 +9,9 @@ import org.raf3k.shared.logging.Success;
 import java.text.MessageFormat;
 
 public class WbButton extends WebControlBase {
+    public WbButton() {
+    }
+
     public WbButton(WebElement webElement, String alias) {
         super(webElement, alias);
     }

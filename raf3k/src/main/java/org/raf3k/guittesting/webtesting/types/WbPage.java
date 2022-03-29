@@ -16,6 +16,9 @@ import java.time.Duration;
 public class WbPage extends WebControlBase {
     private URL pageURL;
 
+    public WbPage() {
+    }
+
     public WbPage(String sPath, String sAlias) {
         try {
             pageURL = new URL(new URL(UIReferences.currentPageContext), sPath);

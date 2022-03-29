@@ -12,6 +12,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class WbTable extends WebControlBase {
+    public WbTable(){}
+
     public WbTable(By searchBy, String alias) {
         super(searchBy, alias);
     }

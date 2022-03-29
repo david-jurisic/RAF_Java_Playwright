@@ -10,6 +10,10 @@ import org.raf3k.shared.logging.Success;
 import java.text.MessageFormat;
 
 public class WbDropDownList extends WebControlBase {
+
+    public WbDropDownList() {
+    }
+
     public WbDropDownList(By searchBy, String alias) {
         super(searchBy, alias);
     }

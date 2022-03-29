@@ -6,6 +6,9 @@ import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.shared.logging.Success;
 
 public class WbRadioButton extends WebControlBase {
+
+
+
     public WbRadioButton(By searchBy, String alias) {
         super(searchBy, alias);
     }

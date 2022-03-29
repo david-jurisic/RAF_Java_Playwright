@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 
 public class WbIcon extends WebControlBase {
+
+    public WbIcon() {
+    }
+
     public WbIcon(By searchBy, String alias) {
         super(searchBy, alias);
     }

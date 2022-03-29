@@ -15,6 +15,9 @@ public class WbList extends WebControlBase {
 
     public List<String> items = new ArrayList<String>();
 
+    public WbList() {
+    }
+
     public WbList(By searchBy, String alias) {
         super(searchBy, alias);
     }

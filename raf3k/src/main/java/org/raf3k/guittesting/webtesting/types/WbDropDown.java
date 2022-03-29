@@ -19,6 +19,9 @@ import java.util.Optional;
 
 public class WbDropDown extends WebControlBase {
 
+    public WbDropDown() {
+    }
+
     public WbDropDown(By searchBy, String alias) {
         super(searchBy, alias);
     }

@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WbWrapper extends WebControlBase {
+
+    public WbWrapper() {
+    }
+
     public WbWrapper(By searchBy, String alias) {
         super(searchBy, alias);
     }

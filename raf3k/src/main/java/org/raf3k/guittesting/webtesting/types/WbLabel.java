@@ -8,6 +8,10 @@ import org.raf3k.shared.logging.Success;
 import java.text.MessageFormat;
 
 public class WbLabel extends WebControlBase {
+
+    public WbLabel() {
+    }
+
     public WbLabel(By searchBy, String alias) {
         super(searchBy, alias);
     }

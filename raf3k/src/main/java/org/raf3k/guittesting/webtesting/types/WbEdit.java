@@ -10,6 +10,9 @@ import org.openqa.selenium.JavascriptExecutor;
 public class WbEdit extends WebControlBase {
     public String getTextValue = null;
 
+    public WbEdit() {
+    }
+
     public WbEdit(By searchBy, String alias) {
         super(searchBy, alias);
     }

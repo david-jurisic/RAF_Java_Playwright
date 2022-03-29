@@ -8,6 +8,9 @@ import org.raf3k.shared.logging.Success;
 public class WbCheckBox extends WebControlBase {
     public boolean getCheckedValue = false;
 
+    public WbCheckBox() {
+    }
+
     public WbCheckBox(By searchBy, String alias) {
         super(searchBy, alias);
     }
