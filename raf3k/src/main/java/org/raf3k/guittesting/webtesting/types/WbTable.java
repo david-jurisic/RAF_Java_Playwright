@@ -198,7 +198,8 @@ public class WbTable extends WebControlBase {
     public Success verifyColumnExists(String sColumnName, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             ArrayList<WebElement> tableRows = (ArrayList<WebElement>) tableHeaderRow().findElements(By.tagName("th"));
 
             if (bExists && !tableRows.stream().anyMatch(m -> m.getText().equals(sColumnName)))
@@ -268,7 +269,8 @@ public class WbTable extends WebControlBase {
     public Success verifyEmpty(boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             ArrayList<WebElement> tableRows = tableBodyRows();
 
             if (bEmpty) {
@@ -291,7 +293,7 @@ public class WbTable extends WebControlBase {
     public Success clickOnHeader(String sHeader) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
 
             ArrayList<WebElement> allRows = (ArrayList<WebElement>) control().findElements(By.cssSelector("tr"));
             int iCellNumber = 0;
@@ -321,7 +323,7 @@ public class WbTable extends WebControlBase {
     public Success verifyTermExists(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
 
             ArrayList<WebElement> allCells = (ArrayList<WebElement>) control().findElements(By.tagName("tr"));
             boolean bFound = false;

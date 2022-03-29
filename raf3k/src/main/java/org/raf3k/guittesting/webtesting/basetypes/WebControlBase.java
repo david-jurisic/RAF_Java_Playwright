@@ -157,9 +157,9 @@ public class WebControlBase extends ControlObject {
     public Success displayed(Boolean bDisplayed) {
         return UIReferences.eval().evaluate(() ->
         {
-            if (bDisplayed && !control().isDisplayed())
+            if (bDisplayed && !this.isDisplayed())
                 throw new RuntimeException(MessageFormat.format("Web control {0} is not displayed.", sAlias));
-            if (!bDisplayed && control().isDisplayed())
+            if (!bDisplayed && this.isDisplayed())
                 throw new RuntimeException(MessageFormat.format("Web control {0} is displayed.", sAlias));
         }, this, "");
     }
@@ -186,7 +186,8 @@ public class WebControlBase extends ControlObject {
     public Success verifySize(Integer iWidth, Integer iHeight) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             var size = control().getSize();
             if (size.height != iHeight)
                 throw new RuntimeException(MessageFormat.format("Height not verified. Height is {0} but expected height is {1}"
@@ -207,7 +208,8 @@ public class WebControlBase extends ControlObject {
     public Success verifyPosition(Integer iXAxis, Integer iYAxis) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             var location = control().getLocation();
             if (location.getX() != iXAxis)
                 throw new RuntimeException(MessageFormat.format("Location not verified. X axis is {0} but expected value is {1}"
@@ -228,7 +230,7 @@ public class WebControlBase extends ControlObject {
     public Success enabled(Boolean bEnabled, Integer iControlWait) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
 
             if (!bEnabled && control().isEnabled()) {
                 throw new RuntimeException("Control is enabled.");
@@ -250,7 +252,6 @@ public class WebControlBase extends ControlObject {
     public Success exists(Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-
             if (bExists) {
                 if (control() == null)
                     throw new RuntimeException(MessageFormat.format("Web control {0} does not exists.", sAlias));
@@ -263,6 +264,14 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method throws exception if web control doesn't exist.
+     */
+    public void exists() {
+        if (control() == null)
+            throw new RuntimeException(MessageFormat.format("Web control {0} does not exists.", sAlias));
+    }
+
+    /**
      * Method verifies if element has given attribute.
      *
      * @param sAttribute Expected element attribute.
@@ -272,7 +281,8 @@ public class WebControlBase extends ControlObject {
     public Success verifyAttributeExists(String sAttribute, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             var attributes = getAllControlAttributes();
             var attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
@@ -294,7 +304,8 @@ public class WebControlBase extends ControlObject {
     public Success verifyAttributeValue(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
+
             var attributes = getAllControlAttributes();
             var attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
@@ -324,7 +335,7 @@ public class WebControlBase extends ControlObject {
     public Success verifyAttributeValueContains(String sAttribute, String sAttributeValue) {
         return UIReferences.eval().evaluate(() ->
         {
-            this.exists(true);
+            this.exists();
             var attributes = getAllControlAttributes();
             var attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
@@ -351,7 +362,7 @@ public class WebControlBase extends ControlObject {
      * @return Attribute value as string
      */
     public String getAttributeValue(String sAttribute) {
-        this.exists(true);
+        this.exists();
         var attributes = getAllControlAttributes();
 
         return attributes.get(sAttribute).toString();
