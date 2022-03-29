@@ -46,13 +46,15 @@ public class Success {
     }
 
     public void addArgumentsOfMethodForLog(String sArgumentName, Object oArgumentValue, Boolean bIsOutParameter) {
-        String sToAdd = "";
+        String sToAdd;
         if (oArgumentValue == null) {
             sMethodArguments = sArgumentName + ": NULL";
             return;
         }
 
-        //sToAdd = $"{(bIsOutParameter?"<i>out</i>":"")}{(oArgumentValue != null?oArgumentValue.ToString() : "NULL")}";
+        sToAdd = bIsOutParameter ? "<i>out</i> " : "";
+        sToAdd += oArgumentValue != null ? oArgumentValue.toString() : "NULL";
+
         if (sMethodArguments == null)
             sMethodArguments = sToAdd;
         else
