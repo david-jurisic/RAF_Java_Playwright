@@ -13,6 +13,5 @@ public class Helpers {
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
         }
-        ;
     }
 }

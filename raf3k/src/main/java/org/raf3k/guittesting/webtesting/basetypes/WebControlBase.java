@@ -118,6 +118,8 @@ public class WebControlBase extends ControlObject {
     public Success click() {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this.control().click();
         }, this, "");
     }
@@ -336,6 +338,7 @@ public class WebControlBase extends ControlObject {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists();
+
             var attributes = getAllControlAttributes();
             var attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
@@ -363,6 +366,7 @@ public class WebControlBase extends ControlObject {
      */
     public String getAttributeValue(String sAttribute) {
         this.exists();
+
         var attributes = getAllControlAttributes();
 
         return attributes.get(sAttribute).toString();
