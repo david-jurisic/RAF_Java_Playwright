@@ -2,16 +2,19 @@ package org.raf3k.guittesting.webtesting.basetypes;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.raf3k.shared.DebugLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.guittesting.UIReferences;
+import org.raf3k.shared.Helpers;
 import org.raf3k.shared.logging.Success;
 
-import javax.management.RuntimeMBeanException;
 import java.text.MessageFormat;
-import java.util.HashMap;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,7 @@ public class WebControlBase extends ControlObject {
     private By searchBy;
     private WebControlBase parent;
     public Actions actionsBuilder;
+    public long iSeconds = -1;
 
     public WebElement control() {
         try {
@@ -77,6 +81,15 @@ public class WebControlBase extends ControlObject {
         this.parent.sPath = this.sPath + ".Parent";
     }
 
+    /**
+     * Method retrieves parent web control.
+     *
+     * @return Parent web control of current web control
+     */
+    public WebElement getParent() {
+        return control().findElement(By.xpath("parent::*"));
+    }
+
     private Boolean checkIfControlStale() {
         try {
             if (_Controlreference != null) {
@@ -105,7 +118,7 @@ public class WebControlBase extends ControlObject {
                 return "";
 
         if (control().getAttribute("value") != null)
-            return control().getAttribute("value").toString();
+            return control().getAttribute("value");
         else
             return control().getText();
     }
@@ -145,8 +158,7 @@ public class WebControlBase extends ControlObject {
     public Success scrollIntoView() {
         return UIReferences.eval().evaluate(() ->
         {
-            Actions actions = new Actions(UIReferences.getWebDriver());
-            actions.moveToElement(control()).build().perform();
+            UIReferences.actionsBuilder().moveToElement(control()).build().perform();
         }, this, "");
     }
 
@@ -163,6 +175,25 @@ public class WebControlBase extends ControlObject {
                 throw new RuntimeException(MessageFormat.format("Web control {0} is not displayed.", sAlias));
             if (!bDisplayed && this.isDisplayed())
                 throw new RuntimeException(MessageFormat.format("Web control {0} is displayed.", sAlias));
+        }, this, "");
+    }
+
+    /**
+     * Method verifies the web control is displayed.
+     *
+     * @param waitTime   Time to wait for text to be displayed.
+     * @param bDisplayed Bool parameter, if set to false, verifies the web control is not displayed.
+     * @return Success object.
+     */
+    public Success displayed(int waitTime, boolean bDisplayed) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(waitTime));
+
+            if (bDisplayed && wait.until(ExpectedConditions.visibilityOfElementLocated(searchBy)) == null)
+                throw new RuntimeException(MessageFormat.format("Web control {0} is not displayed in {1} seconds.", sAlias, waitTime));
+            if (!bDisplayed && wait.until(ExpectedConditions.visibilityOfElementLocated(searchBy)) != null)
+                throw new RuntimeException(MessageFormat.format("Web control {0} is displayed in {1} seconds.", sAlias, waitTime));
         }, this, "");
     }
 
@@ -246,6 +277,18 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method retrieves web control enabled value.
+     *
+     * @return Web control enabled value.
+     */
+    public boolean isEnabled() {
+        if (control().isEnabled() && control().isEnabled())
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * Method verifies if web control exists.
      *
      * @param bExists Set to 'false' if you want to check if web control does not exist. It is 'true' by default.
@@ -274,6 +317,47 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
+     * Method clicks on web control and holds mouse button down for one second before releasing.
+     *
+     * @return Success object.
+     */
+    public Success clickAndHold() {
+        return UIReferences.eval().evaluate(() ->
+        {
+            actionsBuilder.clickAndHold(control()).build().perform();
+            Helpers.waitForAction(1);
+            actionsBuilder.release().build().perform();
+
+        }, this, "");
+    }
+
+    /**
+     * Method return click and hold metrics.
+     *
+     * @return Success object, iSeconds
+     */
+    public Success clickAndHoldReturnMetric() {
+        iSeconds = 0;
+        Success Success = new Success(this);
+        try {
+            this.exists();
+            LocalDateTime startTime = LocalDateTime.now();
+            actionsBuilder.clickAndHold(control()).build().perform();
+            Helpers.waitForAction(1);
+            actionsBuilder.release().build().perform();
+            LocalDateTime finishTime = LocalDateTime.now();
+            Duration time = Duration.between(startTime, finishTime);
+            iSeconds = time.toSeconds();
+
+            return Success.finish(null);
+        } catch (Exception ex) {
+            iSeconds = -1;
+            return Success.finish(ex);
+        }
+
+    }
+
+    /**
      * Method verifies if element has given attribute.
      *
      * @param sAttribute Expected element attribute.
@@ -285,8 +369,8 @@ public class WebControlBase extends ControlObject {
         {
             this.exists();
 
-            var attributes = getAllControlAttributes();
-            var attributesKeysJoined = attributes.keySet().stream()
+            Map<String, Object> attributes = getAllControlAttributes();
+            String attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
 
             if (bExists && !attributes.containsKey(sAttribute))
@@ -308,10 +392,10 @@ public class WebControlBase extends ControlObject {
         {
             this.exists();
 
-            var attributes = getAllControlAttributes();
-            var attributesKeysJoined = attributes.keySet().stream()
+            Map<String, Object> attributes = getAllControlAttributes();
+            String attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
-            var attributesValuesJoined = attributes.values().stream()
+            String attributesValuesJoined = attributes.values().stream()
                     .map(o -> o.toString() + ", ").collect(Collectors.joining());
 
             if (!attributes.containsKey(sAttribute))
@@ -339,10 +423,10 @@ public class WebControlBase extends ControlObject {
         {
             this.exists();
 
-            var attributes = getAllControlAttributes();
-            var attributesKeysJoined = attributes.keySet().stream()
+            Map<String, Object> attributes = getAllControlAttributes();
+            String attributesKeysJoined = attributes.keySet().stream()
                     .map(o -> o + ", ").collect(Collectors.joining());
-            var attributesValuesJoined = attributes.values().stream()
+            String attributesValuesJoined = attributes.values().stream()
                     .map(o -> o.toString() + ", ").collect(Collectors.joining());
 
             if (!attributes.containsKey(sAttribute))
@@ -367,7 +451,7 @@ public class WebControlBase extends ControlObject {
     public String getAttributeValue(String sAttribute) {
         this.exists();
 
-        var attributes = getAllControlAttributes();
+        Map<String, Object> attributes = getAllControlAttributes();
 
         return attributes.get(sAttribute).toString();
     }
