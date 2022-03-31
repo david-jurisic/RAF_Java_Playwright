@@ -134,7 +134,7 @@ public class WbDropDown extends WebControlBase {
                     throw new RuntimeException(MessageFormat.format("Expected index '{0}' is bigger than actual option count '{1}'.", _iItemIndex, allOptions().size()));
                 return allOptions().get(_iItemIndex - 1);
             } else if (_sItemContains != null && !_sItemContains.isEmpty())
-                return allOptions().stream().filter(m -> m.text.contains(_sItemContains) || m.value.contains(_sItemContains)).findFirst().get();
+                return allOptions().stream().filter(m -> m.text.contains(_sItemContains) || m.value.contains(_sItemContains)).findFirst().orElse(null);
             else if (_sItemValue != null && !_sItemValue.isEmpty()) {
                 return allOptions().stream().filter(m -> m.value.equals(_sItemValue)).findFirst().orElse(null);
             } else
@@ -175,6 +175,24 @@ public class WbDropDown extends WebControlBase {
             scrollVertical(iScroll);
             getSelectedOption().selectedElement.click();
             _ddlOpened = false;
+
+        }, this, "");
+    }
+
+    /**
+     * Method sets item in drop down by ID, which is value of selectable item.
+     *
+     * @param sId     Value of item that needs to be set.
+     * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
+     * @return Success object.
+     */
+    public Success setItemByValue(String sId, int iScroll) {
+
+        return UIReferences.eval().evaluate(() ->
+        {
+            this._sItemValue = sId;
+            scrollVertical(iScroll);
+            getSelectedOption().selectedElement.click();
 
         }, this, "");
     }
@@ -401,6 +419,34 @@ public class WbDropDown extends WebControlBase {
     }
 
     /**
+     * Method verifies if multiple items are selected.
+     *
+     * @param selectedItems List of items that need to be verified if selected.
+     * @return Success object.
+     */
+    public Success verifyItemSelected(List<String> selectedItems) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            List<String> lsSelectedItems = getOptionsText(new Select(control()).getAllSelectedOptions());
+
+            boolean bError = false;
+            String sError = "<ul>";
+            for (String item : selectedItems) {
+                String sSelectedMatched = lsSelectedItems.stream().filter(m -> m.equals(item)).findFirst().orElse(null);
+                if (sSelectedMatched == null) {
+                    bError = true;
+                    sError += String.format("<li>Item {0} is not selected.</li>", item);
+                }
+            }
+            sError += "</ul>";
+
+            if (bError)
+                throw new RuntimeException(sError);
+
+        }, this, "");
+    }
+
+    /**
      * Method verifies if item exists in dropdown menu.
      *
      * @param sItem   String value of item to be verified.
@@ -569,6 +615,21 @@ public class WbDropDown extends WebControlBase {
         } catch (Exception ex) {
             return Suc.finish(ex);
         }
+    }
+
+    private ArrayList<String> getOptionsText(Iterable<WebElement> iqElements) {
+        ArrayList<String> list = null;
+        for (WebElement we : iqElements) {
+            String sText = we.getText();
+
+            if (sText == null || sText == "" && we.getAttribute("innerHTML").startsWith("<span>"))   //some <option> elements contain a <span> child element so 'we.Text' for <option> returns nothing
+                sText = we.findElement(By.tagName("span")).getAttribute("innerText");               //solution is to read 'innerText' of a <span> element
+
+            list.add(sText);
+        }
+        ;
+
+        return list;
     }
 }
 
