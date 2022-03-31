@@ -137,6 +137,8 @@ public class WbList extends WebControlBase {
     public Success verifyEmpty(Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bEmpty && getListItemsCount() > 0)
                 throw new RuntimeException(String.format("List is not empty but expected to be empty. Number of entries counted: {0}", getListItemsCount()));
 
@@ -148,7 +150,6 @@ public class WbList extends WebControlBase {
     /**
      * Method verifies if the list is empty or not.
      *
-     * @param bEmpty Set to 'false' if you want to check if the list is not empty. Set to 'true' of you want to check if the list is empty.
      * @return Boolean.
      */
     public Boolean verifyEmpty(){

@@ -42,6 +42,7 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method verifies the page is displayed by taking driver current URL and checking.
+     *
      * @return Success object.
      */
     public Success verifyDisplayed() {
@@ -55,15 +56,16 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method verifies the page is displayed by taking driver current URL and checking against the WebPage URL.
+     *
      * @param iTime Duration(seconds) that the WebDriver waits for the URL to be contained.
      * @return Success object
      */
     public Success verifyDisplayed(int iTime) {
         return UIReferences.eval().evaluate(() ->
         {
-            WebDriverWait Wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(iTime));
+            WebDriverWait wait = new WebDriverWait(UIReferences.getWebDriver(), Duration.ofSeconds(iTime));
 
-            if (!Wait.until(ExpectedConditions.urlContains(pageURL.toExternalForm()))) {
+            if (!wait.until(ExpectedConditions.urlContains(pageURL.toExternalForm()))) {
                 throw new RuntimeException("Page not displayed");
             }
 
@@ -97,7 +99,8 @@ public class WbPage extends WebControlBase {
             String sLink = null;
 
             try {
-                sLink = new URI(pageUrl.getProtocol(), pageUrl.getUserInfo(), pageUrl.getHost(), pageUrl.getPort(), pageUrl.getPath(), pageUrl.getQuery(), null).toString();
+                sLink = new URI(pageUrl.getProtocol(), pageUrl.getUserInfo(), pageUrl.getHost(), pageUrl.getPort(), pageUrl.getPath(), pageUrl.getQuery(),
+                        null).toString();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -153,6 +156,7 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method verifies the page is displayed by taking driver current URL and checking and returning bool.
+     *
      * @return boolean
      */
     public boolean verifyDisplayedAndReturnBoolean() {
@@ -164,6 +168,7 @@ public class WbPage extends WebControlBase {
 
     /**
      * Method switches to main tab.
+     *
      * @return Succes Object
      */
     public Success switchToMainTab() {
@@ -177,6 +182,7 @@ public class WbPage extends WebControlBase {
 
     /**
      * method verifies if URL contains specific chunk of string
+     *
      * @param sChunk string chunk to be verified
      * @return Success object
      */
