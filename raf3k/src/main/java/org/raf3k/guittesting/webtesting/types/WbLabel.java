@@ -39,4 +39,22 @@ public class WbLabel extends WebControlBase {
 
         }, this, "");
     }
+
+    /**
+     * Verifies if the text of WebLabel contains given text or not.
+     *
+     * @param sText   Expected string that label text contains.
+     * @param bExists If true, checks if text exists,if false, checks if text does not exists.
+     * @return Success object.
+     */
+    public Success verifyTextContains(String sText, boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            if (bExists && !control().getText().contains(sText))
+                throw new RuntimeException(String.format("Label Text '{0}' is not as expected. Expected text: {1}.", control().getText(), sText));
+
+            if (!bExists && control().getText().contains(sText))
+                throw new RuntimeException(String.format("Text is expected not to exist. Label Text: {0}, not expected text: {1}", control().getText(), sText));
+        }, this, "");
+    }
 }
