@@ -1,4 +1,4 @@
-package org.raf3k.shared.databasetesting.types;
+package org.raf3k.shared.databasetesting.basetypes;
 
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.SharedReferences;
@@ -47,8 +47,8 @@ public class RAFDataTable extends ControlObject {
                 try {
                     String columnName = row.Get(sColumnName).toString();
                     rows.add(columnName);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e.getMessage());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex.getMessage());
                 }
             }
 
@@ -90,8 +90,8 @@ public class RAFDataTable extends ControlObject {
 
             try {
                 iRowCount = dtTable.Rows.size();
-            } catch (Exception e) {
-                throw new RuntimeException(e.getMessage());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage());
             }
 
         }, this, "");
