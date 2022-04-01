@@ -1,10 +1,11 @@
-package org.raf3k.shared.databasetesting.types;
+package org.raf3k.shared.databasetesting.basetypes;
 
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.SharedReferences;
 import org.raf3k.shared.SharedVariables;
 import org.raf3k.shared.databasetesting.librarytypes.LibDataTable;
 import org.raf3k.shared.logging.Success;
+
 import java.io.File;
 import java.sql.*;
 import java.text.MessageFormat;
@@ -99,6 +100,7 @@ public class Database extends ControlObject {
                     } catch (SQLException e) {
                         throw new RuntimeException(e.getMessage());
                     }
+                    break;
                 case manipulation:
                     try {
                         connection = DriverManager.getConnection(connectionString, username, password);
@@ -108,6 +110,7 @@ public class Database extends ControlObject {
                     } catch (SQLException e) {
                         throw new RuntimeException(e.getMessage());
                     }
+                    break;
             }
             return suc.finish(null);
         } catch (Exception ex) {
@@ -118,7 +121,8 @@ public class Database extends ControlObject {
     /**
      * Method executes an SQL query from a file.
      *
-     * @param sSqlFileName  Name of an SQL script file.
+     * @param sSqlFileName  Name of an SQL script file. To set the directory where the files are searched for,
+     *                      change the value of "sqlScriptFilesPath" parameter in the "config.properties" file.
      * @param statementType SQL Statement type. Use 'retrieval' for actions like 'SELECT' and
      *                      'manipulation' for actions that alter tables or add something to them like 'ALTER, CREATE, INSERT, etc'.
      * @param dicParameters SQL script parameters.
@@ -153,17 +157,120 @@ public class Database extends ControlObject {
                         ResultSet rs = stmt.executeQuery(sQuery);
 
                         this.rafDataTable = new RAFDataTable(new LibDataTable(rs), "rafDataTable");
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e.getMessage());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex.getMessage());
                     }
+                    break;
                 case manipulation:
                     try {
                         connection = DriverManager.getConnection(connectionString, username, password);
                         Statement stmt = connection.createStatement();
                         Boolean rs = stmt.execute(sQuery);
                         iRowsAffected = stmt.getUpdateCount();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e.getMessage());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex.getMessage());
+                    }
+                    break;
+            }
+            return suc.finish(null);
+        } catch (Exception ex) {
+            return suc.finish(ex);
+        }
+    }
+
+    /**
+     * Method executes a stored SQL procedure.
+     *
+     * @param sProcedureName Name of the SQL procedure.
+     * @param statementType  SQL Statement type. Use 'retrieval' for actions like 'SELECT' and
+     *                       'manipulation' for actions that alter tables or add something to them like 'ALTER, CREATE, INSERT, etc'.
+     * @param dicParameters  SQL script parameters you want to pass to the stored procedure.
+     *                       Use LinkedHashMap<>() for this  in the test case so the order of parameter entries is preserved.
+     *                       If you want to execute a stored procedure that doesn't accept parameters, set this to null.
+     * @return Success object, RAFDataTable.
+     */
+    public Success executeStoredProcedure(String sProcedureName, statementType statementType, java.util.Map<String, Object> dicParameters) {
+        Success suc = new Success(this);
+        this.rafDataTable = null;
+
+        try {
+            String sMessageAddon = "";
+            if (sProcedureName != null && !sProcedureName.isEmpty())
+                sMessageAddon = "<h3>SQL Stored Procedure Name:</h3> <br><p>" + sProcedureName + "</p><br>";
+
+            if (dicParameters != null)
+                sMessageAddon = "<h3>SQL Stored Procedure Parameters:</h3> <br>"
+                        + generateTableFromDict("Header", "Value", dicParameters);
+
+            suc.sMessageAddon = sMessageAddon;
+            switch (statementType) {
+                case retrieval:
+                    if (dicParameters != null) {
+                        try {
+                            String sParameters = "";
+                            for (Map.Entry<String, Object> entry : dicParameters.entrySet()) {
+                                sParameters += "?,";
+                            }
+                            if (!sParameters.isEmpty())
+                                sParameters = sParameters.replaceAll(".$", "");
+                            sProcedureName = String.format("{call %s(%s)}", sProcedureName, sParameters);
+                            connection = DriverManager.getConnection(connectionString, username, password);
+                            CallableStatement cs = connection.prepareCall(sProcedureName);
+                            int i = 1;
+                            for (Map.Entry<String, Object> entry : dicParameters.entrySet()) {
+                                cs.setString(i, String.valueOf(entry.getValue()));
+                                i++;
+                            }
+                            ResultSet rs = cs.executeQuery();
+
+                            this.rafDataTable = new RAFDataTable(new LibDataTable(rs), "rafDataTable");
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex.getMessage());
+                        }
+                        break;
+                    } else {
+                        try {
+                            sProcedureName = String.format("{call %s}", sProcedureName);
+                            connection = DriverManager.getConnection(connectionString, username, password);
+                            CallableStatement cs = connection.prepareCall(sProcedureName);
+                            ResultSet rs = cs.executeQuery();
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex.getMessage());
+                        }
+                    }
+
+                case manipulation:
+                    if (dicParameters != null) {
+                        try {
+                            String sParameters = "";
+                            for (Map.Entry<String, Object> entry : dicParameters.entrySet()) {
+                                sParameters += "?,";
+                            }
+                            if (!sParameters.isEmpty())
+                                sParameters = sParameters.replaceAll(".$", "");
+                            sProcedureName = String.format("{call %s(%s)}", sProcedureName, sParameters);
+                            connection = DriverManager.getConnection(connectionString, username, password);
+                            CallableStatement cs = connection.prepareCall(sProcedureName);
+                            int i = 1;
+                            for (Map.Entry<String, Object> entry : dicParameters.entrySet()) {
+                                cs.setString(i, String.valueOf(entry.getValue()));
+                                i++;
+                            }
+                            Boolean rs = cs.execute();
+
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex.getMessage());
+                        }
+                        break;
+                    } else {
+                        try {
+                            sProcedureName = String.format("{call %s}", sProcedureName);
+                            connection = DriverManager.getConnection(connectionString, username, password);
+                            CallableStatement cs = connection.prepareCall(sProcedureName);
+                            Boolean rs = cs.execute();
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex.getMessage());
+                        }
                     }
             }
             return suc.finish(null);

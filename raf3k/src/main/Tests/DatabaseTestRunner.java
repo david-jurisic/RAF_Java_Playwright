@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.Test;
 import org.raf3k.apitesting.basetypes.APITestCase;
-import org.raf3k.shared.databasetesting.types.Database;
-import org.raf3k.shared.databasetesting.types.RAFDataTable;
+import org.raf3k.shared.databasetesting.basetypes.Database;
+import org.raf3k.shared.databasetesting.basetypes.RAFDataTable;
 import org.raf3k.shared.enumerations.Operations;
+
+import java.util.LinkedHashMap;
 
 public class DatabaseTestRunner extends APITestCase {
     public DatabaseTestRunner() {
@@ -58,5 +60,24 @@ public class DatabaseTestRunner extends APITestCase {
         success(database.executeFromFile("selectScript.sql", Database.statementType.retrieval, null));
         rafDataTable = database.rafDataTable;
         success(rafDataTable.verifyEmpty(true));
+
+        newStep(8, "Execute an INSERT stored procedure");
+        java.util.Map<String, Object> dicParameters = new LinkedHashMap<>();
+        dicParameters.put("firstname", "david");
+        dicParameters.put("lastname", "jurišić");
+        dicParameters.put("email", "david.jurisic@roxoft.hr");
+        success(database.executeStoredProcedure("insertMe", Database.statementType.manipulation, dicParameters));
+        dicParameters.clear();
+
+        newStep(9, "Execute a SELECT stored procedure");
+        dicParameters.put("email", "david.jurisic@roxoft.hr");
+        success(database.executeStoredProcedure("selectMe", Database.statementType.retrieval, dicParameters));
+        rafDataTable = database.rafDataTable;
+        success(rafDataTable.verifyEmpty(false));
+
+        newStep(10, "Execute a DELETE stored procedure");
+        success(database.executeStoredProcedure("deleteMe", Database.statementType.manipulation, null));
+        iRowsAffected = database.iRowsAffected;
+        System.out.println(iRowsAffected);
     }
 }
