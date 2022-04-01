@@ -95,6 +95,9 @@ public class RAFRestResponse {
     public Success verifyValue(String sPath, Object sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            if(sPath == null || sPath.isEmpty())
+                throw new RuntimeException("Json path is empty string or null");
+
             if (bExists) {
                 response.then().body(sPath, Matchers.equalTo(sValue));
             } else {
@@ -114,6 +117,9 @@ public class RAFRestResponse {
     public Success verifyEmpty(String sPath, Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
+            if(sPath == null || sPath.isEmpty())
+                throw new RuntimeException("Json path is empty string or null");
+
             if (bEmpty) {
                 response.then().body(sPath, Matchers.nullValue());
             } else {
@@ -134,6 +140,9 @@ public class RAFRestResponse {
     public Success verifyContains(String sPath, String sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            if(sPath == null || sPath.isEmpty())
+                throw new RuntimeException("Json path is empty string or null");
+
             if (bExists) {
                 response.then().body(sPath, Matchers.containsString(sValue));
             } else {
@@ -153,6 +162,9 @@ public class RAFRestResponse {
     public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
         return UIReferences.eval().evaluate(() ->
         {
+            if(sPath == null || sPath.isEmpty())
+                throw new RuntimeException("Json path is empty string or null");
+
             if (bContains) {
                 response.then().body(sPath, Matchers.hasItem(sValue));
             } else {
@@ -172,6 +184,9 @@ public class RAFRestResponse {
     public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
+            if(sPath == null || sPath.isEmpty())
+                throw new RuntimeException("Json path is empty string or null");
+
             if (bEmpty) {
                 response.then().body(sPath, Matchers.hasSize(lessThan(1)));
             } else {
