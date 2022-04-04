@@ -16,11 +16,11 @@ public class TestRunnerWbEdit extends UITestCase {
         newStep(1, "When I Open 'https://roxoftkale.azurewebsites.net/Account/Login' page.");
         success(Map.Login.page.navigate());
         newStep(2, "Then I should see email textbox which enabled and empty");
-        success(Map.Login.txtEmail.enabled(true, null));
+        success(Map.Login.txtEmail.enabled(true));
         success(Map.Login.txtEmail.displayed(true));
         success(Map.Login.txtEmail.verifyEmpty(true));
         newStep(3, "And I should see password textbox which enabled and empty");
-        success(Map.Login.txtPassword.enabled(true, null));
+        success(Map.Login.txtPassword.enabled(true));
         success(Map.Login.txtPassword.displayed(true));
         success(Map.Login.txtPassword.verifyEmpty(true));
         success(Map.Login.txtPassword.verifyAttributeValue("placeholder", "Password"));
@@ -29,7 +29,7 @@ public class TestRunnerWbEdit extends UITestCase {
         System.out.println(attributeValue);
         newStep(4, "And I should see sign in button which is enabled");
         success(Map.Login.btnSignIn.displayed(true));
-        success(Map.Login.btnSignIn.enabled(true, null));
+        success(Map.Login.btnSignIn.enabled(true));
         newStep(5, "When I enter test@test.com in email textbox");
         success(Map.Login.txtEmail.setText("test@test.com", false, false, false));
         newStep(6, "And I enter test1234 in email textbox");
