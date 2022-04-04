@@ -63,7 +63,7 @@ public class Evaluator {
             Field callersPath = null;
             Field callersAlias = null;
 
-            var callerFields = getAllFields(new LinkedList<Field>(), caller.getClass());
+            var callerFields = getAllFields(caller.getClass());
 
             callersPath = callerFields.stream().filter(f -> f.getName().equalsIgnoreCase("sPath")).findFirst().orElse(null);
             callersAlias = callerFields.stream().filter(f -> f.getName().equalsIgnoreCase("sAlias")).findFirst().orElse(null);
@@ -84,7 +84,7 @@ public class Evaluator {
             suc.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             suc.sMessageAddon = messageAddon;
 
-            List<Field> fields = getAllFields(new ArrayList<Field>(), action.getClass());
+            List<Field> fields = getAllFields(action.getClass());
 
             ArrayList<String> lsMethodArguments = new ArrayList<>();
             for (var fieldInfo : fields) {
@@ -115,11 +115,12 @@ public class Evaluator {
         }
     }
 
-    public static List<Field> getAllFields(List<Field> fields, Class<?> object) {
+    public static List<Field> getAllFields(Class<?> object) {
+        List<Field> fields = new LinkedList<Field>();
         fields.addAll(Arrays.asList(object.getDeclaredFields()));
 
         if (object.getSuperclass() != null)
-            getAllFields(fields, object.getSuperclass());
+            fields.addAll(getAllFields(object.getSuperclass()));
 
         return fields;
     }

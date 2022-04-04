@@ -33,6 +33,8 @@ public class WbLink extends WebControlBase {
     public Success verifyText(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bExists && !control().getText().equals(sText))
                 throw new RuntimeException(MessageFormat.format("Link Text '{0}' is not as expected. Expected text: {1}.", control().getText(), sText));
 
@@ -52,6 +54,8 @@ public class WbLink extends WebControlBase {
     public Success verifyTextContains(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bExists && !control().getText().contains(sText))
                 throw new RuntimeException(MessageFormat.format("Link Text '{0}' is not as expected. Expected text: {1}.", control().getText(), sText));
 

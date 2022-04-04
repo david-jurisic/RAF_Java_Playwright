@@ -26,6 +26,8 @@ public class WbRadioButton extends WebControlBase {
     public Success verifySelected(boolean bSelected) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bSelected && !control().isSelected())
                 throw new RuntimeException("Control is not selected but selected is expected.");
 
@@ -44,6 +46,8 @@ public class WbRadioButton extends WebControlBase {
     public Success select(boolean bSelect) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+            
             if (control().isSelected() && bSelect)
                 throw new RuntimeException("Control is already selected.");
 

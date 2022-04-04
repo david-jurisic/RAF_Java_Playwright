@@ -30,6 +30,8 @@ public class WbMenu extends WebControlBase {
     public Success setMenuItem(String sItem) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             List<WebElement> allMenuITems = control().findElements(By.tagName("li"));
 
             if (allMenuITems.isEmpty()) {
@@ -55,6 +57,8 @@ public class WbMenu extends WebControlBase {
     public Success verifyMenuItemPresent(String sItemText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             boolean bIsPresent = false;
 
             List<WebElement> allItems = control().findElements(By.tagName("li"));

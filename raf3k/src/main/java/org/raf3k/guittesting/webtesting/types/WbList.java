@@ -59,6 +59,8 @@ public class WbList extends WebControlBase {
     public Success verifyListItemExists(String sItemText, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             List<WebElement> allItems = getAllListItemsControls();
 
             WebElement option = allItems.stream().filter(x -> x.getText().equals(sItemText)).findFirst().orElse(null);

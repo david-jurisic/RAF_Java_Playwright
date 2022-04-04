@@ -149,15 +149,12 @@ public class WbDropDown extends WebControlBase {
         ((JavascriptExecutor) UIReferences.getWebDriver()).executeScript(MessageFormat.format("scroll(0,{0});", value));
     }
 
-    private Success SendEnter(String sExpectedTagName, String sActualTagname) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (sActualTagname.equals(sExpectedTagName)) {
-                Actions closeDDL = new Actions(UIReferences.getWebDriver());
-                closeDDL.sendKeys(Keys.ENTER).perform();
-                _ddlOpened = false;
-            }
-        }, this, "");
+    private void SendEnter(String sExpectedTagName, String sActualTagname) {
+        if (sActualTagname.equals(sExpectedTagName)) {
+            Actions closeDDL = new Actions(UIReferences.getWebDriver());
+            closeDDL.sendKeys(Keys.ENTER).perform();
+            _ddlOpened = false;
+        }
     }
 
     /**
@@ -171,6 +168,8 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._sItemText = sItem;
             scrollVertical(iScroll);
             getSelectedOption().selectedElement.click();
@@ -190,6 +189,8 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._sItemValue = sId;
             scrollVertical(iScroll);
             getSelectedOption().selectedElement.click();
@@ -208,6 +209,8 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._sItemText = sItem;
 
             boolean sSelectedItemValue = getSelectedOption().selected;
@@ -233,6 +236,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyOptionCount(int iExpectedOptionCount, Operations operation) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             int iCnt = allOptions().size();
 
             switch (operation) {
@@ -292,6 +297,8 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             UIReferences.actionsBuilder().moveToElement(control()).click().build().perform();
             _ddlOpened = true;
 
@@ -308,6 +315,8 @@ public class WbDropDown extends WebControlBase {
     public Success setItem(int iItemIndex, int iScroll) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._iItemIndex = iItemIndex;
             scrollVertical(iScroll);
             getSelectedOption().selectedElement.click();
@@ -326,6 +335,8 @@ public class WbDropDown extends WebControlBase {
         String sText = null;
         Success Suc = new Success(this);
         try {
+            this.exists();
+
             sText = allOptions().stream().filter(m -> m.selected).findFirst().get().text;
             if (!sText.contains(sTextContains))
                 throw new RuntimeException(MessageFormat.format("Selected option text does not contain expected substring. <br> Expected substring: " +
@@ -348,6 +359,8 @@ public class WbDropDown extends WebControlBase {
     public Success setMultipleItem(List<String> sItems) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             for (String item : sItems) {
                 this._sItemText = item;
                 getSelectedOption().selectedElement.click();
@@ -387,6 +400,8 @@ public class WbDropDown extends WebControlBase {
 
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             WebElement selectList = control().findElement(By.className(sClass));
             String sSelectedItem = selectList.getText();
 
@@ -409,6 +424,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyItemSelectedByValue(String sId, boolean bSelected) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             Option selectedOption = getSelectedOption();
             if (bSelected && !selectedOption.value.equals(sId))
                 throw new RuntimeException(MessageFormat.format("Element not selected.<br> Expected element: {0}<br> Selected element value: {1}, Selected element text: {2}", sId, selectedOption.value, selectedOption.text));
@@ -427,6 +444,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyItemSelected(List<String> selectedItems) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             List<String> lsSelectedItems = getOptionsText(new Select(control()).getAllSelectedOptions());
 
             boolean bError = false;
@@ -456,6 +475,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyItemExists(String sItem, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._sItemText = sItem;
             Option selectedOption = getSelectedOption();
             if (selectedOption == null && bExists)
@@ -477,6 +498,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyItemExists(ArrayList<String> selectedItems, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             ArrayList<String> lsExistingItems = new ArrayList<>();
 
             lsExistingItems.addAll(getAllOptions());
@@ -516,6 +539,8 @@ public class WbDropDown extends WebControlBase {
         firstSelectedOption = null;
         Success Suc = new Success(this);
         try {
+            this.exists();
+
             firstSelectedOption = allOptions().stream().filter(m -> m.selected).findFirst().get().text;
             return Suc.finish(null);
         } catch (Exception ex) {
@@ -533,6 +558,8 @@ public class WbDropDown extends WebControlBase {
     public Success selectAndDoubleClickOnOption(int Idx, int iScroll) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._iItemIndex = Idx;
             scrollVertical(iScroll);
             UIReferences.actionsBuilder().moveToElement(control()).doubleClick(getSelectedOption().selectedElement).build().perform();
@@ -551,6 +578,8 @@ public class WbDropDown extends WebControlBase {
     public Success selectAndDoubleClickOnOption(String sItem, int iScroll) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             this._sItemText = sItem;
             scrollVertical(iScroll);
             UIReferences.actionsBuilder().moveToElement(control()).doubleClick(getSelectedOption().selectedElement).build().perform();
@@ -567,6 +596,8 @@ public class WbDropDown extends WebControlBase {
     public Success verifyNotEmpty() {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (allOptions() == null)
                 throw new RuntimeException("Dropdown is empty");
         }, this, "");
@@ -584,6 +615,8 @@ public class WbDropDown extends WebControlBase {
         this._sItemText = null;
 
         try {
+            this.exists();
+
             this._sItemValue = sId;
             String selectedOptionText = getSelectedOption().text;
             if (selectedOptionText.equals(sId))
@@ -607,6 +640,8 @@ public class WbDropDown extends WebControlBase {
         this._sItemValue = null;
 
         try {
+            this.exists();
+
             this._sItemText = sItemText;
             String selectedOptionText = getSelectedOption().value;
             if (selectedOptionText.equals(sItemText))

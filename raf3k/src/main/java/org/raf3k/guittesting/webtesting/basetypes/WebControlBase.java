@@ -145,6 +145,8 @@ public class WebControlBase extends ControlObject {
     public Success moveToElementAndClick() {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             Actions actions = new Actions(UIReferences.getWebDriver());
             actions.moveToElement(control()).click().build().perform();
         }, this, "");
@@ -158,6 +160,8 @@ public class WebControlBase extends ControlObject {
     public Success scrollIntoView() {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             UIReferences.actionsBuilder().moveToElement(control()).build().perform();
         }, this, "");
     }
@@ -256,11 +260,10 @@ public class WebControlBase extends ControlObject {
     /**
      * Method verifies web control is enabled.
      *
-     * @param bEnabled     Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled
-     * @param iControlWait Int of time to wait for the control. In seconds. Default is 2 if you send null
+     * @param bEnabled Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled
      * @return Success object
      */
-    public Success enabled(Boolean bEnabled, Integer iControlWait) {
+    public Success enabled(Boolean bEnabled) {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists();
@@ -324,6 +327,8 @@ public class WebControlBase extends ControlObject {
     public Success clickAndHold() {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             actionsBuilder.clickAndHold(control()).build().perform();
             Helpers.waitForAction(1);
             actionsBuilder.release().build().perform();
