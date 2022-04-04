@@ -74,7 +74,8 @@ public class TestCaseBase {
         Step.ex = newSuccess.Ex;
         Step.passed = newSuccess.bPassed;
         Step.screenshot = newSuccess.sScreenshot;
-        Step.name = newSuccess.sPath + "." + newSuccess.sAlias + "." + newSuccess.sMethodName + "(" + newSuccess.sMethodArguments + ")";
+        Step.name = newSuccess.sPath + newSuccess.sAlias + "." + newSuccess.sMethodName +
+                "(" + (newSuccess.sMethodArguments != null ? newSuccess.sMethodArguments : "") + ")";
         Step.messageAddon = newSuccess.sMessageAddon;
         currentStep.substeps.add(Step);
 

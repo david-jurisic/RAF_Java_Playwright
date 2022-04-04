@@ -2,7 +2,6 @@ package org.raf3k.shared.logging;
 
 import org.raf3k.shared.ControlObject;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class Success {
@@ -24,7 +23,7 @@ public class Success {
         if (caller != null) {
             this.sPath = caller.sPath;
             this.sAlias = caller.sAlias;
-            this.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+            this.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName().toUpperCase();
         }
     }
 

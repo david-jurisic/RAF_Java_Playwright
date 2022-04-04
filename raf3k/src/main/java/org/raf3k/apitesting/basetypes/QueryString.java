@@ -4,6 +4,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.raf3k.apitesting.APIReferences;
+import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.logging.Success;
 
@@ -24,10 +25,7 @@ public class QueryString extends ControlObject {
         this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
         this.sAlias = MessageFormat.format("({0})", _sQueryString);
         this.sQueryString = _sQueryString;
-        if (this.sControlType.toLowerCase().substring(this.sControlType.length() - 2).contains("ex"))
-            this.sPath = APIReferences.get_Hlpr().cleanupPath(Thread.currentThread().getStackTrace()[2].getClassName());
-        else
-            this.sPath = APIReferences.get_Hlpr().cleanupPath(Thread.currentThread().getStackTrace()[2].getClassName());
+        this.sPath = getFullsPath();
     }
 
     public QueryString() {
@@ -309,5 +307,22 @@ public class QueryString extends ControlObject {
     public enum contentType {
         json,
         xwwwformurlencoded
+    }
+
+    private String getFullsPath() {
+        //StackTraceElement rootClass = Thread.currentThread().getStackTrace()[5];
+        StackTraceElement mapClass = Thread.currentThread().getStackTrace()[4];
+        String mapFolder = UIReferences.hlpr().cleanupPath(mapClass.getClassName());
+
+        //if (rootClass.getClassName().contains(".")) {
+            //String rootFolder = rootClass.getClassName() + "." + rootClass.getMethodName();
+
+            if (!mapClass.getMethodName().equals("<clinit>"))
+                mapFolder = mapFolder + "." + mapClass.getMethodName();
+
+            //return rootFolder + "." + mapFolder;
+        //} else {
+            return mapFolder;
+        //}
     }
 }
