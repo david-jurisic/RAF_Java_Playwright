@@ -28,6 +28,8 @@ public class WbCheckBox extends WebControlBase {
     public Success verifyChecked(boolean bChecked) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bChecked) {
                 if (!control().isSelected())
                     throw new RuntimeException("Control is not selected but selected is expected.");
@@ -50,6 +52,8 @@ public class WbCheckBox extends WebControlBase {
         getCheckedValue = false;
 
         try {
+            this.exists();
+
             getCheckedValue = control().isSelected();
 
             Suc.addArgumentsOfMethodForLog("getCheckedValue", getCheckedValue, true);
@@ -70,6 +74,8 @@ public class WbCheckBox extends WebControlBase {
     public Success check(boolean bCheck, boolean bCheckWithAction) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+            
             if (bCheck && control().isSelected())
                 throw new RuntimeException("Control is already selected.");
             if (!bCheck && !control().isSelected())

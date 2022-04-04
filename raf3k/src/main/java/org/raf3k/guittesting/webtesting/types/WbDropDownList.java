@@ -31,6 +31,8 @@ public class WbDropDownList extends WebControlBase {
     public Success verifySelectedItem(String sItem) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             Select selectList = new Select(control());
 
             if (!selectList.getFirstSelectedOption().getText().equals(sItem))
@@ -48,6 +50,8 @@ public class WbDropDownList extends WebControlBase {
     public Success doubleClickOnOption(int iIdx) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             Select Select = new Select(control());
 
             WebElement ctrlOption = Select.getOptions().get(iIdx);

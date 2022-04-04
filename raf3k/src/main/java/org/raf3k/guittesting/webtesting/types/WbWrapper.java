@@ -59,6 +59,8 @@ public class WbWrapper extends WebControlBase {
     public Success verifyText(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             boolean bFound = false;
             ArrayList<String> allText = getText();
             for (String currentRow : allText) {
@@ -82,6 +84,8 @@ public class WbWrapper extends WebControlBase {
     public Success verifyAllCheckboxesChecked(boolean bChecked) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             List<WebElement> allCheckboxes = control().findElements(By.xpath("//input[@type='checkbox']"));
 
             if (allCheckboxes.stream().anyMatch(m -> m.isSelected() == false) && bChecked)
@@ -100,6 +104,8 @@ public class WbWrapper extends WebControlBase {
     public Success verifyInputText(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             WebElement inputFIeld = control().findElement(By.tagName("input"));
             String text = inputFIeld.getAttribute("value");
             if (!text.toLowerCase().trim().contains(sText.toLowerCase()))

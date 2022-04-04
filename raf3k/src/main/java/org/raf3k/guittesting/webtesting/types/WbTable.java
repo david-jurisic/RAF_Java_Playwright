@@ -220,6 +220,8 @@ public class WbTable extends WebControlBase {
         rowCount = 0;
         Success suc = new Success(this);
         try {
+            this.exists();
+
             rowCount = tableBodyRows().size();
 
             return suc.finish(null);
@@ -238,6 +240,8 @@ public class WbTable extends WebControlBase {
     public Success verifyRowCount(int iExpectedRowCount, Operations operation) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             int iRowCount = tableBodyRows().size();
 
             switch (operation) {

@@ -38,6 +38,8 @@ public class WbButton extends WebControlBase {
     public Success verifyText(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bExists && !control().getText().equals(sText))
                 throw new RuntimeException(MessageFormat.format("Cannot verify text. Expected text: {0}. Control text: {1}", sText, control().getText()));
             if (!bExists && control().getText().equals(sText))

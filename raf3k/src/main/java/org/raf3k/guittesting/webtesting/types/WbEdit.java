@@ -30,6 +30,8 @@ public class WbEdit extends WebControlBase {
     public Success clear(boolean bClearWithAction) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (!bClearWithAction)
                 control().clear();
             else {
@@ -56,6 +58,8 @@ public class WbEdit extends WebControlBase {
     public Success setText(String sText, Boolean bSetValue, Boolean bSetWithAction, Boolean bClickControl) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (bSetWithAction && bSetValue)
                 throw new RuntimeException("Only one parameter can be set to true,either 'bSetValue' or 'bSetWithAction'.");
 
@@ -88,6 +92,8 @@ public class WbEdit extends WebControlBase {
     public Success setText(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             if (!sAlias.toLowerCase().contains("password")) {
                 control().clear();
             } else {
@@ -109,6 +115,8 @@ public class WbEdit extends WebControlBase {
     public Success verifyText(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             String sControlvalue = control().getAttribute("value");
 
             if (!sControlvalue.equals(sText))
@@ -126,6 +134,8 @@ public class WbEdit extends WebControlBase {
     public Success verifyTextContains(String sText) {
         return UIReferences.eval().evaluate(() ->
         {
+            this.exists();
+
             String sControlvalue = control().getAttribute("value");
 
             if (!sControlvalue.contains(sText))
@@ -165,6 +175,8 @@ public class WbEdit extends WebControlBase {
         getTextValue = "";
         Success Suc = new Success(this);
         try {
+            this.exists();
+
             if (control().getText() != null && !control().getText().isEmpty())
                 getTextValue = control().getText();
             else
