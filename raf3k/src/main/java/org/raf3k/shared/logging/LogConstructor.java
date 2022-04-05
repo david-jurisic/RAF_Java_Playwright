@@ -65,10 +65,14 @@ public class LogConstructor {
                         else
                             sTableData += "<td>" + SubStep.name + " <br><b>" + "Unknown error occured" + "</b></td>";
                     } else {
-                        if (SubStep.ex != null)
+                        if (SubStep.ex != null && SubStep.ex.getCause() != null)
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
                                     " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
                                     SubStep.ex.getCause().getMessage() + "</b></td>";
+                        else if (SubStep.ex != null && SubStep.ex.getCause() == null)
+                        sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
+                                " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
+                                SubStep.ex.getMessage() + "</b></td>";
                         else
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" +
                                     SubStep.name + " <span id='Span" + step.stepNumber + i +

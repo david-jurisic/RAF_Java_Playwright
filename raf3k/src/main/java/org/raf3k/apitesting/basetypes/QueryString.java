@@ -29,6 +29,11 @@ public class QueryString extends ControlObject {
     }
 
     public QueryString() {
+        String sControl = this.getClass().toString();
+        this.sAlias = "";
+        this.sQueryString = "";
+        this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
+        this.sPath = getFullsPath();
     }
 
     /**
@@ -93,6 +98,10 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
+            if(this.sAlias.isEmpty()){
+                throw new RuntimeException("Query String not declared correctly");
+            }
+
             String sPath = APIReferences.currentPageContext + sQueryString;
 
             if (sUrlParameters != null)
@@ -139,6 +148,10 @@ public class QueryString extends ControlObject {
 
 
             suc.sMessageAddon = sMessageAddon;
+
+            if(this.sAlias.isEmpty()){
+                throw new RuntimeException("Query String not declared correctly");
+            }
 
             String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
@@ -204,6 +217,10 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
+            if(this.sAlias.isEmpty()){
+                throw new RuntimeException("Query String not declared correctly");
+            }
+
             String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
@@ -258,13 +275,22 @@ public class QueryString extends ControlObject {
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
+
             if (sUrlParameters != null && !sUrlParameters.isEmpty())
                 sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+
             if (body != null)
                 sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
+
             if (headers != null)
                 sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
+
             suc.sMessageAddon = sMessageAddon;
+
+            if(this.sAlias.isEmpty()){
+                throw new RuntimeException("Query String not declared correctly");
+            }
+
             String sPath = APIReferences.currentPageContext + sQueryString;
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
