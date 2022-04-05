@@ -23,7 +23,7 @@ public class Success {
         if (caller != null) {
             this.sPath = caller.sPath;
             this.sAlias = caller.sAlias;
-            this.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName().toUpperCase();
+            this.sMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
         }
     }
 

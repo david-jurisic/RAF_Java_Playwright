@@ -3,6 +3,7 @@ package org.raf3k.shared.logging;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
+import org.raf3k.apitesting.basetypes.APITestCase;
 import org.raf3k.shared.ConfigurationHelper;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
@@ -74,9 +75,14 @@ public class TestCaseBase {
         Step.ex = newSuccess.Ex;
         Step.passed = newSuccess.bPassed;
         Step.screenshot = newSuccess.sScreenshot;
-        Step.name = newSuccess.sPath + newSuccess.sAlias + "." + newSuccess.sMethodName +
-                "(" + (newSuccess.sMethodArguments != null ? newSuccess.sMethodArguments : "") + ")";
         Step.messageAddon = newSuccess.sMessageAddon;
+        
+        if (this.getClass() == APITestCase.class)
+            Step.name = newSuccess.sPath + newSuccess.sAlias + "." + newSuccess.sMethodName +
+                    "(" + (newSuccess.sMethodArguments != null ? newSuccess.sMethodArguments : "") + ")";
+        else
+            Step.name = newSuccess.sPath + "." + newSuccess.sAlias + "." + newSuccess.sMethodName + "(" + newSuccess.sMethodArguments + ")";
+
         currentStep.substeps.add(Step);
 
         if (!Step.passed) {

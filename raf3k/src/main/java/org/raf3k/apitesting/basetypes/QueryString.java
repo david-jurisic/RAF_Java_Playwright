@@ -25,7 +25,7 @@ public class QueryString extends ControlObject {
         this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
         this.sAlias = MessageFormat.format("({0})", _sQueryString);
         this.sQueryString = _sQueryString;
-        this.sPath = getFullsPath();
+        this.sPath = getFullPath();
     }
 
     public QueryString() {
@@ -33,7 +33,7 @@ public class QueryString extends ControlObject {
         this.sAlias = "";
         this.sQueryString = "";
         this.sControlType = sControl.substring(sControl.lastIndexOf((".")) + 1);
-        this.sPath = getFullsPath();
+        this.sPath = getFullPath();
     }
 
     /**
@@ -83,7 +83,7 @@ public class QueryString extends ControlObject {
      * @param headers        Headers to be set.
      * @return Success object.
      */
-    public Success get(String sUrlParameters, Map<String, String> headers) {
+    public Success GET(String sUrlParameters, Map<String, String> headers) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -98,7 +98,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            if(this.sAlias.isEmpty()){
+            if (this.sAlias.isEmpty()) {
                 throw new RuntimeException("Query String not declared correctly");
             }
 
@@ -130,7 +130,7 @@ public class QueryString extends ControlObject {
      * @param headers        Headers to be set.
      * @return Success object.
      */
-    public Success post(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
+    public Success POST(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -149,7 +149,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            if(this.sAlias.isEmpty()){
+            if (this.sAlias.isEmpty()) {
                 throw new RuntimeException("Query String not declared correctly");
             }
 
@@ -199,7 +199,7 @@ public class QueryString extends ControlObject {
      * @param headers        Headers to be set.
      * @return Success object.
      */
-    public Success put(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
+    public Success PUT(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -217,7 +217,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            if(this.sAlias.isEmpty()){
+            if (this.sAlias.isEmpty()) {
                 throw new RuntimeException("Query String not declared correctly");
             }
 
@@ -268,7 +268,7 @@ public class QueryString extends ControlObject {
      * @param contentType    contentType to be set
      * @return Success object.
      */
-    public Success delete(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
+    public Success DELETE(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
         Response rest = null;
         RequestSpecification req = RestAssured.given();
@@ -287,7 +287,7 @@ public class QueryString extends ControlObject {
 
             suc.sMessageAddon = sMessageAddon;
 
-            if(this.sAlias.isEmpty()){
+            if (this.sAlias.isEmpty()) {
                 throw new RuntimeException("Query String not declared correctly");
             }
 
@@ -335,20 +335,14 @@ public class QueryString extends ControlObject {
         xwwwformurlencoded
     }
 
-    private String getFullsPath() {
-        //StackTraceElement rootClass = Thread.currentThread().getStackTrace()[5];
+    private String getFullPath() {
         StackTraceElement mapClass = Thread.currentThread().getStackTrace()[4];
         String mapFolder = UIReferences.hlpr().cleanupPath(mapClass.getClassName());
 
-        //if (rootClass.getClassName().contains(".")) {
-            //String rootFolder = rootClass.getClassName() + "." + rootClass.getMethodName();
+        if (!mapClass.getMethodName().equals("<clinit>")) {
+            mapFolder = mapFolder + "." + mapClass.getMethodName();
+        }
 
-            if (!mapClass.getMethodName().equals("<clinit>"))
-                mapFolder = mapFolder + "." + mapClass.getMethodName();
-
-            //return rootFolder + "." + mapFolder;
-        //} else {
-            return mapFolder;
-        //}
+        return mapFolder;
     }
 }
