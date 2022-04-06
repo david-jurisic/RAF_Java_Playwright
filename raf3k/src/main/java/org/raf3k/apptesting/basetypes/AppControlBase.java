@@ -99,6 +99,7 @@ public class AppControlBase extends ControlObject {
         this.parent.sPath = this.sPath + ".Parent";
     }
 
+    //region Methods
     private Boolean checkIfControlStale() {
         try {
             if (_ControlReference != null) {
@@ -359,4 +360,5 @@ public class AppControlBase extends ControlObject {
                 throw new RuntimeException(String.format("Attribute {0} does not contain value {1}. Attribute value: {2}", sAttribute, sAttributeValue, sControlAttribute));
         }, this, "");
     }
+    //endregion
 }

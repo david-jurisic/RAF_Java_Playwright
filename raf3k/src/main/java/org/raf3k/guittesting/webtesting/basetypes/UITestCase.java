@@ -20,6 +20,7 @@ public class UITestCase extends TestCaseBase {
         setupWebDriver(null);
     }
 
+    //region Methods
     private void setupWebDriver(AbstractDriverOptions driverOptions)
     {
         try
@@ -45,7 +46,9 @@ public class UITestCase extends TestCaseBase {
             return;
         }
     }
+    //endregion
 
+    //region Junit Teardown/Setup
     @AfterAll
     public void uiTeardown() {
         try {
@@ -57,4 +60,5 @@ public class UITestCase extends TestCaseBase {
             return;
         }
     }
+    //endregion
 }

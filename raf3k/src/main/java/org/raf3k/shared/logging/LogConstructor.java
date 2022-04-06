@@ -198,6 +198,7 @@ public class LogConstructor {
         }
     }
 
+    //region HelperMethods
     private static String getLogTemplateFromAssembly(String fileName) {
         StringBuilder resultStringBuilder = new StringBuilder();
 
@@ -214,4 +215,5 @@ public class LogConstructor {
 
         return resultStringBuilder.toString();
     }
+    //endregion
 }

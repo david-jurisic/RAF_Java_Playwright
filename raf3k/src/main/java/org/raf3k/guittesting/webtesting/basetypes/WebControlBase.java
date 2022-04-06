@@ -81,6 +81,7 @@ public class WebControlBase extends ControlObject {
         this.parent.sPath = this.sPath + ".Parent";
     }
 
+    //region Methods
     /**
      * Method retrieves parent web control.
      *
@@ -490,4 +491,5 @@ public class WebControlBase extends ControlObject {
             return mapFolders;
         }
     }
+    //endregion
 }
