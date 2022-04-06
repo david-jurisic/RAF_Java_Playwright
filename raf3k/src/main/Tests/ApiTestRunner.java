@@ -17,7 +17,7 @@ public class ApiTestRunner extends UITestCase {
     void First() throws InterruptedException {
         Map.initializeAPI();
         newStep(1, "Send request to 'https://swapi.dev/api/' endpoint.");
-        success(Map.API.Get.get("/1", null));
+        success(Map.API.Get.GET("/1", null));
         RAFRestResponseEx resp = new RAFRestResponseEx(Map.API.Get.response);
         success(resp.verifyResponseCode(200));
         success(resp.verifyValue("id", 1, true));
@@ -85,10 +85,10 @@ public class ApiTestRunner extends UITestCase {
         java.util.Map<String, String> headers = java.util.Map.ofEntries(
                 entry("Authorization", "Bearer " + accessToken)
         );
-        success(Map.API.Tweet.post("", body, headers, QueryString.contentType.json));
+        success(Map.API.Tweet.POST("", body, headers, QueryString.contentType.json));
         var tweetId = Map.API.Tweet.response.response.jsonPath().getJsonObject("data.id").toString();
         success(Map.API.Tweet.response.verifyResponseCode(201));
-        success(Map.API.Tweet.delete("/" + tweetId, null, headers, null));
+        success(Map.API.Tweet.DELETE("/" + tweetId, null, headers, null));
         success(Map.API.Tweet.response.verifyResponseCode(200));
     }
 }
