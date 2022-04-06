@@ -27,8 +27,8 @@ public class WbLink extends WebControlBase {
      * Verifies if the text of WebLink is valid or not.
      *
      * @param sText   Expected text of a link.
-     * @param bExists If true, checks if text exists,if false, checks if text does not exists.
-     * @return Success object
+     * @param bExists If true - check if text exist, if false - checks if text does not exist.
+     * @return Success object.
      */
     public Success verifyText(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
@@ -48,8 +48,8 @@ public class WbLink extends WebControlBase {
      * Verifies if the text of WebLink contains given text or not.
      *
      * @param sText   Expected string that link text contains.
-     * @param bExists If true, checks if text exists,if false, checks if text does not exists.
-     * @return Success object
+     * @param bExists If true - check if text exist, if false - check if text does not exist.
+     * @return Success object.
      */
     public Success verifyTextContains(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->

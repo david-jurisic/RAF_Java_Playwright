@@ -32,7 +32,7 @@ public class WbPage extends WebControlBase {
     /**
      * Method activates web pages i.e. navigates driver to certain link.
      *
-     * @return Success object
+     * @return Success object.
      */
     public Success navigate() {
         return UIReferences.eval().evaluate(() ->
@@ -58,7 +58,7 @@ public class WbPage extends WebControlBase {
      * Method verifies the page is displayed by taking driver current URL and checking against the WebPage URL.
      *
      * @param iTime Duration(seconds) that the WebDriver waits for the URL to be contained.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyDisplayed(int iTime) {
         return UIReferences.eval().evaluate(() ->
@@ -75,7 +75,7 @@ public class WbPage extends WebControlBase {
     /**
      * Method verifies the page is displayed by taking driver current URL and checking.
      *
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyDisplayedByLink() {
         return UIReferences.eval().evaluate(() ->
@@ -181,10 +181,10 @@ public class WbPage extends WebControlBase {
     }
 
     /**
-     * method verifies if URL contains specific chunk of string
+     * method verifies if URL contains specific chunk of string.
      *
-     * @param sChunk string chunk to be verified
-     * @return Success object
+     * @param sChunk string chunk to be verified.
+     * @return Success object.
      */
     public Success verifyURLChunk(String sChunk) {
         return UIReferences.eval().evaluate(() ->

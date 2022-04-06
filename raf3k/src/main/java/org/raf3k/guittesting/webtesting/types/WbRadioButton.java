@@ -20,8 +20,8 @@ public class WbRadioButton extends WebControlBase {
     /**
      * Verifies if radio button is selected or not.
      *
-     * @param bSelected Set to 'false' if you want to check if radio button is not selected.It is 'true' by deafault.
-     * @return Success object
+     * @param bSelected Set to 'false' if you want to check if radio button is not selected.It is 'true' by default.
+     * @return Success object.
      */
     public Success verifySelected(boolean bSelected) {
         return UIReferences.eval().evaluate(() ->
@@ -41,7 +41,7 @@ public class WbRadioButton extends WebControlBase {
      * Method selects or deselects radio button.
      *
      * @param bSelect If set to true, method selects radio button, deselects otherwise.
-     * @return Success object
+     * @return Success object.
      */
     public Success select(boolean bSelect) {
         return UIReferences.eval().evaluate(() ->

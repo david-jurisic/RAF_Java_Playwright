@@ -30,8 +30,6 @@ public class LogConstructor {
                 generateHTMLLog(TestCase);
                 break;
         }
-
-        //AttachLogFileToRun(sLogPath);
     }
 
     private static void generateHTMLLog(TestCaseBase testCase) {

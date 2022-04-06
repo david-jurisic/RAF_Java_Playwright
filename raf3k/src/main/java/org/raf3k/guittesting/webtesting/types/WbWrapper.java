@@ -54,7 +54,7 @@ public class WbWrapper extends WebControlBase {
      * Method verifies text inside web wrapper.
      *
      * @param sText Text to be verified inside web wrapper.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyText(String sText) {
         return UIReferences.eval().evaluate(() ->
@@ -79,7 +79,7 @@ public class WbWrapper extends WebControlBase {
      * Method verifies if all checkboxes inside web wrapper are checked or not.
      *
      * @param bChecked Set to 'false' if you want to check if checkboxes inside web wrapper are unchecked. It is 'true' by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyAllCheckboxesChecked(boolean bChecked) {
         return UIReferences.eval().evaluate(() ->
@@ -99,7 +99,7 @@ public class WbWrapper extends WebControlBase {
      * Method verifies text inside web wrapper's input.
      *
      * @param sText Text to be verified inside input.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyInputText(String sText) {
         return UIReferences.eval().evaluate(() ->

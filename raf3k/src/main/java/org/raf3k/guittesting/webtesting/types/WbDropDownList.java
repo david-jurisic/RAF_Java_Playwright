@@ -26,7 +26,7 @@ public class WbDropDownList extends WebControlBase {
      * Verifies selected item in the drop-down list.
      *
      * @param sItem Selected item's text to be verified in the drop-down list.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifySelectedItem(String sItem) {
         return UIReferences.eval().evaluate(() ->
@@ -45,7 +45,7 @@ public class WbDropDownList extends WebControlBase {
     /**
      * Double clicks dropdown option.
      * @param iIdx Index of option.
-     * @return Success object
+     * @return Success object.
      */
     public Success doubleClickOnOption(int iIdx) {
         return UIReferences.eval().evaluate(() ->

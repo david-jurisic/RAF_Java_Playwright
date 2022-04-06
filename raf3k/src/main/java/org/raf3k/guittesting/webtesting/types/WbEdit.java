@@ -53,7 +53,7 @@ public class WbEdit extends WebControlBase {
      * @param bSetValue      If set to 'true' text will be set with action, it is 'false' by default.
      * @param bSetWithAction If set to 'true' text will be set with action.It is 'false' by default.
      * @param bClickControl  If set to 'true' web control will be clicked on, it is 'false' by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success setText(String sText, Boolean bSetValue, Boolean bSetWithAction, Boolean bClickControl) {
         return UIReferences.eval().evaluate(() ->
@@ -87,7 +87,7 @@ public class WbEdit extends WebControlBase {
      * Method sets text inside the textbox.
      *
      * @param sText Text to be set.
-     * @return Success object
+     * @return Success object.
      */
     public Success setText(String sText) {
         return UIReferences.eval().evaluate(() ->
@@ -167,9 +167,9 @@ public class WbEdit extends WebControlBase {
     }
 
     /**
-     * Method gets control text
+     * Method gets control text.
      *
-     * @return Success object, getTextValue Out parameter controls text
+     * @return Success object, getTextValue Out parameter
      */
     public Success getText() {
         getTextValue = "";

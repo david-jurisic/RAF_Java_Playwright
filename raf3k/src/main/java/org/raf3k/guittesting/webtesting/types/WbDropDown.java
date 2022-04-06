@@ -162,7 +162,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param sItem   Item to be selected.
      * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success setItem(String sItem, int iScroll) {
 
@@ -203,7 +203,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param sItem     Item to be verified.
      * @param bSelected If true, checks if item is selected, if false, check if item not selected.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifySelected(String sItem, boolean bSelected) {
 
@@ -231,7 +231,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param iExpectedOptionCount Expected option count.
      * @param operation            Verifies that dropdown has equal/less/more than options specified.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyOptionCount(int iExpectedOptionCount, Operations operation) {
         return UIReferences.eval().evaluate(() ->
@@ -291,7 +291,7 @@ public class WbDropDown extends WebControlBase {
     /**
      * Method clicks on button with action builder.
      *
-     * @return Success object
+     * @return Success object.
      */
     public Success clickWithAction() {
 
@@ -310,7 +310,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param iItemIndex Index of item that needs to be set.
      * @param iScroll    Int of value to scroll vertically. It is set to 0 by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success setItem(int iItemIndex, int iScroll) {
         return UIReferences.eval().evaluate(() ->
@@ -329,7 +329,7 @@ public class WbDropDown extends WebControlBase {
      * Method verifies if selected option contains expected value.
      *
      * @param sTextContains Value that selected item contains.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyFirstSelectedOptionTextContains(String sTextContains) {
         String sText = null;
@@ -354,7 +354,7 @@ public class WbDropDown extends WebControlBase {
      * Method selects items inside dropdown menu.
      *
      * @param sItems Items to be selected.
-     * @return Success object
+     * @return Success object.
      */
     public Success setMultipleItem(List<String> sItems) {
         return UIReferences.eval().evaluate(() ->
@@ -394,7 +394,7 @@ public class WbDropDown extends WebControlBase {
      * @param sItem     Item to be verified.
      * @param sClass    Class of an item to be verified.
      * @param bSelected If true, checks if item is selected, if false, check if item not selected.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifySelected(String sItem, String sClass, boolean bSelected) {
 
@@ -419,7 +419,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param sId       String value of item to be verified.
      * @param bSelected If true, checks if item is selected, if false, check if item not selected.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyItemSelectedByValue(String sId, boolean bSelected) {
         return UIReferences.eval().evaluate(() ->
@@ -470,7 +470,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param sItem   String value of item to be verified.
      * @param bExists If true, checks if item exists, if false, check if item does not exist.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyItemExists(String sItem, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
@@ -493,7 +493,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param selectedItems List of items to be verified.
      * @param bExists       If true, checks if items exists, if false, check if items does not exist.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyItemExists(ArrayList<String> selectedItems, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
@@ -549,11 +549,11 @@ public class WbDropDown extends WebControlBase {
     }
 
     /**
-     * This method select and double click on option in dropdown menu.
+     * This method select and double-click on option in dropdown menu.
      *
      * @param Idx     Index of expected item.
      * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success selectAndDoubleClickOnOption(int Idx, int iScroll) {
         return UIReferences.eval().evaluate(() ->
@@ -573,7 +573,7 @@ public class WbDropDown extends WebControlBase {
      *
      * @param sItem   Name of expected item.
      * @param iScroll Int of value to scroll vertically. It is set to 0 by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success selectAndDoubleClickOnOption(String sItem, int iScroll) {
         return UIReferences.eval().evaluate(() ->
@@ -591,7 +591,7 @@ public class WbDropDown extends WebControlBase {
     /**
      * Verifies that any item is selected, verifies that Not selected item is not selected.
      *
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyNotEmpty() {
         return UIReferences.eval().evaluate(() ->

@@ -32,7 +32,7 @@ public class RAFRestResponse extends ControlObject {
     }
 
     /**
-     * Method verifies response code
+     * Method verifies response code.
      *
      * @param responseCode Response code to be verified.
      * @return Success Object.
@@ -114,7 +114,7 @@ public class RAFRestResponse extends ControlObject {
      * Method verifies if json field is empty or not.
      *
      * @param sPath  Path to the field in the response.
-     * @param bEmpty >Verifies if the json field is empty or not
+     * @param bEmpty >Verifies if the json field is empty or not.
      * @return Success object.
      */
     public Success verifyEmpty(String sPath, Boolean bEmpty) {
@@ -153,7 +153,7 @@ public class RAFRestResponse extends ControlObject {
      *
      * @param sPath     Path to the field in the response.
      * @param sValue    Value to be verified.
-     * @param bContains Should array contain the value or not
+     * @param bContains Should array contain the value or not.
      * @return Success object.
      */
     public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {

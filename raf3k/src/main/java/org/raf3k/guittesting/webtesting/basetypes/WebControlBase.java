@@ -126,7 +126,7 @@ public class WebControlBase extends ControlObject {
     /**
      * Method clicks on web control.
      *
-     * @return Success object
+     * @return Success object.
      */
     public Success click() {
         return UIReferences.eval().evaluate(() ->
@@ -153,7 +153,7 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
-     * Method moves the mouse to the element
+     * Method moves the mouse to the element.
      *
      * @return Success object.
      */
@@ -170,7 +170,7 @@ public class WebControlBase extends ControlObject {
      * Method verifies the web control is displayed.
      *
      * @param bDisplayed Bool parameter, if set to false, verifies the web control is not displayed.
-     * @return Success object
+     * @return Success object.
      */
     public Success displayed(Boolean bDisplayed) {
         return UIReferences.eval().evaluate(() ->
@@ -236,7 +236,7 @@ public class WebControlBase extends ControlObject {
     }
 
     /**
-     * Method verifies size of the web control
+     * Method verifies size of the web control.
      *
      * @param iXAxis Expected width of web control.
      * @param iYAxis Expected height of web control.
@@ -260,8 +260,8 @@ public class WebControlBase extends ControlObject {
     /**
      * Method verifies web control is enabled.
      *
-     * @param bEnabled Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled
-     * @return Success object
+     * @param bEnabled Set to 'false' if you want to check if web control is not enabled. Set to true if you want to check if web control is enabled.
+     * @return Success object.
      */
     public Success enabled(Boolean bEnabled) {
         return UIReferences.eval().evaluate(() ->
@@ -339,7 +339,7 @@ public class WebControlBase extends ControlObject {
     /**
      * Method return click and hold metrics.
      *
-     * @return Success object, iSeconds
+     * @return Success object, iSeconds Out parameter
      */
     public Success clickAndHoldReturnMetric() {
         iSeconds = 0;

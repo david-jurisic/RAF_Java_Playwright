@@ -123,7 +123,7 @@ public class QueryString extends ControlObject {
     }
 
     /**
-     * Method sends given data to create a resource
+     * Method sends given data to create a resource.
      *
      * @param sUrlParameters Url parameters to be set.
      * @param body           Body to be set
@@ -192,7 +192,7 @@ public class QueryString extends ControlObject {
     }
 
     /**
-     * Method sends given data to update a resource
+     * Method sends given data to update a resource.
      *
      * @param sUrlParameters Url parameters to be set.
      * @param body           Body to be set
@@ -264,8 +264,8 @@ public class QueryString extends ControlObject {
      *
      * @param sUrlParameters Url parameters to be set.
      * @param headers        Headers to be set.
-     * @param body           Body to be set
-     * @param contentType    contentType to be set
+     * @param body           Body to be set.
+     * @param contentType    contentType to be set.
      * @return Success object.
      */
     public Success DELETE(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {

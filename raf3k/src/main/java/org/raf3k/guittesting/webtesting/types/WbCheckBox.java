@@ -44,8 +44,8 @@ public class WbCheckBox extends WebControlBase {
     /**
      * Method returns out parameter true if checkbox is checked, false is checkbox is not checked.
      *
-     * @param skipMessage Log message
-     * @return Success object, getCheckedValue - Boolean
+     * @param skipMessage Log message.
+     * @return Success object, getCheckedValue Out parameter
      */
     public Success getCheckedAndSkip(String skipMessage) {
         Success Suc = new Success(this);
@@ -69,7 +69,7 @@ public class WbCheckBox extends WebControlBase {
      *
      * @param bCheck           Bool parameter, if set to true, checkbox will be checked, if false, checkbox will be unchecked.
      * @param bCheckWithAction If set to true checkbox will be checked with action.It is false by default.
-     * @return Success object
+     * @return Success object.
      */
     public Success check(boolean bCheck, boolean bCheckWithAction) {
         return UIReferences.eval().evaluate(() ->

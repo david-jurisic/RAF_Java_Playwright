@@ -193,7 +193,7 @@ public class WbTable extends WebControlBase {
      *
      * @param sColumnName Column name you want to verify.
      * @param bExists     Set to false if you want to check if column does not exist.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyColumnExists(String sColumnName, boolean bExists) {
         return UIReferences.eval().evaluate(() ->
@@ -234,8 +234,8 @@ public class WbTable extends WebControlBase {
      * Method verifies table row count.
      *
      * @param iExpectedRowCount Expected number of rows in a table.
-     * @param operation         Verifies that table has equal/less/more then rows specified.
-     * @return Success object
+     * @param operation         Verifies that table has equal/less/more than rows specified.
+     * @return Success object.
      */
     public Success verifyRowCount(int iExpectedRowCount, Operations operation) {
         return UIReferences.eval().evaluate(() ->
@@ -268,7 +268,7 @@ public class WbTable extends WebControlBase {
      * Verifies if the table is empty or not.
      *
      * @param bEmpty Set to 'false' if you want to check if table is empty.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyEmpty(boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
@@ -292,7 +292,7 @@ public class WbTable extends WebControlBase {
      * Clicks on header
      *
      * @param sHeader Name of header in a table.
-     * @return Success object
+     * @return Success object.
      */
     public Success clickOnHeader(String sHeader) {
         return UIReferences.eval().evaluate(() ->
@@ -322,7 +322,7 @@ public class WbTable extends WebControlBase {
      * Verifies term in table exists.
      *
      * @param sText Text expected to be found.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyTermExists(String sText) {
         return UIReferences.eval().evaluate(() ->

@@ -31,9 +31,9 @@ public class WbButton extends WebControlBase {
     /**
      * Method verifies button text.
      *
-     * @param sText   Control text that needs to be verified
+     * @param sText   Control text that needs to be verified.
      * @param bExists If set to 'true', checks if text exists. If set to 'false', checks if texts does not exist.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyText(String sText, boolean bExists) {
         return UIReferences.eval().evaluate(() ->

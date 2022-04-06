@@ -35,7 +35,7 @@ public class RAFDataTable extends ControlObject {
      *
      * @param sColumnName Column name where value is.
      * @param sValue      Value to be verified.
-     * @param bExists     'true' check that the value exists, 'false' checks that a value doesn't exist
+     * @param bExists     'true' check that the value exists, 'false' checks that a value doesn't exist.
      * @return Success object.
      */
     public Success verifyTableValue(String sColumnName, String sValue, Boolean bExists) {

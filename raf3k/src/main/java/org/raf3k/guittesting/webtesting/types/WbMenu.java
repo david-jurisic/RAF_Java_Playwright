@@ -25,7 +25,7 @@ public class WbMenu extends WebControlBase {
      * Sets item in the web menu.
      *
      * @param sItem Name of the item to be set.
-     * @return Success object
+     * @return Success object.
      */
     public Success setMenuItem(String sItem) {
         return UIReferences.eval().evaluate(() ->
@@ -52,7 +52,7 @@ public class WbMenu extends WebControlBase {
      * Verifies if the menu item is present in webMenu.
      *
      * @param sItemText Text of wanted element.
-     * @return Success object
+     * @return Success object.
      */
     public Success verifyMenuItemPresent(String sItemText) {
         return UIReferences.eval().evaluate(() ->
