@@ -3,6 +3,7 @@ package org.raf3k.shared.logging;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.raf3k.apitesting.basetypes.APITestCase;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 
@@ -45,7 +46,12 @@ public class LogConstructor {
             String sTableData = "<tbody class='labels'>";
             sTableData += "<tr class='" + sRowColor + "'><td colspan='2'><label for='" + step.stepNumber + "'>" + step.stepNumber + "  " +
                     step.stepName + "</label><input type='checkbox' name='" + step.stepNumber + " ' id='" + step.stepNumber +
-                    "' data-toggle='toggle'></td><td>" + String.format("%.2f", (float) step.durations().toMillis() / 1000) + "</td><td></td></tr>";
+                    "' data-toggle='toggle'></td><td>" + String.format("%.2f", (float) step.durations().toMillis() / 1000) + "</td>";
+            if (testCase.getClass().getName() != APITestCase.class.getName())
+                sTableData += "<td></td></tr>";
+            else
+                sTableData += "</tr>";
+
             sTableData += "</tbody><tbody class='hide'>";
             int i = 1;
             for (Substep SubStep : step.substeps) {
@@ -70,9 +76,9 @@ public class LogConstructor {
                                     " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
                                     SubStep.ex.getCause().getMessage() + "</b></td>";
                         else if (SubStep.ex != null && SubStep.ex.getCause() == null)
-                        sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
-                                " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
-                                SubStep.ex.getMessage() + "</b></td>";
+                            sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
+                                    " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
+                                    SubStep.ex.getMessage() + "</b></td>";
                         else
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" +
                                     SubStep.name + " <span id='Span" + step.stepNumber + i +
@@ -81,11 +87,11 @@ public class LogConstructor {
 
                 }
                 sTableData += "<td>" + String.format("%.2f", (float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000) + "</td>";
-                if (SubStep.passed)
+                if (SubStep.passed && testCase.getClass().getName() != APITestCase.class.getName())
                     sTableData += "<td></td>";
-                else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty())
+                else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty() && testCase.getClass().getName() != APITestCase.class.getName())
                     sTableData += "<td><button data-image='" + SubStep.screenshot + "' onclick='DisplayScreenshot()'>...</button></td>";
-                else
+                else if (testCase.getClass().getName() != APITestCase.class.getName())
                     sTableData += "<td>N/A</td>";
                 sTableData += "</tr>";
                 if (SubStep.messageAddon != null && !SubStep.messageAddon.isEmpty()) {
@@ -127,9 +133,13 @@ public class LogConstructor {
         String sExport = sHtmlLog.replace("[TableData]", sLogData);
         sExport = sExport.replace("[TestCaseCode]", " " + testCase.sTestCaseCode);
         sExport = sExport.replace("[TestCaseName]", " " + testCase.sTestCaseName);
-        sExport = sExport.replace("[TestCaseDuration]",String.format("%.2f",
+        sExport = sExport.replace("[TestCaseDuration]", String.format("%.2f",
                 (float) testCase.steps.stream().filter(m -> m.durations().toMillis() > 0).mapToLong(n -> n.durations().toMillis()).sum() / 1000) + " sec");
         sExport = sExport.replace("[TestCaseAuthor]", testCase.sTestCaseAuthor);
+        if (testCase.getClass().getName() != APITestCase.class.getName())
+            sExport = sExport.replace("[scrnTableHead]", "<th>Scrn</th>");
+        else
+            sExport = sExport.replace("[scrnTableHead]", "");
 
         Path sFolderPath = Path.of(SharedVariables.configuration.getProperty("logFilePath"), testCase.sTestCaseCode);
 
