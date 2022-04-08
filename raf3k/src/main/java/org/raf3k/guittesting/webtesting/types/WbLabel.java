@@ -55,10 +55,10 @@ public class WbLabel extends WebControlBase {
             this.exists();
 
             if (bExists && !control().getText().contains(sText))
-                throw new RuntimeException(String.format("Label Text '{0}' is not as expected. Expected text: {1}.", control().getText(), sText));
+                throw new RuntimeException(MessageFormat.format("Label Text \"{0}\" is not as expected. Expected text: {1}.", control().getText(), sText));
 
             if (!bExists && control().getText().contains(sText))
-                throw new RuntimeException(String.format("Text is expected not to exist. Label Text: {0}, not expected text: {1}", control().getText(), sText));
+                throw new RuntimeException(MessageFormat.format("Text is expected not to exist. Label Text: {0}, not expected text: {1}", control().getText(), sText));
         }, this, "");
     }
 }
