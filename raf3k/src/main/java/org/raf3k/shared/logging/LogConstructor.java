@@ -134,6 +134,9 @@ public class LogConstructor {
         sExport = sExport.replace("[TestCaseDuration]", String.format("%.2f",
                 (float) testCase.steps.stream().filter(m -> m.durations().toMillis() > 0).mapToLong(n -> n.durations().toMillis()).sum() / 1000) + " sec");
         sExport = sExport.replace("[TestCaseAuthor]", testCase.sTestCaseAuthor);
+        sExport = sExport.replace("[TestResult]", "<p class='moveRight " + (testCase.bPass == true ? "success" : "danger") + "'>Test: " +
+                (testCase.bPass == true ? "Passed" : "Failed") + "</p>");
+
         if (testCase.getClass().getName() != APITestCase.class.getName())
             sExport = sExport.replace("[scrnTableHead]", "<th>Scrn</th>");
         else
