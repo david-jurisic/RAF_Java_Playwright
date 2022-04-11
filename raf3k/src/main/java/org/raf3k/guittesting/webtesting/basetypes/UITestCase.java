@@ -15,6 +15,11 @@ public class UITestCase extends TestCaseBase {
         setupWebDriver(null);
     }
 
+    public UITestCase(String testCaseName, String testCaseCode, String testCaseAuthor, AbstractDriverOptions options) {
+        super(testCaseName, testCaseCode, testCaseAuthor);
+        setupWebDriver(options);
+    }
+
     public UITestCase() {
         super();
         setupWebDriver(null);
