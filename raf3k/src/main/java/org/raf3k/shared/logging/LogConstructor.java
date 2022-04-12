@@ -153,17 +153,25 @@ public class LogConstructor {
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyhhss");
-        sLogPath = Path.of(sFolderPath.toString(), LocalDateTime.now().format(formatter) + ".html");
+        String currentDateTime = LocalDateTime.now().format(formatter);
+        sLogPath = Path.of(sFolderPath.toString(), currentDateTime);
 
         FileWriter myWriter;
         try {
-            myWriter = new FileWriter(sLogPath.toString());
+            myWriter = new FileWriter(sLogPath + ".html");
             myWriter.write(sExport);
             myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        File testVideoFile = new File(Path.of(sFolderPath.toString(), "video.tmp").toString());
+        if (testVideoFile.exists()) {
+            if (testCase.bPass)
+                testVideoFile.delete();
+            else
+                testVideoFile.renameTo(new File(sLogPath.toString() + ".avi"));
+        }
     }
 
     private static void generateJsonLog(TestCaseBase testCase) {
