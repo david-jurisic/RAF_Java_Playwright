@@ -1,5 +1,6 @@
 package org.raf3k.apitesting.basetypes;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -9,12 +10,8 @@ import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.logging.Success;
 
 import java.text.MessageFormat;
-import java.util.Dictionary;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import io.restassured.*;
 
 public class QueryString extends ControlObject {
     private String sQueryString;

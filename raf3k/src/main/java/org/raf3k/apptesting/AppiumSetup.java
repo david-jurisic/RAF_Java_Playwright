@@ -6,12 +6,9 @@ import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
-
-import java.net.URL;
 
 public class AppiumSetup {
     public void setupAppiumDriver(AppiumDriverLocalService service) {

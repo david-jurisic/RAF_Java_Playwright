@@ -1,11 +1,11 @@
 package org.raf3k.guittesting.webtesting.types;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.shared.logging.Success;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.JavascriptExecutor;
 
 public class WbEdit extends WebControlBase {
     public String getTextValue = null;

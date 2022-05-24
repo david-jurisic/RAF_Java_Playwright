@@ -1,8 +1,8 @@
 package org.raf3k.testproject.extendedtypes.ui;
 
+import org.openqa.selenium.By;
 import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.guittesting.webtesting.types.WbEdit;
-import org.openqa.selenium.By;
 
 public class WbEditEx extends WbEdit {
     public WbEditEx(By searchBy, String alias) {

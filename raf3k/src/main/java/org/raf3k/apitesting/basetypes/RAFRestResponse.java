@@ -7,7 +7,8 @@ import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 
 public class RAFRestResponse extends ControlObject {
     public Response response;

@@ -2,9 +2,7 @@ package org.raf3k.apptesting.types;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.raf3k.apptesting.AppReferences;
 import org.raf3k.apptesting.basetypes.AppControlBase;
-import org.raf3k.shared.logging.Success;
 
 public class MbButton extends AppControlBase {
 

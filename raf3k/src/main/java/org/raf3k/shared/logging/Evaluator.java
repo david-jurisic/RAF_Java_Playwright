@@ -1,12 +1,11 @@
 package org.raf3k.shared.logging;
 
-import org.raf3k.shared.DebugLog;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.raf3k.shared.DebugLog;
 
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;

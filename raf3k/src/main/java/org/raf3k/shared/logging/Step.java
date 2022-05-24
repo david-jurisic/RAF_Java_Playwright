@@ -2,13 +2,8 @@ package org.raf3k.shared.logging;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Time;
-import java.text.*;
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Step {
     public int stepNumber;

@@ -2,8 +2,8 @@ package org.raf3k.guittesting.webtesting.types;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.guittesting.UIReferences;
+import org.raf3k.guittesting.webtesting.basetypes.WebControlBase;
 import org.raf3k.shared.logging.Success;
 
 import java.net.MalformedURLException;
