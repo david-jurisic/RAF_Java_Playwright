@@ -44,6 +44,7 @@ public class WbDropDownList extends WebControlBase {
 
     /**
      * Double clicks dropdown option.
+     *
      * @param iIdx Index of option.
      * @return Success object.
      */

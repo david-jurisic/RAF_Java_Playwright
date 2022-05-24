@@ -82,6 +82,7 @@ public class WebControlBase extends ControlObject {
     }
 
     //region Methods
+
     /**
      * Method retrieves parent web control.
      *

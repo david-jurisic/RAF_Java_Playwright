@@ -32,16 +32,16 @@ public class AppTestCase extends TestCaseBase {
         try {
 
             if (SharedVariables.configuration.getProperty("ipAddress") != null)
-                    service = new AppiumServiceBuilder().withArgument(GeneralServerFlag.RELAXED_SECURITY)
-                            .withIPAddress(SharedVariables.configuration.getProperty(("ipAddress")))
-                            .usingPort(Integer.parseInt(SharedVariables.configuration.getProperty("appiumServerPort")))
-                            .withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/")
-                            .build();
-                else
-                    service = new AppiumServiceBuilder().withArgument(GeneralServerFlag.RELAXED_SECURITY)
-                            .usingAnyFreePort()
-                            .withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/")
-                            .build();
+                service = new AppiumServiceBuilder().withArgument(GeneralServerFlag.RELAXED_SECURITY)
+                        .withIPAddress(SharedVariables.configuration.getProperty(("ipAddress")))
+                        .usingPort(Integer.parseInt(SharedVariables.configuration.getProperty("appiumServerPort")))
+                        .withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/")
+                        .build();
+            else
+                service = new AppiumServiceBuilder().withArgument(GeneralServerFlag.RELAXED_SECURITY)
+                        .usingAnyFreePort()
+                        .withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/")
+                        .build();
             AppiumSetup setup = new AppiumSetup();
             setup.setupAppiumDriver(service);
             DebugLog.add("Driver setup complete", 2);

@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class AppEngine {
 
-    public WebElement findControl(String sControlType, String sControlPath, By searchBy, AppControlBase parent, String sError, boolean bDisplayed, boolean bMustBeVisible, int iTimeoutOverride){
+    public WebElement findControl(String sControlType, String sControlPath, By searchBy, AppControlBase parent, String sError, boolean bDisplayed, boolean bMustBeVisible, int iTimeoutOverride) {
         try {
             WebElement control = null;
             var timeSeconds = SharedVariables.configuration.getProperty("controlWaitTime");
@@ -27,10 +27,9 @@ public class AppEngine {
             if (parent == null)
                 control = wait.until(bMustBeVisible ? ExpectedConditions.visibilityOfElementLocated(searchBy) : ExpectedConditions.presenceOfElementLocated(searchBy));
             else
-                control = (WebElement)wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(parent.control(), searchBy));
+                control = (WebElement) wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(parent.control(), searchBy));
             return control;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             DebugLog.add("Error finding control: " + sControlPath, 3);
             return null;
         }

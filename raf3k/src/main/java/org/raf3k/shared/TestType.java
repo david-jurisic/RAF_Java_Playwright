@@ -1,7 +1,6 @@
 package org.raf3k.shared;
 
-public enum TestType
-{
+public enum TestType {
     API,
     UI,
     Mobile

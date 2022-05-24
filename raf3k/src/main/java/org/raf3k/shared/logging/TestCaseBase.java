@@ -76,7 +76,7 @@ public class TestCaseBase {
         Step.passed = newSuccess.bPassed;
         Step.screenshot = newSuccess.sScreenshot;
         Step.messageAddon = newSuccess.sMessageAddon;
-        
+
         if (this.getClass() == APITestCase.class)
             Step.name = newSuccess.sPath + newSuccess.sAlias + "." + newSuccess.sMethodName +
                     "(" + (newSuccess.sMethodArguments != null ? newSuccess.sMethodArguments : "") + ")";

@@ -6,7 +6,8 @@ public class APITestCase extends TestCaseBase {
     public APITestCase() {
         super();
     }
-    public APITestCase(String TestCaseName, String TestCaseCode, String TestCaseAuthor){
+
+    public APITestCase(String TestCaseName, String TestCaseCode, String TestCaseAuthor) {
         super(TestCaseName, TestCaseCode, TestCaseAuthor);
     }
 }

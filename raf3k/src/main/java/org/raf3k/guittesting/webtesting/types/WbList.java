@@ -154,8 +154,8 @@ public class WbList extends WebControlBase {
      *
      * @return Boolean.
      */
-    public Boolean verifyEmpty(){
-        if(getListItemsCount() > 0)
+    public Boolean verifyEmpty() {
+        if (getListItemsCount() > 0)
             return false;
         else
             return true;

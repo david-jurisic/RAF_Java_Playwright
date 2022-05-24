@@ -109,7 +109,7 @@ public class Application extends AppControlBase {
      *
      * @return Success object.
      */
-    public Success sendToBackground(){
+    public Success sendToBackground() {
         return AppReferences.eval().evaluate(() -> {
 
             if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
@@ -126,7 +126,7 @@ public class Application extends AppControlBase {
      *
      * @return Success object.
      */
-    public Success open(){
+    public Success open() {
         return AppReferences.eval().evaluate(() -> {
 
             if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
@@ -143,7 +143,7 @@ public class Application extends AppControlBase {
      *
      * @return Success object.
      */
-    public Success reset(){
+    public Success reset() {
         return AppReferences.eval().evaluate(() -> {
 
             if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {
@@ -160,7 +160,7 @@ public class Application extends AppControlBase {
      *
      * @return Success object.
      */
-    public Success terminate(){
+    public Success terminate() {
         return AppReferences.eval().evaluate(() -> {
 
             if (SharedVariables.configuration.getProperty("platformName").toLowerCase().equals("android")) {

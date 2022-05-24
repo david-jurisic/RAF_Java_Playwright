@@ -39,7 +39,7 @@ public class TestRunnerWbDropDown extends UITestCase {
         success(Map.Tags.ddPageSize.verifyItemSelectedByValue("10", true));
         success(Map.Tags.ddPageSize.verifyItemExists("50", true));
         success(Map.Tags.ddPageSize.verifyItemExists("60", false));
-        success(Map.Tags.ddPageSize.verifyItemExists(options,true));
+        success(Map.Tags.ddPageSize.verifyItemExists(options, true));
         success(Map.Tags.ddPageSize.getFirstSelectedOptionText());
         System.out.println(Map.Tags.ddPageSize.firstSelectedOption);
         success(Map.Tags.ddPageSize.verifyNotEmpty());

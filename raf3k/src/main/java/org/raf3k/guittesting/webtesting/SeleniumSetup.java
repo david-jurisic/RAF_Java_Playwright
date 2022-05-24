@@ -12,54 +12,46 @@ import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.SharedVariables;
 
 public class SeleniumSetup {
-    public void setupWebDriver(AbstractDriverOptions driverOptions, WebDriver customWebDriver)
-    {
-        if (customWebDriver == null)
-        {
+    public void setupWebDriver(AbstractDriverOptions driverOptions, WebDriver customWebDriver) {
+        if (customWebDriver == null) {
             String Browser = SharedVariables.configuration.getProperty("browser");
             String sWebDriverPath = SharedVariables.configuration.getProperty("seleniumWebDriverPath");
 
-            switch (Browser.toLowerCase())
-            {
+            switch (Browser.toLowerCase()) {
 
                 case "firefox":
                     System.setProperty("webdriver.gecko.driver", sWebDriverPath + "\\geckodriver.exe");
 
-                    if(driverOptions == null) {
+                    if (driverOptions == null) {
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
                         UIReferences.setWebDriver(new FirefoxDriver(firefoxOptions));
-                    }
-                    else {
-                        UIReferences.setWebDriver(new FirefoxDriver((FirefoxOptions)driverOptions));
+                    } else {
+                        UIReferences.setWebDriver(new FirefoxDriver((FirefoxOptions) driverOptions));
                     }
                     break;
                 case "edge":
                     System.setProperty("webdriver.edge.driver", sWebDriverPath + "\\msedgedriver.exe");
 
-                    if(driverOptions == null) {
+                    if (driverOptions == null) {
                         EdgeOptions edgeOptions = new EdgeOptions();
                         UIReferences.setWebDriver(new EdgeDriver(edgeOptions));
-                    }
-                    else {
-                        UIReferences.setWebDriver(new EdgeDriver((EdgeOptions)driverOptions));
+                    } else {
+                        UIReferences.setWebDriver(new EdgeDriver((EdgeOptions) driverOptions));
                     }
                     break;
                 case "chrome":
                 default:
                     System.setProperty("webdriver.chrome.driver", sWebDriverPath + "\\chromedriver.exe");
 
-                    if(driverOptions == null) {
+                    if (driverOptions == null) {
                         ChromeOptions chromeOptions = new ChromeOptions();
                         UIReferences.setWebDriver(new ChromeDriver(chromeOptions));
-                    }
-                    else {
-                        UIReferences.setWebDriver(new ChromeDriver((ChromeOptions)driverOptions));
+                    } else {
+                        UIReferences.setWebDriver(new ChromeDriver((ChromeOptions) driverOptions));
                     }
                     break;
             }
-        }
-        else
-        {
+        } else {
             UIReferences.setWebDriver(customWebDriver);
         }
         UIReferences.getWebDriver().manage().window().maximize();

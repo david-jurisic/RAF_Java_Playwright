@@ -14,15 +14,15 @@ public class TestRunnerWbLink extends UITestCase {
         success(Map.Login.page.navigate());
         success(Map.Login.page.verifyDisplayed());
 
-        success(Map.Login.txtEmail.setText("admin@roxoft.hr",false,false,false));
-        success(Map.Login.txtPassword.setText("RoxoftKale123",false,false,false));
+        success(Map.Login.txtEmail.setText("admin@roxoft.hr", false, false, false));
+        success(Map.Login.txtPassword.setText("RoxoftKale123", false, false, false));
         success(Map.Login.btnSignIn.click());
 
-        success(Map.Home.link1.verifyText("2",true));
-        success(Map.Home.link2.verifyTextContains("Projec",true));
+        success(Map.Home.link1.verifyText("2", true));
+        success(Map.Home.link2.verifyTextContains("Projec", true));
 
-        success(Map.Home.link1.verifyText("3",false));
-        success(Map.Home.link2.verifyTextContains("Projecnnnn",false));
+        success(Map.Home.link1.verifyText("3", false));
+        success(Map.Home.link2.verifyTextContains("Projecnnnn", false));
 
     }
 }

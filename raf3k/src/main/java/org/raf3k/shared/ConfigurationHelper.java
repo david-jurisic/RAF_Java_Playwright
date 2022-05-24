@@ -7,8 +7,7 @@ import java.util.Properties;
 public class ConfigurationHelper {
     private final Properties configProp = new Properties();
 
-    public ConfigurationHelper()
-    {
+    public ConfigurationHelper() {
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
         try {
             configProp.load(in);
@@ -17,7 +16,7 @@ public class ConfigurationHelper {
         }
     }
 
-    public String getProperty(String key){
+    public String getProperty(String key) {
         return configProp.getProperty(key);
     }
 }

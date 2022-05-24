@@ -9,7 +9,7 @@ public class RAFRestResponseEx extends RAFRestResponse {
         super(query, resp);
     }
 
-    public RAFRestResponseEx(RAFRestResponse rafRestResponse){
+    public RAFRestResponseEx(RAFRestResponse rafRestResponse) {
         super();
         response = rafRestResponse.response;
         sAlias = rafRestResponse.sAlias;

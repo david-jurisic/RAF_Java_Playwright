@@ -14,8 +14,8 @@ public class TestRunnerWbDropDownList extends UITestCase {
         success(Map.Login.page.navigate());
         success(Map.Login.page.verifyDisplayed());
 
-        success(Map.Login.txtEmail.setText("admin@roxoft.hr",false,false,false));
-        success(Map.Login.txtPassword.setText("RoxoftKale123",false,false,false));
+        success(Map.Login.txtEmail.setText("admin@roxoft.hr", false, false, false));
+        success(Map.Login.txtPassword.setText("RoxoftKale123", false, false, false));
         success(Map.Login.btnSignIn.click());
 
         success(Map.Home.btnTags.click());

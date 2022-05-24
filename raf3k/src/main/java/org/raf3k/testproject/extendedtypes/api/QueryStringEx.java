@@ -7,7 +7,7 @@ public class QueryStringEx extends QueryString {
         super(_sQueryString);
     }
 
-    public  QueryStringEx(){
+    public QueryStringEx() {
         super();
     }
 }

@@ -75,7 +75,7 @@ public class WbCheckBox extends WebControlBase {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists();
-            
+
             if (bCheck && control().isSelected())
                 throw new RuntimeException("Control is already selected.");
             if (!bCheck && !control().isSelected())

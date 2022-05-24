@@ -41,15 +41,14 @@ public class RAFRestResponse extends ControlObject {
     public Success verifyResponseCode(Integer responseCode) {
         Success success = new Success(this);
         String sMessageAddon = "";
-        try{
+        try {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
             response.then().statusCode(responseCode);
 
             return success.finish(null);
-        }
-        catch(Throwable ex){
+        } catch (Throwable ex) {
             sMessageAddon += "<h3>JSON Response:</h3> <br><p>" + response.asPrettyString() + "</p><br>";
             success.sMessageAddon = sMessageAddon;
             return success.finish(new Exception(ex));

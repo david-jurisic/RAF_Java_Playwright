@@ -10,6 +10,7 @@ public class BySelectedOption extends JavaScriptBy {
 
     /**
      * Creates a new instance of "BySelectedOption".
+     *
      * @param model The model name.
      */
     public BySelectedOption(String model) {

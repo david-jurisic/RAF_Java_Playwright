@@ -353,7 +353,7 @@ public class AppControlBase extends ControlObject {
             if (sControlAttribute == null)
                 throw new RuntimeException(String.format("Element does not contain attribute {0}.", sAttribute));
 
-            if(sControlAttribute != sAttributeValue)
+            if (sControlAttribute != sAttributeValue)
                 throw new RuntimeException(String.format("Attribute {0} does not contain value {1}. Attribute value: {2}", sAttribute, sAttributeValue, sControlAttribute));
         }, this, "");
     }

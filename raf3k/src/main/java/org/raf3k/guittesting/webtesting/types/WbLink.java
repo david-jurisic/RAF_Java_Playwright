@@ -9,7 +9,8 @@ import org.raf3k.shared.logging.Success;
 import java.text.MessageFormat;
 
 public class WbLink extends WebControlBase {
-    public WbLink(){}
+    public WbLink() {
+    }
 
     public WbLink(By searchBy, String alias) {
         super(searchBy, alias);

@@ -17,11 +17,11 @@ public class AppReferences {
         return _AppDriver;
     }
 
-    public static AndroidDriver getAndroidDriver(){
+    public static AndroidDriver getAndroidDriver() {
         return (AndroidDriver) _AppDriver;
     }
 
-    public static IOSDriver getIOSDriver(){
+    public static IOSDriver getIOSDriver() {
         return (IOSDriver) _AppDriver;
     }
 
@@ -58,8 +58,7 @@ public class AppReferences {
 
     private static TouchActions _TouchActionsBuilder;
 
-    public static TouchActions touchActionsBuilder()
-    {
+    public static TouchActions touchActionsBuilder() {
         if (_TouchActionsBuilder == null)
             _TouchActionsBuilder = new TouchActions(getAppDriver());
         return _TouchActionsBuilder;

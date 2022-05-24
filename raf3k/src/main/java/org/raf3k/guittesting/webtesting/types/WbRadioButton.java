@@ -8,7 +8,6 @@ import org.raf3k.shared.logging.Success;
 public class WbRadioButton extends WebControlBase {
 
 
-
     public WbRadioButton(By searchBy, String alias) {
         super(searchBy, alias);
     }
@@ -47,7 +46,7 @@ public class WbRadioButton extends WebControlBase {
         return UIReferences.eval().evaluate(() ->
         {
             this.exists();
-            
+
             if (control().isSelected() && bSelect)
                 throw new RuntimeException("Control is already selected.");
 

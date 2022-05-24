@@ -19,7 +19,7 @@ public final class Map {
     public static void initialize2() {
         UIReferences.currentPageContext = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered2";
     }
-    
+
     public static void initializeAPI() {
         APIReferences.currentPageContext = "https://pokeapi.co/api/v2/";
     }
@@ -28,17 +28,15 @@ public final class Map {
         APIReferences.currentPageContext = "https://api.twitter.com/2/";
     }
 
-    public static void accessToken()
-    {
+    public static void accessToken() {
         UIReferences.currentPageContext = "https://reacthttprequestapp.web.app/";
     }
-    public static void twitterMapInit()
-    {
+
+    public static void twitterMapInit() {
         UIReferences.currentPageContext = "https://twitter.com/";
     }
 
-    public static void corsAnyWhere()
-    {
+    public static void corsAnyWhere() {
         UIReferences.currentPageContext = "https://cors-anywhere.herokuapp.com/corsdemo";
     }
 
@@ -129,9 +127,8 @@ public final class Map {
         }
     }
 
-    public static class TwitterMap{
-        public static class RequestToken
-        {
+    public static class TwitterMap {
+        public static class RequestToken {
             public static WbPageEx page = new WbPageEx("", "page");
             public static WbLinkEx lnkTempAccess = new WbLinkEx(By.name("corsLinkDemo"), "lnkTempAccess");
             public static WbEditEx txtClientId = new WbEditEx(By.name("ClientId"), "txtClientId");
@@ -141,14 +138,12 @@ public final class Map {
             public static WbLabelEx lblAccessToken = new WbLabelEx(By.name("access_token"), "lblAccessToken");
         }
 
-        public static class RequestAccess
-        {
+        public static class RequestAccess {
             public static WbPageEx page = new WbPageEx("", "page");
             public static WbButtonEx btnRequest = new WbButtonEx(By.xpath("//*[@type='submit']"), "btnRequest");
         }
 
-        public static class OAuth
-        {
+        public static class OAuth {
             public static WbButtonEx btnNext = new WbButtonEx(By.xpath("//*[text()='Next']"), "btnNext");
             public static WbButtonEx btnLogin = new WbButtonEx(By.xpath("//*[text()='Log in']"), "btnLogin");
             public static WbEditEx txtUsername = new WbEditEx(By.name("text"), "txtUsername");
@@ -158,7 +153,7 @@ public final class Map {
         }
     }
 
-    public static class API{
+    public static class API {
         public static QueryStringEx Get = new QueryStringEx("pokemon");
         public static QueryStringEx Tweet = new QueryStringEx("tweets");
     }

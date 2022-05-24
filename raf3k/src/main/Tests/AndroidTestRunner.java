@@ -31,7 +31,7 @@ public class AndroidTestRunner extends AppTestCase {
         success(Map.AndroidApp.MainMenu.txtHint.enabled(true));
         success(Map.AndroidApp.MainMenu.txtHint.verifyEmpty(false));
         success(Map.AndroidApp.MainMenu.txtHint.setText("bla"));
-        success(Map.AndroidApp.MainMenu.chkCheckbox1.select(true,false));
+        success(Map.AndroidApp.MainMenu.chkCheckbox1.select(true, false));
         success(Map.AndroidApp.MainMenu.radRadioButton1.select(true, false));
         success(Map.AndroidApp.MainMenu.chkToggle.select(true, false));
         success(Map.AndroidApp.MainMenu.btnDropdown.click());

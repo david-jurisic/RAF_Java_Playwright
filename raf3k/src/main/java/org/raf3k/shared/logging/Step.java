@@ -12,7 +12,7 @@ public class Step {
 
 
     public Duration durations() {
-        if(substeps.size()>0)
+        if (substeps.size() > 0)
             return Duration.between(substeps.get(0).start, substeps.get(substeps.size() - 1).finish);
 
         return Duration.ofSeconds(0);
@@ -26,7 +26,7 @@ public class Step {
                 durations().toSecondsPart(),
                 durations().toNanos());
 
-        return formattedDuration.substring(0, formattedDuration.length() -3);
+        return formattedDuration.substring(0, formattedDuration.length() - 3);
     }
 
     @JsonProperty("bSuccess")
