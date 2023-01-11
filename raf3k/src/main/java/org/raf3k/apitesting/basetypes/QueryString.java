@@ -34,7 +34,7 @@ public class QueryString extends ControlObject {
     }
 
     /**
-     * Mathod generates html string for a table
+     * Method generates html string for a table
      *
      * @param sNameHeader  name header
      * @param sValueHeader value header
@@ -54,7 +54,7 @@ public class QueryString extends ControlObject {
     }
 
     /**
-     * Mathod generates html string for a table from a map which contains object
+     * Method generates html string for a table from a map which contains object
      *
      * @param sNameHeader  name header
      * @param sValueHeader value header
