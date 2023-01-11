@@ -121,9 +121,9 @@ public class ZephyrScaleAPICalls {
             if (sStatus == null || sStatus.equals("")) return;
 
             var body = new ZephyrScaleBody(ProjectKey, TestCycleKey, testCaseKey, sStatus, htmlReportPath);
-            byte[] out = body.toString().getBytes(StandardCharsets.UTF_8);
+            byte[] byteArray = body.toString().getBytes(StandardCharsets.UTF_8);
             OutputStream stream = httpRequest.getOutputStream();
-            stream.write(out);
+            stream.write(byteArray);
             httpRequest.disconnect();
 
         } catch (IOException e) {
