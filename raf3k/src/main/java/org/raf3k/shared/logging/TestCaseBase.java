@@ -14,13 +14,13 @@ import java.util.ArrayList;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCaseBase {
     public ArrayList<Step> steps = new ArrayList<Step>();
-    private Step currentStep;
-    private Evaluator eval = new Evaluator(null);
     public String sTestCaseName;
     public String sTestCaseCode;
     public String sTestCaseAuthor;
-    private int bDDStepNumber = 1;
     public Boolean bPass = true;
+    private Step currentStep;
+    private final Evaluator eval = new Evaluator(null);
+    private int bDDStepNumber = 1;
 
     public TestCaseBase() {
         sTestCaseName = "Not Defined";
@@ -64,6 +64,15 @@ public class TestCaseBase {
     public void finishBDDStep() {
         if (!currentStep.bSuccess()) {
             throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
+        }
+    }
+
+    public void finishBDDScenario() {
+        LogConstructor.generateLog(this);
+        for (Step step : steps) {
+            if (!step.bSuccess()) {
+                throw new RuntimeException(eval.generateCucumberErrorReport(step));
+            }
         }
     }
 
