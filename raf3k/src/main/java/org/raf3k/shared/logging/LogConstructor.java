@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class LogConstructor {
     private static String defaultLogTemplate = "LogTemplate.html";
-    private static Path sLogPath;
+    public static Path sLogPath;
 
     public static void generateLog(TestCaseBase TestCase) {
         String sLogType = SharedVariables.configuration.getProperty("logExportType");

@@ -55,6 +55,8 @@ public class UITestCase extends TestCaseBase {
             } else {
                 DebugLog.add("Driver already running", 2);
             }
+
+            DebugLog.add("Running test: " + this.toString(), 2);
         } catch (Exception ex) {
             DebugLog.add(ex);
             return;
@@ -80,8 +82,10 @@ public class UITestCase extends TestCaseBase {
             if (recordingEnabled)
                 recorder.stop();
 
-            if (UIReferences.getWebDriver() != null)
+            if (UIReferences.getWebDriver() != null) {
                 UIReferences.getWebDriver().quit();
+                UIReferences.setWebDriver(null);
+            }
 
             DebugLog.add("Driver Closed", 2);
         } catch (Exception ex) {

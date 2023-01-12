@@ -62,9 +62,20 @@ public class TestCaseBase {
     }
 
     public void finishBDDStep() {
-        if (!currentStep.bSuccess()) {
+        if (!currentStep.bSuccess() && SharedVariables.configuration.getProperty("stopOnError") == "true") {
+                throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
+        }
+    }
+
+    public void finishBDDScenario()
+    {
+        LogConstructor.generateLog(this);
+
+        if (steps.Exists(x -> x.bSuccess == false))
+        {
             throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
         }
+
     }
 
     public Success success(Success newSuccess) {
