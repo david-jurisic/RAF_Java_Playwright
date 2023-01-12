@@ -1,1 +1,0 @@
-DELETE FROM MyGuests WHERE email='david.jurisic@roxoft.hr'

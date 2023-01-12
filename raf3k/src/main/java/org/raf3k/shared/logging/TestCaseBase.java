@@ -30,6 +30,7 @@ public class TestCaseBase {
 
         SharedVariables.configuration = new ConfigurationHelper();
         SharedVariables.testData = new TestDataHelper();
+        DebugLog.add("Running test: " + this.toString(), 2);
     }
 
     public TestCaseBase(String testCaseName, String testCaseCode, String testCaseAuthor) {
@@ -67,22 +68,12 @@ public class TestCaseBase {
         }
     }
 
-    public void finishBDDScenario()
-    {
-        LogConstructor.generateLog(this);
-
-        if (steps.Exists(x -> x.bSuccess == false))
-        {
-            throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
-        }
-
-    }
-
     public void finishBDDScenario() {
         LogConstructor.generateLog(this);
+
         for (Step step : steps) {
             if (!step.bSuccess()) {
-                throw new RuntimeException(eval.generateCucumberErrorReport(step));
+                throw new RuntimeException(eval.generateCucumberErrorReport(currentStep));
             }
         }
     }
@@ -111,7 +102,7 @@ public class TestCaseBase {
             String sStopOnError = SharedVariables.configuration.getProperty("stopOnError");
             if (!sStopOnError.equalsIgnoreCase("false")) {
                 DebugLog.add("Step failed. Finishing test case...", 1);
-                Assertions.fail("Step failed. Finishing test case...");
+                Assertions.fail(Step.ex.getMessage());
             }
         }
 

@@ -2,6 +2,7 @@ package org.raf3k.guittesting.webtesting;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -40,8 +41,9 @@ public class SeleniumSetup {
                     }
                     break;
                 case "chrome":
-                default:
                     System.setProperty("webdriver.chrome.driver", sWebDriverPath + "\\chromedriver.exe");
+
+                    ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
 
                     if (driverOptions == null) {
                         ChromeOptions chromeOptions = new ChromeOptions();
@@ -50,6 +52,15 @@ public class SeleniumSetup {
                         UIReferences.setWebDriver(new ChromeDriver((ChromeOptions) driverOptions));
                     }
                     break;
+                default:
+                    if (driverOptions == null) {
+                        ChromeOptions chromeOptions = new ChromeOptions();
+                        UIReferences.setWebDriver(new ChromeDriver(chromeOptions));
+                    } else {
+                        UIReferences.setWebDriver(new ChromeDriver((ChromeOptions) driverOptions));
+                    }
+                    break;
+
             }
         } else {
             UIReferences.setWebDriver(customWebDriver);
