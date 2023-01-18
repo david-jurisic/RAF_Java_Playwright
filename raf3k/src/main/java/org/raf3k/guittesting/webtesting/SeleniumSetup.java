@@ -17,11 +17,15 @@ public class SeleniumSetup {
         if (customWebDriver == null) {
             String Browser = SharedVariables.configuration.getProperty("browser");
             String sWebDriverPath = SharedVariables.configuration.getProperty("seleniumWebDriverPath");
+            String sOs = SharedVariables.configuration.getProperty("os") ;
 
             switch (Browser.toLowerCase()) {
-
                 case "firefox":
-                    System.setProperty("webdriver.gecko.driver", sWebDriverPath + "geckodriver.exe");
+                    if (sOs.equalsIgnoreCase("mac") || sOs.equalsIgnoreCase("linux")) {
+                        System.setProperty("webdriver.gecko.driver", sWebDriverPath + "geckodriver");
+                    } else {
+                        System.setProperty("webdriver.gecko.driver", sWebDriverPath + "geckodriver.exe");
+                    }
 
                     if (driverOptions == null) {
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -31,7 +35,11 @@ public class SeleniumSetup {
                     }
                     break;
                 case "edge":
-                    System.setProperty("webdriver.edge.driver", sWebDriverPath + "msedgedriver.exe");
+                    if (sOs.equalsIgnoreCase("mac") || sOs.equalsIgnoreCase("linux")) {
+                        System.setProperty("webdriver.edge.driver", sWebDriverPath + "msedgedriver");
+                    } else {
+                        System.setProperty("webdriver.edge.driver", sWebDriverPath + "msedgedriver.exe");
+                    }
 
                     if (driverOptions == null) {
                         EdgeOptions edgeOptions = new EdgeOptions();
@@ -41,7 +49,11 @@ public class SeleniumSetup {
                     }
                     break;
                 case "chrome":
-                    System.setProperty("webdriver.chrome.driver", sWebDriverPath + "chromedriver.exe");
+                    if (sOs.equalsIgnoreCase("mac") || sOs.equalsIgnoreCase("linux")) {
+                        System.setProperty("webdriver.chrome.driver", sWebDriverPath + "chromedriver");
+                    } else {
+                        System.setProperty("webdriver.chrome.driver", sWebDriverPath + "chromedriver.exe");
+                    }
 
                     ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
 
