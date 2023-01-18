@@ -21,7 +21,7 @@ public class SeleniumSetup {
             switch (Browser.toLowerCase()) {
 
                 case "firefox":
-                    System.setProperty("webdriver.gecko.driver", sWebDriverPath + "\\geckodriver.exe");
+                    System.setProperty("webdriver.gecko.driver", sWebDriverPath + "geckodriver.exe");
 
                     if (driverOptions == null) {
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -31,7 +31,7 @@ public class SeleniumSetup {
                     }
                     break;
                 case "edge":
-                    System.setProperty("webdriver.edge.driver", sWebDriverPath + "\\msedgedriver.exe");
+                    System.setProperty("webdriver.edge.driver", sWebDriverPath + "msedgedriver.exe");
 
                     if (driverOptions == null) {
                         EdgeOptions edgeOptions = new EdgeOptions();
@@ -41,7 +41,7 @@ public class SeleniumSetup {
                     }
                     break;
                 case "chrome":
-                    System.setProperty("webdriver.chrome.driver", sWebDriverPath + "\\chromedriver.exe");
+                    System.setProperty("webdriver.chrome.driver", sWebDriverPath + "chromedriver.exe");
 
                     ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
 
