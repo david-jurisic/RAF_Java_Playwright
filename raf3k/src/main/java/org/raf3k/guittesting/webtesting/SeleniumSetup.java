@@ -59,6 +59,8 @@ public class SeleniumSetup {
 
                     if (driverOptions == null) {
                         ChromeOptions chromeOptions = new ChromeOptions();
+                        chromeOptions.addArguments("--disable-notifications");
+                        chromeOptions.addArguments("--remote-allow-origins=*");
                         UIReferences.setWebDriver(new ChromeDriver(chromeOptions));
                     } else {
                         UIReferences.setWebDriver(new ChromeDriver((ChromeOptions) driverOptions));
