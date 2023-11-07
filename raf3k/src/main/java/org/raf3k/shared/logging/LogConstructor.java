@@ -84,17 +84,25 @@ public class LogConstructor {
                     }
 
                 }
-                sTableData += "<td>" + String.format("%.2f", (float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000) + "</td>";
-                if (SubStep.passed && testCase.getClass().getName() != APITestCase.class.getName())
+                sTableData += "<td>";
+                if (SubStep.start != null && SubStep.finish != null) {
+                    sTableData += String.format("%.2f", (float) Duration.between(SubStep.start, SubStep.finish).toMillis() / 1000);
+                } else {
+                    sTableData += "N/A"; // or some other default value
+                }
+                sTableData += "</td>";
+
+                if (SubStep.passed && !APITestCase.class.equals(testCase.getClass())) {
                     sTableData += "<td></td>";
-                else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty() && testCase.getClass().getName() != APITestCase.class.getName())
+                } else if (SubStep.screenshot != null && !SubStep.screenshot.isEmpty() && !APITestCase.class.equals(testCase.getClass())) {
                     sTableData += "<td><button data-image='" + SubStep.screenshot + "' onclick='DisplayScreenshot()'>...</button></td>";
-                else if (testCase.getClass().getName() != APITestCase.class.getName())
+                } else if (!APITestCase.class.equals(testCase.getClass())) {
                     sTableData += "<td>N/A</td>";
+                }
                 sTableData += "</tr>";
+
                 if (SubStep.messageAddon != null && !SubStep.messageAddon.isEmpty()) {
-                    sTableData += "<tr id='" + step.stepNumber + i +
-                            "' style=\"display: none;\"><td colspan='4'>" + SubStep.messageAddon + "</td></tr>";
+                    sTableData += "<tr id='" + step.stepNumber + i + "' style=\"display: none;\"><td colspan='4'>" + SubStep.messageAddon + "</td></tr>";
                 }
                 i++;
             }

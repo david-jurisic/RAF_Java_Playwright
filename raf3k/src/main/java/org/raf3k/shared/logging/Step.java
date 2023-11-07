@@ -3,6 +3,7 @@ package org.raf3k.shared.logging;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class Step {
@@ -10,10 +11,15 @@ public class Step {
     public String stepName;
     public ArrayList<Substep> substeps = new ArrayList<Substep>();
 
-
     public Duration durations() {
-        if (substeps.size() > 0)
-            return Duration.between(substeps.get(0).start, substeps.get(substeps.size() - 1).finish);
+        if (substeps != null && !substeps.isEmpty()) {
+            ZonedDateTime firstStart = substeps.get(0).start;
+            ZonedDateTime lastFinish = substeps.get(substeps.size() - 1).finish;
+
+            if (firstStart != null && lastFinish != null) {
+                return Duration.between(firstStart, lastFinish);
+            }
+        }
 
         return Duration.ofSeconds(0);
     }
