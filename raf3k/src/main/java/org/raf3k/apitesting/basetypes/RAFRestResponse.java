@@ -1,22 +1,29 @@
 package org.raf3k.apitesting.basetypes;
 
-import io.restassured.response.Response;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microsoft.playwright.APIResponse;
+import com.microsoft.playwright.Response;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
 
+import java.io.IOException;
+
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RAFRestResponse extends ControlObject {
-    public Response response;
+    public APIResponse response;
     public Exception Ex;
 
     public QueryString queryStringBase;
 
-    public RAFRestResponse(QueryString query, Response resp) {
+    public RAFRestResponse(QueryString query, APIResponse resp) {
         response = resp;
         this.sAlias = query.sAlias;
         this.sPath = query.sPath;
@@ -41,54 +48,59 @@ public class RAFRestResponse extends ControlObject {
     public Success verifyResponseCode(Integer responseCode) {
         Success success = new Success(this);
         String sMessageAddon = "";
+        String jsonPrettyResponse = "";
         try {
             if (Ex != null)
                 throw new RuntimeException(Ex);
 
-            response.then().statusCode(responseCode);
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = objectMapper.readTree(response.body());
+            jsonPrettyResponse = jsonResponse.toPrettyString();
+
+            Assertions.assertEquals(response.status(), responseCode);
 
             return success.finish(null);
         } catch (Throwable ex) {
-            sMessageAddon += "<h3>JSON Response:</h3> <br><p>" + response.asPrettyString() + "</p><br>";
+            sMessageAddon += "<h3>JSON Response:</h3> <br><p>" + jsonPrettyResponse + "</p><br>";
             success.sMessageAddon = sMessageAddon;
             return success.finish(new Exception(ex));
         }
     }
 
-    /**
-     * Method verifies response message.
-     *
-     * @param responseMessage Text to be verified.
-     * @return Success object.
-     */
-    public Success verifyResponseMessage(String responseMessage) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (Ex != null)
-                throw new RuntimeException(Ex);
-
-            response.then().statusLine(responseMessage);
-
-        }, this, "");
-    }
-
-    /**
-     * Method verifies response code and message.
-     *
-     * @param responseCode    Response code to be verified.
-     * @param responseMessage Response message to be verified.
-     * @return Success object.
-     */
-    public Success verifyResponseCodeAndMessage(Integer responseCode, String responseMessage) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (Ex != null)
-                throw new RuntimeException(Ex);
-
-            response.then().statusCode(responseCode).statusLine(responseMessage);
-
-        }, this, "");
-    }
+//    /**
+//     * Method verifies response message.
+//     *
+//     * @param responseMessage Text to be verified.
+//     * @return Success object.
+//     */
+//    public Success verifyResponseMessage(String responseMessage) {
+//        return UIReferences.eval().evaluate(() ->
+//        {
+//            if (Ex != null)
+//                throw new RuntimeException(Ex);
+//
+//            response.then().statusLine(responseMessage);
+//
+//        }, this, "");
+//    }
+//
+//    /**
+//     * Method verifies response code and message.
+//     *
+//     * @param responseCode    Response code to be verified.
+//     * @param responseMessage Response message to be verified.
+//     * @return Success object.
+//     */
+//    public Success verifyResponseCodeAndMessage(Integer responseCode, String responseMessage) {
+//        return UIReferences.eval().evaluate(() ->
+//        {
+//            if (Ex != null)
+//                throw new RuntimeException(Ex);
+//
+//            response.then().statusCode(responseCode).statusLine(responseMessage);
+//
+//        }, this, "");
+//    }
 
     /**
      * Method verifies if value exists in the response.
@@ -101,10 +113,18 @@ public class RAFRestResponse extends ControlObject {
     public Success verifyValue(String sPath, Object sValue, Boolean bExists) {
         return UIReferences.eval().evaluate(() ->
         {
-            if (bExists) {
-                response.then().body(sPath, Matchers.equalTo(sValue));
-            } else {
-                response.then().body(sPath, Matchers.not(Matchers.equalTo(sValue)));
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = null;
+
+            try {
+                jsonResponse = objectMapper.readTree(response.body());
+                if (bExists) {
+                    Assertions.assertEquals(jsonResponse.at(sPath).textValue(), sValue);
+                } else {
+                    Assertions.assertNotEquals(jsonResponse.at(sPath), sValue);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 
         }, this, "");
@@ -120,73 +140,82 @@ public class RAFRestResponse extends ControlObject {
     public Success verifyEmpty(String sPath, Boolean bEmpty) {
         return UIReferences.eval().evaluate(() ->
         {
-            if (bEmpty) {
-                response.then().body(sPath, Matchers.nullValue());
-            } else {
-                response.then().body(sPath, Matchers.notNullValue());
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = null;
+
+            try {
+                jsonResponse = objectMapper.readTree(response.body());
+                if (bEmpty) {
+                    Assertions.assertTrue(jsonResponse.at(sPath).textValue().isEmpty());
+                } else {
+                    Assertions.assertFalse(jsonResponse.at(sPath).textValue().isEmpty());
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 
         }, this, "");
     }
 
-    /**
-     * Method verifies if a path contains a value.
-     *
-     * @param sPath   Path to the field in the response.
-     * @param sValue  Value to be verified.
-     * @param bExists value contains or not.
-     * @return
-     */
-    public Success verifyContains(String sPath, String sValue, Boolean bExists) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (bExists) {
-                response.then().body(sPath, Matchers.containsString(sValue));
-            } else {
-                response.then().body(sPath, Matchers.not(Matchers.containsString(sValue)));
-            }
-        }, this, "");
-    }
-
-    /**
-     * Method verifies if an array exists and contains a value.
-     *
-     * @param sPath     Path to the field in the response.
-     * @param sValue    Value to be verified.
-     * @param bContains Should array contain the value or not.
-     * @return Success object.
-     */
-    public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (bContains) {
-                response.then().body(sPath, Matchers.hasItem(sValue));
-            } else {
-                response.then().body(sPath, Matchers.not(Matchers.hasItem(sValue)));
-            }
-
-        }, this, "");
-    }
-
-    /**
-     * Method verifies if an array is empty or not.
-     *
-     * @param sPath  Path to the json field.
-     * @param bEmpty Verifies if an array is empty or not.
-     * @return
-     */
-    public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
-        return UIReferences.eval().evaluate(() ->
-        {
-            if (bEmpty) {
-                response.then().body(sPath, Matchers.hasSize(lessThan(1)));
-            } else {
-                response.then().body(sPath, Matchers.hasSize(greaterThan(0)));
-            }
-
-        }, this, "");
-    }
-
+//    /**
+//     * Method verifies if a path contains a value.
+//     *
+//     * @param sPath   Path to the field in the response.
+//     * @param sValue  Value to be verified.
+//     * @param bExists value contains or not.
+//     * @return
+//     */
+//    public Success verifyContains(String sPath, String sValue, Boolean bExists) {
+//        return UIReferences.eval().evaluate(() ->
+//        {
+//            if (bExists) {
+//                response.then().body(sPath, Matchers.containsString(sValue));
+//            } else {
+//                response.then().body(sPath, Matchers.not(Matchers.containsString(sValue)));
+//            }
+//        }, this, "");
+//    }
+//
+//    /**
+//     * Method verifies if an array exists and contains a value.
+//     *
+//     * @param sPath     Path to the field in the response.
+//     * @param sValue    Value to be verified.
+//     * @param bContains Should array contain the value or not.
+//     * @return Success object.
+//     */
+//    public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
+//        return UIReferences.eval().evaluate(() ->
+//        {
+//            if (bContains) {
+//                response.then().body(sPath, Matchers.hasItem(sValue));
+//            } else {
+//                response.then().body(sPath, Matchers.not(Matchers.hasItem(sValue)));
+//            }
+//
+//        }, this, "");
+//    }
+//
+//    /**
+//     * Method verifies if an array is empty or not.
+//     *
+//     * @param sPath  Path to the json field.
+//     * @param bEmpty Verifies if an array is empty or not.
+//     * @return
+//     */
+//    public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
+//        return UIReferences.eval().evaluate(() ->
+//        {
+//            if (bEmpty) {
+//                response.then().body(sPath, Matchers.hasSize(lessThan(1)));
+//            } else {
+//                response.then().body(sPath, Matchers.hasSize(greaterThan(0)));
+//            }
+//
+//        }, this, "");
+//    }
+//
 
     /**
      * Method returns response content.
@@ -197,7 +226,7 @@ public class RAFRestResponse extends ControlObject {
         if (Ex != null)
             throw new RuntimeException(Ex);
 
-        String sResponseContent = response.body().asString();
+        String sResponseContent = response.body().toString();
 
         return sResponseContent;
     }
@@ -211,7 +240,7 @@ public class RAFRestResponse extends ControlObject {
         if (Ex != null)
             throw new RuntimeException(Ex);
 
-        int iResponseCode = response.statusCode();
+        int iResponseCode = response.status();
 
         return iResponseCode;
     }

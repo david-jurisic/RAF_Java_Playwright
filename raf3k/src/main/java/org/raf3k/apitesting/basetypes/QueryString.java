@@ -1,22 +1,57 @@
 package org.raf3k.apitesting.basetypes;
 
-import io.restassured.RestAssured;
-import io.restassured.config.EncoderConfig;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.FormData;
+import com.microsoft.playwright.options.RequestOptions;
 import org.raf3k.apitesting.APIReferences;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.ControlObject;
 import org.raf3k.shared.logging.Success;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class QueryString extends ControlObject {
     private String sQueryString;
     public RAFRestResponse response = null;
+
+    private Playwright playwright;
+    private APIRequestContext apiRequestContext;
+
+    private RequestOptions requestOptions;
+
+    public void createPlaywright() {
+        playwright = Playwright.create();
+
+    }
+
+    public void setApiRequestContext(Map<String, String> headers) {
+        apiRequestContext = playwright.request()
+                .newContext(new APIRequest.NewContextOptions().setBaseURL(APIReferences.currentPageContext)
+                        .setExtraHTTPHeaders(headers));
+    }
+
+    public void setApiRequestOptions(Map<String, Object> body) {
+        requestOptions = RequestOptions.create();
+        var data = FormData.create();
+        if (body!=null)
+        {
+        for (var item : body.entrySet()) {
+            data.set(item.getKey(), item.getValue().toString());
+        }
+        }
+        requestOptions.setForm(data);
+    }
+
+    public void disposeAPIRequestContext() {
+        apiRequestContext.dispose();
+    }
+
+    public void closePlaywright() {
+        playwright.close();
+    }
 
     public QueryString(String _sQueryString) {
         String sControl = this.getClass().toString();
@@ -73,7 +108,6 @@ public class QueryString extends ControlObject {
 
         return "<table><tr><th>" + sNameHeader + "</th><th>" + sValueHeader + "</th></tr>" + tableContents + "</table>";
     }
-
     /**
      * Method requests data from a specified resource.
      *
@@ -83,8 +117,7 @@ public class QueryString extends ControlObject {
      */
     public Success GET(String sUrlParameters, Map<String, String> headers) {
         response = null;
-        Response rest = null;
-        RequestSpecification req = RestAssured.given();
+        APIResponse rest = null;
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
@@ -101,15 +134,13 @@ public class QueryString extends ControlObject {
             }
 
             String sPath = APIReferences.currentPageContext + sQueryString;
-
             if (sUrlParameters != null)
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
 
-            if (headers != null)
-                req.headers(headers);
-
-            rest = req.when().get(sPath);
+            createPlaywright();
+            setApiRequestContext(headers);
+            rest = apiRequestContext.get(sPath);
 
             response = new RAFRestResponse(this, rest);
             return suc.finish(null);
@@ -120,18 +151,9 @@ public class QueryString extends ControlObject {
         }
     }
 
-    /**
-     * Method sends given data to create a resource.
-     *
-     * @param sUrlParameters Url parameters to be set.
-     * @param body           Body to be set
-     * @param headers        Headers to be set.
-     * @return Success object.
-     */
     public Success POST(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
-        Response rest = null;
-        RequestSpecification req = RestAssured.given();
+        APIResponse rest = null;
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
@@ -156,33 +178,14 @@ public class QueryString extends ControlObject {
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
 
-            if (headers != null)
-                req.headers(headers);
+            createPlaywright();
+            setApiRequestContext(headers);
+            setApiRequestOptions(body);
+            rest = apiRequestContext.post(sPath, requestOptions);
 
-            switch (contentType) {
-                case json:
-                    req.contentType(ContentType.JSON);
-                    break;
-                case xwwwformurlencoded:
-                    req.contentType("application/x-www-form-urlencoded");
-                    break;
-            }
-
-            if (body != null && body.size() > 0) {
-                switch (contentType) {
-                    case xwwwformurlencoded:
-                        req.formParams(body);
-                        break;
-                    default:
-                        req.body(body);
-                        break;
-                }
-            }
-
-            rest = req.when().post(sPath);
-            RAFRestResponse resp = new RAFRestResponse(this, rest);
-            response = resp;
+            response = new RAFRestResponse(this, rest);
             return suc.finish(null);
+
         } catch (Exception ex) {
             RAFRestResponse resp = new RAFRestResponse(ex);
             return suc.finish(ex);
@@ -199,8 +202,7 @@ public class QueryString extends ControlObject {
      */
     public Success PUT(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
-        Response rest = null;
-        RequestSpecification req = RestAssured.given();
+        APIResponse rest = null;
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
@@ -213,6 +215,7 @@ public class QueryString extends ControlObject {
             if (headers != null)
                 sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
 
+
             suc.sMessageAddon = sMessageAddon;
 
             if (this.sAlias.isEmpty()) {
@@ -224,123 +227,32 @@ public class QueryString extends ControlObject {
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
 
-            if (headers != null)
-                req.headers(headers);
+            createPlaywright();
+            setApiRequestContext(headers);
+            setApiRequestOptions(body);
+            rest = apiRequestContext.put(sPath, requestOptions);
 
-            switch (contentType) {
-                case json:
-                    req.contentType(ContentType.JSON);
-                    break;
-                case xwwwformurlencoded:
-                    req.contentType("application/x-www-form-urlencoded");
-                    break;
-            }
-
-            if (body != null && body.size() > 0) {
-                switch (contentType) {
-                    case xwwwformurlencoded:
-                        req.formParams(body);
-                        break;
-                    default:
-                        req.body(body);
-                        break;
-                }
-            }
-
-            rest = req.when().put(sPath);
-            RAFRestResponse resp = new RAFRestResponse(this, rest);
-            response = resp;
+            response = new RAFRestResponse(this, rest);
             return suc.finish(null);
+
         } catch (Exception ex) {
             RAFRestResponse resp = new RAFRestResponse(ex);
             return suc.finish(ex);
         }
     }
 
-    /**
-     * Method deletes data from a resource.
-     *
-     * @param sUrlParameters Url parameters to be set.
-     * @param headers        Headers to be set.
-     * @param body           Body to be set.
-     * @param contentType    contentType to be set.
-     * @return Success object.
-     */
+//    /**
+//     * Method deletes data from a resource.
+//     *
+//     * @param sUrlParameters Url parameters to be set.
+//     * @param headers        Headers to be set.
+//     * @param body           Body to be set.
+//     * @param contentType    contentType to be set.
+//     * @return Success object.
+//     */
     public Success DELETE(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
         response = null;
-        Response rest = null;
-        RequestSpecification req = RestAssured.given();
-        Success suc = new Success(this);
-        try {
-            String sMessageAddon = "";
-
-            if (sUrlParameters != null && !sUrlParameters.isEmpty())
-                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
-
-            if (body != null)
-                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
-
-            if (headers != null)
-                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
-
-            suc.sMessageAddon = sMessageAddon;
-
-            if (this.sAlias.isEmpty()) {
-                throw new RuntimeException("Query String not declared correctly");
-            }
-
-            String sPath = APIReferences.currentPageContext + sQueryString;
-            if (sUrlParameters != null)
-                if (!sUrlParameters.isEmpty())
-                    sPath = sPath + sUrlParameters;
-            if (headers != null)
-                req.headers(headers);
-
-            if (contentType != null) {
-                switch (contentType) {
-                    case json:
-                        req.contentType(ContentType.JSON);
-                        break;
-                    case xwwwformurlencoded:
-                        req.contentType("application/x-www-form-urlencoded");
-                        break;
-                }
-            }
-
-            if (body != null && body.size() > 0) {
-                switch (contentType) {
-                    case xwwwformurlencoded:
-                        req.formParams(body);
-                        break;
-                    default:
-                        req.body(body);
-                        break;
-                }
-            }
-
-            rest = req.when().delete(sPath);
-            RAFRestResponse resp = new RAFRestResponse(this, rest);
-            response = resp;
-            return suc.finish(null);
-        } catch (Exception ex) {
-            RAFRestResponse resp = new RAFRestResponse(ex);
-            return suc.finish(ex);
-        }
-    }
-
-    /**
-     * Method sends PATCH request to endpoint
-     *
-     * @param sUrlParameters Url parameters to be set.
-     * @param headers        Headers to be set.
-     * @param body           Body to be set.
-     * @param contentType    contentType to be set.
-     * @return Success object.
-     */
-    public Success PATCH(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
-        response = null;
-        Response rest = null;
-        RequestSpecification req = RestAssured.given();
+        APIResponse rest = null;
         Success suc = new Success(this);
         try {
             String sMessageAddon = "";
@@ -365,38 +277,89 @@ public class QueryString extends ControlObject {
                 if (!sUrlParameters.isEmpty())
                     sPath = sPath + sUrlParameters;
 
-            if (headers != null)
-                req.headers(headers);
+            createPlaywright();
+            setApiRequestContext(headers);
+            setApiRequestOptions(body);
+            rest = apiRequestContext.delete(sPath, requestOptions);
 
-            switch (contentType) {
-                case json:
-                    req.contentType(ContentType.JSON);
-                    break;
-                case xwwwformurlencoded:
-                    req.contentType("application/x-www-form-urlencoded");
-                    break;
-            }
-
-            if (body != null && body.size() > 0) {
-                switch (contentType) {
-                    case xwwwformurlencoded:
-                        req.formParams(body);
-                        break;
-                    default:
-                        req.body(body);
-                        break;
-                }
-            }
-            req.config(RestAssured.config().encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
-            rest = req.when().patch(sPath);
-            RAFRestResponse resp = new RAFRestResponse(this, rest);
-            response = resp;
+            response = new RAFRestResponse(this, rest);
             return suc.finish(null);
+
         } catch (Exception ex) {
             RAFRestResponse resp = new RAFRestResponse(ex);
             return suc.finish(ex);
         }
     }
+
+//    /**
+//     * Method sends PATCH request to endpoint
+//     *
+//     * @param sUrlParameters Url parameters to be set.
+//     * @param headers        Headers to be set.
+//     * @param body           Body to be set.
+//     * @param contentType    contentType to be set.
+//     * @return Success object.
+//     */
+//    public Success PATCH(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
+//        response = null;
+//        Response rest = null;
+//        RequestSpecification req = RestAssured.given();
+//        Success suc = new Success(this);
+//        try {
+//            String sMessageAddon = "";
+//            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+//                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+//
+//            if (body != null)
+//                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
+//
+//            if (headers != null)
+//                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
+//
+//
+//            suc.sMessageAddon = sMessageAddon;
+//
+//            if (this.sAlias.isEmpty()) {
+//                throw new RuntimeException("Query String not declared correctly");
+//            }
+//
+//            String sPath = APIReferences.currentPageContext + sQueryString;
+//            if (sUrlParameters != null)
+//                if (!sUrlParameters.isEmpty())
+//                    sPath = sPath + sUrlParameters;
+//
+//            if (headers != null)
+//                req.headers(headers);
+//
+//            switch (contentType) {
+//                case json:
+//                    req.contentType(ContentType.JSON);
+//                    break;
+//                case xwwwformurlencoded:
+//                    req.contentType("application/x-www-form-urlencoded");
+//                    break;
+//            }
+//
+//            if (body != null && body.size() > 0) {
+//                switch (contentType) {
+//                    case xwwwformurlencoded:
+//                        req.formParams(body);
+//                        break;
+//                    default:
+//                        req.body(body);
+//                        break;
+//                }
+//            }
+//            req.config(RestAssured.config().encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+//            rest = req.when().patch(sPath);
+//            RAFRestResponse resp = new RAFRestResponse(this, rest);
+//            response = resp;
+//            return suc.finish(null);
+//        } catch (Exception ex) {
+//            RAFRestResponse resp = new RAFRestResponse(ex);
+//            return suc.finish(ex);
+//        }
+//    }
 
     public enum contentType {
         json,
