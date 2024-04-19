@@ -112,7 +112,6 @@ public class QueryString extends ControlObject {
      * @return Success object.
      */
     public Success GET(String sUrlParameters, Map<String, String> headers) {
-        response = null;
         APIResponse rest = null;
         Success suc = new Success(this);
         try {
@@ -148,7 +147,6 @@ public class QueryString extends ControlObject {
     }
 
     public Success POST(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
-        response = null;
         APIResponse rest = null;
         Success suc = new Success(this);
         try {
@@ -198,7 +196,6 @@ public class QueryString extends ControlObject {
      * @return Success object.
      */
     public Success PUT(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
-        response = null;
         APIResponse rest = null;
         Success suc = new Success(this);
         try {
@@ -248,7 +245,6 @@ public class QueryString extends ControlObject {
 //     * @return Success object.
 //     */
     public Success DELETE(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
-        response = null;
         APIResponse rest = null;
         Success suc = new Success(this);
         try {
@@ -288,75 +284,54 @@ public class QueryString extends ControlObject {
         }
     }
 
-//    /**
-//     * Method sends PATCH request to endpoint
-//     *
-//     * @param sUrlParameters Url parameters to be set.
-//     * @param headers        Headers to be set.
-//     * @param body           Body to be set.
-//     * @param contentType    contentType to be set.
-//     * @return Success object.
-//     */
-//    public Success PATCH(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
-//        response = null;
-//        Response rest = null;
-//        RequestSpecification req = RestAssured.given();
-//        Success suc = new Success(this);
-//        try {
-//            String sMessageAddon = "";
-//            if (sUrlParameters != null && !sUrlParameters.isEmpty())
-//                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
-//
-//            if (body != null)
-//                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
-//
-//            if (headers != null)
-//                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
-//
-//
-//            suc.sMessageAddon = sMessageAddon;
-//
-//            if (this.sAlias.isEmpty()) {
-//                throw new RuntimeException("Query String not declared correctly");
-//            }
-//
-//            String sPath = APIReferences.currentPageContext + sQueryString;
-//            if (sUrlParameters != null)
-//                if (!sUrlParameters.isEmpty())
-//                    sPath = sPath + sUrlParameters;
-//
-//            if (headers != null)
-//                req.headers(headers);
-//
-//            switch (contentType) {
-//                case json:
-//                    req.contentType(ContentType.JSON);
-//                    break;
-//                case xwwwformurlencoded:
-//                    req.contentType("application/x-www-form-urlencoded");
-//                    break;
-//            }
-//
-//            if (body != null && body.size() > 0) {
-//                switch (contentType) {
-//                    case xwwwformurlencoded:
-//                        req.formParams(body);
-//                        break;
-//                    default:
-//                        req.body(body);
-//                        break;
-//                }
-//            }
-//            req.config(RestAssured.config().encoderConfig(new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
-//            rest = req.when().patch(sPath);
-//            RAFRestResponse resp = new RAFRestResponse(this, rest);
-//            response = resp;
-//            return suc.finish(null);
-//        } catch (Exception ex) {
-//            RAFRestResponse resp = new RAFRestResponse(ex);
-//            return suc.finish(ex);
-//        }
-//    }
+    /**
+     * Method sends PATCH request to endpoint
+     *
+     * @param sUrlParameters Url parameters to be set.
+     * @param headers        Headers to be set.
+     * @param body           Body to be set.
+     * @param contentType    contentType to be set.
+     * @return Success object.
+     */
+    public Success PATCH(String sUrlParameters, Map<String, Object> body, Map<String, String> headers, contentType contentType) {
+        APIResponse rest = null;
+        Success suc = new Success(this);
+        try {
+            String sMessageAddon = "";
+            if (sUrlParameters != null && !sUrlParameters.isEmpty())
+                sMessageAddon += "<h3>URL Parameters:</h3> <br><p>" + sUrlParameters + "</p><br>";
+
+            if (body != null)
+                sMessageAddon += "<h3> Message Body:</h3> <br><p>" + generateTableFromMapWithObject("Parameter Name", "Value", body) + "</p><br>";
+
+            if (headers != null)
+                sMessageAddon += "<h3> Request headers:</h3> <br>" + generateTableFromMap("Header", "Value", headers);
+
+
+            suc.sMessageAddon = sMessageAddon;
+
+            if (this.sAlias.isEmpty()) {
+                throw new RuntimeException("Query String not declared correctly");
+            }
+
+            String sPath = APIReferences.currentPageContext + sQueryString;
+            if (sUrlParameters != null)
+                if (!sUrlParameters.isEmpty())
+                    sPath = sPath + sUrlParameters;
+
+            createPlaywright();
+            setApiRequestContext(headers);
+            setApiRequestOptions(body);
+            rest = apiRequestContext.patch(sPath, requestOptions);
+            response = new RAFRestResponse(this, rest);
+
+            return suc.finish(null);
+
+        } catch (Exception ex) {
+            RAFRestResponse resp = new RAFRestResponse(ex);
+            return suc.finish(ex);
+        }
+    }
 
     public enum contentType {
         json,

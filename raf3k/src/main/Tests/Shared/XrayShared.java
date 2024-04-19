@@ -4,13 +4,11 @@ import ExtendedTypes.API.QueryStringEx;
 import ExtendedTypes.API.RAFRestResponseEx;
 import Hooks.HTInfonovaHooks;
 import Maps.UI.XrayMap;
-import Settings.GlobalParameters;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.raf3k.apitesting.basetypes.APITestCase;
-import org.raf3k.apitesting.basetypes.QueryString;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 import org.raf3k.shared.logging.Step;
@@ -35,7 +33,7 @@ public class XrayShared {
 
     static RAFRestResponseEx rafRestResponseEx;
     public static Path sLogPath;
-    private static String defaultLogTemplate = "Shared/HTInfonovaLogTemplate.html";
+    private static String defaultLogTemplate = "Shared/SpotifyLogTemplate.html";
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class TestCaseInfo {

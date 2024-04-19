@@ -7,13 +7,11 @@ import Maps.API.SpotifyJsonMap;
 import Settings.GlobalParameters;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.playwright.APIResponse;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.jupiter.api.Assertions;
 import org.raf3k.apitesting.basetypes.QueryString;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.SharedVariables;
@@ -25,13 +23,7 @@ import static Hooks.Hooks.savedValues;
 import static java.util.Map.entry;
 
 public class APISharedSteps {
-    static String RestAPIUrl = SharedVariables.configuration.getProperty("restApiUrl");
-    static String ProjectKey = SharedVariables.configuration.getProperty("projectKey");
-    //static String BearerToken = SharedVariables.configuration.getProperty("BearerToken");
-    //static String TestCycleKey = SharedVariables.configuration.getProperty("testCycleKey");
-
     static RAFRestResponseEx rafRestResponseEx;
-    public APIResponse response;
     String sValueToEncode = SharedVariables.configuration.getProperty("clientId") + ":" + SharedVariables.configuration.getProperty("clientSecret");
     String basicAuth = "Basic " + Base64.getEncoder().encodeToString(sValueToEncode.getBytes());
     String refreshToken = SharedVariables.configuration.getProperty("refreshToken");
