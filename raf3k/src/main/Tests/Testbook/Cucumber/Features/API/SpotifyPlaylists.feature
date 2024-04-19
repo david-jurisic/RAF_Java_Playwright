@@ -19,4 +19,5 @@
       | EndPoint      | Delete from Playlist |
       | Authorization | accessToken          |
     Then the response code should be 400
+    And the "Error message" field should contain "Missing"
     And the "Error message" field should be "Missing tracks"

@@ -24,7 +24,6 @@ public class QueryString extends ControlObject {
 
     public void createPlaywright() {
         playwright = Playwright.create();
-
     }
 
     public void setApiRequestContext(Map<String, String> headers) {
@@ -35,21 +34,18 @@ public class QueryString extends ControlObject {
 
     public void setApiRequestOptions(Map<String, Object> body) {
         requestOptions = RequestOptions.create();
-        var data = FormData.create();
+        var formData = FormData.create();
         if (body!=null)
         {
         for (var item : body.entrySet()) {
-            data.set(item.getKey(), item.getValue().toString());
+            formData.set(item.getKey(), item.getValue().toString());
         }
         }
-        requestOptions.setForm(data);
+        requestOptions.setForm(formData);
     }
 
-    public void disposeAPIRequestContext() {
+    public void playwrightTeardown() {
         apiRequestContext.dispose();
-    }
-
-    public void closePlaywright() {
         playwright.close();
     }
 
@@ -141,8 +137,8 @@ public class QueryString extends ControlObject {
             createPlaywright();
             setApiRequestContext(headers);
             rest = apiRequestContext.get(sPath);
-
             response = new RAFRestResponse(this, rest);
+
             return suc.finish(null);
 
         } catch (Exception ex) {
@@ -181,9 +177,10 @@ public class QueryString extends ControlObject {
             createPlaywright();
             setApiRequestContext(headers);
             setApiRequestOptions(body);
-            rest = apiRequestContext.post(sPath, requestOptions);
 
+            rest = apiRequestContext.post(sPath, requestOptions);
             response = new RAFRestResponse(this, rest);
+
             return suc.finish(null);
 
         } catch (Exception ex) {
@@ -231,8 +228,8 @@ public class QueryString extends ControlObject {
             setApiRequestContext(headers);
             setApiRequestOptions(body);
             rest = apiRequestContext.put(sPath, requestOptions);
-
             response = new RAFRestResponse(this, rest);
+
             return suc.finish(null);
 
         } catch (Exception ex) {
@@ -281,8 +278,8 @@ public class QueryString extends ControlObject {
             setApiRequestContext(headers);
             setApiRequestOptions(body);
             rest = apiRequestContext.delete(sPath, requestOptions);
-
             response = new RAFRestResponse(this, rest);
+
             return suc.finish(null);
 
         } catch (Exception ex) {

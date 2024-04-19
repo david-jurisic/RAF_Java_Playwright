@@ -57,7 +57,7 @@ public class RAFRestResponse extends ControlObject {
             JsonNode jsonResponse = objectMapper.readTree(response.body());
             jsonPrettyResponse = jsonResponse.toPrettyString();
 
-            Assertions.assertEquals(response.status(), responseCode);
+            Assertions.assertEquals(responseCode, response.status());
 
             return success.finish(null);
         } catch (Throwable ex) {
@@ -119,9 +119,9 @@ public class RAFRestResponse extends ControlObject {
             try {
                 jsonResponse = objectMapper.readTree(response.body());
                 if (bExists) {
-                    Assertions.assertEquals(jsonResponse.at(sPath).textValue(), sValue);
+                    Assertions.assertEquals(sValue,jsonResponse.at(sPath).textValue());
                 } else {
-                    Assertions.assertNotEquals(jsonResponse.at(sPath), sValue);
+                    Assertions.assertNotEquals(sValue,jsonResponse.at(sPath));
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -158,25 +158,35 @@ public class RAFRestResponse extends ControlObject {
         }, this, "");
     }
 
-//    /**
-//     * Method verifies if a path contains a value.
-//     *
-//     * @param sPath   Path to the field in the response.
-//     * @param sValue  Value to be verified.
-//     * @param bExists value contains or not.
-//     * @return
-//     */
-//    public Success verifyContains(String sPath, String sValue, Boolean bExists) {
-//        return UIReferences.eval().evaluate(() ->
-//        {
-//            if (bExists) {
-//                response.then().body(sPath, Matchers.containsString(sValue));
-//            } else {
-//                response.then().body(sPath, Matchers.not(Matchers.containsString(sValue)));
-//            }
-//        }, this, "");
-//    }
-//
+    /**
+     * Method verifies if a path contains a value.
+     *
+     * @param sPath   Path to the field in the response.
+     * @param sValue  Value to be verified.
+     * @param bExists value contains or not.
+     * @return
+     */
+    public Success verifyContains(String sPath, String sValue, Boolean bExists) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = null;
+
+            try {
+                jsonResponse = objectMapper.readTree(response.body());
+                if (bExists) {
+                    Assertions.assertTrue(jsonResponse.at(sPath).textValue().contains(sValue));
+                } else {
+                    Assertions.assertFalse(jsonResponse.at(sPath).textValue().contains(sValue));
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }, this, "");
+    }
+
 //    /**
 //     * Method verifies if an array exists and contains a value.
 //     *

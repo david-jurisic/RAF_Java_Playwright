@@ -110,11 +110,23 @@ public class APISharedSteps {
 
     private Map<String, Object> findBodyByEndPoint(Map<String, String> data) {
         Map<String, Object> body = null;
+        String jsonString = "";
 
         switch (data.get("EndPoint").toLowerCase()) {
+            case "add to playlist":
+                jsonString = "{\"uris\":[\"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\",\"spotify:track:1301WleyT98MSxVHPZCA6M\",\"spotify:episode:512ojhOuo1ktJprKbVcKyQ\"]}";
+                break;
             default:
                 body = null;
                 break;
+        }
+        try {
+            // convert JSON string to Map
+            if (!jsonString.isEmpty()) {
+                body = new ObjectMapper().readValue(jsonString, Map.class);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return body;
     }
@@ -220,11 +232,10 @@ public class APISharedSteps {
         if (urlParameters != "")
             urlParameters = "?" + urlParameters.substring(0, urlParameters.length() - 1);
 
-
         if (data.get("contentType") == null || data.get("contentType").equals("json")) {
-            GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.json));
+            GlobalParameters.testCaseBase.success(queryStringEx.POST(urlParameters, body, headers, QueryString.contentType.json));
         } else if (data.get("contentType").equals("xwwwurlencoded")) {
-            GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.xwwwformurlencoded));
+            GlobalParameters.testCaseBase.success(queryStringEx.POST(urlParameters, body, headers, QueryString.contentType.xwwwformurlencoded));
         }
 
         rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
@@ -316,6 +327,11 @@ public class APISharedSteps {
     @And("the {string} field should be {string}")
     public void theFieldShouldBe(String sField, String sValue) {
         GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyValue(findJsonPath(sField), sValue, true));
+    }
+
+    @And("the {string} field should contain {string}")
+    public void theFieldShouldContain(String sField, String sValue) {
+        GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyContains(findJsonPath(sField), sValue, true));
     }
 
     @And("the {string} field should not be {string}")

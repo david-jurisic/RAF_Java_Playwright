@@ -35,6 +35,7 @@ public class LogConstructor {
     private static void generateHTMLLog(TestCaseBase testCase) {
         String sRowColor;
         String sLogData = "";
+        String sCause;
         for (Step step : testCase.steps) {
             if (step.bSuccess()) {
                 sRowColor = "success";
@@ -69,11 +70,16 @@ public class LogConstructor {
                         else
                             sTableData += "<td>" + SubStep.name + " <br><b>" + "Unknown error occured" + "</b></td>";
                     } else {
-                        if (SubStep.ex != null && SubStep.ex.getCause() != null)
+                        if (SubStep.ex != null && SubStep.ex.getCause() != null) {
+                            sCause = SubStep.ex.getCause().getMessage();
+                            if (sCause.contains("<") && sCause.contains((">"))) {
+                                sCause = sCause.replace("<", "&lt;");
+                                sCause = sCause.replace(">", "&gt;");
+                            }
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
                                     " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
-                                    SubStep.ex.getCause().getMessage() + "</b></td>";
-                        else if (SubStep.ex != null && SubStep.ex.getCause() == null)
+                                    sCause + "</b></td>";
+                        } else if (SubStep.ex != null && SubStep.ex.getCause() == null)
                             sTableData += "<td onclick='ExpandMesageAddon(" + step.stepNumber + i + ")'>" + SubStep.name +
                                     " <span id='Span" + step.stepNumber + i + "' class='arrowMoreInfo'><b>+</b></span><br><b>" +
                                     SubStep.ex.getMessage() + "</b></td>";
