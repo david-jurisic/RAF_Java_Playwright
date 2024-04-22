@@ -75,6 +75,7 @@ public class APISharedSteps {
         String sPath;
         switch (sPathName.toLowerCase()) {
             case "album id" -> sPath = SpotifyJsonMap.Album.id;
+            case "available markets" -> sPath = SpotifyJsonMap.Album.availableMarkets;
             case "search artists id" -> sPath = SpotifyJsonMap.Artist.searchArtistId;
             case "error message" -> sPath = SpotifyJsonMap.Error.errorMessage;
             case "search artists name" -> sPath = SpotifyJsonMap.Artist.searchArtistName;
@@ -316,6 +317,32 @@ public class APISharedSteps {
         GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyResponseCode(statusCode));
     }
 
+    @Then("the response status message should be {string}")
+    public void theResponseStatusMessageShouldBe(String responseStatusMessage) {
+        GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyResponseStatusMessage(responseStatusMessage));
+
+    }
+    @And("the {string} array is {string}")
+    public void theArrayIs(String sField, String state) {
+        if (state.equalsIgnoreCase("not empty"))
+        {
+            GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyArrayEmpty(findJsonPath(sField),false));
+        }
+        else{
+            GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyArrayEmpty(findJsonPath(sField),true));
+        }
+    }
+
+    @And("the {string} array contains {string} item")
+    public void theArrayContainsItem(String sField, String itemName) {
+        GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyArrayContains(findJsonPath(sField),itemName,true));
+    }
+
+    @And("the {string} array does not contain {string} item")
+    public void theArrayDoesNotContainItem(String sField, String itemName) {
+        GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyArrayContains(findJsonPath(sField),itemName,false));
+    }
+
     @And("the {string} field should be {string}")
     public void theFieldShouldBe(String sField, String sValue) {
         GlobalParameters.testCaseBase.success(rafRestResponseEx.verifyValue(findJsonPath(sField), sValue, true));
@@ -339,20 +366,7 @@ public class APISharedSteps {
     @And("save field {string} value as {string}")
     public void saveFieldValueAs(String sPath, String sSaveAs) {
         GlobalParameters.testCaseBase.success(UIReferences.eval().evaluate(() ->
-                savedValues.put(sSaveAs, getValue(sPath)), this, ""));
-    }
-
-    private String getValue(String sPathName) {
-        String value;
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonResponse = null;
-        try {
-            jsonResponse = objectMapper.readTree(rafRestResponseEx.response.body());
-            value = jsonResponse.at(findJsonPath(sPathName)).textValue();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return value;
+                savedValues.put(sSaveAs, rafRestResponseEx.getValue(findJsonPath(sPath))), this, ""));
     }
 
 }

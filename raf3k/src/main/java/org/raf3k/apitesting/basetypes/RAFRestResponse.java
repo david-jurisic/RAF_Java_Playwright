@@ -3,6 +3,7 @@ package org.raf3k.apitesting.basetypes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.playwright.APIResponse;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.raf3k.guittesting.UIReferences;
 import org.raf3k.shared.ControlObject;
@@ -10,10 +11,6 @@ import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.logging.Success;
 
 import java.io.IOException;
-
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RAFRestResponse extends ControlObject {
     public APIResponse response;
@@ -54,7 +51,6 @@ public class RAFRestResponse extends ControlObject {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonResponse = objectMapper.readTree(response.body());
             jsonPrettyResponse = jsonResponse.toPrettyString();
-
             Assertions.assertEquals(responseCode, response.status());
 
             return success.finish(null);
@@ -65,40 +61,18 @@ public class RAFRestResponse extends ControlObject {
         }
     }
 
-//    /**
-//     * Method verifies response message.
-//     *
-//     * @param responseMessage Text to be verified.
-//     * @return Success object.
-//     */
-//    public Success verifyResponseMessage(String responseMessage) {
-//        return UIReferences.eval().evaluate(() ->
-//        {
-//            if (Ex != null)
-//                throw new RuntimeException(Ex);
-//
-//            response.then().statusLine(responseMessage);
-//
-//        }, this, "");
-//    }
-//
-//    /**
-//     * Method verifies response code and message.
-//     *
-//     * @param responseCode    Response code to be verified.
-//     * @param responseMessage Response message to be verified.
-//     * @return Success object.
-//     */
-//    public Success verifyResponseCodeAndMessage(Integer responseCode, String responseMessage) {
-//        return UIReferences.eval().evaluate(() ->
-//        {
-//            if (Ex != null)
-//                throw new RuntimeException(Ex);
-//
-//            response.then().statusCode(responseCode).statusLine(responseMessage);
-//
-//        }, this, "");
-//    }
+    /**
+     * Method verifies response status message.
+     *
+     * @param responseStatusMessage Text to be verified.
+     * @return Success object.
+     */
+    public Success verifyResponseStatusMessage(String responseStatusMessage) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            Assertions.assertEquals(responseStatusMessage, response.statusText());
+        }, this, "");
+    }
 
     /**
      * Method verifies if value exists in the response.
@@ -117,9 +91,9 @@ public class RAFRestResponse extends ControlObject {
             try {
                 jsonResponse = objectMapper.readTree(response.body());
                 if (bExists) {
-                    Assertions.assertEquals(sValue,jsonResponse.at(sPath).textValue());
+                    Assertions.assertEquals(sValue, jsonResponse.at(sPath).textValue());
                 } else {
-                    Assertions.assertNotEquals(sValue,jsonResponse.at(sPath));
+                    Assertions.assertNotEquals(sValue, jsonResponse.at(sPath));
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -185,45 +159,65 @@ public class RAFRestResponse extends ControlObject {
         }, this, "");
     }
 
-//    /**
-//     * Method verifies if an array exists and contains a value.
-//     *
-//     * @param sPath     Path to the field in the response.
-//     * @param sValue    Value to be verified.
-//     * @param bContains Should array contain the value or not.
-//     * @return Success object.
-//     */
-//    public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
-//        return UIReferences.eval().evaluate(() ->
-//        {
-//            if (bContains) {
-//                response.then().body(sPath, Matchers.hasItem(sValue));
-//            } else {
-//                response.then().body(sPath, Matchers.not(Matchers.hasItem(sValue)));
-//            }
-//
-//        }, this, "");
-//    }
-//
-//    /**
-//     * Method verifies if an array is empty or not.
-//     *
-//     * @param sPath  Path to the json field.
-//     * @param bEmpty Verifies if an array is empty or not.
-//     * @return
-//     */
-//    public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
-//        return UIReferences.eval().evaluate(() ->
-//        {
-//            if (bEmpty) {
-//                response.then().body(sPath, Matchers.hasSize(lessThan(1)));
-//            } else {
-//                response.then().body(sPath, Matchers.hasSize(greaterThan(0)));
-//            }
-//
-//        }, this, "");
-//    }
-//
+    /**
+     * Method verifies if an array exists and contains a value.
+     *
+     * @param sPath     Path to the field in the response.
+     * @param sValue    Value to be verified.
+     * @param bContains Should array contain the value or not.
+     * @return Success object.
+     */
+    public Success verifyArrayContains(String sPath, Object sValue, Boolean bContains) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = null;
+
+            try {
+                jsonResponse = objectMapper.readTree(response.body());
+                String[] arrObject = objectMapper.readValue(jsonResponse.at(sPath).toString(), String[].class);
+
+                if (bContains) {
+                    Assertions.assertTrue(ArrayUtils.contains(arrObject, sValue));
+                } else {
+                    Assertions.assertFalse(ArrayUtils.contains(arrObject, sValue));
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }, this, "");
+    }
+
+    /**
+     * Method verifies if an array is empty or not.
+     *
+     * @param sPath  Path to the json field.
+     * @param bEmpty Verifies if an array is empty or not.
+     * @return
+     */
+    public Success verifyArrayEmpty(String sPath, Boolean bEmpty) {
+        return UIReferences.eval().evaluate(() ->
+        {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = null;
+            try {
+                jsonResponse = objectMapper.readTree(response.body());
+
+                if (bEmpty) {
+                    Assertions.assertTrue(jsonResponse.at(sPath).isEmpty());
+                } else {
+                    Assertions.assertFalse(jsonResponse.at(sPath).isEmpty());
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }, this, "");
+    }
+
 
     /**
      * Method returns response content.
@@ -251,5 +245,18 @@ public class RAFRestResponse extends ControlObject {
         int iResponseCode = response.status();
 
         return iResponseCode;
+    }
+
+    public String getValue(String sPathName) {
+        String value;
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonResponse = null;
+        try {
+            jsonResponse = objectMapper.readTree(response.body());
+            value = jsonResponse.at(sPathName).textValue();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return value;
     }
 }

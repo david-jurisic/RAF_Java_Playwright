@@ -13,6 +13,7 @@ public class SpotifyJsonMap {
 
     public static class Album {
         public static final String id = "id";
+        public static final String availableMarkets = "available_markets";
     }
 
     public static class Playlist {
