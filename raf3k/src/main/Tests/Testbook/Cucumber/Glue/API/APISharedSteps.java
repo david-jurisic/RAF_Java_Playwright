@@ -5,7 +5,6 @@ import ExtendedTypes.API.RAFRestResponseEx;
 import Maps.API.SpotifyAPIMap;
 import Maps.API.SpotifyJsonMap;
 import Settings.GlobalParameters;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -136,15 +135,7 @@ public class APISharedSteps {
         GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.xwwwformurlencoded));
 
         rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
-
-        //Get access token from response body
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonResponse = objectMapper.readTree(queryStringEx.response.response.body());
-            accessToken = jsonResponse.get("access_token").textValue();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        accessToken= rafRestResponseEx.getValue("/access_token");
         SpotifyAPIMap.initializeRequests();
     }
 
