@@ -124,12 +124,5 @@
             <artifactId>playwright</artifactId>
             <version>1.42.0</version>
         </dependency>
-        <dependency>
-            <groupId>RAF</groupId>
-            <artifactId>RAF</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/raf3k-1.0-SNAPSHOT.jar</systemPath>
-        </dependency>
     </dependencies>
 </project>
