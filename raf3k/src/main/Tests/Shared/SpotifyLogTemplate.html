@@ -151,7 +151,6 @@
     <p>[TestResult]</p>
     <p>Test case Duration: [TestCaseDuration]</p>
     <p>Test case Author: [TestCaseAuthor]</p>
-    <p>Test case Sub Account(s): [TestCaseSubAccount]</p>
     <hr>
 </div>
 
@@ -168,42 +167,42 @@
 </table>
 
 <script>
-        var modal = document.getElementById("screenModal");
+    var modal = document.getElementById("screenModal");
 
-        var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close")[0];
 
-        span.onclick = function () {
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+    }
 
-        function DisplayScreenshot(e) {
-            var modal = document.getElementById("screenModal");
-            var span = document.getElementsByClassName("close")[0];
-            if (!e)
-                e = window.event;
-            var sender = e.srcElement || e.target;
+    function DisplayScreenshot(e) {
+        var modal = document.getElementById("screenModal");
+        var span = document.getElementsByClassName("close")[0];
+        if (!e)
+            e = window.event;
+        var sender = e.srcElement || e.target;
 
-            var ImageBase = sender.getAttribute("data-image");
-            document.getElementById("DialogImage").setAttribute('src', 'data:image/png;base64,' + ImageBase);
-            modal.style.display = "block";
+        var ImageBase = sender.getAttribute("data-image");
+        document.getElementById("DialogImage").setAttribute('src', 'data:image/png;base64,' + ImageBase);
+        modal.style.display = "block";
 
+    }
+    function ExpandMesageAddon(e) {
+        var MessageAddon = document.getElementById(e);
+        var AddonSpan = document.getElementById("Span" + e);
+        if (MessageAddon.style.display === "none") {
+            MessageAddon.style.display = "";
+            AddonSpan.innerHTML = "-";
+        } else {
+            MessageAddon.style.display = "none";
+            AddonSpan.innerHTML = "+";
         }
-        function ExpandMesageAddon(e) {
-            var MessageAddon = document.getElementById(e);
-            var AddonSpan = document.getElementById("Span" + e);
-            if (MessageAddon.style.display === "none") {
-                MessageAddon.style.display = "";
-                AddonSpan.innerHTML = "-";
-            } else {
-                MessageAddon.style.display = "none";
-                AddonSpan.innerHTML = "+";
-            }
-        }
+    }
 
 </script>
 </body>
