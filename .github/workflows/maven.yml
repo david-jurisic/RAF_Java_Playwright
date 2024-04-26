@@ -21,7 +21,12 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package -DskipTests --file raf3k/pom.xml
+      run: |
+        mvn -B package -DskipTests --file raf3k/pom.xml
+        # Increment version
+        current_version=$(cat version.txt)
+        new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' OFS=. | sed 's/.$//')
+        echo $new_version > version.txt
 
       # Example: Publish to GitHub Releases
     - name: Create Release
@@ -30,8 +35,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v0.0.1
-        release_name: Release v0.0.1
+        tag_name: ${{ steps.read_version.outputs.version }}
+        release_name: Release ${{ steps.read_version.outputs.version }}
         body: |
           Changes in this release:
           - Some changes
