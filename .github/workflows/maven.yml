@@ -26,7 +26,7 @@ jobs:
 
     - name: Get commit SHA
       id: get_commit_sha
-      run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
+      run: echo "::set-output name=commit_sha::$(git rev-parse --short=7 HEAD)"
 
       # Example: Publish to GitHub Releases
     - name: Create Release
