@@ -23,11 +23,9 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package -DskipTests --file raf3k/pom.xml
-        # Increment version
-        current_version=$(cat raf3k/version.txt)
-        new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' OFS=. | sed 's/.$//')
-        echo $new_version > raf3k/version.txt
-        echo "::set-output name=tag_name::$new_version"
+
+    - name: Get commit SHA
+      run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
 
       # Example: Publish to GitHub Releases
     - name: Create Release
@@ -36,8 +34,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.create_release.outputs.tag_name }}
-        release_name: Release ${{ steps.create_release.outputs.tag_name }}
+        tag_name: ${{ steps.get_commit_sha.outputs.commit_sha }}
+        release_name: Release ${{ steps.get_commit_sha.outputs.commit_sha }}
         body: |
           Changes in this release:
           - Some changes
