@@ -24,9 +24,9 @@ jobs:
       run: |
         mvn -B package -DskipTests --file raf3k/pom.xml
         # Increment version
-        current_version=$(cat version.txt)
+        current_version=$(cat raf3k/version.txt)
         new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' OFS=. | sed 's/.$//')
-        echo $new_version > version.txt
+        echo $new_version > raf3k/version.txt
 
       # Example: Publish to GitHub Releases
     - name: Create Release
