@@ -45,6 +45,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: raf3k/target/*.jar
-        asset_name: RAFJavaPlaywright.jar
+        asset_path: raf3k/target/raf3k-1.0-SNAPSHOT.jar
+        asset_name: raf3k-1.0-SNAPSHOT.jar
         asset_content_type: application/java-archive
