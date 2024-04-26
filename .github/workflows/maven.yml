@@ -25,6 +25,7 @@ jobs:
         mvn -B package -DskipTests --file raf3k/pom.xml
 
     - name: Get commit SHA
+      id: get_commit_sha
       run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
 
       # Example: Publish to GitHub Releases
