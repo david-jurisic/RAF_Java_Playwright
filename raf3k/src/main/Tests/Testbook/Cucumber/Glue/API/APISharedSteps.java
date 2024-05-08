@@ -23,7 +23,7 @@ import static java.util.Map.entry;
 
 public class APISharedSteps {
     static RAFRestResponseEx rafRestResponseEx;
-    String sValueToEncode = SharedVariables.configuration.getProperty("clientId") + ":" + SharedVariables.configuration.getProperty("clientSecret");
+    String sValueToEncode = SharedVariables.configuration.getProperty("spotifyclientId") + ":" + SharedVariables.configuration.getProperty("spotifyclientSecret");
     String basicAuth = "Basic " + Base64.getEncoder().encodeToString(sValueToEncode.getBytes());
     String refreshToken = SharedVariables.configuration.getProperty("refreshToken");
     String accessToken;

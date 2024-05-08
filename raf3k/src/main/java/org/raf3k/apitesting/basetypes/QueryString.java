@@ -1,5 +1,7 @@
 package org.raf3k.apitesting.basetypes;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.FormData;
 import com.microsoft.playwright.options.RequestOptions;
@@ -32,16 +34,21 @@ public class QueryString extends ControlObject {
                         .setExtraHTTPHeaders(headers));
     }
 
-    public void setApiRequestOptions(Map<String, Object> body) {
+    public void setApiRequestOptions(Map<String, Object> body,contentType contentType) {
         requestOptions = RequestOptions.create();
         var formData = FormData.create();
-        if (body!=null)
-        {
-        for (var item : body.entrySet()) {
-            formData.set(item.getKey(), item.getValue().toString());
+        if (body != null) {
+            for (var item : body.entrySet()) {
+                    formData.set(item.getKey(), item.getValue().toString());
+            }
+
+            if (contentType == QueryString.contentType.json) {
+                requestOptions.setData(body);
+            } else {
+                requestOptions.setForm(formData);
+
+            }
         }
-        }
-        requestOptions.setForm(formData);
     }
 
     public void playwrightTeardown() {
@@ -104,6 +111,7 @@ public class QueryString extends ControlObject {
 
         return "<table><tr><th>" + sNameHeader + "</th><th>" + sValueHeader + "</th></tr>" + tableContents + "</table>";
     }
+
     /**
      * Method requests data from a specified resource.
      *
@@ -174,7 +182,7 @@ public class QueryString extends ControlObject {
 
             createPlaywright();
             setApiRequestContext(headers);
-            setApiRequestOptions(body);
+            setApiRequestOptions(body,contentType);
 
             rest = apiRequestContext.post(sPath, requestOptions);
             response = new RAFRestResponse(this, rest);
@@ -223,7 +231,7 @@ public class QueryString extends ControlObject {
 
             createPlaywright();
             setApiRequestContext(headers);
-            setApiRequestOptions(body);
+            setApiRequestOptions(body,contentType);
             rest = apiRequestContext.put(sPath, requestOptions);
             response = new RAFRestResponse(this, rest);
 
@@ -235,7 +243,7 @@ public class QueryString extends ControlObject {
         }
     }
 
-//    /**
+    //    /**
 //     * Method deletes data from a resource.
 //     *
 //     * @param sUrlParameters Url parameters to be set.
@@ -272,7 +280,7 @@ public class QueryString extends ControlObject {
 
             createPlaywright();
             setApiRequestContext(headers);
-            setApiRequestOptions(body);
+            setApiRequestOptions(body,contentType);
             rest = apiRequestContext.delete(sPath, requestOptions);
             response = new RAFRestResponse(this, rest);
 
@@ -321,7 +329,7 @@ public class QueryString extends ControlObject {
 
             createPlaywright();
             setApiRequestContext(headers);
-            setApiRequestOptions(body);
+            setApiRequestOptions(body,contentType);
             rest = apiRequestContext.patch(sPath, requestOptions);
             response = new RAFRestResponse(this, rest);
 

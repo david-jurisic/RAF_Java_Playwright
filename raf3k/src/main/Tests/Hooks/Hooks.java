@@ -39,7 +39,8 @@ public class Hooks {
     public static java.util.Map<String, Object> savedValues;
     private static String userDir = System.getProperty("user.dir");
     private static String userHome = System.getProperty("user.home");
-    private static String sourceDirectory = userDir + File.separator + "src" + File.separator + "main" + File.separator + "Tests" + File.separator + "Testbook" + File.separator + "Cucumber" + File.separator + "Features" + File.separator + "UI";
+    private static String sourceDirectory = userDir + File.separator + "src" + File.separator + "main" + File.separator + "Tests" + File.separator + "Testbook" + File.separator + "Cucumber" + File.separator + "Features" + File.separator + "API";
+
     private static String zipFilePath = userHome + File.separator + "Postman" + File.separator + "files" + File.separator + "Features.zip";
 
     public class ExecutionManager {
@@ -62,11 +63,11 @@ public class Hooks {
 
     @AfterAll
     public static void afterTestExecution() {
-        //XrayShared.zipFeatureFiles(sourceDirectory, zipFilePath);
-        //ExecutionManager.importExecutionResults(executedTestCases);
+       // XrayShared.zipFeatureFiles(sourceDirectory, zipFilePath);
+        ExecutionManager.importExecutionResults(ExecutionManager.executedTestCases);
         if (uiTestCase != null)
             uiTestCase.uiTeardown();
-        CopyOutput();
+      //  CopyOutput();
     }
 
     private static void CopyOutput() {
@@ -152,8 +153,9 @@ public class Hooks {
 
     @After("@API")
     public void afterEachScenarioAPI(Scenario scenario) throws IOException {
+        ExecutionManager.addExecutedTestCase(apiTestCase);
         findApiTag();
-        LogConstructor.generateLog(apiTestCase);
+       // LogConstructor.generateLog(apiTestCase);
     }
 
     @After("@UI")

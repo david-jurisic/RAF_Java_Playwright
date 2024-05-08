@@ -1,0 +1,18 @@
+[
+  {
+    "testCaseCode": "SFTC001",
+    "testKey": "RP-1"
+  },
+  {
+    "testCaseCode": "SFTC002",
+    "testKey": "RP-2"
+  },
+  {
+    "testCaseCode": "SFTC003",
+    "testKey": "RP-16"
+  },
+  {
+    "testCaseCode": "SFTC004",
+    "testKey": "RP-17"
+  }
+]

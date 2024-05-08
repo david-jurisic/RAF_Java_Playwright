@@ -4,11 +4,14 @@ import ExtendedTypes.API.QueryStringEx;
 import ExtendedTypes.API.RAFRestResponseEx;
 import Hooks.HTInfonovaHooks;
 import Maps.UI.XrayMap;
+import Settings.GlobalParameters;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.raf3k.apitesting.basetypes.APITestCase;
+import org.raf3k.apitesting.basetypes.QueryString;
 import org.raf3k.shared.DebugLog;
 import org.raf3k.shared.SharedVariables;
 import org.raf3k.shared.logging.Step;
@@ -61,11 +64,10 @@ public class XrayShared {
                 entry("client_secret", Authorization.ClientSecret));
 
         QueryStringEx queryStringEx = XrayMap.authenticate();
-//        GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.json));
-//
-//        rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
-//        bearerToken = rafRestResponseEx.response.getBody().asString();
+        GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.json));
 
+        rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
+        bearerToken = rafRestResponseEx.response.text();
         return bearerToken;
     }
 
@@ -337,9 +339,10 @@ public class XrayShared {
                     "tests", testsToImport
             );
 
-//            QueryStringEx queryStringEx = XrayMap.importExecution();
-//            GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.json));
-//            rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
+            QueryStringEx queryStringEx = XrayMap.importExecution();
+            GlobalParameters.testCaseBase.success(queryStringEx.POST("", body, headers, QueryString.contentType.json));
+
+            rafRestResponseEx = new RAFRestResponseEx(queryStringEx.response);
 //            String textBody = rafRestResponseEx.response.getBody().asString();
 //            System.out.println("Response Body: " + textBody);
         } catch (Exception e) {
