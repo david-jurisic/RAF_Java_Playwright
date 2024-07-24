@@ -20,36 +20,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: |
         mvn -B package -DskipTests --file raf3k/pom.xml
 
-    - name: Get commit SHA
-      id: get_commit_sha
-      run: echo "::set-output name=commit_sha::$(git rev-parse --short=7 HEAD)"
-
-      # Example: Publish to GitHub Releases
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_commit_sha.outputs.commit_sha }}
-        release_name: Release ${{ steps.get_commit_sha.outputs.commit_sha }}
-        body: |
-          Changes in this release:
-          - Some changes
-        draft: false
-        prerelease: false
-
-    - name: Upload Artifact
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: raf3k/target/raf3k-1.0-SNAPSHOT.jar
-        asset_name: raf3k-1.0-SNAPSHOT.jar
-        asset_content_type: application/java-archive
+    - name: Run Maven tests
+      run: |
+        mvn test --file raf3k/pom.xml
